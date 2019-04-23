@@ -11,15 +11,16 @@ import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import model.Dice;
 
 public class DiceScreen extends StackPane{
-	int value;
-	Color color;
-	boolean moved = false;
 	
-	public DiceScreen(int value, Color color) {
-		this.color = color;
-		this.value = value;
+	
+	Dice diceModel;
+	
+	public DiceScreen(int value, Color color, Dice diceModel) {
+		
+		this.diceModel = diceModel;
 		setMinWidth(40);
 		setMinHeight(40);
 		setPadding(new Insets(5));
@@ -29,13 +30,6 @@ public class DiceScreen extends StackPane{
 		checkNumber(value);
 	}
 	
-	public int getValue() {
-		return value;
-	}
-	
-	public Color getColor() {
-		return color;
-	}
 	
 	public void checkNumber(int value) {
 		switch (value) {
@@ -125,11 +119,11 @@ public class DiceScreen extends StackPane{
 		}
 	}
 	
-	public void setMoved() {
-		moved = true;
-	}
 	
-	public boolean getMoved() {
-		return moved;
+	
+	
+	
+	public Dice getDiceModel() {
+		return diceModel;
 	}
 }

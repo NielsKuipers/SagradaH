@@ -3,52 +3,51 @@ package controller;
 import java.util.ArrayList;
 import java.util.Random;
 
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.DataFormat;
-import javafx.scene.input.Dragboard;
-import javafx.scene.input.TransferMode;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import main.GUI;
+import model.Dice;
+import model.DiceOnTable;
+import view.DiceOnTableScreen;
 import view.DiceScreen;
-import view.FieldScreen;
 
 public class DiceController {
-	private GridPane draggableDices;
+
 	private ArrayList<Color> colorsDice = new ArrayList<>();
 	private Random r = new Random();
-	private Button createNewDices;
+	
 	private WindowController WC;
 	
-	public DiceController(WindowController WC) {
-		
+	private GUI gui;
+	
+	private DiceOnTableScreen diceOnTableScreen;
+	
+	private DiceOnTable diceOnTableModel;
+	
+	public DiceController(GUI gui, WindowController WC) {
+		this.gui = gui;
 		this.WC = WC;
 		
-		draggableDices = new GridPane();
-		draggableDices.setStyle("-fx-background-radius: 0 0 0 300;-fx-background-color: DEEPSKYBLUE;");
+		diceOnTableModel = new DiceOnTable();
 		
-		createNewDices = new Button("Gooi");
-		createNewDices.setOnAction(e -> makeDices());
-
-		draggableDices.add(createNewDices, 2, 3, 5, 1);
+		diceOnTableScreen = new DiceOnTableScreen(gui, diceOnTableModel);
 		
 		addColorsDice();
 		makeDices();
-		
-		draggableDices.setHgap(10);
-		draggableDices.setVgap(10);
-		draggableDices.setAlignment(Pos.CENTER);
+
 	}
 	
 	public void makeDices() {
 		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < 2; j++) {
-				DiceScreen b = new DiceScreen(r.nextInt((6 - 1) + 1) + 1, colorsDice.get(r.nextInt(5)));
+				int eyes = r.nextInt((6 - 1) + 1) + 1;
+				int color = r.nextInt(5);
+				Dice diceModel = new Dice(eyes, colorsDice.get(color));
+				DiceScreen b = new DiceScreen(eyes, colorsDice.get(color), diceModel);
 				b.setPrefHeight(35);
 				b.setPrefWidth(35);
-				draggableDices.add(b, i, j);
+				diceOnTableScreen.add(b, i, j);
+				diceOnTableModel.addDiceToTable(diceModel);
 				WC.dragButton(b);
 			}
 		}
@@ -63,8 +62,12 @@ public class DiceController {
 		colorsDice.add(Color.LIGHTGREEN);
 	}
 	
-	public GridPane getDraggableDices(){
-		return draggableDices;
+	public DiceOnTableScreen getDiceOnTableScreen(){
+		return diceOnTableScreen;
+	}
+	
+	public DiceOnTable getDiceOnTableModel() {
+		return diceOnTableModel;
 	}
 
 }

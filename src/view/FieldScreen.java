@@ -1,6 +1,8 @@
 package view;
 
 
+import java.util.ArrayList;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.Background;
@@ -14,15 +16,21 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import model.Field;
 
 public class FieldScreen extends StackPane{
 	Rectangle rec;
-	Color color;
-	int value;
+	
+	
 	DiceScreen diceScreen;
-	public FieldScreen(Color color, int value) {
-		this.value = value;
-		this.color = color;
+	ArrayList<Circle> eyes = new ArrayList<>(); 
+	
+	Field fieldModel;
+	
+	public FieldScreen(Color color, int value, Field fieldModel) {
+		
+		
+		this.fieldModel = fieldModel;
 		setMinHeight(50);
 		setMinWidth(50);
 		setBackground(new Background(new BackgroundFill(color, null, null)));
@@ -32,25 +40,16 @@ public class FieldScreen extends StackPane{
 	}
 	
 	
-	public String getColor() {
-		return color.toString();
-	}
-	
-	public Color getColorNotString() {
-		return color;
-	}
-	
-
-	public int getValue(){
-		return value;
-	}
 	
 	public void checkNumber(int value) {
+		
 		switch (value) {
 		case 1:
 			Circle cir = new Circle(5, Color.BLACK);
 			setAlignment(cir, Pos.CENTER);
 			getChildren().add(cir);
+			
+			
 			break;
 		case 2:
 			Circle cir2 = new Circle(5, Color.BLACK);
@@ -59,6 +58,7 @@ public class FieldScreen extends StackPane{
 			Circle cir3 = new Circle(5, Color.BLACK);
 			setAlignment(cir3, Pos.BOTTOM_RIGHT);
 			getChildren().addAll(cir2, cir3);
+			
 			break;
 		case 3:
 			Circle cir4 = new Circle(5, Color.BLACK);
@@ -71,6 +71,8 @@ public class FieldScreen extends StackPane{
 			setAlignment(cir6, Pos.BOTTOM_LEFT);
 			
 			getChildren().addAll(cir4, cir5, cir6);
+			
+			
 			
 			break;
 		case 4:
@@ -87,6 +89,7 @@ public class FieldScreen extends StackPane{
 			setAlignment(cir10, Pos.TOP_LEFT);
 			
 			getChildren().addAll(cir7, cir8, cir9, cir10);
+			
 			break;
 		case 5:
 			Circle cir11 = new Circle(5, Color.BLACK);
@@ -105,6 +108,8 @@ public class FieldScreen extends StackPane{
 			setAlignment(cir15, Pos.CENTER);
 			
 			getChildren().addAll(cir11, cir12, cir13, cir14, cir15);
+			
+			
 			break;
 		case 6:
 			Circle cir16 = new Circle(5, Color.BLACK);
@@ -126,8 +131,13 @@ public class FieldScreen extends StackPane{
 			setAlignment(cir21, Pos.BOTTOM_LEFT);
 			
 			getChildren().addAll(cir16, cir17, cir18, cir19, cir20, cir21);
+		
 			break;
-
+		case 0:
+			
+			getChildren().clear();
+			
+			break;
 		default:
 			break;
 		}
@@ -144,14 +154,6 @@ public class FieldScreen extends StackPane{
 		return diceScreen;
 	}
 	
-	public boolean hasDice() {
-		if(diceScreen == null) {
-			return false;
-		}
-		else {
-			return true;
-		}
-	}
 	
 	public void cheatBorder() {
 		setBorder(new Border(new BorderStroke(Color.ORANGE, BorderStrokeStyle.SOLID, null, new BorderWidths(3))));
@@ -159,5 +161,18 @@ public class FieldScreen extends StackPane{
 	
 	public void normalBorder() {
 		setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, new BorderWidths(3))));
+	}
+	
+	public Field getFieldModel() {
+		return fieldModel;
+	}
+	
+	public void setColor(Color color) {
+		setBackground(new Background(new BackgroundFill(color, null, null)));
+	}
+	
+	
+	public void deleteEyesOnField() {
+		getChildren().clear();
 	}
 }
