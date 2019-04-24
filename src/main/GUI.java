@@ -1,5 +1,6 @@
 package main;
 
+import controller.DatabaseController;
 import controller.DiceController;
 import controller.GameController;
 import controller.WindowController;
@@ -11,6 +12,8 @@ public class GUI extends Application {
 	WindowController windowController;
 	DiceController diceController;
 	GameController gameController;
+	DatabaseController sagradaBase = new DatabaseController();
+
 	public void startup(String[] args) {
 		launch(args);
 	}

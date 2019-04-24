@@ -23,7 +23,7 @@ public class DiceController {
 	private DiceOnTableScreen diceOnTableScreen;
 	
 	private DiceOnTable diceOnTableModel;
-	
+
 	public DiceController(GUI gui, WindowController WC) {
 		this.gui = gui;
 		this.WC = WC;
