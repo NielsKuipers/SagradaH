@@ -20,6 +20,20 @@ public class DatabaseController {
             e.printStackTrace();
         }
     }
+    
+    public void selectQuery2(String query){
+        try {
+           Statement stmt = mConn.createStatement();
+          ResultSet res = stmt.executeQuery(query);
+          
+          while(res.next()) {
+				System.out.print(res.getString(1) + ", password ");
+				System.out.println(res.getString(2));
+		}
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     private void executeQuery(Statement stmt, String query){
         try {

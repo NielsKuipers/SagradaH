@@ -16,6 +16,8 @@ public class GUI extends Application {
 
 	public void startup(String[] args) {
 		launch(args);
+		
+		
 	}
 	
 	public void start(Stage stage) {
@@ -27,7 +29,7 @@ public class GUI extends Application {
 		stage.setScene(gameController);
 		stage.setFullScreen(true);
 		stage.show();
-
+		sagradaBase.selectQuery2("SELECT * FROM nprjkuip_db2.account");
 	}
 	
 	public void createGame(WindowPatternScreen windowPattern) {
