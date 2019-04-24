@@ -118,8 +118,12 @@ public class CardController extends Scene {
 	}
 	
 	public void buyTC(CardScreen cardscreen) {
-	
+		
 		gameController.switchToGameScreen();
+	}
+	
+	public void buyTC1() {
+		
 	}
 	
 	

@@ -42,10 +42,14 @@ public class GameCardsScreen  extends VBox{
 	private Label labelOBC;
 	
 	
+	
+	
 	private HBox toolCards;
 	private HBox objectiveCards;
 	private HBox buttons;
-	
+
+
+
 	
 	
 	public GameCardsScreen(CardController CC) {
@@ -90,38 +94,41 @@ public class GameCardsScreen  extends VBox{
 		buyTC2 = new Button("buy toolcard");
 		buyTC3 = new Button("buy toolcard");
 		
+		
+		
+		
 		buyTC1.setOnAction(e -> cardController.buyTC(gameTC1));
 		buyTC2.setOnAction(e -> cardController.buyTC(gameTC2));
 		buyTC3.setOnAction(e -> cardController.buyTC(gameTC3));
 		exit = new Button("Exit");
 		exit.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE,null,null)));
-		exit.setPrefSize(1500, 50);
+		exit.setPrefSize(1600, 50);
 		exit.setOnAction(e -> cardController.handleExit());
 		
 		
 		labelTC = new Label("Toolcards");
 		labelTC.setFont(new Font("Consolas", 24));
-		labelTC.setPadding(new Insets(5,0,0,555));
+		labelTC.setPadding(new Insets(30,0,0,610));
 		
 		labelOBC = new Label("Objective Cards");
 		labelOBC.setFont(new Font("Consolas", 24));
-		labelOBC.setPadding(new Insets(5,0,0,560));
+		labelOBC.setPadding(new Insets(25,0,0,610));
 		
 		
 		//creates and positions buttons
 		buttons = new HBox(150,buyTC1,buyTC2,buyTC3);
-		buttons.setPadding(new Insets(0,0,0,350));
+		buttons.setPadding(new Insets(25,0,0,400));
 		
 		
 		
 		
 		//creates and positions toolcards
 		toolCards = new HBox(30,gameTC1,gameTC2,gameTC3);
-		toolCards.setPadding(new Insets(10,0,5,300));
+		toolCards.setPadding(new Insets(10,0,0,350));
 	
 		//creates and positions objective cards
 		objectiveCards = new HBox(30,privOBJCard,pubOBJCard1,pubOBJCard2,pubOBJCard3);
-		objectiveCards.setPadding(new Insets(0,0,10,200));
+		objectiveCards.setPadding(new Insets(10,0,30,250));
 		setCenterShape(true);
 		getChildren().addAll(labelTC,toolCards,buttons,labelOBC,objectiveCards,exit);
 		

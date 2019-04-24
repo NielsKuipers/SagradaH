@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import main.GUI;
+import view.CardsInfoScreen;
 import view.GameInfoScreen;
 import view.GameScreen;
 import view.WindowPatternChooseScreen;
@@ -16,13 +17,14 @@ import view.WindowPatternScreen;
 public class GameController extends Scene {
 	private GameInfoScreen gameInfo;
 	private GameInfoScreen chat;
-	private GameInfoScreen kaarten;
+	private CardsInfoScreen kaarten;
 
 	private GameScreen gameScreen;
 	private CardController cardController;
 	private Button btncard;
 
 	private WindowPatternChooseScreen windowChoooseScreen;
+	
 	
 
 	private WindowController WC;
@@ -40,7 +42,7 @@ public class GameController extends Scene {
 		gameScreen = new GameScreen();
 		gameInfo = new GameInfoScreen(gui, "GameInfo", this);
 		chat = new GameInfoScreen(gui,"Chat", this);
-		kaarten = new GameInfoScreen(gui,"Kaarten", this);
+		kaarten = new CardsInfoScreen(gui,"Kaarten", this);
 
 		gameInfo.setStyle("-fx-background-radius: 0 0 300 0;-fx-background-color: DEEPSKYBLUE; ");
 		chat.setStyle("-fx-background-radius: 0 300 0 0;-fx-background-color: DEEPSKYBLUE;");
@@ -53,9 +55,9 @@ public class GameController extends Scene {
 		windowChoooseScreen.add(WC.getWindow3(), 2, 1);
 		windowChoooseScreen.add(WC.getWindow4(), 3, 1);
 		
-		btncard = new Button("Show cards");
-		btncard.setOnAction(e -> switchToolcards());
-		kaarten.setCenter(btncard);
+		
+		
+		
 
 		setRoot(windowChoooseScreen);
 		
