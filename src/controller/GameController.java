@@ -19,6 +19,8 @@ public class GameController extends Scene {
 	private GameInfoScreen kaarten;
 
 	private GameScreen gameScreen;
+	private CardController cardController;
+	private Button btncard;
 
 	private WindowPatternChooseScreen windowChoooseScreen;
 	
@@ -33,7 +35,8 @@ public class GameController extends Scene {
 		this.gui = gui;
 		this.WC = WC;
 		this.DC = DC;
-
+		
+		cardController = new CardController(this);
 		gameScreen = new GameScreen();
 		gameInfo = new GameInfoScreen(gui, "GameInfo", this);
 		chat = new GameInfoScreen(gui,"Chat", this);
@@ -49,6 +52,10 @@ public class GameController extends Scene {
 		windowChoooseScreen.add(WC.getWindow2(), 1, 1);
 		windowChoooseScreen.add(WC.getWindow3(), 2, 1);
 		windowChoooseScreen.add(WC.getWindow4(), 3, 1);
+		
+		btncard = new Button("Show cards");
+		btncard.setOnAction(e -> switchToolcards());
+		kaarten.setCenter(btncard);
 
 		setRoot(windowChoooseScreen);
 		
@@ -92,6 +99,15 @@ public class GameController extends Scene {
 	
 	public void setPoints(int value) {
 		gameInfo.setPoints(value);
+	}
+	
+	public void switchToolcards() {
+		setRoot(cardController.showcards());
+	}
+	
+	public void switchToGameScreen() {
+		setRoot(gameScreen);
+		
 	}
 
 }
