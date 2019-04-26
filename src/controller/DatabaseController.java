@@ -12,11 +12,45 @@ public class DatabaseController {
         this.mConn = sagradaBaseConn.connectDB();
     }
 
-    public void selectQuery(String query){
+    public void selectQuery(String query, String where, String whereVal){
         try {
-           Statement stmt = mConn.createStatement();
-           executeQuery(stmt, query);
+           PreparedStatement stmt = mConn.prepareStatement(query + where);
+
+            int i=1;
+            if(where!=null){
+                String[] whereVals = whereVal.split(" ");
+                for(String val : whereVals){
+                    stmt.setString(i,val);
+                    i++;
+                }
+            }
         } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateQuery(String query, String values, String where, String whereVal){
+        try {
+            PreparedStatement stmt = mConn.prepareStatement(query + where);
+
+            String[] vals = values.split(" ");
+            int i=1;
+            for(String val : vals){
+                stmt.setString(i,val);
+                i++;
+            }
+
+            if(where!=null){
+                String[] whereVals = whereVal.split(" ");
+                for(String val : whereVals){
+                    stmt.setString(i,val);
+                    i++;
+                }
+            }
+            System.out.println(stmt);
+//            stmt.executeUpdate();
+        }
+        catch(SQLException e){
             e.printStackTrace();
         }
     }
@@ -31,5 +65,10 @@ public class DatabaseController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public void test(){
+//        updateQuery("update account set username=?, password=?", "Niels2 Gay1234", " WHERE username=?", "Niels");
+//        updateQuery("INSERT INTO account(?,?)", "Mario Zario", null, null);
     }
 }
