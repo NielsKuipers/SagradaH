@@ -1,5 +1,7 @@
 package controller;
 
+import java.sql.Connection;
+
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -27,10 +29,13 @@ public class GameController extends Scene {
 	private DiceController DC;
 	
 	private GUI gui;
+	
+	Connection connection;
 
-	public GameController(GUI gui,WindowController WC, DiceController DC) {
+	public GameController(GUI gui, Connection connection,WindowController WC, DiceController DC) {
 		super(new Pane());
 		this.gui = gui;
+		this.connection = connection;
 		this.WC = WC;
 		this.DC = DC;
 

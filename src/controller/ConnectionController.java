@@ -1,20 +1,20 @@
 package controller;
 
-import model.DatabaseModel;
+import model.Connector;
 import java.sql.*;
 
-public class DatabaseController {
+public class ConnectionController {
 
-    private Connection mConn;
+    private Connection connection;
 
-    public DatabaseController(){
-        DatabaseModel sagradaBaseConn = new DatabaseModel();
-        this.mConn = sagradaBaseConn.connectDB();
+    public ConnectionController(){
+        Connector sagradaBaseConn = new Connector();
+        this.connection = sagradaBaseConn.connectDB();
     }
 
     public void selectQuery(String query){
         try {
-           Statement stmt = mConn.createStatement();
+           Statement stmt = connection.createStatement();
            executeQuery(stmt, query);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -23,7 +23,7 @@ public class DatabaseController {
     
     public void selectQuery2(String query){
         try {
-           Statement stmt = mConn.createStatement();
+           Statement stmt = connection.createStatement();
           ResultSet res = stmt.executeQuery(query);
           
           while(res.next()) {
@@ -45,5 +45,9 @@ public class DatabaseController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    
+    public Connection getConnection() {
+    	return connection;
     }
 }

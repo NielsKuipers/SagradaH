@@ -22,44 +22,19 @@ public class WindowPatternScreen extends GridPane{
 		this.name.setFont(font);
 		setStyle("-fx-background-color: linear-gradient(to bottom, "+color+" 0%,#cccccc 100%);-fx-background-radius: 20 20 20 20;");
 		this.add(difficulty, 0, 5, 5, 1);
-		
+		difficulty.setFont(font);
+		setHalignment(difficulty, HPos.CENTER);
+		difficulty.textProperty().bind(windowPatternModel.difficultyProperty());
 	}
 	
 	// Get a field of the grid/window pattern
 
 	
-	public void setDifficulty(int value) {
-		difficulty.setText("Moeilijkheidsgraad: " + Integer.toString(value));
-		difficulty.setFont(font);
-		setHalignment(difficulty, HPos.CENTER);
-	}
-	
 	public WindowPattern getWindowPatternModel() {
 		return windowPatternModel;
 	}
 	
-	public void setColor(int column, int row, Color color) {
-		FieldScreen result;
-		for (Node node : this.getChildren()) {
-			if (GridPane.getColumnIndex(node) == column && GridPane.getRowIndex(node) == row && node instanceof FieldScreen) {
-				result = (FieldScreen) node;
-				result.setColor(color);
-			}
-		}
-	}
 	
-	public void setEyes(int column, int row, int eyes) {
-		FieldScreen result;
-		
-		for (Node node : this.getChildren()) {
-			if (GridPane.getColumnIndex(node) == column && GridPane.getRowIndex(node) == row && node instanceof FieldScreen) {
-				
-				result = (FieldScreen) node;
-				result.deleteEyesOnField();
-				result.checkNumber(eyes);
-			}
-		}
-	}
 	
 	public void setCheat(int column, int row) {
 		FieldScreen result;

@@ -1,5 +1,11 @@
 package model;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.Property;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Color;
 
 public class Field {
@@ -7,14 +13,17 @@ public class Field {
 	private int row;
 	private int column;
 	private Color color;
-	private int eyes;
+	private IntegerProperty eyesProperty;
+	Property<Background> backgroundProperty;
 	private Dice dice;
 	
 	public Field(int column, int row, Color color, int eyes) {
 		this.row = row;
 		this.column = column;
 		this.color = color;
-		this.eyes = eyes;
+		backgroundProperty = new SimpleObjectProperty<>();
+		backgroundProperty.setValue(new Background(new BackgroundFill(color, null, null)));
+		eyesProperty = new SimpleIntegerProperty(this, "eyesProperty");
 	}
 	
 	public int getRow() {
@@ -25,16 +34,12 @@ public class Field {
 		return column;
 	}
 	
-	public String getColor() {
-		return color.toString();
-	}
-	
-	public Color getColorNotString() {
+	public Color getColor() {
 		return color;
 	}
 	
 	public int getEyes() {
-		return eyes;
+		return eyesProperty.intValue();
 	}
 	
 	public boolean hasDice() {
@@ -56,9 +61,18 @@ public class Field {
 	
 	public void setColor(Color color) {
 		this.color = color;
+		backgroundProperty.setValue(new Background(new BackgroundFill(color, null, null)));
 	}
 	
 	public void setEyes(int eyes) {
-		this.eyes = eyes;
+		eyesProperty.set(eyes);
+	}
+	
+	public final IntegerProperty eyesProperty() {
+		return eyesProperty;
+	}
+	
+	public Property<Background> backgroundPropery() {
+		return backgroundProperty;
 	}
 }
