@@ -1,6 +1,6 @@
 package controller;
 
-import model.Connector;
+import model.DatabaseModel;
 import java.sql.*;
 
 public class ConnectionController {
@@ -8,7 +8,7 @@ public class ConnectionController {
     private Connection connection;
 
     public ConnectionController(){
-        Connector sagradaBaseConn = new Connector();
+        DatabaseModel sagradaBaseConn = new DatabaseModel();
         this.connection = sagradaBaseConn.connectDB();
     }
 
