@@ -14,7 +14,7 @@ public class Field {
 	private int column;
 	private Color color;
 	private IntegerProperty eyesProperty;
-	Property<Background> backgroundProperty;
+	private Property<Background> backgroundProperty;
 	private Dice dice;
 	
 	public Field(int column, int row, Color color, int eyes) {
@@ -74,5 +74,11 @@ public class Field {
 	
 	public Property<Background> backgroundPropery() {
 		return backgroundProperty;
+	}
+	
+	public void setColorAndEyes(Color color, int eyes) {
+		this.color = color;
+		backgroundProperty.setValue(new Background(new BackgroundFill(color, null, null)));
+		eyesProperty.set(eyes);
 	}
 }

@@ -9,25 +9,20 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Color;
-import queries.DiceQueries;
 
 public class Dice {
 
 	private Color color;
 	private boolean moved;
-	Property<Background> backgroundProperty;
+	private Property<Background> backgroundProperty;
 	private IntegerProperty eyesProperty;
 
-	DiceQueries diceQueries;
 
-	public Dice(Connection connection, int eyes, Color color) {
-		diceQueries = new DiceQueries(connection);
-
+	public Dice(int eyes, Color color) {
 		this.color = color;
 		backgroundProperty = new SimpleObjectProperty<>();
 		backgroundProperty.setValue(new Background(new BackgroundFill(color, null, null)));
 		eyesProperty = new SimpleIntegerProperty(this, "eyesProperty");
-		diceQueries.getName("lucas");
 	}
 
 	public void setEyes(int newVal) {

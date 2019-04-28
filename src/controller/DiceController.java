@@ -21,15 +21,12 @@ public class DiceController {
 	
 	private GUI gui;
 	
-	Connection connection;
-	
 	private DiceOnTableScreen diceOnTableScreen;
 	
 	private DiceOnTable diceOnTableModel;
 
-	public DiceController(GUI gui, Connection connection, WindowController WC) {
+	public DiceController(GUI gui, WindowController WC) {
 		this.gui = gui;
-		this.connection = connection;
 		this.WC = WC;
 		
 		diceOnTableModel = new DiceOnTable();
@@ -46,7 +43,7 @@ public class DiceController {
 			for (int j = 0; j < 2; j++) {
 				int eyes = r.nextInt((6 - 1) + 1) + 1;
 				int color = r.nextInt(5);
-				Dice diceModel = new Dice(connection, eyes, colorsDice.get(color));
+				Dice diceModel = new Dice(eyes, colorsDice.get(color));
 				DiceScreen b = new DiceScreen(diceModel);
 				diceModel.setEyes(eyes);
 				b.setPrefHeight(35);

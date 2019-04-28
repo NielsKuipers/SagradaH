@@ -1,6 +1,7 @@
 package view;
 
 import javafx.geometry.HPos;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
@@ -25,6 +26,11 @@ public class WindowPatternScreen extends GridPane{
 		difficulty.setFont(font);
 		setHalignment(difficulty, HPos.CENTER);
 		difficulty.textProperty().bind(windowPatternModel.difficultyProperty());
+		
+		setHgap(2); // horizontal gap in pixels
+		setVgap(2); // vertical gap in pixels
+
+		setPadding(new Insets(20, 20, 20, 20));
 	}
 	
 	// Get a field of the grid/window pattern

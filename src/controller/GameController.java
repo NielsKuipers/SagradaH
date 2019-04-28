@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import main.GUI;
+import model.WindowPattern;
 import view.GameInfoScreen;
 import view.GameScreen;
 import view.WindowPatternChooseScreen;
@@ -30,12 +31,10 @@ public class GameController extends Scene {
 	
 	private GUI gui;
 	
-	Connection connection;
 
-	public GameController(GUI gui, Connection connection,WindowController WC, DiceController DC) {
+	public GameController(GUI gui, WindowController WC, DiceController DC) {
 		super(new Pane());
 		this.gui = gui;
-		this.connection = connection;
 		this.WC = WC;
 		this.DC = DC;
 
@@ -61,18 +60,20 @@ public class GameController extends Scene {
 		WC.setDiceController(DC);
 	}
 
-	public void createGame(WindowPatternScreen windowPattern) {
+	public void createGame(WindowPattern windowModel) {
 
 		gameScreen.add(gameInfo, 0, 0, 2, 1);
 		gameScreen.add(DC.getDiceOnTableScreen(), 2, 0, 2, 1);
 		gameScreen.add(chat, 0, 2, 2, 1);
 		gameScreen.add(kaarten, 2, 2, 2, 1);
 
-		if (windowPattern != WC.getWindow1()) {
-			WC.setWindow1(windowPattern);
+		if (windowModel != WC.getWindow1().getWindowPatternModel()) {
+			WC.setWindow1(windowModel);
 		}
 
-		WC.makeWindowsGray();
+		WC.makeWindowsGray(WC.getWindow2().getWindowPatternModel());
+		WC.makeWindowsGray(WC.getWindow3().getWindowPatternModel());
+		WC.makeWindowsGray(WC.getWindow4().getWindowPatternModel());
 
 		gameScreen.add(WC.getWindow1(), 0, 1);
 		gameScreen.add(WC.getWindow2(), 1, 1);
