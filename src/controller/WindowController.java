@@ -75,11 +75,11 @@ public class WindowController {
 		createGrayWindowPattern(window3, windowPattern3Model);
 		createGrayWindowPattern(window4, windowPattern4Model);
 
-		// createRandomWindow(windowPattern1Model);
-		// createRandomWindow(windowPattern2Model);
-		// createRandomWindow(windowPattern3Model);
-		// createRandomWindow(windowPattern4Model);
-		setStandardWindowPatern(windowPattern1Model);
+		createRandomWindow(windowPattern1Model);
+		createRandomWindow(windowPattern2Model);
+		createRandomWindow(windowPattern3Model);
+		createRandomWindow(windowPattern4Model);
+		//setStandardWindowPatern(windowPattern1Model);
 
 	}
 
