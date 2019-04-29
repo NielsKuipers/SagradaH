@@ -75,11 +75,11 @@ public class WindowController {
 		createGrayWindowPattern(window3, windowPattern3Model);
 		createGrayWindowPattern(window4, windowPattern4Model);
 
-		createRandomWindow(windowPattern1Model);
-		createRandomWindow(windowPattern2Model);
-		createRandomWindow(windowPattern3Model);
-		createRandomWindow(windowPattern4Model);
-		//setStandardWindowPatern(windowPattern1Model);
+		//createRandomWindow(windowPattern1Model);
+		//createRandomWindow(windowPattern2Model);
+		//createRandomWindow(windowPattern3Model);
+		//createRandomWindow(windowPattern4Model);
+		 setStandardWindowPatern(windowPattern1Model);
 
 	}
 
@@ -483,8 +483,9 @@ public class WindowController {
 	public void setWindow1(WindowPattern windowModel) {
 		for (int row = 1; row < 5; row++) {
 			for (int column = 0; column < 5; column++) {
-				window1.getWindowPatternModel().getFieldOfWindow(column, row)
-						.setColorAndEyes(windowModel.getFieldOfWindow(column, row).getColor(), windowModel.getFieldOfWindow(column, row).getEyes());
+				window1.getWindowPatternModel().getFieldOfWindow(column, row).setColorAndEyes(
+						windowModel.getFieldOfWindow(column, row).getColor(),
+						windowModel.getFieldOfWindow(column, row).getEyes());
 			}
 		}
 
@@ -615,6 +616,7 @@ public class WindowController {
 			windowModel.getFieldOfWindow(3, 4).setColorAndEyes(Color.LIGHTGRAY, 1);
 			windowModel.getFieldOfWindow(4, 4).setColorAndEyes(Color.LIGHTGREEN, 0);
 
+			windowModel.setDifficultyWindowPattern(3);
 			break;
 		case 2:
 			// Symphony of Light
@@ -642,12 +644,629 @@ public class WindowController {
 			windowModel.getFieldOfWindow(3, 4).setColorAndEyes(Color.LIGHTGRAY, 5);
 			windowModel.getFieldOfWindow(4, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
 
+			windowModel.setDifficultyWindowPattern(6);
+			break;
+		case 3:
+			// Industria
+			windowModel.getFieldOfWindow(0, 1).setColorAndEyes(Color.LIGHTGRAY, 1);
+			windowModel.getFieldOfWindow(1, 1).setColorAndEyes(Color.RED, 0);
+			windowModel.getFieldOfWindow(2, 1).setColorAndEyes(Color.LIGHTGRAY, 3);
+			windowModel.getFieldOfWindow(3, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 1).setColorAndEyes(Color.LIGHTGRAY, 6);
+
+			windowModel.getFieldOfWindow(0, 2).setColorAndEyes(Color.LIGHTGRAY, 5);
+			windowModel.getFieldOfWindow(1, 2).setColorAndEyes(Color.LIGHTGRAY, 4);
+			windowModel.getFieldOfWindow(2, 2).setColorAndEyes(Color.RED, 0);
+			windowModel.getFieldOfWindow(3, 2).setColorAndEyes(Color.LIGHTGRAY, 2);
+			windowModel.getFieldOfWindow(4, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.getFieldOfWindow(0, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 3).setColorAndEyes(Color.LIGHTGRAY, 5);
+			windowModel.getFieldOfWindow(3, 3).setColorAndEyes(Color.RED, 0);
+			windowModel.getFieldOfWindow(4, 3).setColorAndEyes(Color.LIGHTGRAY, 1);
+
+			windowModel.getFieldOfWindow(0, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 4).setColorAndEyes(Color.LIGHTGRAY, 3);
+			windowModel.getFieldOfWindow(4, 4).setColorAndEyes(Color.RED, 0);
+
+			windowModel.setDifficultyWindowPattern(5);
+			break;
+		case 4:
+			// Firelight
+			windowModel.getFieldOfWindow(0, 1).setColorAndEyes(Color.LIGHTGRAY, 3);
+			windowModel.getFieldOfWindow(1, 1).setColorAndEyes(Color.LIGHTGRAY, 4);
+			windowModel.getFieldOfWindow(2, 1).setColorAndEyes(Color.LIGHTGRAY, 1);
+			windowModel.getFieldOfWindow(3, 1).setColorAndEyes(Color.LIGHTGRAY, 5);
+			windowModel.getFieldOfWindow(4, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.getFieldOfWindow(0, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 2).setColorAndEyes(Color.LIGHTGRAY, 6);
+			windowModel.getFieldOfWindow(2, 2).setColorAndEyes(Color.LIGHTGRAY, 2);
+			windowModel.getFieldOfWindow(3, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 2).setColorAndEyes(Color.YELLOW, 0);
+
+			windowModel.getFieldOfWindow(0, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 3).setColorAndEyes(Color.YELLOW, 0);
+			windowModel.getFieldOfWindow(4, 3).setColorAndEyes(Color.RED, 0);
+
+			windowModel.getFieldOfWindow(0, 4).setColorAndEyes(Color.LIGHTGRAY, 5);
+			windowModel.getFieldOfWindow(1, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 4).setColorAndEyes(Color.YELLOW, 0);
+			windowModel.getFieldOfWindow(3, 4).setColorAndEyes(Color.RED, 0);
+			windowModel.getFieldOfWindow(4, 4).setColorAndEyes(Color.LIGHTGRAY, 6);
+
+			windowModel.setDifficultyWindowPattern(5);
+			break;
+		case 5:
+			// Sun Catcher
+			windowModel.getFieldOfWindow(0, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 1).setColorAndEyes(Color.CORNFLOWERBLUE, 0);
+			windowModel.getFieldOfWindow(2, 1).setColorAndEyes(Color.LIGHTGRAY, 2);
+			windowModel.getFieldOfWindow(3, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 1).setColorAndEyes(Color.YELLOW, 0);
+
+			windowModel.getFieldOfWindow(0, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 2).setColorAndEyes(Color.LIGHTGRAY, 4);
+			windowModel.getFieldOfWindow(2, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 2).setColorAndEyes(Color.RED, 0);
+			windowModel.getFieldOfWindow(4, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.getFieldOfWindow(0, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 3).setColorAndEyes(Color.LIGHTGRAY, 5);
+			windowModel.getFieldOfWindow(3, 3).setColorAndEyes(Color.YELLOW, 0);
+			windowModel.getFieldOfWindow(4, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.getFieldOfWindow(0, 4).setColorAndEyes(Color.LIGHTGREEN, 0);
+			windowModel.getFieldOfWindow(1, 4).setColorAndEyes(Color.LIGHTGRAY, 3);
+			windowModel.getFieldOfWindow(2, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 4).setColorAndEyes(Color.MAGENTA, 0);
+
+			windowModel.setDifficultyWindowPattern(3);
+			break;
+		case 6:
+			// Comitas
+			windowModel.getFieldOfWindow(0, 1).setColorAndEyes(Color.YELLOW, 0);
+			windowModel.getFieldOfWindow(1, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 1).setColorAndEyes(Color.LIGHTGRAY, 2);
+			windowModel.getFieldOfWindow(3, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 1).setColorAndEyes(Color.LIGHTGRAY, 6);
+
+			windowModel.getFieldOfWindow(0, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 2).setColorAndEyes(Color.LIGHTGRAY, 4);
+			windowModel.getFieldOfWindow(2, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 2).setColorAndEyes(Color.LIGHTGRAY, 5);
+			windowModel.getFieldOfWindow(4, 2).setColorAndEyes(Color.YELLOW, 0);
+
+			windowModel.getFieldOfWindow(0, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 3).setColorAndEyes(Color.YELLOW, 0);
+			windowModel.getFieldOfWindow(4, 3).setColorAndEyes(Color.LIGHTGRAY, 5);
+
+			windowModel.getFieldOfWindow(0, 4).setColorAndEyes(Color.LIGHTGRAY, 1);
+			windowModel.getFieldOfWindow(1, 4).setColorAndEyes(Color.LIGHTGRAY, 2);
+			windowModel.getFieldOfWindow(2, 4).setColorAndEyes(Color.YELLOW, 0);
+			windowModel.getFieldOfWindow(3, 4).setColorAndEyes(Color.LIGHTGRAY, 3);
+			windowModel.getFieldOfWindow(4, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.setDifficultyWindowPattern(5);
+			break;
+		case 7:
+			// Fractal Drops
+			windowModel.getFieldOfWindow(0, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 1).setColorAndEyes(Color.LIGHTGRAY, 4);
+			windowModel.getFieldOfWindow(2, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 1).setColorAndEyes(Color.YELLOW, 0);
+			windowModel.getFieldOfWindow(4, 1).setColorAndEyes(Color.LIGHTGRAY, 6);
+
+			windowModel.getFieldOfWindow(0, 2).setColorAndEyes(Color.RED, 0);
+			windowModel.getFieldOfWindow(1, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 2).setColorAndEyes(Color.LIGHTGRAY, 2);
+			windowModel.getFieldOfWindow(3, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.getFieldOfWindow(0, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 3).setColorAndEyes(Color.RED, 0);
+			windowModel.getFieldOfWindow(3, 3).setColorAndEyes(Color.MAGENTA, 0);
+			windowModel.getFieldOfWindow(4, 3).setColorAndEyes(Color.LIGHTGRAY, 1);
+
+			windowModel.getFieldOfWindow(0, 4).setColorAndEyes(Color.CORNFLOWERBLUE, 0);
+			windowModel.getFieldOfWindow(1, 4).setColorAndEyes(Color.YELLOW, 0);
+			windowModel.getFieldOfWindow(2, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.setDifficultyWindowPattern(3);
+			break;
+		case 8:
+			// Lux Astram
+			windowModel.getFieldOfWindow(0, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 1).setColorAndEyes(Color.LIGHTGRAY, 1);
+			windowModel.getFieldOfWindow(2, 1).setColorAndEyes(Color.LIGHTGREEN, 0);
+			windowModel.getFieldOfWindow(3, 1).setColorAndEyes(Color.MAGENTA, 0);
+			windowModel.getFieldOfWindow(4, 1).setColorAndEyes(Color.LIGHTGRAY, 4);
+
+			windowModel.getFieldOfWindow(0, 2).setColorAndEyes(Color.LIGHTGRAY, 6);
+			windowModel.getFieldOfWindow(1, 2).setColorAndEyes(Color.MAGENTA, 0);
+			windowModel.getFieldOfWindow(2, 2).setColorAndEyes(Color.LIGHTGRAY, 2);
+			windowModel.getFieldOfWindow(3, 2).setColorAndEyes(Color.LIGHTGRAY, 5);
+			windowModel.getFieldOfWindow(4, 2).setColorAndEyes(Color.LIGHTGREEN, 0);
+
+			windowModel.getFieldOfWindow(0, 3).setColorAndEyes(Color.LIGHTGRAY, 1);
+			windowModel.getFieldOfWindow(1, 3).setColorAndEyes(Color.LIGHTGREEN, 0);
+			windowModel.getFieldOfWindow(2, 3).setColorAndEyes(Color.LIGHTGRAY, 5);
+			windowModel.getFieldOfWindow(3, 3).setColorAndEyes(Color.LIGHTGRAY, 3);
+			windowModel.getFieldOfWindow(4, 3).setColorAndEyes(Color.MAGENTA, 0);
+
+			windowModel.getFieldOfWindow(0, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.setDifficultyWindowPattern(5);
+			break;
+		case 9:
+			// Aurora Sagradis
+			windowModel.getFieldOfWindow(0, 1).setColorAndEyes(Color.RED, 0);
+			windowModel.getFieldOfWindow(1, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 1).setColorAndEyes(Color.CORNFLOWERBLUE, 0);
+			windowModel.getFieldOfWindow(3, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 1).setColorAndEyes(Color.YELLOW, 0);
+
+			windowModel.getFieldOfWindow(0, 2).setColorAndEyes(Color.LIGHTGRAY, 4);
+			windowModel.getFieldOfWindow(1, 2).setColorAndEyes(Color.MAGENTA, 0);
+			windowModel.getFieldOfWindow(2, 2).setColorAndEyes(Color.LIGHTGRAY, 3);
+			windowModel.getFieldOfWindow(3, 2).setColorAndEyes(Color.LIGHTGREEN, 0);
+			windowModel.getFieldOfWindow(4, 2).setColorAndEyes(Color.LIGHTGRAY, 2);
+
+			windowModel.getFieldOfWindow(0, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 3).setColorAndEyes(Color.LIGHTGRAY, 1);
+			windowModel.getFieldOfWindow(2, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 3).setColorAndEyes(Color.LIGHTGRAY, 5);
+			windowModel.getFieldOfWindow(4, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.getFieldOfWindow(0, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 4).setColorAndEyes(Color.LIGHTGRAY, 6);
+			windowModel.getFieldOfWindow(3, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.setDifficultyWindowPattern(4);
+			break;
+		case 10:
+			// Firmitas
+			windowModel.getFieldOfWindow(0, 1).setColorAndEyes(Color.MAGENTA, 0);
+			windowModel.getFieldOfWindow(1, 1).setColorAndEyes(Color.LIGHTGRAY, 6);
+			windowModel.getFieldOfWindow(2, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 1).setColorAndEyes(Color.LIGHTGRAY, 3);
+
+			windowModel.getFieldOfWindow(0, 2).setColorAndEyes(Color.LIGHTGRAY, 5);
+			windowModel.getFieldOfWindow(1, 2).setColorAndEyes(Color.MAGENTA, 0);
+			windowModel.getFieldOfWindow(2, 2).setColorAndEyes(Color.LIGHTGRAY, 3);
+			windowModel.getFieldOfWindow(3, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.getFieldOfWindow(0, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 3).setColorAndEyes(Color.LIGHTGRAY, 2);
+			windowModel.getFieldOfWindow(2, 3).setColorAndEyes(Color.MAGENTA, 0);
+			windowModel.getFieldOfWindow(3, 3).setColorAndEyes(Color.LIGHTGRAY, 1);
+			windowModel.getFieldOfWindow(4, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.getFieldOfWindow(0, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 4).setColorAndEyes(Color.LIGHTGRAY, 1);
+			windowModel.getFieldOfWindow(2, 4).setColorAndEyes(Color.LIGHTGRAY, 5);
+			windowModel.getFieldOfWindow(3, 4).setColorAndEyes(Color.MAGENTA, 0);
+			windowModel.getFieldOfWindow(4, 4).setColorAndEyes(Color.LIGHTGRAY, 4);
+
+			windowModel.setDifficultyWindowPattern(5);
+			break;
+		case 11:
+			// Water of Life
+			windowModel.getFieldOfWindow(0, 1).setColorAndEyes(Color.LIGHTGRAY, 6);
+			windowModel.getFieldOfWindow(1, 1).setColorAndEyes(Color.CORNFLOWERBLUE, 0);
+			windowModel.getFieldOfWindow(2, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 1).setColorAndEyes(Color.LIGHTGRAY, 1);
+
+			windowModel.getFieldOfWindow(0, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 2).setColorAndEyes(Color.LIGHTGRAY, 5);
+			windowModel.getFieldOfWindow(2, 2).setColorAndEyes(Color.CORNFLOWERBLUE, 0);
+			windowModel.getFieldOfWindow(3, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.getFieldOfWindow(0, 3).setColorAndEyes(Color.LIGHTGRAY, 4);
+			windowModel.getFieldOfWindow(1, 3).setColorAndEyes(Color.RED, 0);
+			windowModel.getFieldOfWindow(2, 3).setColorAndEyes(Color.LIGHTGRAY, 2);
+			windowModel.getFieldOfWindow(3, 3).setColorAndEyes(Color.CORNFLOWERBLUE, 0);
+			windowModel.getFieldOfWindow(4, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.getFieldOfWindow(0, 4).setColorAndEyes(Color.LIGHTGREEN, 0);
+			windowModel.getFieldOfWindow(1, 4).setColorAndEyes(Color.LIGHTGRAY, 6);
+			windowModel.getFieldOfWindow(2, 4).setColorAndEyes(Color.YELLOW, 0);
+			windowModel.getFieldOfWindow(3, 4).setColorAndEyes(Color.LIGHTGRAY, 3);
+			windowModel.getFieldOfWindow(4, 4).setColorAndEyes(Color.MAGENTA, 0);
+
+			windowModel.setDifficultyWindowPattern(6);
+			break;
+		case 12:
+			// Luz Celestial
+			windowModel.getFieldOfWindow(0, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 1).setColorAndEyes(Color.RED, 0);
+			windowModel.getFieldOfWindow(3, 1).setColorAndEyes(Color.LIGHTGRAY, 5);
+			windowModel.getFieldOfWindow(4, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.getFieldOfWindow(0, 2).setColorAndEyes(Color.MAGENTA, 0);
+			windowModel.getFieldOfWindow(1, 2).setColorAndEyes(Color.LIGHTGRAY, 4);
+			windowModel.getFieldOfWindow(2, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 2).setColorAndEyes(Color.LIGHTGREEN, 0);
+			windowModel.getFieldOfWindow(4, 2).setColorAndEyes(Color.LIGHTGRAY, 3);
+
+			windowModel.getFieldOfWindow(0, 3).setColorAndEyes(Color.LIGHTGRAY, 6);
+			windowModel.getFieldOfWindow(1, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 3).setColorAndEyes(Color.CORNFLOWERBLUE, 0);
+			windowModel.getFieldOfWindow(4, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.getFieldOfWindow(0, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 4).setColorAndEyes(Color.YELLOW, 0);
+			windowModel.getFieldOfWindow(2, 4).setColorAndEyes(Color.LIGHTGRAY, 2);
+			windowModel.getFieldOfWindow(3, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.setDifficultyWindowPattern(3);
+			break;
+		case 13:
+			// Bastllo
+			windowModel.getFieldOfWindow(0, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.getFieldOfWindow(0, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.getFieldOfWindow(0, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.getFieldOfWindow(0, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.setDifficultyWindowPattern(5);
+			break;
+		case 14:
+			// Virtus
+			windowModel.getFieldOfWindow(0, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.getFieldOfWindow(0, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.getFieldOfWindow(0, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.getFieldOfWindow(0, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.setDifficultyWindowPattern(5);
+			break;
+		case 15:
+			// Via Lux
+			windowModel.getFieldOfWindow(0, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.getFieldOfWindow(0, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.getFieldOfWindow(0, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.getFieldOfWindow(0, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.setDifficultyWindowPattern(4);
+			break;
+		case 16:
+			// Sun's Glory
+			windowModel.getFieldOfWindow(0, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.getFieldOfWindow(0, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.getFieldOfWindow(0, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.getFieldOfWindow(0, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.setDifficultyWindowPattern(6);
+			break;
+		case 17:
+			// Shadow Thief
+			windowModel.getFieldOfWindow(0, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.getFieldOfWindow(0, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.getFieldOfWindow(0, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.getFieldOfWindow(0, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.setDifficultyWindowPattern(5);
+			break;
+		case 18:
+			// Chromatic Splendor
+			windowModel.getFieldOfWindow(0, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.getFieldOfWindow(0, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.getFieldOfWindow(0, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.getFieldOfWindow(0, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.setDifficultyWindowPattern(4);
+			break;
+		case 19:
+			// Ripples of Light
+			windowModel.getFieldOfWindow(0, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.getFieldOfWindow(0, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.getFieldOfWindow(0, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.getFieldOfWindow(0, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.setDifficultyWindowPattern(5);
+			break;
+		case 20:
+			// Lux Mundi
+			windowModel.getFieldOfWindow(0, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.getFieldOfWindow(0, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.getFieldOfWindow(0, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.getFieldOfWindow(0, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.setDifficultyWindowPattern(6);
+			break;
+		case 21:
+			// Aurorea Magnificus
+			windowModel.getFieldOfWindow(0, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.getFieldOfWindow(0, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.getFieldOfWindow(0, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.getFieldOfWindow(0, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.setDifficultyWindowPattern(5);
+			break;
+		case 22:
+			// Kaleidoscopic Dream
+			windowModel.getFieldOfWindow(0, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.getFieldOfWindow(0, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.getFieldOfWindow(0, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.getFieldOfWindow(0, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.setDifficultyWindowPattern(4);
+			break;
+		case 23:
+			// Gravitas
+			windowModel.getFieldOfWindow(0, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.getFieldOfWindow(0, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.getFieldOfWindow(0, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.getFieldOfWindow(0, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.setDifficultyWindowPattern(5);
+			break;
+		case 24:
+			// Fulgor del Cielo
+			windowModel.getFieldOfWindow(0, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 1).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.getFieldOfWindow(0, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 2).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.getFieldOfWindow(0, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 3).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.getFieldOfWindow(0, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(1, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(2, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(3, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+			windowModel.getFieldOfWindow(4, 4).setColorAndEyes(Color.LIGHTGRAY, 0);
+
+			windowModel.setDifficultyWindowPattern(5);
 			break;
 
 		default:
 			break;
 		}
-		calculateDifficulty(windowModel);
+
 	}
 
 	public void createGrayWindowPattern(WindowPatternScreen windowScreen, WindowPattern windowModel) {
