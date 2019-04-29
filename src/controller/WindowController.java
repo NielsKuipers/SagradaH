@@ -651,10 +651,17 @@ public class WindowController {
 
 		wpScreen.setDifficulty(difficulty);
 		wp.setDifficultyWindowPattern(difficulty);
+		
 	}
 	
 	public void setDiceController(DiceController DC) {
 		this.DC = DC;
 	}
+	
+	public String getDifficulty() { 
+		return Integer.toString(windowPattern1Model.getDifficulty());
+	}
+
+	
 
 }

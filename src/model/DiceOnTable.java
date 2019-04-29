@@ -17,4 +17,10 @@ public class DiceOnTable {
 			}
 		}
 	}
+	
+	public void getDices() {
+		for(int c = 0; c<allDice.size();c ++) {
+			allDice.get(c);
+		}	
+	}
 }

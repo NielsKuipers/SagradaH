@@ -23,6 +23,7 @@ public class DiceController {
 	private DiceOnTableScreen diceOnTableScreen;
 	
 	private DiceOnTable diceOnTableModel;
+	DiceScreen b;
 	
 	public DiceController(GUI gui, WindowController WC) {
 		this.gui = gui;
@@ -43,7 +44,7 @@ public class DiceController {
 				int eyes = r.nextInt((6 - 1) + 1) + 1;
 				int color = r.nextInt(5);
 				Dice diceModel = new Dice(eyes, colorsDice.get(color));
-				DiceScreen b = new DiceScreen(eyes, colorsDice.get(color), diceModel);
+				 b = new DiceScreen(eyes, colorsDice.get(color), diceModel);
 				b.setPrefHeight(35);
 				b.setPrefWidth(35);
 				diceOnTableScreen.add(b, i, j);
@@ -66,8 +67,13 @@ public class DiceController {
 		return diceOnTableScreen;
 	}
 	
+	
 	public DiceOnTable getDiceOnTableModel() {
 		return diceOnTableModel;
+	}
+	
+	public void setDiceGlowBorder() {
+		diceOnTableModel.getDices();
 	}
 
 }

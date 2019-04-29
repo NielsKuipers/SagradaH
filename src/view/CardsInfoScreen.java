@@ -24,6 +24,7 @@ public class CardsInfoScreen extends BorderPane{
 	private Label favorTokens;
 	private VBox layout;
 	
+	
 
 	
 	public CardsInfoScreen(GUI gui, String info, GameController GC) {
@@ -42,7 +43,7 @@ public class CardsInfoScreen extends BorderPane{
 		
 		
 		
-		favorTokens = new Label("amount of favor tokens:");
+		favorTokens = new Label("amount of favor tokens:"+ GC.getWPDifficulty());
 		favorTokens.setFont(new Font("Consolas", 16));
 		
 		
@@ -50,5 +51,10 @@ public class CardsInfoScreen extends BorderPane{
 		layout.setPadding(new Insets(100,0,0,150));
 		setCenter(layout);
 		
+	
 	}
+	
+	
+	
+	
 }

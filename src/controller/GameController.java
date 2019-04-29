@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import main.GUI;
+import view.CardScreen;
 import view.CardsInfoScreen;
 import view.GameInfoScreen;
 import view.GameScreen;
@@ -24,6 +25,7 @@ public class GameController extends Scene {
 	private Button btncard;
 
 	private WindowPatternChooseScreen windowChoooseScreen;
+	
 	
 	
 
@@ -64,6 +66,11 @@ public class GameController extends Scene {
 		WC.setGameController(this);
 		WC.setDiceController(DC);
 	}
+	
+	public String getWPDifficulty() {
+		return WC.getDifficulty();
+		
+	}
 
 	public void createGame(WindowPatternScreen windowPattern) {
 
@@ -99,6 +106,8 @@ public class GameController extends Scene {
 		}
 	}
 	
+	
+	
 	public void setPoints(int value) {
 		gameInfo.setPoints(value);
 	}
@@ -110,6 +119,10 @@ public class GameController extends Scene {
 	public void switchToGameScreen() {
 		setRoot(gameScreen);
 		
+	}
+	
+	public void setDiceGlowBorder() {
+		DC.setDiceGlowBorder();
 	}
 
 }

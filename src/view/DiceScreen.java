@@ -119,6 +119,10 @@ public class DiceScreen extends StackPane{
 		}
 	}
 	
+	public void setGlowBorder() {
+		setBorder(new Border(new BorderStroke(Color.YELLOW, BorderStrokeStyle.SOLID,null, new BorderWidths(2))));
+	}
+	
 	
 	
 	

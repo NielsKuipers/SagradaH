@@ -29,5 +29,11 @@ public class WindowPattern {
 		difficulty = dif;
 	}
 	
+	public int getDifficulty() {
+		return difficulty;
+	}
+	
+	
+	
 
 }
