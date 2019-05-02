@@ -51,10 +51,10 @@ public class WindowPatternChooseScreen extends GridPane {
 		add(window3Button, 2, 2);
 		add(window4Button, 3, 2);
 		
-		window1Button.setOnMouseClicked(e -> gui.createGame(WC.getWindow1()));
-		window2Button.setOnMouseClicked(e -> gui.createGame(WC.getWindow2()));
-		window3Button.setOnMouseClicked(e -> gui.createGame(WC.getWindow3()));
-		window4Button.setOnMouseClicked(e -> gui.createGame(WC.getWindow4()));
+		window1Button.setOnMouseClicked(e -> gui.createGame(WC.getWindow1().getWindowPatternModel()));
+		window2Button.setOnMouseClicked(e -> gui.createGame(WC.getWindow2().getWindowPatternModel()));
+		window3Button.setOnMouseClicked(e -> gui.createGame(WC.getWindow3().getWindowPatternModel()));
+		window4Button.setOnMouseClicked(e -> gui.createGame(WC.getWindow4().getWindowPatternModel()));
 		
 		setHalignment(window1Button, HPos.CENTER);
 		setHalignment(window2Button, HPos.CENTER);
