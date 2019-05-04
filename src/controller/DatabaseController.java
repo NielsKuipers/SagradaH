@@ -7,7 +7,6 @@ import java.util.ArrayList;
 public class DatabaseController {
 
     private Connection mConn;
-
     //establish connection with database
     public DatabaseController(){
         DatabaseModel sagradaBaseConn = new DatabaseModel();
@@ -20,27 +19,14 @@ public class DatabaseController {
         try {
             PreparedStatement stmt = mConn.prepareStatement(query + where);
 
-            //if there's a where clause, separate them if need be and set the values in the statement
-            int i=1;
-            if(!where.isEmpty()){
-                String[] whereVals = whereVal.split(" ");
-                for(String val : whereVals){
-                    if(checkInt(val)){
-                        int x = Integer.parseInt(val);
-                        stmt.setInt(i, x);
-                    }
-                    else{
-                        stmt.setString(i, val);
-                    }
-                }
-            }
+            //if there's a where clause handle it
+            int i = 1;
+            if(!where.isEmpty()){ handleWhere(where, whereVal, stmt, i); }
 
-            //get the results from the query and put them in and array
-            int x=1;
+            //get the results from the query and put them in an array
             ResultSet rs = stmt.executeQuery();
-            while(rs.next()){
-                result.add(rs.getObject(x));
-            }
+            getResult(rs, result);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -66,20 +52,8 @@ public class DatabaseController {
                 i++;
             }
 
-            //if there's a where clause do the same
-            if(!where.isEmpty()){
-                String[] whereVals = whereVal.split(" ");
-                for(String val : whereVals){
-                    if(checkInt(val)){
-                        int x = Integer.parseInt(val);
-                        stmt.setInt(i, x);
-                    }
-                    else{
-                        stmt.setString(i, val);
-                    }
-                    i++;
-                }
-            }
+            //if there's a where clause handle it
+            if(!where.isEmpty()){ handleWhere(where, whereVal, stmt, i); }
             stmt.executeUpdate();
         }
         catch(SQLException e){
@@ -98,10 +72,35 @@ public class DatabaseController {
         return true;
     }
 
+    private void handleWhere(String where, String whereVal, PreparedStatement stmt, int i) throws SQLException {
+        String[] whereVals = whereVal.split(" ");
+        for(String val : whereVals){
+            if(checkInt(val)){
+                int x = Integer.parseInt(val);
+                stmt.setInt(i, x);
+            }
+            else{
+                stmt.setString(i, val);
+            }
+            i++;
+        }
+    }
+
+    // get all columns from query and add all data from row
+    private void getResult(ResultSet rs, ArrayList<Object> result) throws SQLException{
+        ResultSetMetaData rsmd = rs.getMetaData();
+        int columns = rsmd.getColumnCount();
+        while(rs.next()){
+            for(int i=1; i<=columns; i++){
+                result.add(rs.getObject(i));
+            }
+        }
+    }
+
 //        example queries below:
-//        use question marks for where you want to use variables, declare them in the variable parameter
+//        use question marks for where you want to use variables, declare them in the variable parameters
 //        if you're using multiple variables, separate them with a space
-//        if you don't want to use a where clause, just give it an empty string like this ""
+//        if you don't want to use a where clause, give it an empty string like this ""
 
 //        updateQuery("UPDATE account set username=?, password=?", "Niels2 Gay1234", " WHERE username=?", "Niels");
 //        updateQuery("INSERT INTO account VALUES(?,?)", "Mario Zario", "", "");
