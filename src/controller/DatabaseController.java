@@ -14,8 +14,8 @@ public class DatabaseController {
     }
 
     //method for select queries
-    public ArrayList<Object> selectQuery(String query, String where, String whereVal){
-        ArrayList<Object> result = new ArrayList<>();
+    public ArrayList<ArrayList<Object>> selectQuery(String query, String where, String whereVal){
+        ArrayList<ArrayList<Object>> result = new ArrayList<>();
         try {
             PreparedStatement stmt = mConn.prepareStatement(query + where);
 
@@ -35,7 +35,7 @@ public class DatabaseController {
     }
 
     //overload for selectquery without where clause
-    public ArrayList<Object> selectQuery(String query){
+    public ArrayList<ArrayList<Object>> selectQuery(String query){
         return selectQuery(query, "", "");
     }
 
@@ -93,13 +93,15 @@ public class DatabaseController {
     }
 
     // get all columns from query and add all data from row to arraylist
-    private void getResult(ResultSet rs, ArrayList<Object> result) throws SQLException{
+    private void getResult(ResultSet rs, ArrayList<ArrayList<Object>> result) throws SQLException{
         ResultSetMetaData rsmd = rs.getMetaData();
         int columns = rsmd.getColumnCount();
         while(rs.next()){
+            ArrayList<Object> row = new ArrayList<>();
             for(int i=1; i<=columns; i++){
-                result.add(rs.getObject(i));
+                row.add(rs.getObject(i));
             }
+            result.add(row);
         }
     }
 
