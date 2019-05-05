@@ -21,9 +21,10 @@ public class DatabaseController {
 
             //if there's a where clause handle it
             int i = 1;
-            if(!where.isEmpty()){ handleWhere(where, whereVal, stmt, i); }
+            if(!where.isEmpty()){ handleWhere(whereVal, stmt, i); }
 
             //get the results from the query and put them in an array
+            System.out.println(stmt);
             ResultSet rs = stmt.executeQuery();
             getResult(rs, result);
 
@@ -31,6 +32,11 @@ public class DatabaseController {
             e.printStackTrace();
         }
         return result;
+    }
+
+    //overload for selectquery without where clause
+    public ArrayList<Object> selectQuery(String query){
+        return selectQuery(query, "", "");
     }
 
     //method for update queries
@@ -53,7 +59,7 @@ public class DatabaseController {
             }
 
             //if there's a where clause handle it
-            if(!where.isEmpty()){ handleWhere(where, whereVal, stmt, i); }
+            if(!where.isEmpty()){ handleWhere(whereVal, stmt, i); }
             stmt.executeUpdate();
         }
         catch(SQLException e){
@@ -72,7 +78,7 @@ public class DatabaseController {
         return true;
     }
 
-    private void handleWhere(String where, String whereVal, PreparedStatement stmt, int i) throws SQLException {
+    private void handleWhere(String whereVal, PreparedStatement stmt, int i) throws SQLException {
         String[] whereVals = whereVal.split(" ");
         for(String val : whereVals){
             if(checkInt(val)){
@@ -86,7 +92,7 @@ public class DatabaseController {
         }
     }
 
-    // get all columns from query and add all data from row
+    // get all columns from query and add all data from row to arraylist
     private void getResult(ResultSet rs, ArrayList<Object> result) throws SQLException{
         ResultSetMetaData rsmd = rs.getMetaData();
         int columns = rsmd.getColumnCount();
@@ -100,9 +106,9 @@ public class DatabaseController {
 //        example queries below:
 //        use question marks for where you want to use variables, declare them in the variable parameters
 //        if you're using multiple variables, separate them with a space
-//        if you don't want to use a where clause, give it an empty string like this ""
 
 //        updateQuery("UPDATE account set username=?, password=?", "Niels2 Gay1234", " WHERE username=?", "Niels");
 //        updateQuery("INSERT INTO account VALUES(?,?)", "Mario Zario", "", "");
 //        selectQuery("SELECT username FROM account", " WHERE username=?", "Niels2");
+//        selectQuery("SELECT username FROM account");
 }
