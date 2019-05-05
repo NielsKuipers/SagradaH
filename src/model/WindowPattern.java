@@ -2,10 +2,13 @@ package model;
 
 import java.util.ArrayList;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 public class WindowPattern {
 
 	private ArrayList<Field> fields = new ArrayList<>();
-	private int difficulty = 0;
+	private StringProperty difficulty = new SimpleStringProperty(this, "difficulty", "empty");
 	
 	
 	
@@ -26,8 +29,10 @@ public class WindowPattern {
 	}
 	
 	public void setDifficultyWindowPattern(int dif) {
-		difficulty = dif;
+		difficulty.set("Moeilijkheidsgraad: " + dif);
 	}
 	
-
+	public final StringProperty difficultyProperty() {
+		return difficulty;
+	}
 }
