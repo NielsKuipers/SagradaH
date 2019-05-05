@@ -1,7 +1,10 @@
 package view;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
@@ -17,17 +20,24 @@ public class DiceScreen extends StackPane{
 	
 	
 	Dice diceModel;
+
 	
-	public DiceScreen(int value, Color color, Dice diceModel) {
+	public DiceScreen(Dice diceModel) {
 		
 		this.diceModel = diceModel;
 		setMinWidth(40);
 		setMinHeight(40);
 		setPadding(new Insets(5));
-		setBackground(new Background(new BackgroundFill(color, null, null)));
-		setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID,null, new BorderWidths(2))));
 		
-		checkNumber(value);
+		setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID,null, new BorderWidths(2))));
+		backgroundProperty().bind(diceModel.backgroundPropery());
+		
+		MyEyesListener listener = new MyEyesListener();
+		this.diceModel.eyesProperty().addListener(listener);
+		
+		
+         
+       
 	}
 	
 	
@@ -120,10 +130,19 @@ public class DiceScreen extends StackPane{
 	}
 	
 	
-	
-	
-	
 	public Dice getDiceModel() {
 		return diceModel;
 	}
+	
+	private class MyEyesListener implements ChangeListener<Number> {
+		
+
+		@Override
+		public void changed(ObservableValue<? extends Number> observable, Number oldValue,
+				Number newValue) {
+			checkNumber((int) newValue);
+		}
+	}
+	
+	
 }
