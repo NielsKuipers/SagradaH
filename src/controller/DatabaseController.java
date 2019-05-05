@@ -24,7 +24,6 @@ public class DatabaseController {
             if(!where.isEmpty()){ handleWhere(whereVal, stmt, i); }
 
             //get the results from the query and put them in an array
-            System.out.println(stmt);
             ResultSet rs = stmt.executeQuery();
             getResult(rs, result);
 
@@ -52,6 +51,9 @@ public class DatabaseController {
                     int x = Integer.parseInt(val);
                     stmt.setInt(i, x);
                 }
+                else if(val.equals("null")){
+                    stmt.setObject(i,null);
+                }
                 else{
                     stmt.setString(i, val);
                 }
@@ -66,6 +68,9 @@ public class DatabaseController {
             e.printStackTrace();
         }
     }
+
+    //overload for insert query without where
+    public void updateQuery(String query, String values){updateQuery(query, values, "", "");}
 
     //check if passed string is an int
     private boolean checkInt(String str){
