@@ -11,7 +11,6 @@ public class WindowPattern {
 	private StringProperty difficulty = new SimpleStringProperty(this, "difficulty", "empty");
 	
 	
-	
 	public void addFieldToWindow(Field field) {
 		fields.add(field);
 	}
@@ -34,5 +33,22 @@ public class WindowPattern {
 	
 	public final StringProperty difficultyProperty() {
 		return difficulty;
+	}
+	
+	public void removeDiceFromWindowPattern(Dice dice) {
+		for (Field field : fields) {
+			if(field.getDice() == dice) {
+				field.deleteDice();
+			}
+		}
+	}
+	
+	public boolean diceOnWindow(Dice dice) {
+		for (Field field : fields) {
+			if(field.getDice() == dice) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

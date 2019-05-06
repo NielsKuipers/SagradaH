@@ -18,6 +18,15 @@ public class DiceOnTable {
 		}
 	}
 	
+	public boolean isDiceOnTable(Dice dice){
+		for (Dice die : allDice) {
+			if(die.equals(dice)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public void getDice(int i) {
 		allDice.get(i);
 	}
