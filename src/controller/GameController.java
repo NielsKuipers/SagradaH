@@ -67,10 +67,7 @@ public class GameController extends Scene {
 		WC.setDiceController(DC);
 	}
 	
-	public String getWPDifficulty() {
-		return WC.getDifficulty();
-		
-	}
+	
 
 	public void createGame(WindowPatternScreen windowPattern) {
 
@@ -93,7 +90,7 @@ public class GameController extends Scene {
 
 		gameScreen.setMargin(WC.getWindow1(), new Insets(0, 0, 0, 80));
 		gameScreen.setMargin(WC.getWindow4(), new Insets(0, 80, 0, 0));
-
+		setAmountFT(WC.getDifficulty());
 		setRoot(gameScreen);
 	}
 	
@@ -121,8 +118,16 @@ public class GameController extends Scene {
 		
 	}
 	
-	public void setDiceGlowBorder() {
-		DC.setDiceGlowBorder();
-	}
+	public void setDiceGlow() {
+        DC.setDiceGlowBorder();
+    }
+    
+    public void setAmountFT(String tokens) {
+        kaarten.setAmountFT(tokens);
+    }
+    
+    public int getAmountFT() {
+        return Integer.parseInt(kaarten.getAmountFT());
+    }
 
 }

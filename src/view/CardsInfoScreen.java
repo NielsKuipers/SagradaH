@@ -23,7 +23,7 @@ public class CardsInfoScreen extends BorderPane{
 	private Button btnCard; 
 	private Label favorTokens;
 	private VBox layout;
-	
+	private String tokens;
 	
 
 	
@@ -43,7 +43,7 @@ public class CardsInfoScreen extends BorderPane{
 		
 		
 		
-		favorTokens = new Label("amount of favor tokens:"+ GC.getWPDifficulty());
+		favorTokens = new Label("amount of favor tokens:");
 		favorTokens.setFont(new Font("Consolas", 16));
 		
 		
@@ -53,6 +53,20 @@ public class CardsInfoScreen extends BorderPane{
 		
 	
 	}
+	
+    public void setAmountFT(String tokens) {
+        this.tokens = tokens;
+        favorTokens = new Label("amount of favor tokens:"+ tokens);
+        favorTokens.setFont(new Font("Consolas", 16));
+        
+        
+        layout = new VBox(50, btnCard,favorTokens);
+        layout.setPadding(new Insets(100,0,0,150));
+        setCenter(layout);
+    }
+    public String getAmountFT() {
+        return tokens;
+    }
 	
 	
 	
