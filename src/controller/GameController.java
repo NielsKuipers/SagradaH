@@ -11,14 +11,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import main.GUI;
 import model.WindowPattern;
-import view.GameInfoScreen;
-import view.GameScreen;
-import view.WindowPatternChooseScreen;
-import view.WindowPatternScreen;
+import view.*;
 
 public class GameController extends Scene {
 	private GameInfoScreen gameInfo;
-	private GameInfoScreen chat;
+	private ChatScreen chat;
 	private GameInfoScreen kaarten;
 
 	private GameScreen gameScreen;
@@ -40,7 +37,7 @@ public class GameController extends Scene {
 
 		gameScreen = new GameScreen();
 		gameInfo = new GameInfoScreen(gui, "GameInfo", this);
-		chat = new GameInfoScreen(gui,"Chat", this);
+		chat = new ChatScreen();
 		kaarten = new GameInfoScreen(gui,"Kaarten", this);
 
 		gameInfo.setStyle("-fx-background-radius: 0 0 300 0;-fx-background-color: DEEPSKYBLUE; ");

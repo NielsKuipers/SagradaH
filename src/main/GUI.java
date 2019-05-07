@@ -1,5 +1,6 @@
 package main;
 
+import controller.ChatController;
 import controller.DiceController;
 import controller.GameController;
 import controller.WindowController;
@@ -12,6 +13,7 @@ public class GUI extends Application {
 	WindowController windowController;
 	DiceController diceController;
 	GameController gameController;
+	private ChatController chatController;
 	
 
 	public void startup(String[] args) {
@@ -24,6 +26,7 @@ public class GUI extends Application {
 		windowController = new WindowController(this);
 		diceController = new DiceController(this, windowController);
 		gameController = new GameController(this, windowController, diceController);
+		chatController = new ChatController(this);
 		
 		stage.setScene(gameController);
 		stage.setFullScreen(true);

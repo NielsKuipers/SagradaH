@@ -14,10 +14,10 @@ import javafx.scene.text.Font;
 import main.GUI;
 
 public class GameInfoScreen extends BorderPane{
-	Label l;
-	GameController GC;
-	Button cheat;
-	GUI gui;
+	private Label l;
+	private GameController GC;
+	private Button cheat;
+	private GUI gui;
 	
 	public GameInfoScreen(GUI gui, String info, GameController GC) {
 		this.gui = gui;
@@ -39,7 +39,7 @@ public class GameInfoScreen extends BorderPane{
 		l.setText(Integer.toString(value));
 	}
 	
-	public void handleCheat() {
+	private void handleCheat() {
 		gui.handleCheat();
 		if(cheat.getText().equals("Zet cheat aan")) {
 			cheat.setText("Zet cheat uit");
