@@ -1,5 +1,6 @@
 package main;
 
+import controller.CardController;
 import controller.DatabaseController;
 import controller.DiceController;
 import controller.GameController;
@@ -14,6 +15,7 @@ public class GUI extends Application {
 	WindowController windowController;
 	DiceController diceController;
 	GameController gameController;
+	CardController cardController;
 	
 
 	public void startup(String[] args) {
@@ -24,7 +26,8 @@ public class GUI extends Application {
 		databaseController = new DatabaseController();
 		windowController = new WindowController(this, databaseController);
 		diceController = new DiceController(this, windowController);
-		gameController = new GameController(this, windowController, diceController);
+		cardController = new CardController(this);
+		gameController = new GameController(this, windowController, diceController,cardController);
 		
 		stage.setScene(gameController);
 		stage.setFullScreen(true);

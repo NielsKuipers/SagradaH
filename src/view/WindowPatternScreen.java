@@ -1,5 +1,7 @@
 package view;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -25,7 +27,7 @@ public class WindowPatternScreen extends GridPane{
 		this.add(difficulty, 0, 5, 5, 1);
 		difficulty.setFont(font);
 		setHalignment(difficulty, HPos.CENTER);
-		difficulty.textProperty().bind(windowPatternModel.difficultyProperty());
+		windowPatternModel.difficultyProperty().addListener(new MyDifficultyListener());
 		
 		setHgap(2); // horizontal gap in pixels
 		setVgap(2); // vertical gap in pixels
@@ -63,6 +65,12 @@ public class WindowPatternScreen extends GridPane{
 	}
 	
 	
-	
+	private class MyDifficultyListener implements ChangeListener<String> {
+        @Override
+        public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+            difficulty.setText("moelijkheidsgraad: " + newValue);
+            
+        }
+    }
 
 }

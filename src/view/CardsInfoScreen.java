@@ -43,7 +43,7 @@ public class CardsInfoScreen extends BorderPane{
 		
 		
 		
-		favorTokens = new Label("amount of favor tokens:");
+		favorTokens = new Label("amount of favor tokens:"+ tokens);
 		favorTokens.setFont(new Font("Consolas", 16));
 		
 		

@@ -3,6 +3,7 @@ package controller;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import main.GUI;
 import model.CardModel;
 
 import view.CardScreen;
@@ -14,6 +15,7 @@ public class CardController extends Scene {
 	private GameController gameController;
 	private CardModel cardModel;
 	private int amountOfFavorTokens;
+	private GUI gui;
 
 	// alle toolcards
 	private CardScreen toolCard1;
@@ -71,10 +73,11 @@ public class CardController extends Scene {
 	int pubOBJ2;
 	int pubOBJ3;
 
-	public CardController(GameController gc) {
+	public CardController(GUI gui) {
 		super(new Pane());
+		this.gui = gui;
 
-		gameController = gc;
+		
 		cardScreen = new GameCardsScreen(this);
 		cardModel = new CardModel();
 
@@ -135,6 +138,9 @@ public class CardController extends Scene {
 		gameController.switchToGameScreen();
 
 	}
+	public void setGameController(GameController gc) {
+		gameController = gc;
+	}
 
 	
 	
@@ -182,7 +188,7 @@ public class CardController extends Scene {
         if(cardscreen == toolCard4) {
             
             
-            if(boughtTC4 == true  ) {
+        	if(boughtTC5 == true && gameController.getAmountFT()>1)  {
                 gameController.setAmountFT(Integer.toString(gameController.getAmountFT()-2));
             }if(boughtTC4 == false) {
                 gameController.setAmountFT(Integer.toString(gameController.getAmountFT()-1));
@@ -340,7 +346,7 @@ public class CardController extends Scene {
         if(cardscreen == toolCard4) {
             
             
-            if(boughtTC4 == true  ) {
+        	if(boughtTC5 == true && gameController.getAmountFT()>1 ) {
                 gameController.setAmountFT(Integer.toString(gameController.getAmountFT()-2));
             }if(boughtTC4 == false) {
                 gameController.setAmountFT(Integer.toString(gameController.getAmountFT()-1));
@@ -498,7 +504,7 @@ public class CardController extends Scene {
 		        if(cardscreen == toolCard4) {
 		            
 		            
-		            if(boughtTC4 == true  ) {
+		        	if(boughtTC5 == true && gameController.getAmountFT()>1 ) {
 		                gameController.setAmountFT(Integer.toString(gameController.getAmountFT()-2));
 		            }if(boughtTC4 == false) {
 		                gameController.setAmountFT(Integer.toString(gameController.getAmountFT()-1));
@@ -616,7 +622,10 @@ public class CardController extends Scene {
         
 
 	public void buyTC1() {
-
+		gameController.setDiceGlow();
+		
+		
+		
 	}
 
 	public void buyTC2() {
@@ -674,46 +683,47 @@ public class CardController extends Scene {
 		while (TC3 == TC1 || TC3 == TC2) {
 			TC3 = generateRandNR(12);
 		}
+		cardScreen.setTC1(toolCard1);
 
-		switch (TC1) {
-		case 1:
-			cardScreen.setTC1(toolCard1);
-			break;
-		case 2:
-			cardScreen.setTC1(toolCard2);
-			break;
-		case 3:
-			cardScreen.setTC1(toolCard3);
-			break;
-		case 4:
-			cardScreen.setTC1(toolCard4);
-			break;
-		case 5:
-			cardScreen.setTC1(toolCard5);
-			break;
-		case 6:
-			cardScreen.setTC1(toolCard6);
-			break;
-		case 7:
-			cardScreen.setTC1(toolCard7);
-			break;
-		case 8:
-			cardScreen.setTC1(toolCard8);
-			break;
-		case 9:
-			cardScreen.setTC1(toolCard9);
-			break;
-		case 10:
-			cardScreen.setTC1(toolCard10);
-			break;
-		case 11:
-			cardScreen.setTC1(toolCard11);
-			break;
-		case 12:
-			cardScreen.setTC1(toolCard12);
-			break;
-
-		}
+//		switch (TC1) {
+//		case 1:
+//			cardScreen.setTC1(toolCard1);
+//			break;
+//		case 2:
+//			cardScreen.setTC1(toolCard2);
+//			break;
+//		case 3:
+//			cardScreen.setTC1(toolCard3);
+//			break;
+//		case 4:
+//			cardScreen.setTC1(toolCard4);
+//			break;
+//		case 5:
+//			cardScreen.setTC1(toolCard5);
+//			break;
+//		case 6:
+//			cardScreen.setTC1(toolCard6);
+//			break;
+//		case 7:
+//			cardScreen.setTC1(toolCard7);
+//			break;
+//		case 8:
+//			cardScreen.setTC1(toolCard8);
+//			break;
+//		case 9:
+//			cardScreen.setTC1(toolCard9);
+//			break;
+//		case 10:
+//			cardScreen.setTC1(toolCard10);
+//			break;
+//		case 11:
+//			cardScreen.setTC1(toolCard11);
+//			break;
+//		case 12:
+//			cardScreen.setTC1(toolCard12);
+//			break;
+//
+//		}
 
 		switch (TC2) {
 		case 1:

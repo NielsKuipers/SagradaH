@@ -28,7 +28,7 @@ public class GameController extends Scene {
 	private CardsInfoScreen kaarten;
 
 	private GameScreen gameScreen;
-	private CardController cardController;
+	private CardController CC;
 	private Button btncard;
 
 	private WindowPatternChooseScreen windowChoooseScreen;
@@ -44,11 +44,12 @@ public class GameController extends Scene {
 	private GUI gui;
 	
 
-	public GameController(GUI gui, WindowController WC, DiceController DC) {
+	public GameController(GUI gui, WindowController WC, DiceController DC,CardController CC) {
 		super(new Pane());
 		this.gui = gui;
 		this.WC = WC;
 		this.DC = DC;
+		this.CC = CC;
 		
 
 		gameModel = new Game();
@@ -82,6 +83,7 @@ public class GameController extends Scene {
 		
 		WC.setGameController(this);
 		WC.setDiceController(DC);
+		CC.setGameController(this);
 	}
 	
 	
@@ -129,7 +131,7 @@ public class GameController extends Scene {
 	}
 	
 	public void switchToolcards() {
-		setRoot(cardController.showcards());
+		setRoot(CC.showcards());
 	}
 	
 	public void switchToGameScreen() {
@@ -148,5 +150,9 @@ public class GameController extends Scene {
     public int getAmountFT() {
         return Integer.parseInt(kaarten.getAmountFT());
     }
+
+
+
+	        
 
 }

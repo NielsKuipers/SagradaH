@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.paint.Color;
 import queries.WindowPatternQuerie;
 
@@ -36,7 +38,7 @@ public class WindowPattern {
 	}
 
 	public void setDifficultyWindowPattern(int dif) {
-		difficulty.set("Moeilijkheidsgraad: " + dif);
+		difficulty.set(Integer.toString(dif));
 	}
 
 	public final StringProperty difficultyProperty() {
@@ -129,3 +131,4 @@ public class WindowPattern {
 		return Color.LIGHTGRAY;
 	}
 }
+

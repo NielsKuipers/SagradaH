@@ -27,7 +27,7 @@ public class DiceScreen extends StackPane {
 		setMinHeight(40);
 		setPadding(new Insets(5));
 
-		setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, new BorderWidths(2))));
+		setBlackBorder();
 		backgroundProperty().bind(diceModel.backgroundPropery());
 
 		MyEyesListener listener = new MyEyesListener();
@@ -35,7 +35,17 @@ public class DiceScreen extends StackPane {
 
 	}
 
+	public void setBlackBorder() {
+		setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, new BorderWidths(2))));
+		
+	}
+	
+	public void selectedDice() {
+		
+	}
+
 	public void checkNumber(int value) {
+		getChildren().clear();
 		switch (value) {
 		case 1:
 			Circle cir = new Circle(4, Color.BLACK);
@@ -128,12 +138,11 @@ public class DiceScreen extends StackPane {
 		setBorder(new Border(new BorderStroke(Color.YELLOW, BorderStrokeStyle.SOLID,null, new BorderWidths(2))));
 	}
 	
+	public void clicked() {
 	
+		setBorder(new Border(new BorderStroke(Color.BLUE, BorderStrokeStyle.SOLID,null, new BorderWidths(2))));
+	}
 	
-	
-	
-
-
 	public void makeBorderWhite() {
 		setBorder(new Border(new BorderStroke(Color.WHITE, BorderStrokeStyle.SOLID, null, new BorderWidths(3))));
 	}
