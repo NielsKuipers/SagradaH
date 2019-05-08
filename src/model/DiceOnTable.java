@@ -18,9 +18,24 @@ public class DiceOnTable {
 		}
 	}
 	
+
 	public void getDices() {
 		for(int c = 0; c<allDice.size();c ++) {
 			allDice.get(c);
 		}	
+		}
+
+	public boolean isDiceOnTable(Dice dice){
+		for (Dice die : allDice) {
+			if(die.equals(dice)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public void getDice(int i) {
+		allDice.get(i);
+
 	}
 }

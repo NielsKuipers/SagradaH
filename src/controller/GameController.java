@@ -1,5 +1,7 @@
 package controller;
 
+import java.sql.Connection;
+
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -8,8 +10,13 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import main.GUI;
+
 import view.CardScreen;
 import view.CardsInfoScreen;
+
+import model.Game;
+import model.WindowPattern;
+
 import view.GameInfoScreen;
 import view.GameScreen;
 import view.WindowPatternChooseScreen;
@@ -26,21 +33,31 @@ public class GameController extends Scene {
 
 	private WindowPatternChooseScreen windowChoooseScreen;
 	
-	
+
+	private Game gameModel;
+
 	
 
 	private WindowController WC;
 	private DiceController DC;
 	
 	private GUI gui;
+	
 
-	public GameController(GUI gui,WindowController WC, DiceController DC) {
+	public GameController(GUI gui, WindowController WC, DiceController DC) {
 		super(new Pane());
 		this.gui = gui;
 		this.WC = WC;
 		this.DC = DC;
 		
-		cardController = new CardController(this);
+
+		gameModel = new Game();
+		gameModel.getPlayer(0).givePlayerWindowPattern(WC.getWindow1().getWindowPatternModel());
+		gameModel.getPlayer(1).givePlayerWindowPattern(WC.getWindow2().getWindowPatternModel());
+		gameModel.getPlayer(2).givePlayerWindowPattern(WC.getWindow3().getWindowPatternModel());
+		gameModel.getPlayer(3).givePlayerWindowPattern(WC.getWindow4().getWindowPatternModel());
+
+
 		gameScreen = new GameScreen();
 		gameInfo = new GameInfoScreen(gui, "GameInfo", this);
 		chat = new GameInfoScreen(gui,"Chat", this);
@@ -69,18 +86,20 @@ public class GameController extends Scene {
 	
 	
 
-	public void createGame(WindowPatternScreen windowPattern) {
+	public void createGame(WindowPattern windowModel) {
 
 		gameScreen.add(gameInfo, 0, 0, 2, 1);
 		gameScreen.add(DC.getDiceOnTableScreen(), 2, 0, 2, 1);
 		gameScreen.add(chat, 0, 2, 2, 1);
 		gameScreen.add(kaarten, 2, 2, 2, 1);
 
-		if (windowPattern != WC.getWindow1()) {
-			WC.setWindow1(windowPattern);
+		if (windowModel != WC.getWindow1().getWindowPatternModel()) {
+			WC.setWindow1(windowModel);
 		}
 
-		WC.makeWindowsGray();
+		WC.makeWindowsGray(WC.getWindow2().getWindowPatternModel());
+		WC.makeWindowsGray(WC.getWindow3().getWindowPatternModel());
+		WC.makeWindowsGray(WC.getWindow4().getWindowPatternModel());
 
 		gameScreen.add(WC.getWindow1(), 0, 1);
 		gameScreen.add(WC.getWindow2(), 1, 1);
