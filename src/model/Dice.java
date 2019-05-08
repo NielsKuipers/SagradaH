@@ -12,6 +12,7 @@ import javafx.scene.paint.Color;
 
 public class Dice {
 
+	private int id;
 	private Color color;
 	private boolean moved;
 	private Property<Background> backgroundProperty;
