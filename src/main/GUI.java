@@ -1,5 +1,6 @@
 package main;
 
+import controller.DatabaseController;
 import controller.DiceController;
 import controller.GameController;
 import controller.WindowController;
@@ -9,6 +10,7 @@ import model.WindowPattern;
 import view.WindowPatternScreen;
 
 public class GUI extends Application {
+	DatabaseController databaseController;
 	WindowController windowController;
 	DiceController diceController;
 	GameController gameController;
@@ -16,12 +18,11 @@ public class GUI extends Application {
 
 	public void startup(String[] args) {
 		launch(args);
-		
-		
 	}
 	
 	public void start(Stage stage) {
-		windowController = new WindowController(this);
+		databaseController = new DatabaseController();
+		windowController = new WindowController(this, databaseController);
 		diceController = new DiceController(this, windowController);
 		gameController = new GameController(this, windowController, diceController);
 		

@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import main.GUI;
+import model.Game;
 import model.WindowPattern;
 import view.GameInfoScreen;
 import view.GameScreen;
@@ -25,6 +26,8 @@ public class GameController extends Scene {
 
 	private WindowPatternChooseScreen windowChoooseScreen;
 	
+	private Game gameModel;
+	
 
 	private WindowController WC;
 	private DiceController DC;
@@ -37,6 +40,12 @@ public class GameController extends Scene {
 		this.gui = gui;
 		this.WC = WC;
 		this.DC = DC;
+		
+		gameModel = new Game();
+		gameModel.getPlayer(0).givePlayerWindowPattern(WC.getWindow1().getWindowPatternModel());
+		gameModel.getPlayer(1).givePlayerWindowPattern(WC.getWindow2().getWindowPatternModel());
+		gameModel.getPlayer(2).givePlayerWindowPattern(WC.getWindow3().getWindowPatternModel());
+		gameModel.getPlayer(3).givePlayerWindowPattern(WC.getWindow4().getWindowPatternModel());
 
 		gameScreen = new GameScreen();
 		gameInfo = new GameInfoScreen(gui, "GameInfo", this);
