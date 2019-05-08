@@ -143,7 +143,7 @@ public class CardController extends Scene {
         if(cardscreen == toolCard1) {
             
             
-            if(boughtTC1 == true  ) {
+        	  if(boughtTC9 == true && gameController.getAmountFT()>1 ) {
                 gameController.setAmountFT(Integer.toString(gameController.getAmountFT()-2));
             }if(boughtTC1 == false) {
                 gameController.setAmountFT(Integer.toString(gameController.getAmountFT()-1));
@@ -156,7 +156,7 @@ public class CardController extends Scene {
         if(cardscreen == toolCard2) {
             
         
-            if(boughtTC2 == true  ) {
+        	  if(boughtTC9 == true && gameController.getAmountFT()>1 ) {
                 gameController.setAmountFT(Integer.toString(gameController.getAmountFT()-2));
             }if(boughtTC2 == false) {
                 gameController.setAmountFT(Integer.toString(gameController.getAmountFT()-1));
@@ -169,7 +169,7 @@ public class CardController extends Scene {
         if(cardscreen == toolCard3) {
             
             
-            if(boughtTC3 == true ) {
+        	  if(boughtTC9 == true && gameController.getAmountFT()>1 ) {
                 gameController.setAmountFT(Integer.toString(gameController.getAmountFT()-2));
             }if(boughtTC3 == false) {
                 gameController.setAmountFT(Integer.toString(gameController.getAmountFT()-1));
@@ -301,7 +301,7 @@ public class CardController extends Scene {
         if(cardscreen == toolCard1) {
             
             
-            if(boughtTC1 == true  ) {
+        	if(boughtTC9 == true && gameController.getAmountFT()>1 ) {
                 gameController.setAmountFT(Integer.toString(gameController.getAmountFT()-2));
             }if(boughtTC1 == false) {
                 gameController.setAmountFT(Integer.toString(gameController.getAmountFT()-1));
@@ -314,7 +314,7 @@ public class CardController extends Scene {
         if(cardscreen == toolCard2) {
             
         
-            if(boughtTC2 == true  ) {
+        	  if(boughtTC9 == true && gameController.getAmountFT()>1 ) {
                 gameController.setAmountFT(Integer.toString(gameController.getAmountFT()-2));
             }if(boughtTC2 == false) {
                 gameController.setAmountFT(Integer.toString(gameController.getAmountFT()-1));
@@ -327,7 +327,7 @@ public class CardController extends Scene {
         if(cardscreen == toolCard3) {
             
             
-            if(boughtTC3 == true ) {
+        	  if(boughtTC9 == true && gameController.getAmountFT()>1 ) {
                 gameController.setAmountFT(Integer.toString(gameController.getAmountFT()-2));
             }if(boughtTC3 == false) {
                 gameController.setAmountFT(Integer.toString(gameController.getAmountFT()-1));
@@ -459,7 +459,7 @@ public class CardController extends Scene {
 		        if(cardscreen == toolCard1) {
 		            
 		            
-		            if(boughtTC1 == true  ) {
+		        	if(boughtTC9 == true && gameController.getAmountFT()>1 ) {
 		                gameController.setAmountFT(Integer.toString(gameController.getAmountFT()-2));
 		            }if(boughtTC1 == false) {
 		                gameController.setAmountFT(Integer.toString(gameController.getAmountFT()-1));
@@ -472,7 +472,7 @@ public class CardController extends Scene {
 		        if(cardscreen == toolCard2) {
 		            
 		        
-		            if(boughtTC2 == true  ) {
+		        	  if(boughtTC9 == true && gameController.getAmountFT()>1 ) {
 		                gameController.setAmountFT(Integer.toString(gameController.getAmountFT()-2));
 		            }if(boughtTC2 == false) {
 		                gameController.setAmountFT(Integer.toString(gameController.getAmountFT()-1));
@@ -485,7 +485,7 @@ public class CardController extends Scene {
 		        if(cardscreen == toolCard3) {
 		            
 		            
-		            if(boughtTC3 == true ) {
+		        	  if(boughtTC9 == true && gameController.getAmountFT()>1 ) {
 		                gameController.setAmountFT(Integer.toString(gameController.getAmountFT()-2));
 		            }if(boughtTC3 == false) {
 		                gameController.setAmountFT(Integer.toString(gameController.getAmountFT()-1));
