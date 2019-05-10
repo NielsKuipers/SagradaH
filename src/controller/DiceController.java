@@ -81,13 +81,12 @@ public class DiceController {
 		return diceOnTableModel;
 	}
 
-	public void setDiceGlowBorder() {
+	public void setDiceGlowBorder(int nummer) {
 		for (Node node : diceOnTableScreen.getChildren()) {
 			if (node instanceof DiceScreen) {
 				DiceScreen result = (DiceScreen) node;
 				result.setGlowBorder();
-				result.setOnMouseClicked(e -> selectDice(result));
-				
+				result.setOnMouseClicked(e -> selectDice(result, nummer));
 
 			}
 
@@ -108,54 +107,88 @@ public class DiceController {
 
 	}
 
-	public void selectDice(DiceScreen dice) {
+	public void selectDice(DiceScreen dice, int nummer) {
 		setDiceBlackBorder();
 		dice.setGlowBorder();
 		
-		
-		dice.setOnMouseClicked(e -> DicesPlus1(dice));
+		switch(nummer) {
+		case 1:
+			dice.setOnMouseClicked(e -> DicesPlus1(dice, false));
+			break;
+		case 6:	
+			dice.setOnMouseClicked(e -> throwDiceOnes(dice));
+			break;
 			
+		case 10: dice.setOnMouseClicked(e -> DiceTurnAround(dice));
+			break;
+		case 11: dice.setOnMouseClicked(e -> pickNewDice(dice));
 		}
-		
-		private void DicesPlus1(DiceScreen dice) {
-			if(dice.getDiceModel().getEyes() == 6) {
-				dice.getDiceModel().setEyes(1);
-			}else {
-			dice.getDiceModel().setEyes(dice.getDiceModel().getEyes()+1);
-			}dice.setOnMouseClicked(e -> dicesMinus2(dice));
-		
-	}
-
-		private void dicesMinus2(DiceScreen dice) {
-			if(dice.getDiceModel().getEyes() ==2) {
-				dice.getDiceModel().setEyes(6);
-				System.out.println(dice.getDiceModel().getEyes());
-			}
-			if(dice.getDiceModel().getEyes() == 1) {
-				dice.getDiceModel().setEyes(5);
-			}
-			else {
-				
-			
-			dice.getDiceModel().setEyes(dice.getDiceModel().getEyes()-2);
-			}
-			dice.setOnMouseClicked(e -> DicesPlus2(dice));
-		}
-
-		private void DicesPlus2(DiceScreen dice) {
-			if(dice.getDiceModel().getEyes() == 6) {
-				dice.getDiceModel().setEyes(2);
-			}
-			if(dice.getDiceModel().getEyes() == 5) {
-				dice.getDiceModel().setEyes(1);
-			}
-			else {
-			dice.getDiceModel().setEyes(dice.getDiceModel().getEyes()+2);
-			}dice.setOnMouseClicked(e -> dicesMinus2(dice));
-		}
-
-		
 
 	}
+	
+	public void pickNewDice(DiceScreen dice) {
+		
+		dice.getDiceModel().setColor(colorsDice.get(r.nextInt(5)));
+		dice.setOnMouseClicked(e -> DicesPlus1(dice, true));
+	}
+	
+	public void throwDiceOnes(DiceScreen dice) {
+		dice.setOnMouseClicked(null);
+		dice.getDiceModel().setEyes(r.nextInt((6 - 1) + 1) + 1);
+	}
+	
+	
+	public void DiceTurnAround(DiceScreen dice) {
+		switch(dice.getDiceModel().getEyes()) {
+		case 1:	dice.getDiceModel().setEyes(6);
+			break;
+		case 2:	dice.getDiceModel().setEyes(5);
+		break;
+		case 3:	dice.getDiceModel().setEyes(4);
+		break;
+		case 4:	dice.getDiceModel().setEyes(3);
+		break;
+		case 5:	dice.getDiceModel().setEyes(5);
+		break;
+		case 6:	dice.getDiceModel().setEyes(1);
+		break;
+		}
+	}
 
+	private void DicesPlus1(DiceScreen dice, boolean repeat) {
+		if (dice.getDiceModel().getEyes() == 6) {
+			dice.getDiceModel().setEyes(1);
+		} else {
+			dice.getDiceModel().setEyes(dice.getDiceModel().getEyes() + 1);
+		}if(repeat == false) {
+		dice.setOnMouseClicked(e -> dicesMinus2(dice));
+		}
+	}
 
+	private void dicesMinus2(DiceScreen dice) {
+		if (dice.getDiceModel().getEyes() == 2) {
+			dice.getDiceModel().setEyes(6);
+			
+		}
+		if (dice.getDiceModel().getEyes() == 1) {
+			dice.getDiceModel().setEyes(5);
+		} else {
+
+			dice.getDiceModel().setEyes(dice.getDiceModel().getEyes() - 2);
+		}
+		dice.setOnMouseClicked(e -> DicesPlus2(dice));
+	}
+
+	private void DicesPlus2(DiceScreen dice) {
+		if (dice.getDiceModel().getEyes() == 6) {
+			dice.getDiceModel().setEyes(2);
+		}
+		if (dice.getDiceModel().getEyes() == 5) {
+			dice.getDiceModel().setEyes(1);
+		} else {
+			dice.getDiceModel().setEyes(dice.getDiceModel().getEyes() + 2);
+		}
+		dice.setOnMouseClicked(e -> dicesMinus2(dice));
+	}
+
+}

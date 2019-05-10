@@ -139,9 +139,7 @@ public class GameController extends Scene {
 		
 	}
 	
-	public void setDiceGlow() {
-        DC.setDiceGlowBorder();
-    }
+	
     
     public void setAmountFT(String tokens) {
         kaarten.setAmountFT(tokens);

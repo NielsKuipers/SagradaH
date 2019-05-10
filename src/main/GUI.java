@@ -46,4 +46,23 @@ public class GUI extends Application {
 	public void makeDices() {
 		diceController.makeDices();
 	}
+
+	public void buyTC1() {
+		diceController.setDiceGlowBorder(1);
+		
+	}
+	
+	public void buyTC6() {
+		diceController.setDiceGlowBorder(6);
+		
+	}
+	
+	public void buyTC10() {
+		diceController.setDiceGlowBorder(10);
+		
+	}
+	
+	public void buyTC11() {
+		diceController.setDiceGlowBorder(11);
+	}
 }

@@ -622,18 +622,18 @@ public class CardController extends Scene {
         
 
 	public void buyTC1() {
-		gameController.setDiceGlow();
+		gui.buyTC1();
 		
 		
 		
 	}
 
 	public void buyTC2() {
-
+		
 	}
 
 	public void buyTC3() {
-
+		
 	}
 
 	public void buyTC4() {
@@ -645,7 +645,7 @@ public class CardController extends Scene {
 	}
 
 	public void buyTC6() {
-
+		gui.buyTC6();
 	}
 
 	public void buyTC7() {
@@ -661,11 +661,11 @@ public class CardController extends Scene {
 	}
 
 	public void buyTC10() {
-
+		gui.buyTC10();
 	}
 
 	public void buyTC11() {
-
+			gui.buyTC11();
 	}
 
 	public void buyTC12() {
@@ -683,47 +683,47 @@ public class CardController extends Scene {
 		while (TC3 == TC1 || TC3 == TC2) {
 			TC3 = generateRandNR(12);
 		}
-		cardScreen.setTC1(toolCard1);
+	
 
-//		switch (TC1) {
-//		case 1:
-//			cardScreen.setTC1(toolCard1);
-//			break;
-//		case 2:
-//			cardScreen.setTC1(toolCard2);
-//			break;
-//		case 3:
-//			cardScreen.setTC1(toolCard3);
-//			break;
-//		case 4:
-//			cardScreen.setTC1(toolCard4);
-//			break;
-//		case 5:
-//			cardScreen.setTC1(toolCard5);
-//			break;
-//		case 6:
-//			cardScreen.setTC1(toolCard6);
-//			break;
-//		case 7:
-//			cardScreen.setTC1(toolCard7);
-//			break;
-//		case 8:
-//			cardScreen.setTC1(toolCard8);
-//			break;
-//		case 9:
-//			cardScreen.setTC1(toolCard9);
-//			break;
-//		case 10:
-//			cardScreen.setTC1(toolCard10);
-//			break;
-//		case 11:
-//			cardScreen.setTC1(toolCard11);
-//			break;
-//		case 12:
-//			cardScreen.setTC1(toolCard12);
-//			break;
-//
-//		}
+		switch (TC1) {
+		case 1:
+			cardScreen.setTC1(toolCard1);
+			break;
+		case 2:
+			cardScreen.setTC1(toolCard2);
+			break;
+		case 3:
+			cardScreen.setTC1(toolCard3);
+			break;
+		case 4:
+			cardScreen.setTC1(toolCard4);
+			break;
+		case 5:
+			cardScreen.setTC1(toolCard5);
+			break;
+		case 6:
+			cardScreen.setTC1(toolCard6);
+			break;
+		case 7:
+			cardScreen.setTC1(toolCard7);
+			break;
+		case 8:
+			cardScreen.setTC1(toolCard8);
+			break;
+		case 9:
+			cardScreen.setTC1(toolCard9);
+			break;
+		case 10:
+			cardScreen.setTC1(toolCard10);
+			break;
+		case 11:
+			cardScreen.setTC1(toolCard11);
+			break;
+		case 12:
+			cardScreen.setTC1(toolCard12);
+			break;
+
+		}
 
 		switch (TC2) {
 		case 1:
