@@ -2,6 +2,7 @@ package controller;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 import javafx.geometry.Insets;
@@ -51,20 +52,21 @@ public class WindowController {
 	ArrayList<Integer> numbers = new ArrayList<>();
 	Random r = new Random();
 
-	boolean cheatMode = false;
+	boolean cheatAllPossible = false;
+	boolean cheatBestChoice = false;
 
 	private final DataFormat diceFormat = new DataFormat("MyDice");
 
 	private DiceScreen draggingDice;
 
-	private boolean diceCanBeMoved = false;
+	private boolean diceCanBeMoved = true;
 	private boolean ignoreEyes = false;
 	private boolean ignoreColor = false;
 
 	public WindowController(GUI gui, DatabaseController databaseController) {
 
 		this.gui = gui;
-		
+
 		this.databaseController = databaseController;
 
 		windowPattern1Model = new WindowPattern(databaseController.getWindowPatternQuerie());
@@ -84,16 +86,14 @@ public class WindowController {
 		createGrayWindowPattern(2, window2, windowPattern2Model);
 		createGrayWindowPattern(3, window3, windowPattern3Model);
 		createGrayWindowPattern(4, window4, windowPattern4Model);
-		
-		
 
 		createRandomWindow(windowPattern1Model);
 		createRandomWindow(windowPattern2Model);
 		createRandomWindow(windowPattern3Model);
 		createRandomWindow(windowPattern4Model);
 		// setStandardWindowPatern(windowPattern1Model);
-		
-		//createTimer();
+
+		// createTimer();
 	}
 
 	public void addColorsField() {
@@ -277,8 +277,10 @@ public class WindowController {
 			// check if you have a dice and you want to place it on your own board
 			if (db.hasContent(diceFormat) && draggingDice != null && pane.getParent() == window1) {
 				e.acceptTransferModes(TransferMode.MOVE);
-				if (cheatMode == true) {
+				if (cheatAllPossible == true && cheatBestChoice == false) {
 					whichPlacementIsPossible(draggingDice.getDiceModel());
+				} else if (cheatAllPossible == false && cheatBestChoice == true) {
+					bestPossiblePlace(draggingDice.getDiceModel());
 				}
 			}
 		});
@@ -299,7 +301,7 @@ public class WindowController {
 
 				if (DC.getDiceOnTableModel().isDiceOnTable(draggingDice.getDiceModel()) == true && ignoreEyes == false
 						&& ignoreColor == false) {
-					((Pane) draggingDice.getParent()).getChildren().remove(draggingDice);
+					//((Pane) draggingDice.getParent()).getChildren().remove(draggingDice);
 					DC.getDiceOnTableModel().removeDiceFromTable(draggingDice.getDiceModel());
 
 					pane.getFieldModel().addDice(draggingDice.getDiceModel());
@@ -310,7 +312,7 @@ public class WindowController {
 					draggingDice = null;
 					calculatePoints();
 				} else if (windowPattern1Model.diceOnWindow(draggingDice.getDiceModel())) {
-					((Pane) draggingDice.getParent()).getChildren().remove(draggingDice);
+					//((Pane) draggingDice.getParent()).getChildren().remove(draggingDice);
 					windowPattern1Model.removeDiceFromWindowPattern(draggingDice.getDiceModel());
 
 					pane.getFieldModel().addDice(draggingDice.getDiceModel());
@@ -551,7 +553,7 @@ public class WindowController {
 								|| window1.getWindowPatternModel().getFieldOfWindow(column, row)
 										.getColor() == Color.LIGHTGRAY
 								|| ignoreColor == true)
-						 && (dice.getMoved() == false || diceCanBeMoved == true)
+						&& (dice.getMoved() == false || diceCanBeMoved == true)
 						&& window1.getWindowPatternModel().getFieldOfWindow(column, row).hasDice() == false
 						&& meetsNextToDiceRequirements(window1.getWindowPatternModel().getFieldOfWindow(column, row),
 								dice) == true
@@ -571,6 +573,140 @@ public class WindowController {
 
 	}
 
+	public void bestPossiblePlace(Dice dice) {
+		ArrayList<Field> allFields = new ArrayList<>();
+		int highestPoints = 0;
+		ArrayList<Field> allBestFields = new ArrayList<>();
+		for (int row = 1; row < 5; row++) {
+			for (int column = 0; column < 5; column++) {
+				if ((dice.getEyes() == window1.getWindowPatternModel().getFieldOfWindow(column, row).getEyes()
+						|| window1.getWindowPatternModel().getFieldOfWindow(column, row).getEyes() == 0
+						|| ignoreEyes == true)
+						&& (dice.getColor() == window1.getWindowPatternModel().getFieldOfWindow(column, row).getColor()
+								|| window1.getWindowPatternModel().getFieldOfWindow(column, row)
+										.getColor() == Color.LIGHTGRAY
+								|| ignoreColor == true)
+						&& (dice.getMoved() == false || diceCanBeMoved == true)
+						&& window1.getWindowPatternModel().getFieldOfWindow(column, row).hasDice() == false
+						&& meetsNextToDiceRequirements(window1.getWindowPatternModel().getFieldOfWindow(column, row),
+								dice) == true
+						&& isDiceNextToAnotherDice(window1.getWindowPatternModel().getFieldOfWindow(column, row),
+								dice) == true) {
+
+					if ((windowPattern1Model.diceOnWindow(dice) == true
+							&& (ignoreEyes == false || ignoreColor == false))
+							|| (DC.getDiceOnTableModel().isDiceOnTable(draggingDice.getDiceModel()) == true)
+									&& ignoreEyes == false && ignoreColor == false) {
+						allFields.add(windowPattern1Model.getFieldOfWindow(column, row));
+					}
+
+				}
+			}
+		}
+
+		try {
+			if (allFields.size() != 0) {
+				for (int i = 0; i < allFields.size(); i++) {
+					int column = getColumnAndRowOfField(allFields.get(i))[0];
+					int row = getColumnAndRowOfField(allFields.get(i))[1];
+					int points = 0;
+					// top
+					try {
+						if ((windowPattern1Model.getFieldOfWindow(column, row - 1).getColor() != dice
+								.getColor()
+								|| windowPattern1Model.getFieldOfWindow(column, row - 1).getColor() == Color.LIGHTGRAY)
+								&& (windowPattern1Model.getFieldOfWindow(column, row - 1).getEyes() != dice
+										.getEyes()
+										|| windowPattern1Model.getFieldOfWindow(column, row - 1).getEyes() == 0)) {
+							points++;
+						}
+						else {
+							points = points - 2;
+						}
+					} catch (Exception e) {
+						// TODO: handle exception
+					}
+
+					// middle-left
+					try {
+						if ((windowPattern1Model.getFieldOfWindow(column - 1, row).getColor() != dice
+								.getColor()
+								|| windowPattern1Model.getFieldOfWindow(column - 1, row).getColor() == Color.LIGHTGRAY)
+								&& (windowPattern1Model.getFieldOfWindow(column - 1, row).getEyes() != dice
+										.getEyes()
+										|| windowPattern1Model.getFieldOfWindow(column - 1, row).getEyes() == 0)) {
+							points++;
+						}
+						else {
+							points = points - 2;
+						}
+					} catch (Exception e) {
+						// TODO: handle exception
+					}
+
+					// middle-right
+					try {
+						if ((windowPattern1Model.getFieldOfWindow(column + 1, row).getColor() != dice
+								.getColor()
+								|| windowPattern1Model.getFieldOfWindow(column + 1, row).getColor() == Color.LIGHTGRAY)
+								&& (windowPattern1Model.getFieldOfWindow(column + 1, row).getEyes() != dice
+										.getEyes()
+										|| windowPattern1Model.getFieldOfWindow(column + 1, row).getEyes() == 0)) {
+							points++;
+						}
+						else {
+							points = points - 2;
+						}
+					} catch (Exception e) {
+						// TODO: handle exception
+					}
+
+					// bottom
+					try {
+
+						if ((windowPattern1Model.getFieldOfWindow(column, row + 1).getColor() != dice
+								.getColor()
+								|| windowPattern1Model.getFieldOfWindow(column, row + 1).getColor() == Color.LIGHTGRAY)
+								&& (windowPattern1Model.getFieldOfWindow(column, row + 1).getEyes() != dice
+										.getEyes()
+										|| windowPattern1Model.getFieldOfWindow(column, row + 1).getEyes() == 0)) {
+							points++;
+						}
+						else {
+							points = points - 2;
+						}
+
+					} catch (Exception e) {
+						// TODO: handle exception
+					}
+					
+					if(allFields.get(i).getColor() != Color.LIGHTGRAY || allFields.get(i).getEyes() != 0) {
+						points++;
+					}
+
+					if (allBestFields != null) {
+						if (points == highestPoints) {
+							allBestFields.add(allFields.get(i));
+						} else if (points > highestPoints) {
+							allBestFields.clear();
+							allBestFields.add(allFields.get(i));
+							highestPoints = points;
+						}
+					} else {
+						allBestFields.add(allFields.get(i));
+						highestPoints = points;
+					}
+				}
+
+				for (int j = 0; j < allBestFields.size(); j++) {
+					window1.setCheat(allBestFields.get(j).getColumn(), allBestFields.get(j).getRow());
+				}
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+
 	public void makeEveryBorderBlack() {
 		for (int row = 1; row < 5; row++) {
 			for (int column = 0; column < 5; column++) {
@@ -580,12 +716,20 @@ public class WindowController {
 		}
 	}
 
-	public boolean getCheat() {
-		return cheatMode;
+	public boolean getCheatAllPossible() {
+		return cheatAllPossible;
 	}
 
-	public void setCheatMode(boolean b) {
-		cheatMode = b;
+	public void setCheatAllPossible(boolean b) {
+		cheatAllPossible = b;
+	}
+
+	public boolean getCheatBestChoice() {
+		return cheatBestChoice;
+	}
+
+	public void setCheatBestChoice(boolean b) {
+		cheatBestChoice = b;
 	}
 
 	public void setGameController(GameController GC) {
@@ -1341,7 +1485,7 @@ public class WindowController {
 		return null;
 
 	}
-	
+
 	public void createTimer() {
 		timer = new AnimationTimerEXT(5000) {
 			@Override
