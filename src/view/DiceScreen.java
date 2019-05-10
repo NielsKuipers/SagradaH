@@ -18,7 +18,7 @@ import model.Dice;
 
 public class DiceScreen extends StackPane {
 
-	Dice diceModel;
+	private Dice diceModel;
 
 	public DiceScreen(Dice diceModel) {
 

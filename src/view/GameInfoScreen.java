@@ -17,17 +17,16 @@ import javafx.scene.text.Font;
 import main.GUI;
 
 public class GameInfoScreen extends VBox{
-	Label l;
-	GameController GC;
-	Button cheat;
+	private Label l;
+	private GameController GC;
+
+	private RadioButton noCheat;
+	private RadioButton cheatAllPossible;
+	private RadioButton cheatBestChoice;
 	
-	RadioButton noCheat;
-	RadioButton cheatAllPossible;
-	RadioButton cheatBestChoice;
+	private ToggleGroup cheatModus;
 	
-	ToggleGroup cheatModus;
-	
-	GUI gui;
+	private GUI gui;
 	
 	public GameInfoScreen(GUI gui, String info) {
 		this.gui = gui;
@@ -63,7 +62,7 @@ public class GameInfoScreen extends VBox{
 		l.setText(Integer.toString(value));
 	}
 	
-	public void handleCheat(boolean allPossible, boolean bestChoice) {
+	private void handleCheat(boolean allPossible, boolean bestChoice) {
 		gui.handleCheat(allPossible, bestChoice);
 		
 	}

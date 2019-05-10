@@ -24,11 +24,11 @@ import model.Dice;
 import model.Field;
 
 public class FieldScreen extends StackPane {
-	Rectangle rec;
+	private Rectangle rec;
 
-	Field fieldModel;
+	private Field fieldModel;
 
-	WindowController WC;
+	private WindowController WC;
 
 	public FieldScreen(Field fieldModel, WindowController WC) {
 		this.fieldModel = fieldModel;

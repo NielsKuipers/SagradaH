@@ -2,8 +2,8 @@ package model;
 
 public class Player {
 
-	String playerName;
-	WindowPattern windowPattern;
+	private String playerName;
+	private WindowPattern windowPattern;
 	
 	public WindowPattern getWindowPatternPlayer() {
 		return windowPattern;

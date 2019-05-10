@@ -14,7 +14,7 @@ import model.Dice;
 import model.DiceOnTable;
 
 public class DiceOnTableScreen extends GridPane {
-	DiceOnTable diceOnTableModel;
+	private DiceOnTable diceOnTableModel;
 	private Button createNewDices;
 	private GUI gui;
 
@@ -51,12 +51,12 @@ public class DiceOnTableScreen extends GridPane {
 					int column = 0;
 					int row = 0;
 					boolean volgendeColumn = false;
-					for (int i = 0; i < newValue.size(); i++) {
-						int eyes = newValue.get(i).getEyes();
-						DiceScreen diceScreen = new DiceScreen(newValue.get(i));
+					for (Dice newDice : newValue) {
+						int eyes = newDice.getEyes();
+						DiceScreen diceScreen = new DiceScreen(newDice);
 						WC.dragButton(diceScreen);
-						newValue.get(i).setEyes(0);
-						newValue.get(i).setEyes(eyes);
+						newDice.setEyes(0);
+						newDice.setEyes(eyes);
 						add(diceScreen, column, row);
 
 						if (!volgendeColumn) {
@@ -71,7 +71,7 @@ public class DiceOnTableScreen extends GridPane {
 				}
 
 			} catch (Exception e) {
-				System.out.println(e);
+
 			}
 		}
 	}
