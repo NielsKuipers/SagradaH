@@ -23,7 +23,7 @@ public class GUI extends Application {
 		DatabaseController databaseController = new DatabaseController();
 		WindowController windowController = new WindowController(this, databaseController);
 		diceController = new DiceController(this, windowController);
-		ChatController chatController = new ChatController();
+		ChatController chatController = new ChatController(databaseController);
 		gameController = new GameController(this, windowController, diceController, chatController);
 
 		

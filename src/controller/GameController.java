@@ -41,7 +41,7 @@ public class GameController extends Scene {
 		gameModel.getPlayer(3).givePlayerWindowPattern(WC.getWindow4().getWindowPatternModel());
 
 		gameScreen = new GameScreen();
-		
+
 		gameInfo = new GameInfoScreen(gui, "GameInfo");
 		chat = CC.getChatScreen();
 		kaarten = new GameInfoScreen(gui,"Kaarten");
