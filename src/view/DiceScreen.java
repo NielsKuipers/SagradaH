@@ -18,7 +18,7 @@ import model.Dice;
 
 public class DiceScreen extends StackPane {
 
-	Dice diceModel;
+	private Dice diceModel;
 
 	public DiceScreen(Dice diceModel) {
 
@@ -36,6 +36,7 @@ public class DiceScreen extends StackPane {
 	}
 
 	public void checkNumber(int value) {
+		getChildren().clear();
 		switch (value) {
 		case 1:
 			Circle cir = new Circle(4, Color.BLACK);

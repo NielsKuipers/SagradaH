@@ -36,8 +36,8 @@ public class GUI extends Application {
 		gameController.createGame(windowModel);
 	}
 	
-	public void handleCheat() {
-		gameController.handleCheatGame();
+	public void handleCheat(boolean allPossible, boolean bestChoice) {
+		gameController.handleCheatGame(allPossible, bestChoice);
 	}
 	
 	public void makeDices() {
