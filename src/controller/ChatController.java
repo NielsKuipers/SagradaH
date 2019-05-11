@@ -8,8 +8,16 @@ public class ChatController {
     private ChatModel chatModel;
     private ChatScreen chatScreen;
 
-    public ChatController(GUI gui){
+    public ChatController(){
         chatModel = new ChatModel();
-        chatScreen = new ChatScreen();
+        chatScreen = new ChatScreen(this);
+    }
+
+    public void sendMessage(String input){
+        System.out.println(input);
+    }
+
+    public ChatScreen getChatScreen(){
+        return this.chatScreen;
     }
 }

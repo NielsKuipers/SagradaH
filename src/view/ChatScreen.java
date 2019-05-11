@@ -1,28 +1,35 @@
 package view;
 
-import javafx.geometry.Pos;
+import controller.ChatController;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 public class ChatScreen extends BorderPane {
-    private Button send;
-    private TextField input;
-    private HBox chat;
-    private HBox chatInput;
 
-    public ChatScreen(){
-        send = new Button("Send");
-        input = new TextField();
-        chat = new HBox();
+    private static final int fullSize = 1000;
+
+    public ChatScreen(ChatController controller){
+        Button send = new Button("Send");
+        TextField input = new TextField();
+        HBox chatInput = new HBox();
+        VBox chat = new VBox();
+        Label label = new Label("this is text haha");
 
         setMinSize(200, 200);
-        setPrefSize(1000, 1000);
+        setPrefSize(fullSize, fullSize);
+        send.setPrefSize(200, 20);
+        input.setPrefWidth(fullSize - 200);
 
-        chat.getChildren().addAll(input, send);
+        chatInput.getChildren().addAll(input, send);
+        chat.getChildren().addAll(label);
 
-        this.setBottom(chat);
-        this.setAlignment(chat, Pos.BOTTOM_CENTER);
+        this.setTop(chat);
+        this.setBottom(chatInput);
+
+        send.setOnMouseClicked(e -> controller.sendMessage(input.getText()));
     }
 }

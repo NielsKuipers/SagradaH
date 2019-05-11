@@ -1,23 +1,19 @@
 package controller;
 
-import java.sql.Connection;
-
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import main.GUI;
 import model.WindowPattern;
-import view.*;
+import view.ChatScreen;
+import view.GameInfoScreen;
+import view.GameScreen;
+import view.WindowPatternChooseScreen;
 
 public class GameController extends Scene {
 	private GameInfoScreen gameInfo;
 	private ChatScreen chat;
 	private GameInfoScreen kaarten;
-
 	private GameScreen gameScreen;
 
 	private WindowPatternChooseScreen windowChoooseScreen;
@@ -29,7 +25,7 @@ public class GameController extends Scene {
 	private GUI gui;
 	
 
-	public GameController(GUI gui, WindowController WC, DiceController DC) {
+	public GameController(GUI gui, WindowController WC, DiceController DC, ChatController CC) {
 		super(new Pane());
 		this.gui = gui;
 		this.WC = WC;
@@ -37,7 +33,7 @@ public class GameController extends Scene {
 
 		gameScreen = new GameScreen();
 		gameInfo = new GameInfoScreen(gui, "GameInfo", this);
-		chat = new ChatScreen();
+		chat = CC.getChatScreen();
 		kaarten = new GameInfoScreen(gui,"Kaarten", this);
 
 		gameInfo.setStyle("-fx-background-radius: 0 0 300 0;-fx-background-color: DEEPSKYBLUE; ");

@@ -25,8 +25,9 @@ public class GUI extends Application {
 	public void start(Stage stage) {
 		windowController = new WindowController(this);
 		diceController = new DiceController(this, windowController);
-		gameController = new GameController(this, windowController, diceController);
-		chatController = new ChatController(this);
+		chatController = new ChatController();
+		gameController = new GameController(this, windowController, diceController, chatController);
+
 		
 		stage.setScene(gameController);
 		stage.setFullScreen(true);
@@ -45,4 +46,5 @@ public class GUI extends Application {
 	public void makeDices() {
 		diceController.makeDices();
 	}
+
 }
