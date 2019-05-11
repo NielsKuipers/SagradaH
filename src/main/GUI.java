@@ -1,31 +1,29 @@
 package main;
 
+
 import controller.ChatController;
+import controller.DatabaseController;
 import controller.DiceController;
 import controller.GameController;
 import controller.WindowController;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import model.WindowPattern;
-import view.WindowPatternScreen;
 
 public class GUI extends Application {
-	WindowController windowController;
-	DiceController diceController;
-	GameController gameController;
-	private ChatController chatController;
-	
+	private DiceController diceController;
+	private GameController gameController;
+
 
 	public void startup(String[] args) {
 		launch(args);
-		
-		
 	}
 	
 	public void start(Stage stage) {
-		windowController = new WindowController(this);
+		DatabaseController databaseController = new DatabaseController();
+		WindowController windowController = new WindowController(this, databaseController);
 		diceController = new DiceController(this, windowController);
-		chatController = new ChatController();
+		ChatController chatController = new ChatController();
 		gameController = new GameController(this, windowController, diceController, chatController);
 
 		
@@ -39,8 +37,8 @@ public class GUI extends Application {
 		gameController.createGame(windowModel);
 	}
 	
-	public void handleCheat() {
-		gameController.handleCheatGame();
+	public void handleCheat(boolean allPossible, boolean bestChoice) {
+		gameController.handleCheatGame(allPossible, bestChoice);
 	}
 	
 	public void makeDices() {

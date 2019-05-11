@@ -2,43 +2,47 @@ package view;
 
 import java.util.ArrayList;
 
+import controller.WindowController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import model.Dice;
 import model.Field;
 
-
 public class FieldScreen extends StackPane {
-	Rectangle rec;
+	private Rectangle rec;
 
-	DiceScreen diceScreen;
-	ArrayList<Circle> eyes = new ArrayList<>();
+	private Field fieldModel;
 
-	Field fieldModel;
+	private WindowController WC;
 
-	public FieldScreen(Field fieldModel) {
-
+	public FieldScreen(Field fieldModel, WindowController WC) {
 		this.fieldModel = fieldModel;
+		this.WC = WC;
 		setMinHeight(50);
 		setMinWidth(50);
 		setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, new BorderWidths(3))));
 		setPadding(new Insets(5));
 
 		backgroundProperty().bind(fieldModel.backgroundPropery());
-		MyEyesListener listener = new MyEyesListener();
-		this.fieldModel.eyesProperty().addListener(listener);
+		MyEyesListener eyeslistener = new MyEyesListener();
+		MyDiceListener dicelistener = new MyDiceListener();
+		this.fieldModel.eyesProperty().addListener(eyeslistener);
+		this.fieldModel.diceProperty().addListener(dicelistener);
 	}
 
 	public void checkNumber(int value) {
@@ -139,7 +143,6 @@ public class FieldScreen extends StackPane {
 		}
 	}
 
-
 	public void cheatBorder() {
 		setBorder(new Border(new BorderStroke(Color.ORANGE, BorderStrokeStyle.SOLID, null, new BorderWidths(3))));
 	}
@@ -153,10 +156,37 @@ public class FieldScreen extends StackPane {
 	}
 
 	private class MyEyesListener implements ChangeListener<Number> {
-
 		@Override
 		public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
 			checkNumber((int) newValue);
+		}
+	}
+
+	private class MyDiceListener implements ChangeListener<Dice> {
+
+		@Override
+		public void changed(ObservableValue<? extends Dice> observable, Dice oldValue, Dice newValue) {
+			// TODO Auto-generated method stub
+			try {
+
+				if (newValue != null) {
+					int eyes = newValue.getEyes();
+					DiceScreen diceScreen = new DiceScreen(newValue);
+					WC.dragButton(diceScreen);
+					diceScreen.makeBorderWhite();
+					newValue.setEyes(0);
+					newValue.setEyes(eyes);
+					getChildren().add(diceScreen);
+				} else {
+					for (Node node : getChildren()) {
+						if (node instanceof DiceScreen) {
+							getChildren().remove(node);
+						}
+					}
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
 		}
 	}
 

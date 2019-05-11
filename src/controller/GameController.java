@@ -4,6 +4,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import main.GUI;
+import model.Game;
 import model.WindowPattern;
 import view.ChatScreen;
 import view.GameInfoScreen;
@@ -18,6 +19,8 @@ public class GameController extends Scene {
 
 	private WindowPatternChooseScreen windowChoooseScreen;
 	
+	private Game gameModel;
+	
 
 	private WindowController WC;
 	private DiceController DC;
@@ -30,11 +33,18 @@ public class GameController extends Scene {
 		this.gui = gui;
 		this.WC = WC;
 		this.DC = DC;
+		
+		gameModel = new Game();
+		gameModel.getPlayer(0).givePlayerWindowPattern(WC.getWindow1().getWindowPatternModel());
+		gameModel.getPlayer(1).givePlayerWindowPattern(WC.getWindow2().getWindowPatternModel());
+		gameModel.getPlayer(2).givePlayerWindowPattern(WC.getWindow3().getWindowPatternModel());
+		gameModel.getPlayer(3).givePlayerWindowPattern(WC.getWindow4().getWindowPatternModel());
 
 		gameScreen = new GameScreen();
-		gameInfo = new GameInfoScreen(gui, "GameInfo", this);
+		
+		gameInfo = new GameInfoScreen(gui, "GameInfo");
 		chat = CC.getChatScreen();
-		kaarten = new GameInfoScreen(gui,"Kaarten", this);
+		kaarten = new GameInfoScreen(gui,"Kaarten");
 
 		gameInfo.setStyle("-fx-background-radius: 0 0 300 0;-fx-background-color: DEEPSKYBLUE; ");
 		chat.setStyle("-fx-background-radius: 0 300 0 0;-fx-background-color: DEEPSKYBLUE;");
@@ -80,13 +90,9 @@ public class GameController extends Scene {
 		setRoot(gameScreen);
 	}
 	
-	public void handleCheatGame() {
-		if(WC.getCheat() == true) {
-			WC.setCheatMode(false);
-		}
-		else {
-			WC.setCheatMode(true);
-		}
+	public void handleCheatGame(boolean allPossible, boolean bestChoice) {
+		WC.setCheatAllPossible(allPossible);
+		WC.setCheatBestChoice(bestChoice);
 	}
 	
 	public void setPoints(int value) {
