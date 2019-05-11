@@ -45,7 +45,7 @@ public class StandardQuerie {
             PreparedStatement stmt = mConn.prepareStatement(query + where);
 
             //split the values and use them in the statement
-            String[] vals = values.split(" ");
+            String[] vals = values.split("\0");
             int i=1;
             for(String val : vals){
                 if(checkInt(val)){
@@ -85,7 +85,7 @@ public class StandardQuerie {
     }
 
     private void handleWhere(String whereVal, PreparedStatement stmt, int i) throws SQLException {
-        String[] whereVals = whereVal.split(" ");
+        String[] whereVals = whereVal.split("\0");
         for(String val : whereVals){
             if(checkInt(val)){
                 int x = Integer.parseInt(val);
