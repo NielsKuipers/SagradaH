@@ -87,13 +87,14 @@ public class WindowController {
 		
 		
 
-		createRandomWindow(windowPattern1Model);
-		createRandomWindow(windowPattern2Model);
-		createRandomWindow(windowPattern3Model);
-		createRandomWindow(windowPattern4Model);
+//		createRandomWindow(windowPattern1Model);
+//		createRandomWindow(windowPattern2Model);
+//		createRandomWindow(windowPattern3Model);
+//		createRandomWindow(windowPattern4Model);
+		
 		// setStandardWindowPatern(windowPattern1Model);
 		
-		//createTimer();
+		createTimer();
 	}
 
 	public void addColorsField() {

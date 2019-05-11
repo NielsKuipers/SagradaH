@@ -1,8 +1,11 @@
 package main;
 
+import controller.SetupScreenController;
 import controller.DatabaseController;
 import controller.DiceController;
+import controller.EndScreenController;
 import controller.GameController;
+import controller.RoundScreenController;
 import controller.WindowController;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -26,7 +29,12 @@ public class GUI extends Application {
 		diceController = new DiceController(this, windowController);
 		gameController = new GameController(this, windowController, diceController);
 		
-		stage.setScene(gameController);
+		 SetupScreenController SetupController = new SetupScreenController(stage);
+		// EndScreenController EndController = new EndScreenController(stage);
+		// RoundScreenController RoundController = new RoundScreenController(stage);
+		
+		//stage.setScene(gameController);
+		
 		stage.setFullScreen(true);
 		stage.show();
 		

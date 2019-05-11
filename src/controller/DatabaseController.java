@@ -24,6 +24,10 @@ public class DatabaseController {
         
     }
     
+    public StandardQuerie returnStandardQuerie() {
+    	return standardQuerie;
+    }
+    
     public WindowPatternQuerie getWindowPatternQuerie() {
     	return windowPatternQuerie;
     }
