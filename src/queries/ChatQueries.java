@@ -8,10 +8,17 @@ public class ChatQueries {
 
     public ChatQueries(StandardQueries standardQueries){ this.standardQueries = standardQueries; }
 
-    public ArrayList<ArrayList<Object>> getMessages(){
+    public ArrayList<ArrayList<Object>> getMessages(int gameID){
         return standardQueries.selectQuery("SELECT p.username, c.time, c.message FROM chatline c " +
-                                           "INNER JOIN player p on c.player_idplayer = p.idplayer" +
-                                           "ORDER BY time ASC");
+                                           "INNER JOIN player p on c.player_idplayer = p.idplayer ",
+                                    "WHERE p.game_idgame=? ", ""+ gameID +"",
+                                   "ORDER BY time ASC");
+    }
+
+    public ArrayList<ArrayList<Object>> getNewMessages(String latestTime){
+        return standardQueries.selectQuery("SELECT p.username, c.time, c.message FROM chatline c " +
+                                           "INNER JOIN player p on c.player_idplayer = p.idplayer ", " WHERE time > ?",
+                                  "" + latestTime + "", "ORDER BY time ASC");
     }
 
     public void sendMessage(String message){
@@ -19,7 +26,3 @@ public class ChatQueries {
                                     playerID + "\0" + message);
     }
 }
-
-//        return standardQueries.selectQuery("SELECT c.time, c.message, p.username " +
-//                "FROM chatline c INNER JOIN player p ON p.idplayer = c.player_idplayer",
-//                " WHERE p.idplayer =?", ""+ playerID +"");

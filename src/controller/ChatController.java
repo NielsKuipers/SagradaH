@@ -1,29 +1,58 @@
 package controller;
-import main.GUI;
+
 import model.ChatModel;
-import queries.ChatQueries;
+import timer.AnimationTimerEXT;
 import view.ChatScreen;
 
-public class ChatController {
+import java.util.ArrayList;
 
-    private ChatModel chatModel;
+public class ChatController {
     private ChatScreen chatScreen;
-    private DatabaseController DC;
-    private ChatQueries queries;
+    private ChatModel chatModel;
+    private ArrayList<ArrayList<Object>> messages = new ArrayList<>();
+    private String latestTime = "";
 
     public ChatController(DatabaseController databaseController){
-        chatModel = new ChatModel();
+        chatModel = new ChatModel(databaseController);
         chatScreen = new ChatScreen(this);
-        this.DC = databaseController;
-        this.queries = DC.getChatQueries();
+        getMessages();
+        createTimer();
     }
 
-    public void sendMessage(String input){
-        queries.sendMessage(input);
+    public void sendMessage(String input){chatModel.sendMessage(input);}
+
+    private void getMessages(){
+        int gameID = 2;
+        this.messages = chatModel.getMessages(gameID);
+        chatScreen.displayMessages(messages);
     }
 
-//    databaseController.getChatQueries().getMessages();
-    public ChatScreen getChatScreen(){
+    private void getNewMessages(){
+        this.messages = chatModel.getNewMessages(getLatestTime());
+        chatScreen.displayMessages(messages);
+    }
+
+    private String getLatestTime(){
+        if(!messages.isEmpty()) {
+            latestTime = messages.get(messages.size() - 1).get(1).toString();
+            return latestTime;
+        }
+        else{
+            return latestTime;
+        }
+    }
+
+    ChatScreen getChatScreen(){
         return this.chatScreen;
+    }
+
+    private void createTimer(){
+        AnimationTimerEXT timer = new AnimationTimerEXT(5000) {
+            @Override
+            public void doAction() {
+                getNewMessages();
+            }
+        };
+        timer.start();
     }
 }
