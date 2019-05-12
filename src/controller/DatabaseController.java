@@ -1,7 +1,9 @@
 package controller;
 
 import model.DatabaseModel;
-import queries.StandardQuerie;
+import queries.GameQuery;
+import queries.PlayerQuery;
+import queries.StandardQueries;
 import queries.WindowPatternQuerie;
 
 import java.sql.*;
@@ -10,23 +12,37 @@ public class DatabaseController {
 
     private Connection mConn;
     
-    private StandardQuerie standardQuerie;
+    private StandardQueries standardQueries;
     
+    private GameQuery gameQuery;
+    private PlayerQuery playerQuery;
     private WindowPatternQuerie windowPatternQuerie;
     //establish connection with database
     public DatabaseController(){
         DatabaseModel sagradaBaseConn = new DatabaseModel();
         this.mConn = sagradaBaseConn.connectDB();
        
-        standardQuerie = new StandardQuerie(mConn);
+        standardQueries = new StandardQueries(mConn);
         
-        windowPatternQuerie = new WindowPatternQuerie(standardQuerie);
+        gameQuery = new GameQuery(standardQueries);
+        playerQuery = new PlayerQuery(standardQueries);
+        windowPatternQuerie = new WindowPatternQuerie(standardQueries);
         
     }
+    
+    public GameQuery getGameQuery() {
+    	return gameQuery;
+    }
+    
+    public PlayerQuery getPlayerQuery() {
+    	return playerQuery;
+    }
+    
     
     public WindowPatternQuerie getWindowPatternQuerie() {
     	return windowPatternQuerie;
     }
+    
 
     
 

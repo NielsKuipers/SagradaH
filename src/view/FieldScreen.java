@@ -24,17 +24,17 @@ import model.Dice;
 import model.Field;
 
 public class FieldScreen extends StackPane {
-	private Rectangle rec;
+	Rectangle rec;
 
-	private Field fieldModel;
+	Field fieldModel;
 
-	private WindowController WC;
+	WindowController WC;
 
 	public FieldScreen(Field fieldModel, WindowController WC) {
 		this.fieldModel = fieldModel;
 		this.WC = WC;
-		setMinHeight(50);
-		setMinWidth(50);
+		setMinSize(50, 50);
+		setMaxSize(50, 50);
 		setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, new BorderWidths(3))));
 		setPadding(new Insets(5));
 

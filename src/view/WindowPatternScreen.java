@@ -10,22 +10,24 @@ import javafx.scene.text.Font;
 import model.WindowPattern;
 
 public class WindowPatternScreen extends GridPane{
-	private Label name;
-	private Font font = new Font("Consolas", 18);
-	private Label difficulty;
-	private WindowPattern windowPatternModel;
+	Label name;
+	Font font = new Font("Consolas", 18);
+	Label difficulty;
+	WindowPattern windowPatternModel;
 	
 	public WindowPatternScreen(String name, WindowPattern windowPatternModel, String color) {
 		this.windowPatternModel = windowPatternModel;
 		this.name = new Label(name);
 		difficulty = new Label();
-		this.add(this.name, 2, 0, 5, 1);
+		this.add(this.name, 0, 0, 5, 1);
 		this.name.setFont(font);
 		setStyle("-fx-background-color: linear-gradient(to bottom, "+color+" 0%,#cccccc 100%);-fx-background-radius: 20 20 20 20;");
 		this.add(difficulty, 0, 5, 5, 1);
 		difficulty.setFont(font);
 		setHalignment(difficulty, HPos.CENTER);
+		setHalignment(this.name, HPos.CENTER);
 		difficulty.textProperty().bind(windowPatternModel.difficultyProperty());
+		this.name.textProperty().bind(windowPatternModel.playerNameProperty());
 		
 		setHgap(2); // horizontal gap in pixels
 		setVgap(2); // vertical gap in pixels

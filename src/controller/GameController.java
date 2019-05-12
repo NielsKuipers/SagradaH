@@ -11,6 +11,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import main.GUI;
 import model.Game;
+import model.Player;
 import model.WindowPattern;
 import view.GameInfoScreen;
 import view.GameScreen;
@@ -31,17 +32,25 @@ public class GameController extends Scene {
 
 	private WindowController WC;
 	private DiceController DC;
+	private DatabaseController databaseController;
 	
 	private GUI gui;
 	
 
-	public GameController(GUI gui, WindowController WC, DiceController DC) {
+	public GameController(GUI gui, DatabaseController databaseController, WindowController WC, DiceController DC) {
 		super(new Pane());
 		this.gui = gui;
+		this.databaseController = databaseController;
 		this.WC = WC;
 		this.DC = DC;
 		
-		gameModel = new Game();
+		gameModel = new Game(databaseController.getGameQuery());
+		
+		gameModel.addPlayer(new Player(databaseController.getPlayerQuery()));
+		gameModel.addPlayer(new Player(databaseController.getPlayerQuery()));
+		gameModel.addPlayer(new Player(databaseController.getPlayerQuery()));
+		gameModel.addPlayer(new Player(databaseController.getPlayerQuery()));
+		
 		gameModel.getPlayer(0).givePlayerWindowPattern(WC.getWindow1().getWindowPatternModel());
 		gameModel.getPlayer(1).givePlayerWindowPattern(WC.getWindow2().getWindowPatternModel());
 		gameModel.getPlayer(2).givePlayerWindowPattern(WC.getWindow3().getWindowPatternModel());
@@ -67,6 +76,8 @@ public class GameController extends Scene {
 		
 		WC.setGameController(this);
 		WC.setDiceController(DC);
+		
+		gameModel.selectPlayerIds();
 	}
 
 	public void createGame(WindowPattern windowModel) {

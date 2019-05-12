@@ -30,30 +30,30 @@ import view.FieldScreen;
 import view.WindowPatternScreen;
 
 public class WindowController {
-	private AnimationTimerEXT timer;
-	
-	private WindowPatternScreen window1;
-	private WindowPatternScreen window2;
-	private WindowPatternScreen window3;
-	private WindowPatternScreen window4;
+	AnimationTimerEXT timer;
 
-	private WindowPattern windowPattern1Model;
-	private WindowPattern windowPattern2Model;
-	private WindowPattern windowPattern3Model;
-	private WindowPattern windowPattern4Model;
+	WindowPatternScreen window1;
+	WindowPatternScreen window2;
+	WindowPatternScreen window3;
+	WindowPatternScreen window4;
 
-	private DatabaseController databaseController;
-	private GameController GC;
-	private DiceController DC;
+	WindowPattern windowPattern1Model;
+	WindowPattern windowPattern2Model;
+	WindowPattern windowPattern3Model;
+	WindowPattern windowPattern4Model;
 
-	private GUI gui;
+	DatabaseController databaseController;
+	GameController GC;
+	DiceController DC;
 
-	private ArrayList<Color> colorsField = new ArrayList<>();
-	private ArrayList<Integer> numbers = new ArrayList<>();
-	private Random r = new Random();
+	GUI gui;
 
-	private boolean cheatAllPossible = false;
-	private boolean cheatBestChoice = false;
+	ArrayList<Color> colorsField = new ArrayList<>();
+	ArrayList<Integer> numbers = new ArrayList<>();
+	Random r = new Random();
+
+	boolean cheatAllPossible = false;
+	boolean cheatBestChoice = false;
 
 	private final DataFormat diceFormat = new DataFormat("MyDice");
 
@@ -87,13 +87,13 @@ public class WindowController {
 		createGrayWindowPattern(3, window3, windowPattern3Model);
 		createGrayWindowPattern(4, window4, windowPattern4Model);
 
-		createRandomWindow(windowPattern1Model);
-		createRandomWindow(windowPattern2Model);
-		createRandomWindow(windowPattern3Model);
-		createRandomWindow(windowPattern4Model);
-		// setStandardWindowPatern(windowPattern1Model);
+		//createRandomWindow(windowPattern1Model);
+		//createRandomWindow(windowPattern2Model);
+		//createRandomWindow(windowPattern3Model);
+		//createRandomWindow(windowPattern4Model);
+		//setStandardWindowPatern(windowPattern1Model);
 
-		// createTimer();
+		//createTimer();
 	}
 
 	public void addColorsField() {
@@ -1454,8 +1454,9 @@ public class WindowController {
 			@Override
 			public void doAction() {
 				// TODO Auto-generated method stub
-				windowPattern1Model.updateAllFields();
-				windowPattern1Model.updateAllDicesOnField();
+				windowPattern1Model.selectAllFields();
+				windowPattern1Model.selectAllDicesOnField();
+				windowPattern1Model.selectDifficulty();
 			}
 		};
 		timer.start();

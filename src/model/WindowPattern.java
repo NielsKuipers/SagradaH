@@ -9,9 +9,10 @@ import queries.WindowPatternQuerie;
 
 public class WindowPattern {
 
-	private int id = 1;
+	int idWindow = 1;
 	private ArrayList<Field> fields = new ArrayList<>();
 	private StringProperty difficulty = new SimpleStringProperty(this, "difficulty", "empty");
+	private StringProperty playerName = new SimpleStringProperty(this, "playerName", "empty");
 
 	private WindowPatternQuerie windowPatternQuerie;
 
@@ -42,6 +43,14 @@ public class WindowPattern {
 	public final StringProperty difficultyProperty() {
 		return difficulty;
 	}
+	
+	public void setPlayerName(String name) {
+		playerName.set(name);
+	}
+
+	public final StringProperty playerNameProperty() {
+		return playerName;
+	}
 
 	public void removeDiceFromWindowPattern(Dice dice) {
 		for (Field field : fields) {
@@ -62,18 +71,39 @@ public class WindowPattern {
 
 	
 	//mysql related
-	public void updateAllFields() {
-		ArrayList<ArrayList<Object>> result = windowPatternQuerie.getAllFields(id);
+	public void selectAllFields() {
+		ArrayList<ArrayList<Object>> result = windowPatternQuerie.getAllFields(idWindow);
 		for (int row = 1; row < 5; row++) {
 			for (int column = 0; column < 5; column++) {
 				for (int i = 0; i < result.size(); i++) {
 					try {
 						if (row == Integer.valueOf(result.get(i).get(3).toString()) && column == Integer.valueOf(result.get(i).get(2).toString()) - 1) {
-							getFieldOfWindow(column, row).setColorAndEyes(makeColorFromQuerie(result.get(i).get(0).toString()),Integer.valueOf(result.get(i).get(1).toString()));
-							
+							getFieldOfWindow(column, row).setColorAndEyes(makeColorFromQuerie(result.get(i).get(0)),makeEyeFromQuerie(result.get(i).get(1)));
 						}
 					} catch (Exception e) {
-						// TODO: handle exception
+						e.printStackTrace();
+					}
+
+				}
+
+			}
+		}
+		
+	}
+	
+	public void selectAllDicesOnField() {
+		ArrayList<ArrayList<Object>> result = windowPatternQuerie.getAllDicesOnField(3);
+		for (int row = 1; row < 5; row++) {
+			for (int column = 0; column < 5; column++) {
+				for (int i = 0; i < result.size(); i++) {
+					try {
+						if (row == Integer.valueOf(result.get(i).get(3).toString()) && column == Integer.valueOf(result.get(i).get(2).toString()) - 1) {
+							int eyes = Integer.valueOf(result.get(i).get(1).toString());
+							getFieldOfWindow(column, row).addDice(new Dice(makeEyeFromQuerie(result.get(i).get(1)), makeColorFromQuerie(result.get(i).get(0))));
+							getFieldOfWindow(column, row).getDice().setEyes(eyes);
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
 					}
 
 				}
@@ -82,28 +112,13 @@ public class WindowPattern {
 		}
 	}
 	
-	public void updateAllDicesOnField() {
-		ArrayList<ArrayList<Object>> result = windowPatternQuerie.getAllDicesOnField(id);
-		for (int row = 1; row < 5; row++) {
-			for (int column = 0; column < 5; column++) {
-				for (int i = 0; i < result.size(); i++) {
-					try {
-						if (row == Integer.valueOf(result.get(i).get(3).toString()) && column == Integer.valueOf(result.get(i).get(2).toString()) - 1) {
-							int eyes = Integer.valueOf(result.get(i).get(1).toString());
-							getFieldOfWindow(column, row).addDice(new Dice(Integer.valueOf(result.get(i).get(1).toString()), makeColorFromQuerie(result.get(i).get(0).toString())));
-							getFieldOfWindow(column, row).getDice().setEyes(eyes);
-						}
-					} catch (Exception e) {
-						// TODO: handle exception
-					}
-
-				}
-
-			}
-		}
+	public void selectDifficulty() {
+		ArrayList<ArrayList<Object>> result = windowPatternQuerie.getDifficulty(idWindow);
+		difficulty.set(String.valueOf("Moeilijkheidsgraad: " + result.get(0).get(0)));
 	}
 
-	public Color makeColorFromQuerie(String color) {
+	public Color makeColorFromQuerie(Object c) {
+		String color = String.valueOf(c);
 		if (color.equals("geel")) {
 			return Color.YELLOW;
 		} else if (color.equals("groen")) {
@@ -118,5 +133,21 @@ public class WindowPattern {
 			return Color.LIGHTGRAY;
 		}
 		return Color.LIGHTGRAY;
+	}
+	
+	public int makeEyeFromQuerie(Object eye) {
+		
+		if (eye == null) {
+			return 0;
+		}
+		return Integer.valueOf(String.valueOf(eye));
+	}
+	
+	public void setId(int id) {
+		idWindow = id;
+	}
+	
+	public int getId() {
+		return idWindow;
 	}
 }

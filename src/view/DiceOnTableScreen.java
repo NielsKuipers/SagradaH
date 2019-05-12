@@ -14,7 +14,7 @@ import model.Dice;
 import model.DiceOnTable;
 
 public class DiceOnTableScreen extends GridPane {
-	private DiceOnTable diceOnTableModel;
+	DiceOnTable diceOnTableModel;
 	private Button createNewDices;
 	private GUI gui;
 
