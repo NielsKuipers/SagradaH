@@ -9,7 +9,7 @@ import queries.WindowPatternQuerie;
 
 public class WindowPattern {
 
-	int idWindow = 1;
+	private int idWindow = 1;
 	private ArrayList<Field> fields = new ArrayList<>();
 	private StringProperty difficulty = new SimpleStringProperty(this, "difficulty", "empty");
 	private StringProperty playerName = new SimpleStringProperty(this, "playerName", "empty");

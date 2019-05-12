@@ -30,30 +30,30 @@ import view.FieldScreen;
 import view.WindowPatternScreen;
 
 public class WindowController {
-	AnimationTimerEXT timer;
+	private AnimationTimerEXT timer;
 
-	WindowPatternScreen window1;
-	WindowPatternScreen window2;
-	WindowPatternScreen window3;
-	WindowPatternScreen window4;
+	private WindowPatternScreen window1;
+	private WindowPatternScreen window2;
+	private WindowPatternScreen window3;
+	private WindowPatternScreen window4;
 
-	WindowPattern windowPattern1Model;
-	WindowPattern windowPattern2Model;
-	WindowPattern windowPattern3Model;
-	WindowPattern windowPattern4Model;
+	private WindowPattern windowPattern1Model;
+	private WindowPattern windowPattern2Model;
+	private WindowPattern windowPattern3Model;
+	private WindowPattern windowPattern4Model;
 
-	DatabaseController databaseController;
-	GameController GC;
-	DiceController DC;
+	private DatabaseController databaseController;
+	private GameController GC;
+	private DiceController DC;
 
-	GUI gui;
+	private GUI gui;
 
-	ArrayList<Color> colorsField = new ArrayList<>();
-	ArrayList<Integer> numbers = new ArrayList<>();
-	Random r = new Random();
+	private ArrayList<Color> colorsField = new ArrayList<>();
+	private ArrayList<Integer> numbers = new ArrayList<>();
+	private Random r = new Random();
 
-	boolean cheatAllPossible = false;
-	boolean cheatBestChoice = false;
+	private boolean cheatAllPossible = false;
+	private boolean cheatBestChoice = false;
 
 	private final DataFormat diceFormat = new DataFormat("MyDice");
 

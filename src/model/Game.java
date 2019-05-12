@@ -6,10 +6,10 @@ import queries.GameQuery;
 
 public class Game {
 
-	int gameId = 2;
-	ArrayList<Player> players = new ArrayList<>();
+	private int gameId = 2;
+	private ArrayList<Player> players = new ArrayList<>();
 
-	String accountName = "Gijs";
+	private String accountName = "Gijs";
 
 	private GameQuery gameQuery;
 

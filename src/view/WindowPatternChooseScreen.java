@@ -16,7 +16,7 @@ import main.GUI;
 public class WindowPatternChooseScreen extends GridPane {
 
 	private Label text;
-	Font font = new Font("Consolas", 60);
+	private Font font = new Font("Consolas", 60);
 	private Button window1Button;
 	private Button window2Button;
 	private Button window3Button;

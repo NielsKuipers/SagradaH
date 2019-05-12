@@ -10,10 +10,10 @@ import javafx.scene.text.Font;
 import model.WindowPattern;
 
 public class WindowPatternScreen extends GridPane{
-	Label name;
-	Font font = new Font("Consolas", 18);
-	Label difficulty;
-	WindowPattern windowPatternModel;
+	private Label name;
+	private Font font = new Font("Consolas", 18);
+	private Label difficulty;
+	private WindowPattern windowPatternModel;
 	
 	public WindowPatternScreen(String name, WindowPattern windowPatternModel, String color) {
 		this.windowPatternModel = windowPatternModel;
