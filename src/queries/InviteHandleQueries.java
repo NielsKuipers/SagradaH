@@ -14,23 +14,21 @@ public class InviteHandleQueries {
 	
 	// heeft username nodig (uit inlog klasse?)
 	public void setupGame() {
+		// nieuwe gameID aanmaken
+		
+		// nieuwe player kollom aanmaken
 		standardQuerie.updateQuery("INSERT INTO player VALUES (?,?)", "test test1");
+		
+		// nieuw ..
 	}
 
-	// geeft speler lijst
+	// geeft spelerlijst
 	public ArrayList<ArrayList<Object>> getPlayers() {
-		return standardQuerie.selectQuery("Select username, password FROM account");
-		
+		return standardQuerie.selectQuery("SELECT username, password FROM account");
 	}
 	
+	// geeft gejoinde spelerlijst
 	public ArrayList<ArrayList<Object>> getJoinedPlayers() {
-		return standardQuerie.selectQuery("Select username FROM player", " WHERE game_idgame=?", "" + 2 + "");
-		
-	}
-
-	public ArrayList<ArrayList<Object>> getAllDicesOnField(int id) {
-		return standardQuerie.selectQuery(
-				"SELECT gamedie.diecolor, gamedie.eyes, playerframefield.position_x, playerframefield.position_y FROM playerframefield INNER JOIN gamedie ON gamedie.dienumber = playerframefield.dienumber",
-				" WHERE playerframefield.player_idplayer=?", "" + id + "");
+		return standardQuerie.selectQuery("SELECT username FROM player", "WHERE game_idgame=?", "" + 2 + "");
 	}
 }

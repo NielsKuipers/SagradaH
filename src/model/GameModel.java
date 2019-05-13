@@ -2,35 +2,20 @@ package model;
 
 import java.util.ArrayList;
 
+import queries.GameQueries;
+import queries.InviteHandleQueries;
+
 public class GameModel {
-	private ArrayList <Dice> dices;
+	
+	private GameQueries gameQueries;
 	
 	public GameModel() {
-		dices = new ArrayList<Dice>();
 		
 	}
 	
-	// zet data uit de database in dice objecten en voegt ze toe aan de dices array
-	public void setDice(int round, int number, String color) {
-		dices.add(new Dice(round, number, color));
-		
-	}
-	
-	// return dices array
-	public ArrayList<Dice> getDices(){
-		return dices;
-	}
-	
-	//klasse om dice properties op te slaan
-	private class Dice{
-		private int roundNumber;
-		private int number;
-		private String color;
-		
-		private Dice(int round, int number, String color) {
-			roundNumber = round;
-			this.number = number;
-			this.color = color;
-		}
+	// returnt rondebord dobbelstenen
+	public ArrayList<ArrayList<Object>> getDicesOnRoundBoard() {
+		gameQueries = new GameQueries();
+		return gameQueries.getDicesOnRoundBoard();
 	}
 }

@@ -50,9 +50,13 @@ public class RoundScreen extends GridPane {
 	
 	// methode om dice toe te voegen, moet nog verandert worden.
 	public void addDice(int round, int number, String color) {
+		
+		Color diceColor = getColorTranslation(color);
+		round --;
+		
 		if(round < stackPanes.size()) {
 			if(stackPanes.get(round).getChildren().size() == 1) {
-				stackPanes.get(round).getChildren().add(new Dice(number, color));
+				stackPanes.get(round).getChildren().add(new Dice(number, diceColor));
 			}else {
 				System.out.println("er zit hier al een steen!!");
 			}
@@ -72,6 +76,26 @@ public class RoundScreen extends GridPane {
 		}else {
 			System.out.println("geen steen ruimte hier!!");
 		}
+	}
+	
+	// verandert kleur uit database naar javafxkleur
+	private Color getColorTranslation(String color){
+		
+		switch(color) {
+		  case "blauw":
+			 return Color.BLUE;
+		  case "geel":
+			 return Color.YELLOW;
+		  case "rood":
+			 return Color.RED;
+		  case "paars":
+			  return Color.PURPLE;
+		  case "groen":
+			  return Color.GREEN;
+		  default:
+		    return Color.BLACK;
+		}
+		
 	}
 	
 	// voeg rondenummers toe
@@ -96,8 +120,8 @@ public class RoundScreen extends GridPane {
 	
 	private class Dice extends StackPane{
 		
-		private Dice (int number, String color) {
-			this.setBackground(new Background(new BackgroundFill(Color.web(color), null, null)));
+		private Dice (int number, Color color) {
+			this.setBackground(new Background(new BackgroundFill(color, null, null)));
 			this.setPrefSize(60, 60);
 			setPadding(new Insets(10));
 			this.setMargin(this, new Insets(10));
