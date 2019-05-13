@@ -14,9 +14,9 @@ public class RoundScreenController {
 	private GameModel gameModel;
 	
 	
-	public RoundScreenController(Stage stage) {
+	public RoundScreenController(Stage stage, DatabaseController dataController) {
 		screen = new RoundScreen();
-		gameModel = new GameModel();
+		gameModel = new GameModel(dataController.getGameQueries());
 		stage.setScene(new Scene(screen));
 		
 		addDice();

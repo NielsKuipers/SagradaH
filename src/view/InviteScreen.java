@@ -30,11 +30,6 @@ public class InviteScreen extends BorderPane{
 		this.setCenter(scroll);	
 	}
 	
-	// invites player
-	private void invitePlayer() {
-		
-	}
-	
 	// maakt knoppen aan onderkant
 	private void addLowerButtons() {
 		Button returnButton = new Button("terug");
@@ -72,16 +67,16 @@ public class InviteScreen extends BorderPane{
 			setSpacing(20);
 			setAlignment(Pos.CENTER);
 			Label label = new Label(name);
-			InviteButton button = new InviteButton();
+			InviteButton button = new InviteButton(name);
 			getChildren().addAll(label, button);
 		}
 	}
 	
 	// todo invite button
 	private class InviteButton extends Button{
-		private InviteButton() {
+		private InviteButton(String username) {
 			setText("Invite");
-			setOnAction(e -> invitePlayer());
+			setOnAction(e -> controller.invitePlayer(username));
 		}
 	}
 }

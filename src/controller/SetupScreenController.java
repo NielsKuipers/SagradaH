@@ -19,8 +19,8 @@ public class SetupScreenController {
 	private InviteScreen inviteScreen;
 	private Scene scene;
 	
-	public SetupScreenController(Stage stage) {
-		cModel = new CommunicationModel();
+	public SetupScreenController(Stage stage, DatabaseController dataController) {
+		cModel = new CommunicationModel(dataController.getInviteQueries());
 		inviteScreen = new InviteScreen(this);
 		screen = new SetupScreen(this);
 		scene = new Scene(screen);
@@ -75,6 +75,11 @@ public class SetupScreenController {
 				screen.addJoinedPlayer((String) result.get(i).get(0));
 			}
 		}
+	}
+	
+	public void invitePlayer(String username) {
+		System.out.println("invite " + username);
+		cModel.invitePlayer(username);
 	}
 	
 }

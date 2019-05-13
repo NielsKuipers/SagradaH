@@ -1,6 +1,8 @@
 package controller;
 
 import model.DatabaseModel;
+import queries.GameQueries;
+import queries.InviteHandleQueries;
 import queries.StandardQuerie;
 import queries.WindowPatternQuerie;
 
@@ -13,6 +15,9 @@ public class DatabaseController {
     private StandardQuerie standardQuerie;
     
     private WindowPatternQuerie windowPatternQuerie;
+    private InviteHandleQueries inviteHandleQueries;
+    private GameQueries gameQueries;
+    
     //establish connection with database
     public DatabaseController(){
         DatabaseModel sagradaBaseConn = new DatabaseModel();
@@ -21,11 +26,18 @@ public class DatabaseController {
         standardQuerie = new StandardQuerie(mConn);
         
         windowPatternQuerie = new WindowPatternQuerie(standardQuerie);
+        inviteHandleQueries = new InviteHandleQueries(standardQuerie);
+        gameQueries = new GameQueries(standardQuerie);
+        
         
     }
     
-    public StandardQuerie returnStandardQuerie() {
-    	return standardQuerie;
+    public GameQueries getGameQueries() {
+    	return gameQueries;
+    }
+    
+    public InviteHandleQueries getInviteQueries() {
+    	return inviteHandleQueries;
     }
     
     public WindowPatternQuerie getWindowPatternQuerie() {

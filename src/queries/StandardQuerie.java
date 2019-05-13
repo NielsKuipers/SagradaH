@@ -23,7 +23,6 @@ public class StandardQuerie {
             //if there's a where clause handle it
             int i = 1;
             if(!where.isEmpty()){ handleWhere(whereVal, stmt, i); }
-
             //get the results from the query and put them in an array
             ResultSet rs = stmt.executeQuery();
             getResult(rs, result);
@@ -45,6 +44,7 @@ public class StandardQuerie {
             PreparedStatement stmt = mConn.prepareStatement(query + where);
 
             //split the values and use them in the statement
+            System.out.println(values);
             String[] vals = values.split("\0");
             int i=1;
             for(String val : vals){
@@ -63,6 +63,7 @@ public class StandardQuerie {
 
             //if there's a where clause handle it
             if(!where.isEmpty()){ handleWhere(whereVal, stmt, i); }
+           
             stmt.executeUpdate();
         }
         catch(SQLException e){

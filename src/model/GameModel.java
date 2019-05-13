@@ -9,13 +9,12 @@ public class GameModel {
 	
 	private GameQueries gameQueries;
 	
-	public GameModel() {
-		
+	public GameModel(GameQueries gameQueries) {
+		this.gameQueries = gameQueries;
 	}
 	
 	// returnt rondebord dobbelstenen
 	public ArrayList<ArrayList<Object>> getDicesOnRoundBoard() {
-		gameQueries = new GameQueries();
 		return gameQueries.getDicesOnRoundBoard();
 	}
 }

@@ -7,10 +7,9 @@ import controller.DatabaseController;
 public class GameQueries {
 	
 	StandardQuerie standardQuerie;
-	DatabaseController databaseController = new DatabaseController();
 
-	public GameQueries() {
-		standardQuerie = databaseController.returnStandardQuerie();
+	public GameQueries(StandardQuerie standardQuerie) {
+		this.standardQuerie = standardQuerie;
 	}
 	
 	public ArrayList<ArrayList<Object>> getDicesOnRoundBoard() {
