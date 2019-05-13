@@ -23,4 +23,9 @@ public class GameQuery {
 		return standardQueries.selectQuery("SELECT patterncard_idpatterncard FROM patterncardoption",
 				" WHERE player_idplayer=?", "" + idPlayer + "");
 	}
+	
+	public ArrayList<ArrayList<Object>> getRound(int idGame) {
+		return standardQueries.selectQuery("SELECT roundtrack FROM gamedie",
+				" WHERE idgame=? ORDER BY roundtrack DESC", "" + idGame + "");
+	}
 }

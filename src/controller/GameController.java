@@ -57,9 +57,9 @@ public class GameController extends Scene {
 		gameModel.getPlayer(3).givePlayerWindowPattern(WC.getWindow4().getWindowPatternModel());
 
 		gameScreen = new GameScreen();
-		gameInfo = new GameInfoScreen(gui, "GameInfo");
-		chat = new GameInfoScreen(gui,"Chat");
-		kaarten = new GameInfoScreen(gui,"Kaarten");
+		gameInfo = new GameInfoScreen(gui, gameModel,"GameInfo");
+		chat = new GameInfoScreen(gui, gameModel,"Chat");
+		kaarten = new GameInfoScreen(gui, gameModel,"Kaarten");
 
 		gameInfo.setStyle("-fx-background-radius: 0 0 300 0;-fx-background-color: DEEPSKYBLUE; ");
 		chat.setStyle("-fx-background-radius: 0 300 0 0;-fx-background-color: DEEPSKYBLUE;");
@@ -72,12 +72,12 @@ public class GameController extends Scene {
 		windowChoooseScreen.add(WC.getWindow3(), 2, 1);
 		windowChoooseScreen.add(WC.getWindow4(), 3, 1);
 
-		setRoot(windowChoooseScreen);
+		
 		
 		WC.setGameController(this);
 		WC.setDiceController(DC);
-		
-		gameModel.selectPlayerIds();
+		setRoot(windowChoooseScreen);
+		gameModel.selectwindowOptions();
 	}
 
 	public void createGame(WindowPattern windowModel) {
@@ -87,13 +87,17 @@ public class GameController extends Scene {
 		gameScreen.add(chat, 0, 2, 2, 1);
 		gameScreen.add(kaarten, 2, 2, 2, 1);
 
-		if (windowModel != WC.getWindow1().getWindowPatternModel()) {
-			WC.setWindow1(windowModel);
-		}
-
+		//if (windowModel != WC.getWindow1().getWindowPatternModel()) {
+		//	WC.setWindow1(windowModel);
+		//}
+		
 		WC.makeWindowsGray(WC.getWindow2().getWindowPatternModel());
 		WC.makeWindowsGray(WC.getWindow3().getWindowPatternModel());
 		WC.makeWindowsGray(WC.getWindow4().getWindowPatternModel());
+		
+		
+
+		
 
 		gameScreen.add(WC.getWindow1(), 0, 1);
 		gameScreen.add(WC.getWindow2(), 1, 1);
@@ -103,7 +107,9 @@ public class GameController extends Scene {
 
 		gameScreen.setMargin(WC.getWindow1(), new Insets(0, 0, 0, 80));
 		gameScreen.setMargin(WC.getWindow4(), new Insets(0, 80, 0, 0));
-
+		
+		gameModel.getPlayer(0).updateWindowId(windowModel.getId());
+		gameModel.selectAllWindowsForAllPlayers();
 		setRoot(gameScreen);
 	}
 	

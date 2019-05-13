@@ -2,6 +2,8 @@ package model;
 
 import java.util.ArrayList;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import queries.GameQuery;
 
 public class Game {
@@ -10,11 +12,21 @@ public class Game {
 	private ArrayList<Player> players = new ArrayList<>();
 
 	private String accountName = "Gijs";
+	private StringProperty gameRound;
 
 	private GameQuery gameQuery;
 
 	public Game(GameQuery gameQuery) {
 		this.gameQuery = gameQuery;
+		gameRound = new SimpleStringProperty(this, "round", "empty");
+	}
+	
+	public void setRound(String round) {
+		gameRound.set("Ronde: " + round);
+	}
+
+	public final StringProperty gameRoundProperty() {
+		return gameRound;
 	}
 
 	public void addPlayer(Player player) {
@@ -25,14 +37,12 @@ public class Game {
 		return players.get(i);
 	}
 
-	// get all the player ids in the game and fix that the main player has the first
-	// window
+	// give all the players the right id
 	public void selectPlayerIds() {
 		ArrayList<ArrayList<Object>> result = gameQuery.getPlayerIdsAndNames(gameId);
 		int playerLocation = 0;
 		boolean accountPlaced = false;
 		boolean stop = false;
-		int playerAmount = result.size();
 
 		for (int i = 0; i < result.size(); i++) {
 			if (accountPlaced) {
@@ -54,9 +64,6 @@ public class Game {
 				stop = true;
 			}
 		}
-
-		selectAllWindowsForAllPlayers(playerAmount);
-		//selectwindowOptions();
 	}
 
 	// make the windowChoose screen
@@ -71,15 +78,31 @@ public class Game {
 			players.get(i).getWindowPatternPlayer().selectAllFields();
 			players.get(i).getWindowPatternPlayer().selectDifficulty();
 			players.get(i).getWindowPatternPlayer().setPlayerName("Kaart: " + (i + 1));
+			players.get(i).getWindowPatternPlayer().setPlayerScore("");
 		}
+		selectPlayerIds();
 
 	}
 
 	// make all windows for all players
-	public void selectAllWindowsForAllPlayers(int amountOfPlayers) {
+	public void selectAllWindowsForAllPlayers() {
+		selectPlayerIds();
+		ArrayList<ArrayList<Object>> result = gameQuery.getPlayerIdsAndNames(gameId);
+		int amountOfPlayers = result.size();
+		for (int j = 0; j < players.size(); j++) {
+			players.get(j).getWindowPatternPlayer().setPlayerName("Naam: NIEMAND!!!");
+		}
 		for (int i = 0; i < amountOfPlayers; i++) {
 			players.get(i).selectWindow();
 		}
+		selectRound();
+	}
+	
+	public void selectRound() {
+		ArrayList<ArrayList<Object>> result = gameQuery.getRound(gameId);
+		int round = Integer.valueOf(String.valueOf(result.get(0).get(0)));
+		round++;
+		setRound(String.valueOf(round));
 	}
 
 }

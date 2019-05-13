@@ -13,6 +13,7 @@ public class WindowPattern {
 	private ArrayList<Field> fields = new ArrayList<>();
 	private StringProperty difficulty = new SimpleStringProperty(this, "difficulty", "empty");
 	private StringProperty playerName = new SimpleStringProperty(this, "playerName", "empty");
+	private StringProperty playerScore = new SimpleStringProperty(this, "playerScore", "empty");
 
 	private WindowPatternQuerie windowPatternQuerie;
 
@@ -50,6 +51,14 @@ public class WindowPattern {
 
 	public final StringProperty playerNameProperty() {
 		return playerName;
+	}
+	
+	public void setPlayerScore(String s) {
+		playerScore.set(String.valueOf(s));
+	}
+
+	public final StringProperty playerScoreProperty() {
+		return playerScore;
 	}
 
 	public void removeDiceFromWindowPattern(Dice dice) {

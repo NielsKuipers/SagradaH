@@ -13,19 +13,25 @@ public class WindowPatternScreen extends GridPane{
 	private Label name;
 	private Font font = new Font("Consolas", 18);
 	private Label difficulty;
+	private Label score;
 	private WindowPattern windowPatternModel;
 	
 	public WindowPatternScreen(String name, WindowPattern windowPatternModel, String color) {
 		this.windowPatternModel = windowPatternModel;
 		this.name = new Label(name);
 		difficulty = new Label();
+		score = new Label();
 		this.add(this.name, 0, 0, 5, 1);
 		this.name.setFont(font);
 		setStyle("-fx-background-color: linear-gradient(to bottom, "+color+" 0%,#cccccc 100%);-fx-background-radius: 20 20 20 20;");
 		this.add(difficulty, 0, 5, 5, 1);
+		this.add(score, 0, 6, 5, 1);
 		difficulty.setFont(font);
+		score.setFont(font);
+		setHalignment(score, HPos.CENTER);
 		setHalignment(difficulty, HPos.CENTER);
 		setHalignment(this.name, HPos.CENTER);
+		score.textProperty().bind(windowPatternModel.playerScoreProperty());
 		difficulty.textProperty().bind(windowPatternModel.difficultyProperty());
 		this.name.textProperty().bind(windowPatternModel.playerNameProperty());
 		
