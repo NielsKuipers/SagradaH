@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class Game {
 
-	int gameId;
-	ArrayList<Player> players = new ArrayList<>();
+	private int gameId;
+	private ArrayList<Player> players = new ArrayList<>();
 	
 	public Game() {
 		addPlayer(new Player());

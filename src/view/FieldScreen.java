@@ -7,12 +7,14 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -21,14 +23,12 @@ import javafx.scene.shape.Rectangle;
 import model.Dice;
 import model.Field;
 
-
 public class FieldScreen extends StackPane {
-	Rectangle rec;
+	private Rectangle rec;
 
+	private Field fieldModel;
 
-	Field fieldModel;
-	
-	WindowController WC;
+	private WindowController WC;
 
 	public FieldScreen(Field fieldModel, WindowController WC) {
 		this.fieldModel = fieldModel;
@@ -143,7 +143,6 @@ public class FieldScreen extends StackPane {
 		}
 	}
 
-
 	public void cheatBorder() {
 		setBorder(new Border(new BorderStroke(Color.ORANGE, BorderStrokeStyle.SOLID, null, new BorderWidths(3))));
 	}
@@ -162,22 +161,32 @@ public class FieldScreen extends StackPane {
 			checkNumber((int) newValue);
 		}
 	}
-	
+
 	private class MyDiceListener implements ChangeListener<Dice> {
 
 		@Override
 		public void changed(ObservableValue<? extends Dice> observable, Dice oldValue, Dice newValue) {
 			// TODO Auto-generated method stub
-			if(newValue != null) {
-			int eyes = newValue.getEyes();
-			DiceScreen diceScreen = new DiceScreen(newValue);
-			WC.dragButton(diceScreen);
-			diceScreen.makeBorderWhite();
-			newValue.setEyes(0);
-			newValue.setEyes(eyes);
-			getChildren().add(diceScreen);
+			try {
+
+				if (newValue != null) {
+					int eyes = newValue.getEyes();
+					DiceScreen diceScreen = new DiceScreen(newValue);
+					WC.dragButton(diceScreen);
+					diceScreen.makeBorderWhite();
+					newValue.setEyes(0);
+					newValue.setEyes(eyes);
+					getChildren().add(diceScreen);
+				} else {
+					for (Node node : getChildren()) {
+						if (node instanceof DiceScreen) {
+							getChildren().remove(node);
+						}
+					}
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
 			}
-			
 		}
 	}
 

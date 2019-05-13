@@ -38,8 +38,8 @@ public class DatabaseController {
 //        use question marks for where you want to use variables, declare them in the variable parameters
 //        if you're using multiple variables, separate them with a space
 
-//        updateQuery("UPDATE account set username=?, password=?", "Niels2 Gay1234", " WHERE username=?", "Niels");
-//        updateQuery("INSERT INTO account VALUES(?,?)", "Mario Zario", "", "");
+//        updateQuery("UPDATE account set username=?, password=?", "Niels2 Gay1234", " WHERE username=? AND password=?", "Niels0/Gay1234");
+//        updateQuery("INSERT INTO account VALUES(?,?)", "Mario\0Zario", "", "");
 //        selectQuery("SELECT username FROM account", " WHERE username=?", "Niels2");
 //        selectQuery("SELECT username FROM account");
 }
