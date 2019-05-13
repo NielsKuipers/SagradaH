@@ -48,9 +48,9 @@ public class GameController extends Scene {
 		gameModel.getPlayer(3).givePlayerWindowPattern(WC.getWindow4().getWindowPatternModel());
 
 		gameScreen = new GameScreen();
-		gameInfo = new GameInfoScreen(gui, "GameInfo", this);
-		chat = new GameInfoScreen(gui,"Chat", this);
-		kaarten = new GameInfoScreen(gui,"Kaarten", this);
+		gameInfo = new GameInfoScreen(gui, "GameInfo");
+		chat = new GameInfoScreen(gui,"Chat");
+		kaarten = new GameInfoScreen(gui,"Kaarten");
 
 		gameInfo.setStyle("-fx-background-radius: 0 0 300 0;-fx-background-color: DEEPSKYBLUE; ");
 		chat.setStyle("-fx-background-radius: 0 300 0 0;-fx-background-color: DEEPSKYBLUE;");
@@ -96,13 +96,9 @@ public class GameController extends Scene {
 		setRoot(gameScreen);
 	}
 	
-	public void handleCheatGame() {
-		if(WC.getCheat() == true) {
-			WC.setCheatMode(false);
-		}
-		else {
-			WC.setCheatMode(true);
-		}
+	public void handleCheatGame(boolean allPossible, boolean bestChoice) {
+		WC.setCheatAllPossible(allPossible);
+		WC.setCheatBestChoice(bestChoice);
 	}
 	
 	public void setPoints(int value) {
