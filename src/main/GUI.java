@@ -26,9 +26,9 @@ public class GUI extends Application {
 		databaseController = new DatabaseController();
 		windowController = new WindowController(this, databaseController);
 		diceController = new DiceController(this, windowController);
-		cardController = new CardController(this);
-		gameController = new GameController(this, windowController, diceController,cardController);
 		
+		gameController = new GameController(this, windowController, diceController);
+		cardController = new CardController(this,windowController,diceController, gameController);
 		stage.setScene(gameController);
 		stage.setFullScreen(true);
 		stage.show();
@@ -47,22 +47,6 @@ public class GUI extends Application {
 		diceController.makeDices();
 	}
 
-	public void buyTC1() {
-		diceController.setDiceGlowBorder(1);
-		
-	}
+
 	
-	public void buyTC6() {
-		diceController.setDiceGlowBorder(6);
-		
-	}
-	
-	public void buyTC10() {
-		diceController.setDiceGlowBorder(10);
-		
-	}
-	
-	public void buyTC11() {
-		diceController.setDiceGlowBorder(11);
-	}
 }

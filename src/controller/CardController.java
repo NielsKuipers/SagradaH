@@ -16,6 +16,9 @@ public class CardController extends Scene {
 	private CardModel cardModel;
 	private int amountOfFavorTokens;
 	private GUI gui;
+	
+	private WindowController windowController;
+	private DiceController diceController;
 
 	// alle toolcards
 	private CardScreen toolCard1;
@@ -73,10 +76,14 @@ public class CardController extends Scene {
 	int pubOBJ2;
 	int pubOBJ3;
 
-	public CardController(GUI gui) {
+	public CardController(GUI gui,WindowController cc, DiceController dc, GameController GC) {
 		super(new Pane());
 		this.gui = gui;
-
+		this.gameController = GC;
+		windowController = cc;
+		diceController = dc;
+		gameController.setCardController(this);
+		
 		
 		cardScreen = new GameCardsScreen(this);
 		cardModel = new CardModel();
@@ -138,9 +145,7 @@ public class CardController extends Scene {
 		gameController.switchToGameScreen();
 
 	}
-	public void setGameController(GameController gc) {
-		gameController = gc;
-	}
+	
 
 	
 	
@@ -467,6 +472,7 @@ public class CardController extends Scene {
 		            
 		        	if(boughtTC9 == true && gameController.getAmountFT()>1 ) {
 		                gameController.setAmountFT(Integer.toString(gameController.getAmountFT()-2));
+		                
 		            }if(boughtTC1 == false) {
 		                gameController.setAmountFT(Integer.toString(gameController.getAmountFT()-1));
 		                boughtTC1= true;
@@ -622,22 +628,19 @@ public class CardController extends Scene {
         
 
 	public void buyTC1() {
-		gui.buyTC1();
-		
-		
-		
+		diceController.setDiceGlowBorder(1);
 	}
 
 	public void buyTC2() {
-		
+		windowController.buyTC2();
 	}
 
 	public void buyTC3() {
-		
+		windowController.buyTC3();
 	}
 
 	public void buyTC4() {
-
+		windowController.buyTC4();
 	}
 
 	public void buyTC5() {
@@ -645,7 +648,7 @@ public class CardController extends Scene {
 	}
 
 	public void buyTC6() {
-		gui.buyTC6();
+		diceController.setDiceGlowBorder(6);
 	}
 
 	public void buyTC7() {
@@ -657,15 +660,15 @@ public class CardController extends Scene {
 	}
 
 	public void buyTC9() {
-
+		windowController.buyTC9();
 	}
 
 	public void buyTC10() {
-		gui.buyTC10();
+		diceController.setDiceGlowBorder(10);
 	}
 
 	public void buyTC11() {
-			gui.buyTC11();
+		diceController.setDiceGlowBorder(11);
 	}
 
 	public void buyTC12() {
@@ -673,7 +676,9 @@ public class CardController extends Scene {
 	}
 
 	public void generateToolcards() {
-
+		
+		
+		
 		TC1 = generateRandNR(12);
 		TC2 = generateRandNR(12);
 		while (TC1 == TC2) {
@@ -803,6 +808,7 @@ public class CardController extends Scene {
 			break;
 
 		}
+		
 	}
 
 	public void generateObjectiveCards() {

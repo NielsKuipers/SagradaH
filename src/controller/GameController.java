@@ -44,7 +44,7 @@ public class GameController extends Scene {
 	private GUI gui;
 	
 
-	public GameController(GUI gui, WindowController WC, DiceController DC,CardController CC) {
+	public GameController(GUI gui, WindowController WC, DiceController DC) {
 		super(new Pane());
 		this.gui = gui;
 		this.WC = WC;
@@ -83,7 +83,12 @@ public class GameController extends Scene {
 		
 		WC.setGameController(this);
 		WC.setDiceController(DC);
-		CC.setGameController(this);
+		
+		
+	}
+	
+	public void setCardController(CardController cc) {
+		this.CC=cc;
 	}
 	
 	
