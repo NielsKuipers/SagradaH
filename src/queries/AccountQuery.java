@@ -7,7 +7,7 @@ public class AccountQuery {
 	}
 	
 	public Boolean Login(String username, String password) {
-		if(standardQuery.selectQuery("SELECT username, password FROM account", "WHERE username=?, password=?", username+"\0"+password)!= null) {
+		if(!standardQuery.selectQuery("SELECT username, password FROM account", " WHERE username=? AND password=?", username+"\0"+password).isEmpty()) {
 			return true;
 		} else {
 			return false;
@@ -16,7 +16,7 @@ public class AccountQuery {
 	
 	public boolean register(String username, String password) {
 		if(username.length() >= 3 && password.length() >= 3) {
-			if(standardQuery.selectQuery("SELECT username FROM accout", "WHERE username=?", username) == null) {
+			if(standardQuery.selectQuery("SELECT username FROM accout", " WHERE username=?", username) == null) {
 				standardQuery.updateQuery("INSERT INTO account VALUES(?,?)", username+"\0"+password);
 				return true;
 			} else {

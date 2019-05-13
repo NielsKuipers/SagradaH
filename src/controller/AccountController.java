@@ -20,7 +20,7 @@ public class AccountController {
 	}
 	
 	public void login(String username, String password) {
-		if(myaccount.login(username, password)) {
+		if(myaccount.login(username, password) == true) {
 			System.out.println(username+""+password);
 			myGUI.switchScreen(homeScreen);
 			System.out.println("passed if in login");

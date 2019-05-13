@@ -1,15 +1,16 @@
 package controller;
 
+import java.sql.Connection;
+
 import model.DatabaseModel;
+import queries.AccountQuery;
 import queries.StandardQuerie;
 import queries.WindowPatternQuerie;
-
-import java.sql.*;
 
 public class DatabaseController {
 
     private Connection mConn;
-    
+    private AccountQuery AQ;
     private StandardQuerie standardQuerie;
     
     private WindowPatternQuerie windowPatternQuerie;
@@ -21,11 +22,15 @@ public class DatabaseController {
         standardQuerie = new StandardQuerie(mConn);
         
         windowPatternQuerie = new WindowPatternQuerie(standardQuerie);
+        AQ = new AccountQuery(standardQuerie);
         
     }
     
     public WindowPatternQuerie getWindowPatternQuerie() {
     	return windowPatternQuerie;
+    }
+    public AccountQuery getAccountQuery() {
+    	return AQ;
     }
 
     

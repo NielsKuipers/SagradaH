@@ -23,7 +23,7 @@ public class StandardQuerie {
             //if there's a where clause handle it
             int i = 1;
             if(!where.isEmpty()){ handleWhere(whereVal, stmt, i); }
-
+            System.out.println(stmt);
             //get the results from the query and put them in an array
             ResultSet rs = stmt.executeQuery();
             getResult(rs, result);
