@@ -76,7 +76,11 @@ public class InviteScreen extends BorderPane{
 	private class InviteButton extends Button{
 		private InviteButton(String username) {
 			setText("Invite");
-			setOnAction(e -> controller.invitePlayer(username));
+			setOnAction(e -> {
+				controller.invitePlayer(username);
+				setDisable(true);
+			});
+			
 		}
 	}
 }

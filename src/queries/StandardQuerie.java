@@ -19,14 +19,13 @@ public class StandardQuerie {
         ArrayList<ArrayList<Object>> result = new ArrayList<>();
         try {
             PreparedStatement stmt = mConn.prepareStatement(query + where);
-
             //if there's a where clause handle it
             int i = 1;
             if(!where.isEmpty()){ handleWhere(whereVal, stmt, i); }
             //get the results from the query and put them in an array
             ResultSet rs = stmt.executeQuery();
             getResult(rs, result);
-
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -42,9 +41,8 @@ public class StandardQuerie {
     public void updateQuery(String query, String values, String where, String whereVal){
         try {
             PreparedStatement stmt = mConn.prepareStatement(query + where);
-
+            
             //split the values and use them in the statement
-            System.out.println(values);
             String[] vals = values.split("\0");
             int i=1;
             for(String val : vals){

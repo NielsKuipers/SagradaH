@@ -94,7 +94,7 @@ public class WindowController {
 		
 		// setStandardWindowPatern(windowPattern1Model);
 		
-		createTimer();
+		//createTimer();
 
 
 	}

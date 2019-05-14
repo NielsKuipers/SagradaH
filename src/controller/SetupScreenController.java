@@ -1,7 +1,6 @@
 package controller;
 
 import model.CommunicationModel;
-import view.EndScreen;
 import view.InviteScreen;
 import view.SetupScreen;
 
@@ -14,7 +13,6 @@ import javafx.stage.Stage;
 public class SetupScreenController {
 	
 	private SetupScreen screen;
-	private Stage stage;
 	private CommunicationModel cModel;
 	private InviteScreen inviteScreen;
 	private Scene scene;
@@ -25,7 +23,6 @@ public class SetupScreenController {
 		screen = new SetupScreen(this);
 		scene = new Scene(screen);
 		
-		this.stage = stage;
 		stage.setScene(scene);
 
 	}
@@ -77,9 +74,20 @@ public class SetupScreenController {
 		}
 	}
 	
-	public void invitePlayer(String username) {
-		System.out.println("invite " + username);
-		cModel.invitePlayer(username);
+	public void makeGame() {
+		cModel.makeGame();
 	}
 	
+	// controlleer aantal spelers in database en voeg nieuwe toe als het mag.
+	public void invitePlayer(String username) {
+		long invitedPlayerCount = (long) cModel.getInvitedPlayerCount().get(0).get(0);
+		String color;
+		
+		if(invitedPlayerCount < 4) {
+			color = cModel.getPrivateObjectiveColor();
+			cModel.invitePlayer(username, color);	
+		}else {
+			screen.maxInvitedWarning();
+		}
+	}
 }

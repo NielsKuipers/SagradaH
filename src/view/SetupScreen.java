@@ -5,6 +5,8 @@ import javafx.animation.Animation;
 import javafx.animation.FillTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Border;
@@ -23,18 +25,27 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 public class SetupScreen extends BorderPane {
+	
+	// buttons
 	private Button WindowFrameSetChooser;
-	private Boolean regularSet = true;
+	private Button refreshListButton;
+	private Button startGame;
+	private Button inviteButton;
+	
+	// shapes/layout/animation
 	private Text playerCountText;
-	private boolean searching;
 	private Circle animation;
 	private FillTransition transition;
 	private BorderPane setupPane;
 	private SetupScreenController controller;
-	private Button startGame;
 	private BorderPane inviteBar;
-	private Button inviteButton;
 	private VBox playerList;
+	
+	// booleans
+	private boolean searching;
+	private boolean regularSet = true;
+	private boolean gameMade = false;
+	
 
 	public SetupScreen(SetupScreenController controller) {
 		
@@ -81,9 +92,10 @@ public class SetupScreen extends BorderPane {
 		inviteButton.setDisable(true);
 		inviteButton.setPrefSize(80, 30);
 		
-		Button refreshListButton = new Button("vernieuw");
+		refreshListButton = new Button("vernieuw");
 		refreshListButton.setOnAction(e -> refreshPlayerList());
 		refreshListButton.setPrefSize(80, 30);
+		refreshListButton.setDisable(true);
 		
 		HBox playerListBottomButtons = new HBox(refreshListButton, inviteButton);
 		playerListBottomButtons.setSpacing(10);
@@ -106,8 +118,14 @@ public class SetupScreen extends BorderPane {
 	}
 
 	
-	// start spelerzoeken, speler invitescherm wordt ingeschakeld en startgame knop stop met werken
+	// start spelerzoeken, speler invitescherm wordt ingeschakeld en startgame knop stop met werken, game wordt aangemaakt in de database
 	private void startSearch() {
+		if(gameMade == false) {
+			gameMade = true;
+			controller.makeGame();
+			refreshListButton.setDisable(false);
+		}
+		
 		if (!searching) {
 			System.out.println("started searching");
 			searching = true;
@@ -203,6 +221,18 @@ public class SetupScreen extends BorderPane {
 		clearJoinedList();
 		controller.addJoinedPlayers();
 		setPlayerAmountText();
+		if(searching) {
+			transition.play();
+		}
+	}
+
+
+	public void maxInvitedWarning() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Maximaal aantal spelers bereikt!!");
+		alert.setHeaderText("WAARSCHUWING");
+		alert.setContentText("Je hebt al drie spelers uitgenodigd!!");
+		alert.showAndWait();
 	}
 	
 }
