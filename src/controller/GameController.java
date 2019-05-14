@@ -44,7 +44,7 @@ public class GameController extends Scene {
 		this.WC = WC;
 		this.DC = DC;
 		
-		gameModel = new Game(databaseController.getGameQuery());
+		gameModel = new Game(databaseController.getGameQuery(),DC.getDiceOnTableModel());
 		
 		gameModel.addPlayer(new Player(databaseController.getPlayerQuery()));
 		gameModel.addPlayer(new Player(databaseController.getPlayerQuery()));

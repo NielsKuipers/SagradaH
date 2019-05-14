@@ -35,6 +35,7 @@ public class Player {
 		ArrayList<ArrayList<Object>> result = playerQuery.getWindowId(idPlayer);
 			windowPattern.setId(Integer.valueOf(String.valueOf(result.get(0).get(0))));
 			windowPattern.selectAllFields();
+			windowPattern.selectAllDicesOnField(idPlayer);
 			windowPattern.selectDifficulty();
 			selectPlayerName();
 			selectPlayerScore();

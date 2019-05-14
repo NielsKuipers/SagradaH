@@ -9,7 +9,7 @@ import queries.WindowPatternQuerie;
 
 public class WindowPattern {
 
-	private int idWindow = 1;
+	private int idWindow;
 	private ArrayList<Field> fields = new ArrayList<>();
 	private StringProperty difficulty = new SimpleStringProperty(this, "difficulty", "empty");
 	private StringProperty playerName = new SimpleStringProperty(this, "playerName", "empty");
@@ -100,15 +100,15 @@ public class WindowPattern {
 		
 	}
 	
-	public void selectAllDicesOnField() {
-		ArrayList<ArrayList<Object>> result = windowPatternQuerie.getAllDicesOnField(3);
+	public void selectAllDicesOnField(int idPlayer) {
+		ArrayList<ArrayList<Object>> result = windowPatternQuerie.getAllDicesOnField(idPlayer);
 		for (int row = 1; row < 5; row++) {
 			for (int column = 0; column < 5; column++) {
 				for (int i = 0; i < result.size(); i++) {
 					try {
 						if (row == Integer.valueOf(result.get(i).get(3).toString()) && column == Integer.valueOf(result.get(i).get(2).toString()) - 1) {
 							int eyes = Integer.valueOf(result.get(i).get(1).toString());
-							getFieldOfWindow(column, row).addDice(new Dice(makeEyeFromQuerie(result.get(i).get(1)), makeColorFromQuerie(result.get(i).get(0))));
+							getFieldOfWindow(column, row).addDice(new Dice(makeEyeFromQuerie(result.get(i).get(1)), makeColorFromQuerie(result.get(i).get(0)), Integer.valueOf(String.valueOf(result.get(i).get(4)))));
 							getFieldOfWindow(column, row).getDice().setEyes(eyes);
 						}
 					} catch (Exception e) {

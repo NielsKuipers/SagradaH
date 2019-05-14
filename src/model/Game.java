@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.scene.paint.Color;
 import queries.GameQuery;
 
 public class Game {
@@ -16,11 +17,14 @@ public class Game {
 
 	private GameQuery gameQuery;
 
-	public Game(GameQuery gameQuery) {
+	private DiceOnTable diceOnTableModel;
+
+	public Game(GameQuery gameQuery, DiceOnTable diceOnTableModel) {
 		this.gameQuery = gameQuery;
+		this.diceOnTableModel = diceOnTableModel;
 		gameRound = new SimpleStringProperty(this, "round", "empty");
 	}
-	
+
 	public void setRound(String round) {
 		gameRound.set("Ronde: " + round);
 	}
@@ -96,13 +100,66 @@ public class Game {
 			players.get(i).selectWindow();
 		}
 		selectRound();
+		selectAllDicesOnTable();
 	}
-	
+
 	public void selectRound() {
+		ArrayList<ArrayList<Object>> result = gameQuery.getRound(gameId);
+		if(result.get(0).get(0) == null) {
+			setRound("1");
+		}else {
+			int round = Integer.valueOf(String.valueOf(result.get(0).get(0)));
+			round++;
+			setRound(String.valueOf(round));
+		}
+		
+	}
+
+	public void selectAllDicesOnTable() {
 		ArrayList<ArrayList<Object>> result = gameQuery.getRound(gameId);
 		int round = Integer.valueOf(String.valueOf(result.get(0).get(0)));
 		round++;
-		setRound(String.valueOf(round));
+
+		ArrayList<ArrayList<Object>> result2 = gameQuery.getAllDicesFromAllPlayers(gameId);
+		//System.out.println(result2);
+
+		ArrayList<ArrayList<Object>> result3 = gameQuery.getAllDicesFromOneRound(gameId, round);
+		//System.out.println(result3);
+
+		ArrayList<ArrayList<Object>> diceOnTable = new ArrayList<ArrayList<Object>>();
+		
+		for (ArrayList<Object> dicesFromRound: result3) {
+			if(!result2.contains(dicesFromRound)) {
+				diceOnTable.add(dicesFromRound);
+			}
+		}
+		
+		for (ArrayList<Object> dices : diceOnTable) {
+			ArrayList<ArrayList<Object>> eyes = gameQuery.getEyeOfDice(gameId, Integer.valueOf(String.valueOf(dices.get(0))), String.valueOf(dices.get(1)));
+			Dice dice = new Dice(Integer.valueOf(String.valueOf(eyes.get(0).get(0))), makeColorFromQuerie(dices.get(1)), Integer.valueOf(String.valueOf(dices.get(0))));
+			dice.setEyes(Integer.valueOf(String.valueOf(eyes.get(0).get(0))));
+			diceOnTableModel.addDiceToTable(dice);
+		}
+		
+		
+	}
+	
+	public Color makeColorFromQuerie(Object c) {
+		String color = String.valueOf(c);
+		if (color.equals("geel")) {
+			return Color.YELLOW;
+		} else if (color.equals("groen")) {
+			return Color.LIGHTGREEN;
+		} else if (color.equals("blauw")) {
+			return Color.CORNFLOWERBLUE;
+		} else if (color.equals("paars")) {
+			return Color.MAGENTA;
+		} else if (color.equals("rood")) {
+			return Color.RED;
+		} else if (color.equals("")) {
+			return Color.LIGHTGRAY;
+		}
+		return Color.LIGHTGRAY;
 	}
 
 }

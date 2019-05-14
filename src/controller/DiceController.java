@@ -34,7 +34,7 @@ public class DiceController {
 		diceOnTableScreen = new DiceOnTableScreen(gui, diceOnTableModel, WC);
 		
 		addColorsDice();
-		makeDices();
+		//makeDices();
 
 	}
 	
@@ -42,9 +42,9 @@ public class DiceController {
 		for (int i = 0; i < 9; i++) {
 				int eyes = r.nextInt((6 - 1) + 1) + 1;
 				int color = r.nextInt(5);
-				Dice diceModel = new Dice(eyes, colorsDice.get(color));
-				diceModel.setEyes(eyes);
-				diceOnTableModel.addDiceToTable(diceModel);
+				//Dice diceModel = new Dice(eyes, colorsDice.get(color));
+				//diceModel.setEyes(eyes);
+				//diceOnTableModel.addDiceToTable(diceModel);
 		}
 	}
 	

@@ -1455,7 +1455,7 @@ public class WindowController {
 			public void doAction() {
 				// TODO Auto-generated method stub
 				windowPattern1Model.selectAllFields();
-				windowPattern1Model.selectAllDicesOnField();
+				//windowPattern1Model.selectAllDicesOnField();
 				windowPattern1Model.selectDifficulty();
 			}
 		};
