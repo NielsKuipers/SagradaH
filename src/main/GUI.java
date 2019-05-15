@@ -13,6 +13,7 @@ import model.WindowPattern;
 public class GUI extends Application {
 	private DiceController diceController;
 	private GameController gameController;
+	private ChatController chatController;
 
 
 	public void startup(String[] args) {
@@ -23,14 +24,13 @@ public class GUI extends Application {
 		DatabaseController databaseController = new DatabaseController();
 		WindowController windowController = new WindowController(this, databaseController);
 		diceController = new DiceController(this, windowController);
-		ChatController chatController = new ChatController(databaseController);
+		chatController = new ChatController(this, databaseController);
 		gameController = new GameController(this, windowController, diceController, chatController);
 
 		
 		stage.setScene(gameController);
 		stage.setFullScreen(true);
 		stage.show();
-		
 	}
 	
 	public void createGame(WindowPattern windowModel) {
@@ -44,5 +44,7 @@ public class GUI extends Application {
 	public void makeDices() {
 		diceController.makeDices();
 	}
+
+	public void sendMessage(String input){chatController.sendMessage(input);}
 
 }
