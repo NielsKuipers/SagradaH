@@ -1,13 +1,8 @@
 package controller;
 
-import java.sql.Connection;
-
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import main.GUI;
 import model.Game;
@@ -16,7 +11,6 @@ import model.WindowPattern;
 import view.GameInfoScreen;
 import view.GameScreen;
 import view.WindowPatternChooseScreen;
-import view.WindowPatternScreen;
 
 public class GameController extends Scene {
 	private GameInfoScreen gameInfo;
@@ -25,22 +19,14 @@ public class GameController extends Scene {
 
 	private GameScreen gameScreen;
 
-	private WindowPatternChooseScreen windowChoooseScreen;
-	
 	private Game gameModel;
-	
 
 	private WindowController WC;
 	private DiceController DC;
-	private DatabaseController databaseController;
-	
-	private GUI gui;
-	
+
 
 	public GameController(GUI gui, DatabaseController databaseController, WindowController WC, DiceController DC) {
 		super(new Pane());
-		this.gui = gui;
-		this.databaseController = databaseController;
 		this.WC = WC;
 		this.DC = DC;
 		
@@ -65,7 +51,7 @@ public class GameController extends Scene {
 		chat.setStyle("-fx-background-radius: 0 300 0 0;-fx-background-color: DEEPSKYBLUE;");
 		kaarten.setStyle("-fx-background-radius: 300 0 0 0;-fx-background-color: DEEPSKYBLUE;");
 
-		windowChoooseScreen = new WindowPatternChooseScreen(gui, WC);
+		WindowPatternChooseScreen windowChoooseScreen = new WindowPatternChooseScreen(gui, WC);
 		
 		windowChoooseScreen.add(WC.getWindow1(), 0, 1);
 		windowChoooseScreen.add(WC.getWindow2(), 1, 1);
@@ -105,8 +91,8 @@ public class GameController extends Scene {
 		gameScreen.add(WC.getWindow4(), 3, 1);
 		
 
-		gameScreen.setMargin(WC.getWindow1(), new Insets(0, 0, 0, 80));
-		gameScreen.setMargin(WC.getWindow4(), new Insets(0, 80, 0, 0));
+		GridPane.setMargin(WC.getWindow1(), new Insets(0, 0, 0, 80));
+		GridPane.setMargin(WC.getWindow4(), new Insets(0, 80, 0, 0));
 		
 		gameModel.getPlayer(0).updateWindowId(windowModel.getId());
 		gameModel.selectAllWindowsForAllPlayers();
@@ -118,7 +104,7 @@ public class GameController extends Scene {
 		WC.setCheatBestChoice(bestChoice);
 	}
 	
-	public void setPoints(int value) {
+	void setPoints(int value) {
 		gameInfo.setPoints(value);
 	}
 

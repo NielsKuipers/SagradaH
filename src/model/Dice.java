@@ -14,7 +14,6 @@ public class Dice {
 
 	private int id;
 	private Color color;
-	private int dieNumber;
 	private boolean moved;
 	private Property<Background> backgroundProperty;
 	private IntegerProperty eyesProperty;
@@ -22,7 +21,6 @@ public class Dice {
 
 	public Dice(int eyes, Color color, int dieNumber) {
 		this.color = color;
-		this.dieNumber = dieNumber;
 		backgroundProperty = new SimpleObjectProperty<>();
 		backgroundProperty.setValue(new Background(new BackgroundFill(color, null, null)));
 		eyesProperty = new SimpleIntegerProperty(this, "eyesProperty");

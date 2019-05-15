@@ -1,22 +1,12 @@
 package view;
 
-import java.util.ArrayList;
-
 import controller.WindowController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.BorderWidths;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
@@ -45,7 +35,7 @@ public class FieldScreen extends StackPane {
 		this.fieldModel.diceProperty().addListener(dicelistener);
 	}
 
-	public void checkNumber(int value) {
+	private void checkNumber(int value) {
 		getChildren().clear();
 		switch (value) {
 		case 1:
@@ -133,21 +123,16 @@ public class FieldScreen extends StackPane {
 			getChildren().addAll(cir16, cir17, cir18, cir19, cir20, cir21);
 
 			break;
-		case 0:
-
-			getChildren().clear();
-
-			break;
 		default:
 			break;
 		}
 	}
 
-	public void cheatBorder() {
+	void cheatBorder() {
 		setBorder(new Border(new BorderStroke(Color.ORANGE, BorderStrokeStyle.SOLID, null, new BorderWidths(3))));
 	}
 
-	public void normalBorder() {
+	void normalBorder() {
 		setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, new BorderWidths(3))));
 	}
 

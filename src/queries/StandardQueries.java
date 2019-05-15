@@ -15,7 +15,7 @@ public class StandardQueries {
 	}
 
 	//method for select queries
-    public ArrayList<ArrayList<Object>> selectQuery(String query, String where, String whereVal){
+    ArrayList<ArrayList<Object>> selectQuery(String query, String where, String whereVal){
         ArrayList<ArrayList<Object>> result = new ArrayList<>();
         try {
             PreparedStatement stmt = mConn.prepareStatement(query + where);
@@ -40,7 +40,7 @@ public class StandardQueries {
     }
 
     //method for update queries
-    public void updateQuery(String query, String values, String where, String whereVal){
+    void updateQuery(String query, String values, String where, String whereVal){
         try {
             PreparedStatement stmt = mConn.prepareStatement(query + where);
             //split the values and use them in the statement

@@ -25,7 +25,7 @@ public class Game {
 		gameRound = new SimpleStringProperty(this, "round", "empty");
 	}
 
-	public void setRound(String round) {
+	private void setRound(String round) {
 		gameRound.set("Ronde: " + round);
 	}
 
@@ -42,27 +42,27 @@ public class Game {
 	}
 
 	// give all the players the right id
-	public void selectPlayerIds() {
+	private void selectPlayerIds() {
 		ArrayList<ArrayList<Object>> result = gameQuery.getPlayerIdsAndNames(gameId);
 		int playerLocation = 0;
 		boolean accountPlaced = false;
 		boolean stop = false;
 
-		for (int i = 0; i < result.size(); i++) {
+		for (ArrayList<Object> objectArrayList : result) {
 			if (accountPlaced) {
-				players.get(playerLocation).setPlayerId(Integer.valueOf(String.valueOf(result.get(i).get(0))));
+				players.get(playerLocation).setPlayerId(Integer.valueOf(String.valueOf(objectArrayList.get(0))));
 				playerLocation++;
 			}
-			if (String.valueOf(result.get(i).get(1)).equals(accountName)) {
-				players.get(playerLocation).setPlayerId(Integer.valueOf(String.valueOf(result.get(i).get(0))));
+			if (String.valueOf(objectArrayList.get(1)).equals(accountName)) {
+				players.get(playerLocation).setPlayerId(Integer.valueOf(String.valueOf(objectArrayList.get(0))));
 				playerLocation++;
 				accountPlaced = true;
 			}
 		}
 
-		for (int i = 0; i < result.size(); i++) {
-			if (!String.valueOf(result.get(i).get(1)).equals(accountName) && !stop) {
-				players.get(playerLocation).setPlayerId(Integer.valueOf(String.valueOf(result.get(i).get(0))));
+		for (ArrayList<Object> objects : result) {
+			if (!String.valueOf(objects.get(1)).equals(accountName) && !stop) {
+				players.get(playerLocation).setPlayerId(Integer.valueOf(String.valueOf(objects.get(0))));
 				playerLocation++;
 			} else {
 				stop = true;
@@ -93,8 +93,8 @@ public class Game {
 		selectPlayerIds();
 		ArrayList<ArrayList<Object>> result = gameQuery.getPlayerIdsAndNames(gameId);
 		int amountOfPlayers = result.size();
-		for (int j = 0; j < players.size(); j++) {
-			players.get(j).getWindowPatternPlayer().setPlayerName("Naam: NIEMAND!!!");
+		for (Player player : players) {
+			player.getWindowPatternPlayer().setPlayerName("Naam: NIEMAND!!!");
 		}
 		for (int i = 0; i < amountOfPlayers; i++) {
 			players.get(i).selectWindow();
@@ -103,7 +103,7 @@ public class Game {
 		selectAllDicesOnTable();
 	}
 
-	public void selectRound() {
+	private void selectRound() {
 		ArrayList<ArrayList<Object>> result = gameQuery.getRound(gameId);
 		if(result.get(0).get(0) == null) {
 			setRound("1");
@@ -115,7 +115,7 @@ public class Game {
 		
 	}
 
-	public void selectAllDicesOnTable() {
+	private void selectAllDicesOnTable() {
 		ArrayList<ArrayList<Object>> result = gameQuery.getRound(gameId);
 		int round = Integer.valueOf(String.valueOf(result.get(0).get(0)));
 		round++;
@@ -126,7 +126,7 @@ public class Game {
 		ArrayList<ArrayList<Object>> result3 = gameQuery.getAllDicesFromOneRound(gameId, round);
 		//System.out.println(result3);
 
-		ArrayList<ArrayList<Object>> diceOnTable = new ArrayList<ArrayList<Object>>();
+		ArrayList<ArrayList<Object>> diceOnTable = new ArrayList<>();
 		
 		for (ArrayList<Object> dicesFromRound: result3) {
 			if(!result2.contains(dicesFromRound)) {
@@ -144,20 +144,25 @@ public class Game {
 		
 	}
 	
-	public Color makeColorFromQuerie(Object c) {
+	private Color makeColorFromQuerie(Object c) {
+		return getColorFromQuery(c);
+	}
+
+	static Color getColorFromQuery(Object c) {
 		String color = String.valueOf(c);
-		if (color.equals("geel")) {
-			return Color.YELLOW;
-		} else if (color.equals("groen")) {
-			return Color.LIGHTGREEN;
-		} else if (color.equals("blauw")) {
-			return Color.CORNFLOWERBLUE;
-		} else if (color.equals("paars")) {
-			return Color.MAGENTA;
-		} else if (color.equals("rood")) {
-			return Color.RED;
-		} else if (color.equals("")) {
-			return Color.LIGHTGRAY;
+		switch (color) {
+			case "geel":
+				return Color.YELLOW;
+			case "groen":
+				return Color.LIGHTGREEN;
+			case "blauw":
+				return Color.CORNFLOWERBLUE;
+			case "paars":
+				return Color.MAGENTA;
+			case "rood":
+				return Color.RED;
+			case "":
+				return Color.LIGHTGRAY;
 		}
 		return Color.LIGHTGRAY;
 	}

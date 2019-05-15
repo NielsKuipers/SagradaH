@@ -3,7 +3,7 @@ package queries;
 import java.util.ArrayList;
 
 public class GameQuery {
-	StandardQueries standardQueries;
+	private StandardQueries standardQueries;
 	
 	public GameQuery(StandardQueries standardQueries) {
 		this.standardQueries = standardQueries;
