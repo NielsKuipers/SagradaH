@@ -6,7 +6,7 @@ import javafx.scene.paint.Color;
 import main.GUI;
 
 public class StartPane extends HBox {
-	private RegisterScreen reg = new RegisterScreen();
+	private RegisterScreen reg;
 	private LoginScreen log;
 	private Window w1 = new Window();
 	private Window w2 = new Window();
@@ -14,6 +14,7 @@ public class StartPane extends HBox {
 	private Window w4 = new Window();
 	public StartPane(GUI gui) {
 		log = new LoginScreen(gui);
+		reg = new RegisterScreen(gui);
 		HBox hb = new HBox();
 		hb.getChildren().addAll(log,reg);
 		hb.setSpacing(30.0);

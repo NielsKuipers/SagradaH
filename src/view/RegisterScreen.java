@@ -3,13 +3,21 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import main.GUI;
 
 public class RegisterScreen extends VBox {
 	private Button register;
-	private TextField username = new TextField();
-	private PasswordField password = new PasswordField();
-	public RegisterScreen() {
+	private TextField username;
+	private PasswordField password;
+	GUI myGUI;
+	public RegisterScreen(GUI mygui) {
+		this.myGUI = mygui;
 		addFields();
 		addButton();
 		setAlignment(Pos.CENTER_RIGHT);
@@ -19,12 +27,25 @@ public class RegisterScreen extends VBox {
 		register = new Button("Register");
 		register.setMaxWidth(150);
 		getChildren().add(register);
+		register.setOnMouseClicked(e -> handleClick());
 	}
+	
 	private void addFields() {
-		//username = new TextField();
+		username = new TextField();
 		username.setPromptText("Username");
-		//password = new PasswordField();
+		password = new PasswordField();
 		password.setPromptText("Password");
 		getChildren().addAll(username,password);
+	}
+	
+	public void handleClick() {
+		myGUI.handleregister(username.getText(), password.getText());
+	}
+	
+	public void setGreenBorder() {
+		username.setBorder(new Border(new BorderStroke(Color.GREEN, BorderStrokeStyle.SOLID, null, new BorderWidths(5))));
+	}
+	public void setRedBorder() {
+		username.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, null, new BorderWidths(5))));
 	}
 }

@@ -7,9 +7,12 @@ import controller.GameController;
 import controller.WindowController;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import model.WindowPattern;
-import view.StartScreen;
+import view.LoginScreen;
+import view.RegisterScreen;
+import view.StartPane;
 
 public class GUI extends Application {
 	DatabaseController databaseController;
@@ -17,8 +20,10 @@ public class GUI extends Application {
 	DiceController diceController;
 	GameController gameController;
 	AccountController accountController;
-	StartScreen startScreen;
-	Stage stage;
+	RegisterScreen registerScreen;
+	LoginScreen loginScreen;
+	StartPane startPane;
+	Scene scene;
 	
 
 	public void startup(String[] args) {
@@ -26,16 +31,18 @@ public class GUI extends Application {
 	}
 	
 	public void start(Stage stage) {
-		this.stage = stage;
+		registerScreen = new RegisterScreen(this);
+		loginScreen = new LoginScreen(this);
 		databaseController = new DatabaseController();
 		windowController = new WindowController(this, databaseController);
 		diceController = new DiceController(this, windowController);
 		gameController = new GameController(this, windowController, diceController);
-		accountController = new AccountController(this, databaseController);
-		startScreen = new StartScreen(this);
-		
-		switchScreen(startScreen);
-		stage.setFullScreen(true);
+		accountController = new AccountController(this, databaseController, registerScreen, loginScreen);
+		startPane = new StartPane(this);
+		scene = new Scene(startPane);
+		stage.setScene(scene);
+		//stage.setFullScreen(true);
+		//stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH); might be nice for test day.
 		stage.show();
 		
 	}
@@ -56,7 +63,11 @@ public class GUI extends Application {
 		accountController.login(username, password);
 	}
 	
-	public void switchScreen(Scene scene) {
-		stage.setScene(scene);
+	public void changePane(Pane pane) {
+		scene.setRoot(pane);
+	}
+	
+	public void handleregister(String username, String password) {
+		accountController.register(username, password);
 	}
 }

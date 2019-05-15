@@ -42,11 +42,11 @@ public class LoginScreen extends VBox {
 		username.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, null, new BorderWidths(5))));
 		password.setText(null);
 		password.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, null, new BorderWidths(5))));
+		
 	}
 	
 	public void handleClick() {
-		System.out.print("handleClick");
-		myGUI.handlelogin("gijs", "gijs");
+		myGUI.handlelogin(username.getText(), password.getText());
 	}
 	
 }
