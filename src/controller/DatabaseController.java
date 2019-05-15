@@ -1,34 +1,44 @@
 package controller;
 
 import model.DatabaseModel;
-import queries.StandardQuerie;
+import queries.GameQuery;
+import queries.PlayerQuery;
+import queries.StandardQueries;
 import queries.WindowPatternQuerie;
 
 import java.sql.*;
 
 public class DatabaseController {
 
-    private Connection mConn;
-    
-    private StandardQuerie standardQuerie;
-    
+    private GameQuery gameQuery;
+    private PlayerQuery playerQuery;
     private WindowPatternQuerie windowPatternQuerie;
+
     //establish connection with database
-    public DatabaseController(){
+    public DatabaseController() {
         DatabaseModel sagradaBaseConn = new DatabaseModel();
-        this.mConn = sagradaBaseConn.connectDB();
-       
-        standardQuerie = new StandardQuerie(mConn);
-        
-        windowPatternQuerie = new WindowPatternQuerie(standardQuerie);
-        
-    }
-    
-    public WindowPatternQuerie getWindowPatternQuerie() {
-    	return windowPatternQuerie;
+        Connection mConn = sagradaBaseConn.connectDB();
+
+        StandardQueries standardQueries = new StandardQueries(mConn);
+
+        gameQuery = new GameQuery(standardQueries);
+        playerQuery = new PlayerQuery(standardQueries);
+        windowPatternQuerie = new WindowPatternQuerie(standardQueries);
+
     }
 
-    
+    GameQuery getGameQuery() {
+        return gameQuery;
+    }
+
+    PlayerQuery getPlayerQuery() {
+        return playerQuery;
+    }
+
+    WindowPatternQuerie getWindowPatternQuerie() {
+        return windowPatternQuerie;
+    }
+}
 
 //        example queries below:
 //        use question marks for where you want to use variables, declare them in the variable parameters
@@ -38,4 +48,4 @@ public class DatabaseController {
 //        updateQuery("INSERT INTO account VALUES(?,?)", "Mario\0Zario", "", "");
 //        selectQuery("SELECT username FROM account", " WHERE username=?", "Niels2");
 //        selectQuery("SELECT username FROM account");
-}
+

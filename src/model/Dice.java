@@ -19,7 +19,7 @@ public class Dice {
 	private IntegerProperty eyesProperty;
 
 
-	public Dice(int eyes, Color color) {
+	public Dice(int eyes, Color color, int dieNumber) {
 		this.color = color;
 		backgroundProperty = new SimpleObjectProperty<>();
 		backgroundProperty.setValue(new Background(new BackgroundFill(color, null, null)));

@@ -7,16 +7,15 @@ import controller.WindowController;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import model.WindowPattern;
-import view.WindowPatternScreen;
 
 public class GUI extends Application {
-	DatabaseController databaseController;
-	WindowController windowController;
-	DiceController diceController;
-	GameController gameController;
+	private DatabaseController databaseController;
+	private WindowController windowController;
+	private DiceController diceController;
+	private GameController gameController;
 	
 
-	public void startup(String[] args) {
+	void startup(String[] args) {
 		launch(args);
 	}
 	
@@ -24,7 +23,7 @@ public class GUI extends Application {
 		databaseController = new DatabaseController();
 		windowController = new WindowController(this, databaseController);
 		diceController = new DiceController(this, windowController);
-		gameController = new GameController(this, windowController, diceController);
+		gameController = new GameController(this, databaseController, windowController, diceController);
 		
 		stage.setScene(gameController);
 		stage.setFullScreen(true);
