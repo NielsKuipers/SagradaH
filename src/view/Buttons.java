@@ -10,6 +10,7 @@ import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import main.GUI;
 
 public class Buttons extends VBox {
 	private Background buttonBackground = new Background(new BackgroundFill(Color.GAINSBORO,null,null));
@@ -19,7 +20,11 @@ public class Buttons extends VBox {
 	private Button openUitdaging = new Button("Open Uitdagingen");
 	private Button spelerLijst = new Button("Speler Lijst");
 	private Button uitloggen = new Button("Uitloggen");
-	public Buttons() {
+	GUI myGUI;
+	
+	
+	public Buttons(GUI mygui) {
+		this.myGUI = mygui;
 		setAlignment(Pos.CENTER);
 		addButtons();
 	}
@@ -44,6 +49,11 @@ public class Buttons extends VBox {
 		openUitdaging.setPrefSize(300, 30);
 		spelerLijst.setPrefSize(300, 30);
 		uitloggen.setPrefSize(300, 30);
+		uitloggen.setOnMouseClicked(e -> handleUitloggen());
 		getChildren().addAll(startGame, gameLijst, openUitdaging, spelerLijst, uitloggen);
 	}
+	
+	public void handleUitloggen() {
+		myGUI.handleUitloggen();
+	} 
 }

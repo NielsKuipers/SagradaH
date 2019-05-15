@@ -39,13 +39,15 @@ public class RegisterScreen extends VBox {
 	}
 	
 	public void handleClick() {
-		myGUI.handleregister(username.getText(), password.getText());
+		myGUI.handleregister(username, password);
 	}
 	
-	public void setGreenBorder() {
-		username.setBorder(new Border(new BorderStroke(Color.GREEN, BorderStrokeStyle.SOLID, null, new BorderWidths(5))));
+	public void setGreenBorder(TextField username, PasswordField password) {
+		username.setBorder(new Border(new BorderStroke(Color.GREEN, BorderStrokeStyle.SOLID, null, new BorderWidths(1))));
+		password.setBorder(new Border(new BorderStroke(Color.GREEN, BorderStrokeStyle.SOLID, null, new BorderWidths(1))));
 	}
-	public void setRedBorder() {
-		username.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, null, new BorderWidths(5))));
+	public void setRedBorder(TextField username, PasswordField password) {
+		username.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, null, new BorderWidths(1))));
+		password.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, null, new BorderWidths(1))));
 	}
 }

@@ -7,11 +7,12 @@ import controller.GameController;
 import controller.WindowController;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import model.WindowPattern;
-import view.LoginScreen;
-import view.RegisterScreen;
+import view.HomePane;
 import view.StartPane;
 
 public class GUI extends Application {
@@ -20,10 +21,10 @@ public class GUI extends Application {
 	DiceController diceController;
 	GameController gameController;
 	AccountController accountController;
-	RegisterScreen registerScreen;
-	LoginScreen loginScreen;
 	StartPane startPane;
+	HomePane homepane;
 	Scene scene;
+	Stage stage;
 	
 
 	public void startup(String[] args) {
@@ -31,19 +32,19 @@ public class GUI extends Application {
 	}
 	
 	public void start(Stage stage) {
-		registerScreen = new RegisterScreen(this);
-		loginScreen = new LoginScreen(this);
+		this.stage = stage;
+		startPane = new StartPane(this);
+		homepane = new HomePane(this);
 		databaseController = new DatabaseController();
 		windowController = new WindowController(this, databaseController);
 		diceController = new DiceController(this, windowController);
 		gameController = new GameController(this, windowController, diceController);
-		accountController = new AccountController(this, databaseController, registerScreen, loginScreen);
-		startPane = new StartPane(this);
+		accountController = new AccountController(this, databaseController, homepane,startPane);
 		scene = new Scene(startPane);
-		stage.setScene(scene);
+		this.stage.setScene(scene);
 		//stage.setFullScreen(true);
 		//stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH); might be nice for test day.
-		stage.show();
+		this.stage.show();
 		
 	}
 	
@@ -59,7 +60,7 @@ public class GUI extends Application {
 		diceController.makeDices();
 	}
 	
-	public void handlelogin(String username, String password) {
+	public void handlelogin(TextField username, PasswordField password) {
 		accountController.login(username, password);
 	}
 	
@@ -67,7 +68,11 @@ public class GUI extends Application {
 		scene.setRoot(pane);
 	}
 	
-	public void handleregister(String username, String password) {
+	public void handleregister(TextField username, PasswordField password) {
 		accountController.register(username, password);
+	}
+	
+	public void handleUitloggen() {
+		accountController.uitloggen();
 	}
 }

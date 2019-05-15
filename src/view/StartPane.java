@@ -22,4 +22,11 @@ public class StartPane extends HBox {
 		setBackground(new Background(new BackgroundFill(Color.GAINSBORO, null, null)));
 		getChildren().addAll(w1,w2,hb,w3,w4);
 	}
+	
+	public RegisterScreen getReg() {
+		return reg;
+	}
+	public LoginScreen getLog() {
+		return log;
+	}
 }

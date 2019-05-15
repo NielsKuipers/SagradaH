@@ -37,16 +37,24 @@ public class LoginScreen extends VBox {
 		getChildren().addAll(username,password);
 	}
 	
+	public void badFields(TextField username, PasswordField password) {
+		//System.out.println(password.getBorder());
+		//System.out.println(username.getText());
+		username.clear();
+		username.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, null, new BorderWidths(1))));
+		password.clear();
+		password.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, null, new BorderWidths(1))));
+		//System.out.println(password.getBorder());
+	}
+	
 	public void emptyFields() {
-		username.setText(null);
-		username.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, null, new BorderWidths(5))));
-		password.setText(null);
-		password.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, null, new BorderWidths(5))));
-		
+		username.clear();
+		password.clear();
 	}
 	
 	public void handleClick() {
-		myGUI.handlelogin(username.getText(), password.getText());
+		myGUI.handlelogin(username, password);
+		//username.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, null, new BorderWidths(1))));
 	}
 	
 }
