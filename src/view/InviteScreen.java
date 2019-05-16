@@ -3,9 +3,11 @@ package view;
 import controller.SetupScreenController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.BorderStroke;
@@ -72,7 +74,7 @@ public class InviteScreen extends BorderPane{
 		}
 	}
 	
-	// todo invite button
+	//invite button
 	private class InviteButton extends Button{
 		private InviteButton(String username) {
 			setText("Invite");
@@ -82,5 +84,13 @@ public class InviteScreen extends BorderPane{
 			});
 			
 		}
+	}
+	
+	public void maxInvitedWarning() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Maximaal aantal spelers bereikt!!");
+		alert.setHeaderText("WAARSCHUWING");
+		alert.setContentText("Je hebt al drie spelers uitgenodigd!!");
+		alert.showAndWait();
 	}
 }

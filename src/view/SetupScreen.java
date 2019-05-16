@@ -135,6 +135,7 @@ public class SetupScreen extends BorderPane {
 		} else {
 			System.out.println("already searching!!");
 		}
+		refreshPlayerList();
 	}
 
 	// stopt spelerzoeken, speler invitescherm wordt uitgeschakeld en startgame knop werkt
@@ -227,13 +228,7 @@ public class SetupScreen extends BorderPane {
 	}
 
 
-	public void maxInvitedWarning() {
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Maximaal aantal spelers bereikt!!");
-		alert.setHeaderText("WAARSCHUWING");
-		alert.setContentText("Je hebt al drie spelers uitgenodigd!!");
-		alert.showAndWait();
-	}
+	
 	
 }
 

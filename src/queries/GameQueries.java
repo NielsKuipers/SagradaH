@@ -12,7 +12,9 @@ public class GameQueries {
 		this.standardQuerie = standardQuerie;
 	}
 	
-	public ArrayList<ArrayList<Object>> getDicesOnRoundBoard() {
-		return standardQuerie.selectQuery("SELECT roundtrack, diecolor, eyes FROM gamedie", " WHERE idgame=?", "" + 2 + "");
+	// geeft dobbelstenen op rondebord terug voor een gekozen ronde
+	public ArrayList<ArrayList<Object>> getDicesOnRoundBoard(int round) {
+		int gameid =2;
+		return standardQuerie.selectQuery("SELECT diecolor, eyes FROM gamedie", " WHERE idgame=? AND roundtrack=?",""+gameid+"\0"+round+"");
 	}
 }

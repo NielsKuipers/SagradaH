@@ -1,9 +1,7 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
-import controller.DatabaseController;
 import queries.InviteHandleQueries;
 
 public class CommunicationModel {
@@ -37,6 +35,14 @@ public class CommunicationModel {
 		return inviteQueries.getInvitedPlayerCount();
 	}
 
+	public ArrayList<ArrayList<Object>> getInviteGetList() {
+		return inviteQueries.getInviteGetList();
+	}
+	
+	public ArrayList<ArrayList<Object>> getInviter(int gameid){
+		return inviteQueries.getInviter(gameid);
+	}
+	
 	private void addColors() {
 		colors.add("rood");
 		colors.add("groen"); 
@@ -50,6 +56,16 @@ public class CommunicationModel {
 		String color = colors.get(random);
 		colors.remove(random);
 		return color;
+		
+	}
+
+	public void acceptInvite(String host, int gameid) {
+		inviteQueries.acceptInvite(host, gameid);
+		
+	}
+
+	public void declineInvite(String host, int gameid) {
+		inviteQueries.declineInvite(host, gameid);
 		
 	}
 	

@@ -1,6 +1,7 @@
 package controller;
 
 import model.CommunicationModel;
+import view.InviteGetScreen;
 import view.InviteScreen;
 import view.SetupScreen;
 
@@ -12,16 +13,17 @@ import javafx.stage.Stage;
 
 public class SetupScreenController {
 	
-	private SetupScreen screen;
+	private SetupScreen setupScreen;
 	private CommunicationModel cModel;
 	private InviteScreen inviteScreen;
+	private InviteGetScreen inviteGetScreen;
 	private Scene scene;
 	
 	public SetupScreenController(Stage stage, DatabaseController dataController) {
 		cModel = new CommunicationModel(dataController.getInviteQueries());
 		inviteScreen = new InviteScreen(this);
-		screen = new SetupScreen(this);
-		scene = new Scene(screen);
+		setupScreen = new SetupScreen(this);
+		scene = new Scene(setupScreen);
 		
 		stage.setScene(scene);
 
@@ -32,10 +34,7 @@ public class SetupScreenController {
 		
 	}
 	
-	// schakel van setup scherm naar patternkeuze scherm
-	public void finishSetup() {
-		scene.setRoot(new Pane());
-	}
+
 	
 	// schakel van setup scherm naar invite scherm
 	public void openInviterMenu() {
@@ -46,8 +45,8 @@ public class SetupScreenController {
 	
 	// schakel van invite naar setup scherm
 	public void openSetupMenu() {
-		scene.setRoot(screen);
-		screen.clearJoinedList();
+		scene.setRoot(setupScreen);
+		setupScreen.clearJoinedList();
 		addJoinedPlayers();
 	}
 	
@@ -56,9 +55,8 @@ public class SetupScreenController {
 		ArrayList<ArrayList <Object>> result = cModel.getInviteablePlayers();
 		
 		for(int i = 0; i < result.size(); i++) {
-			if(result.get(i).get(1) != null) {
-				inviteScreen.addPlayer((String) result.get(i).get(0));
-			}
+			System.out.println(result.get(i).get(0));
+			inviteScreen.addPlayer((String) result.get(i).get(0));
 		}
 	}
 	
@@ -69,7 +67,7 @@ public class SetupScreenController {
 		
 		for(int i = 0; i < result.size(); i++) {
 			if(result.get(i).get(0) != null) {
-				screen.addJoinedPlayer((String) result.get(i).get(0));
+				setupScreen.addJoinedPlayer((String) result.get(i).get(0));
 			}
 		}
 	}
@@ -87,7 +85,35 @@ public class SetupScreenController {
 			color = cModel.getPrivateObjectiveColor();
 			cModel.invitePlayer(username, color);	
 		}else {
-			screen.maxInvitedWarning();
+			inviteScreen.maxInvitedWarning();
 		}
+	}
+	
+//////////////////////// inviteGetScreen ///////////////////////////////	
+	// schakel van setup scherm naar patternkeuze scherm
+	public void finishSetup() {
+		inviteGetScreen = new InviteGetScreen(this);
+		addPlayersToInviteGetList();
+		scene.setRoot(inviteGetScreen);
+	}
+
+	public void addPlayersToInviteGetList() {
+		ArrayList<ArrayList <Object>> result = cModel.getInviteGetList();
+		
+		for(int i = 0; i < result.size(); i++) {
+			
+			int gameid = (int) result.get(i).get(0);
+			System.out.println(gameid);
+			String inviter = (String)cModel.getInviter(gameid).get(0).get(0);
+			inviteGetScreen.addPlayer(inviter, gameid);
+		}
+	}
+	
+	public void acceptInvite(String host, int gameid) {
+		cModel.acceptInvite(host, gameid);
+	}
+	
+	public void declineInvite(String host, int gameid) {
+		cModel.declineInvite(host, gameid);
 	}
 }

@@ -14,7 +14,7 @@ public class GameModel {
 	}
 	
 	// returnt rondebord dobbelstenen
-	public ArrayList<ArrayList<Object>> getDicesOnRoundBoard() {
-		return gameQueries.getDicesOnRoundBoard();
+	public ArrayList<ArrayList<Object>> getDicesOnRoundBoard(int round) {
+		return gameQueries.getDicesOnRoundBoard(round);
 	}
 }

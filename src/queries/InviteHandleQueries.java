@@ -11,12 +11,19 @@ public class InviteHandleQueries {
 	private String currentDate;
 	private int seqNR = 1;
 	private String hostUsername;
+	private String username = "Gijs";
 
 	public InviteHandleQueries(StandardQuerie standardQuerie) {
 		this.standardQuerie = standardQuerie;
-		hostUsername = "Pasa";
+		hostUsername = "Lucas";
 	}
 	
+	// gameID ophalen en int returnen
+		public int getGameIDint() {
+			int gameID = (int) getGameID().get(0).get(0);
+			return gameID;
+		}
+		
 	
 	//////////////insert queries////////////////////////////
 	
@@ -40,12 +47,24 @@ public class InviteHandleQueries {
 		standardQuerie.updateQuery("INSERT INTO player(username, game_idgame, playstatus_playstatus, seqnr, isCurrentPlayer, private_objectivecard_color) VALUES (?,?,?,?,?,?)", ""+username+"\0"+getGameIDint()+"\0uitgedaagde\0"+seqNR+"\0 0\0"+color+"");
 		seqNR++;
 	}
+	
+	// invite accepteren
+	public void acceptInvite(String host, int gameid) {
+		standardQuerie.updateQuery("UPDATE player SET playstatus_playstatus=?", "geaccepteerd", " WHERE username=? AND game_idgame=?", ""+username+"\0"+gameid+"");
+		
+	}
+	
+	// invite weigeren
+	public void declineInvite(String host, int gameid) {
+		standardQuerie.updateQuery("UPDATE player SET playstatus_playstatus=?", "geweigerd", " WHERE username=? AND game_idgame=?", ""+username+"\0"+gameid+"");
+		
+	}
 
 	///////////////select queries/////////////////////////////	
 	
-	// geeft spelerlijst
+	// geeft spelerlijst uit alle accounts behalve hostaccount
 	public ArrayList<ArrayList<Object>> getPlayers() {
-		return standardQuerie.selectQuery("SELECT username, password FROM account", " WHERE username!=?", "+hostUsername+");
+		return standardQuerie.selectQuery("SELECT username FROM account", " WHERE username!=?", ""+hostUsername+"");
 	}
 	
 	// geeft gejoinde spelerlijst
@@ -58,15 +77,21 @@ public class InviteHandleQueries {
 		return standardQuerie.selectQuery("SELECT idgame FROM game", " WHERE creationdate=?", ""+currentDate+"");
 	}
 	
+	// speler aantal ophalen
 	public ArrayList<ArrayList<Object>> getInvitedPlayerCount() {
 		return standardQuerie.selectQuery("SELECT COUNT(idplayer) FROM player", " WHERE game_idgame=?", ""+getGameIDint()+"");
 	}
 	
-	// gameID ophalen en int returnen
-	public int getGameIDint() {
-		int gameID = (int) getGameID().get(0).get(0);
-		return gameID;
+	// inviteGetLijst ophalen
+	public ArrayList<ArrayList<Object>> getInviteGetList(){
+		return standardQuerie.selectQuery("SELECT game_idgame FROM player", " WHERE username=? AND playstatus_playstatus=?", ""+username+"\0uitgedaagde");
 	}
+	
+	public ArrayList<ArrayList<Object>> getInviter(int gameid){
+		return standardQuerie.selectQuery("SELECT username, game_idgame FROM player", " WHERE game_idgame=? AND playstatus_playstatus=?", ""+gameid+"\0uitdager");
+	}
+
+	
 	
 	
 	
