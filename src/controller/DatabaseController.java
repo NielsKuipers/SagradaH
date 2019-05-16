@@ -1,6 +1,7 @@
 package controller;
 
 import model.DatabaseModel;
+import queries.CardQueries;
 import queries.StandardQuerie;
 import queries.WindowPatternQuerie;
 
@@ -11,6 +12,7 @@ public class DatabaseController {
     private Connection mConn;
     
     private StandardQuerie standardQuerie;
+    private CardQueries CQ;
     
     private WindowPatternQuerie windowPatternQuerie;
     //establish connection with database
@@ -19,6 +21,7 @@ public class DatabaseController {
         this.mConn = sagradaBaseConn.connectDB();
        
         standardQuerie = new StandardQuerie(mConn);
+        CQ = new CardQueries(standardQuerie);
         
         windowPatternQuerie = new WindowPatternQuerie(standardQuerie);
         
@@ -26,6 +29,10 @@ public class DatabaseController {
     
     public WindowPatternQuerie getWindowPatternQuerie() {
     	return windowPatternQuerie;
+    }
+    
+    public CardQueries getCardQueries() {
+    	return CQ;
     }
 
     

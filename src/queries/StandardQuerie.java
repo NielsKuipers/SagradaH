@@ -43,9 +43,9 @@ public class StandardQuerie {
     public void updateQuery(String query, String values, String where, String whereVal){
         try {
             PreparedStatement stmt = mConn.prepareStatement(query + where);
-
+            
             //split the values and use them in the statement
-            String[] vals = values.split(" ");
+            String[] vals = values.split("\0");
             int i=1;
             for(String val : vals){
                 if(checkInt(val)){
@@ -60,9 +60,11 @@ public class StandardQuerie {
                 }
                 i++;
             }
-
+           
             //if there's a where clause handle it
             if(!where.isEmpty()){ handleWhere(whereVal, stmt, i); }
+            
+            
             stmt.executeUpdate();
         }
         catch(SQLException e){
@@ -72,7 +74,7 @@ public class StandardQuerie {
 
     //overload for insert query without where
     public void updateQuery(String query, String values){updateQuery(query, values, "", "");}
-
+    
     //check if passed string is an int
     private boolean checkInt(String str){
         for(int x=0;x<str.length(); x++){
@@ -85,7 +87,7 @@ public class StandardQuerie {
     }
 
     private void handleWhere(String whereVal, PreparedStatement stmt, int i) throws SQLException {
-        String[] whereVals = whereVal.split(" ");
+        String[] whereVals = whereVal.split("\0");
         for(String val : whereVals){
             if(checkInt(val)){
                 int x = Integer.parseInt(val);

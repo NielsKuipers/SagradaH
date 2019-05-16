@@ -5,7 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import main.GUI;
 import model.CardModel;
-
+import queries.CardQueries;
 import view.CardScreen;
 import view.GameCardsScreen;
 import view.GameCardsScreen;
@@ -75,8 +75,10 @@ public class CardController extends Scene {
 	int pubOBJ1;
 	int pubOBJ2;
 	int pubOBJ3;
+	
+	CardQueries CQ;
 
-	public CardController(GUI gui,WindowController cc, DiceController dc, GameController GC) {
+	public CardController(GUI gui,WindowController cc, DiceController dc, GameController GC, DatabaseController databaseController) {
 		super(new Pane());
 		this.gui = gui;
 		this.gameController = GC;
@@ -84,9 +86,11 @@ public class CardController extends Scene {
 		diceController = dc;
 		gameController.setCardController(this);
 		
+		CQ = databaseController.getCardQueries();
+		
 		
 		cardScreen = new GameCardsScreen(this);
-		cardModel = new CardModel();
+		cardModel = new CardModel();	
 
 		toolCard1 = new CardScreen("file:Sagrada-cards/sagrada-toolcards/toolcard1-driepuntstang.png");
 		toolCard2 = new CardScreen("file:Sagrada-cards/sagrada-toolcards/toolcard2-eglomiseBorstel.png");
@@ -132,6 +136,8 @@ public class CardController extends Scene {
 		generateObjectiveCards();
 		cardScreen.createView();
 	}
+	
+	
 
 	private int generateRandNR(int NR) {
 		return (int) (Math.random() * (NR)) + 1;
@@ -679,6 +685,7 @@ public class CardController extends Scene {
 		
 		
 		
+		
 		TC1 = generateRandNR(12);
 		TC2 = generateRandNR(12);
 		while (TC1 == TC2) {
@@ -688,6 +695,8 @@ public class CardController extends Scene {
 		while (TC3 == TC1 || TC3 == TC2) {
 			TC3 = generateRandNR(12);
 		}
+		
+		
 	
 
 		switch (TC1) {

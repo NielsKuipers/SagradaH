@@ -28,7 +28,7 @@ public class GUI extends Application {
 		diceController = new DiceController(this, windowController);
 		
 		gameController = new GameController(this, windowController, diceController);
-		cardController = new CardController(this,windowController,diceController, gameController);
+		cardController = new CardController(this,windowController,diceController, gameController,databaseController);
 		stage.setScene(gameController);
 		stage.setFullScreen(true);
 		stage.show();
