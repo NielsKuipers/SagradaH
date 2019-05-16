@@ -16,7 +16,7 @@ public class GUI extends Application {
 	private ChatController chatController;
 
 
-	public void startup(String[] args) {
+	void startup(String[] args) {
 		launch(args);
 	}
 	
@@ -25,8 +25,7 @@ public class GUI extends Application {
 		WindowController windowController = new WindowController(this, databaseController);
 		diceController = new DiceController(this, windowController);
 		chatController = new ChatController(this, databaseController);
-		gameController = new GameController(this, windowController, diceController, chatController);
-
+        gameController = new GameController(this, databaseController, windowController, diceController, chatController);
 		
 		stage.setScene(gameController);
 		stage.setFullScreen(true);

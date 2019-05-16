@@ -23,6 +23,7 @@ public class StandardQueries {
             //if there's a where clause handle it
             int i = 1;
             if(!where.isEmpty()){ handleVals(whereVal, stmt, i); }
+
             //get the results from the query and put them in an array
             ResultSet rs = stmt.executeQuery();
             getResult(rs, result);
@@ -44,7 +45,7 @@ public class StandardQueries {
     }
 
     //method for update queries
-    public void updateQuery(String query, String values, String where, String whereVal){
+    void updateQuery(String query, String values, String where, String whereVal){
         try {
             PreparedStatement stmt = mConn.prepareStatement(query + where);
             //split the values and use them in the statement
@@ -114,3 +115,4 @@ public class StandardQueries {
         }
     }
 }
+

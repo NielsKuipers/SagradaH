@@ -5,27 +5,31 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import model.WindowPattern;
 
 public class WindowPatternScreen extends GridPane{
-	private Label name;
-	private Font font = new Font("Consolas", 18);
-	private Label difficulty;
 	private WindowPattern windowPatternModel;
 	
 	public WindowPatternScreen(String name, WindowPattern windowPatternModel, String color) {
 		this.windowPatternModel = windowPatternModel;
-		this.name = new Label(name);
-		difficulty = new Label();
-		this.add(this.name, 2, 0, 5, 1);
-		this.name.setFont(font);
+		Label name1 = new Label(name);
+		Label difficulty = new Label();
+		Label score = new Label();
+		this.add(name1, 0, 0, 5, 1);
+		Font font = new Font("Consolas", 18);
+		name1.setFont(font);
 		setStyle("-fx-background-color: linear-gradient(to bottom, "+color+" 0%,#cccccc 100%);-fx-background-radius: 20 20 20 20;");
 		this.add(difficulty, 0, 5, 5, 1);
+		this.add(score, 0, 6, 5, 1);
 		difficulty.setFont(font);
+		score.setFont(font);
+		setHalignment(score, HPos.CENTER);
 		setHalignment(difficulty, HPos.CENTER);
+		setHalignment(name1, HPos.CENTER);
+		score.textProperty().bind(windowPatternModel.playerScoreProperty());
 		difficulty.textProperty().bind(windowPatternModel.difficultyProperty());
+		name1.textProperty().bind(windowPatternModel.playerNameProperty());
 		
 		setHgap(2); // horizontal gap in pixels
 		setVgap(2); // vertical gap in pixels
