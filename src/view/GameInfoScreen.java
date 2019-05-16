@@ -1,6 +1,5 @@
 package view;
 
-import controller.GameController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -25,51 +24,36 @@ import model.Game;
 
 public class GameInfoScreen extends VBox{
 	private Label l;
-	private Label round;
-	
-	private GameController GC;
-	
-	private Game gameModel;
-	
-	private RadioButton noCheat;
-	private RadioButton cheatAllPossible;
-	private RadioButton cheatBestChoice;
-	
-	private Button finishTurn;
-	private Button backToHomeScreen;
-	
-	private ToggleGroup cheatModus;
-	
+
 	private GUI gui;
 	
 	public GameInfoScreen(GUI gui, Game game,String info) {
 		this.gui = gui;
-		this.gameModel = game;
 		
 		l = new Label(info);
 		l.setFont(new Font("Consolas", 18));
 		setMinSize(200, 200);
 		setPrefSize(1000, 1000);
 		
-		round = new Label();
+		Label round = new Label();
 		round.setFont(new Font("Consolas", 18));
 		round.setPadding(new Insets(0, 0, 20, 0));
 		
 		round.textProperty().bind(game.gameRoundProperty());
 		
-		noCheat = new RadioButton("Geen cheat");
-		cheatAllPossible = new RadioButton("Cheat");
-		cheatBestChoice = new RadioButton("Cheat extreme");
+		RadioButton noCheat = new RadioButton("Geen cheat");
+		RadioButton cheatAllPossible = new RadioButton("Cheat");
+		RadioButton cheatBestChoice = new RadioButton("Cheat extreme");
 		
-		finishTurn = new Button("Beurt beëndigen");
+		Button finishTurn = new Button("Beurt beëndigen");
 		finishTurn.setStyle("-fx-background-radius: 50 50 50 50; -fx-background-color: lavender");
 		
-		backToHomeScreen = new Button("Terug naar hoofdscherm");
+		Button backToHomeScreen = new Button("Terug naar hoofdscherm");
 		backToHomeScreen.setStyle("-fx-background-color: linear-gradient(to right, lightblue 0%,white 50%, cornflowerblue 100%);-fx-background-radius: 50 50 50 50;");
 		backToHomeScreen.setBorder(new Border(new BorderStroke(Color.GRAY, BorderStrokeStyle.SOLID,new CornerRadii(50), new BorderWidths(2))));
 	
 		
-		cheatModus = new ToggleGroup();
+		ToggleGroup cheatModus = new ToggleGroup();
 		
 		
 		noCheat.setToggleGroup(cheatModus);
@@ -98,8 +82,8 @@ public class GameInfoScreen extends VBox{
 		l.setText(Integer.toString(value));
 	}
 	
+
 	private void handleCheat(boolean allPossible, boolean bestChoice) {
 		gui.handleCheat(allPossible, bestChoice);
-		
 	}
 }

@@ -15,8 +15,7 @@ public class WindowPatternQuerie {
 	}
 
 	public ArrayList<ArrayList<Object>> getAllDicesOnField(int id) {
-		return standardQueries.selectQuery(
-				"SELECT gamedie.diecolor, gamedie.eyes, playerframefield.position_x, playerframefield.position_y, gamedie.dienumber FROM playerframefield INNER JOIN gamedie ON gamedie.dienumber = playerframefield.dienumber AND gamedie.diecolor = playerframefield.diecolor ",
+		return standardQueries.selectQuery("SELECT gamedie.diecolor, gamedie.eyes, playerframefield.position_x, playerframefield.position_y, gamedie.dienumber FROM playerframefield INNER JOIN gamedie ON gamedie.dienumber = playerframefield.dienumber AND gamedie.diecolor = playerframefield.diecolor ",
 				" WHERE playerframefield.player_idplayer=?", "" + id + "");
 	}
 	

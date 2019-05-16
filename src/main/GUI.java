@@ -1,5 +1,7 @@
 package main;
 
+
+import controller.ChatController;
 import controller.DatabaseController;
 import controller.DiceController;
 import controller.GameController;
@@ -10,26 +12,24 @@ import model.WindowPattern;
 import view.WindowPatternScreen;
 
 public class GUI extends Application {
-	DatabaseController databaseController;
-	WindowController windowController;
-	DiceController diceController;
-	GameController gameController;
-	
+	private DiceController diceController;
+	private GameController gameController;
+	private ChatController chatController;
 
 	public void startup(String[] args) {
 		launch(args);
 	}
 	
 	public void start(Stage stage) {
-		databaseController = new DatabaseController();
-		windowController = new WindowController(this, databaseController);
+		DatabaseController databaseController = new DatabaseController();
+		WindowController windowController = new WindowController(this, databaseController);
 		diceController = new DiceController(this, windowController);
-		gameController = new GameController(this, databaseController, windowController, diceController);
+		chatController = new ChatController(this, databaseController);
+        gameController = new GameController(this, databaseController, windowController, diceController, chatController);
 		
 		stage.setScene(gameController);
 		stage.setFullScreen(true);
 		stage.show();
-		
 	}
 	
 	public void createGame(WindowPattern windowModel) {
@@ -43,4 +43,7 @@ public class GUI extends Application {
 	public void makeDices() {
 		diceController.makeDices();
 	}
+
+	public void sendMessage(String input){chatController.sendMessage(input);}
+
 }
