@@ -1,24 +1,34 @@
 package controller;
 
-import javafx.scene.paint.Color;
-import main.GUI;
-import model.DiceOnTable;
-import view.DiceOnTableScreen;
-
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Random;
+
+import javafx.scene.control.Button;
+import javafx.scene.paint.Color;
+import main.GUI;
+import model.Dice;
+import model.DiceOnTable;
+import view.DiceOnTableScreen;
+import view.DiceScreen;
 
 public class DiceController {
 
 	private ArrayList<Color> colorsDice = new ArrayList<>();
 	private Random r = new Random();
-
+	
+	private WindowController WC;
+	
+	private GUI gui;
+	
 	private DiceOnTableScreen diceOnTableScreen;
 	
 	private DiceOnTable diceOnTableModel;
 
 	public DiceController(GUI gui, WindowController WC) {
-
+		this.gui = gui;
+		this.WC = WC;
+		
 		diceOnTableModel = new DiceOnTable();
 		
 		diceOnTableScreen = new DiceOnTableScreen(gui, diceOnTableModel, WC);
@@ -38,7 +48,7 @@ public class DiceController {
 		}
 	}
 	
-	private void addColorsDice() {
+	public void addColorsDice() {
 		colorsDice.add(Color.CORNFLOWERBLUE);
 		colorsDice.add(Color.YELLOW);
 		colorsDice.add(Color.RED);
@@ -46,11 +56,11 @@ public class DiceController {
 		colorsDice.add(Color.LIGHTGREEN);
 	}
 	
-	DiceOnTableScreen getDiceOnTableScreen(){
+	public DiceOnTableScreen getDiceOnTableScreen(){
 		return diceOnTableScreen;
 	}
 	
-	DiceOnTable getDiceOnTableModel() {
+	public DiceOnTable getDiceOnTableModel() {
 		return diceOnTableModel;
 	}
 

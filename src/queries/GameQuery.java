@@ -3,7 +3,7 @@ package queries;
 import java.util.ArrayList;
 
 public class GameQuery {
-	private StandardQueries standardQueries;
+	StandardQueries standardQueries;
 	
 	public GameQuery(StandardQueries standardQueries) {
 		this.standardQueries = standardQueries;
@@ -42,5 +42,9 @@ public class GameQuery {
 	public ArrayList<ArrayList<Object>> getEyeOfDice(int idGame, int dieNumber, String dieColor) {
 		return standardQueries.selectQuery("SELECT eyes FROM gamedie",
 				" WHERE idgame=? AND dienumber=? AND diecolor=?", idGame + "\0" + dieNumber + "\0" + dieColor);
+	}
+	
+	public void updateTurnPlayerInGameTable(int idGame, int idPlayer) {
+		standardQueries.updateQuery("UPDATE game set turn_idplayer=?", "" + idPlayer + "", " WHERE idgame=?", "" + idGame + "");
 	}
 }

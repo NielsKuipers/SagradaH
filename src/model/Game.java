@@ -25,7 +25,7 @@ public class Game {
 		gameRound = new SimpleStringProperty(this, "round", "empty");
 	}
 
-	private void setRound(String round) {
+	public void setRound(String round) {
 		gameRound.set("Ronde: " + round);
 	}
 
@@ -42,27 +42,27 @@ public class Game {
 	}
 
 	// give all the players the right id
-	private void selectPlayerIds() {
+	public void selectPlayerIds() {
 		ArrayList<ArrayList<Object>> result = gameQuery.getPlayerIdsAndNames(gameId);
 		int playerLocation = 0;
 		boolean accountPlaced = false;
 		boolean stop = false;
 
-		for (ArrayList<Object> objectArrayList : result) {
+		for (int i = 0; i < result.size(); i++) {
 			if (accountPlaced) {
-				players.get(playerLocation).setPlayerId(Integer.valueOf(String.valueOf(objectArrayList.get(0))));
+				players.get(playerLocation).setPlayerId(Integer.valueOf(String.valueOf(result.get(i).get(0))));
 				playerLocation++;
 			}
-			if (String.valueOf(objectArrayList.get(1)).equals(accountName)) {
-				players.get(playerLocation).setPlayerId(Integer.valueOf(String.valueOf(objectArrayList.get(0))));
+			if (String.valueOf(result.get(i).get(1)).equals(accountName)) {
+				players.get(playerLocation).setPlayerId(Integer.valueOf(String.valueOf(result.get(i).get(0))));
 				playerLocation++;
 				accountPlaced = true;
 			}
 		}
 
-		for (ArrayList<Object> objects : result) {
-			if (!String.valueOf(objects.get(1)).equals(accountName) && !stop) {
-				players.get(playerLocation).setPlayerId(Integer.valueOf(String.valueOf(objects.get(0))));
+		for (int i = 0; i < result.size(); i++) {
+			if (!String.valueOf(result.get(i).get(1)).equals(accountName) && !stop) {
+				players.get(playerLocation).setPlayerId(Integer.valueOf(String.valueOf(result.get(i).get(0))));
 				playerLocation++;
 			} else {
 				stop = true;
@@ -93,78 +93,219 @@ public class Game {
 		selectPlayerIds();
 		ArrayList<ArrayList<Object>> result = gameQuery.getPlayerIdsAndNames(gameId);
 		int amountOfPlayers = result.size();
-		for (Player player : players) {
-			player.getWindowPatternPlayer().setPlayerName("Naam: NIEMAND!!!");
+		for (int j = 0; j < players.size(); j++) {
+			players.get(j).getWindowPatternPlayer().setPlayerName("Naam: NIEMAND!!!");
 		}
 		for (int i = 0; i < amountOfPlayers; i++) {
 			players.get(i).selectWindow();
 		}
 		selectRound();
 		selectAllDicesOnTable();
+		checkWhoIsQurrentPlayer();
 	}
 
-	private void selectRound() {
+	public void selectRound() {
 		ArrayList<ArrayList<Object>> result = gameQuery.getRound(gameId);
-		if(result.get(0).get(0) == null) {
+		if (result.get(0).get(0) == null) {
 			setRound("1");
-		}else {
+		} else {
 			int round = Integer.valueOf(String.valueOf(result.get(0).get(0)));
 			round++;
 			setRound(String.valueOf(round));
 		}
-		
+
 	}
 
-	private void selectAllDicesOnTable() {
+	public void selectAllDicesOnTable() {
 		ArrayList<ArrayList<Object>> result = gameQuery.getRound(gameId);
 		int round = Integer.valueOf(String.valueOf(result.get(0).get(0)));
 		round++;
 
 		ArrayList<ArrayList<Object>> result2 = gameQuery.getAllDicesFromAllPlayers(gameId);
-		//System.out.println(result2);
+		// System.out.println(result2);
 
 		ArrayList<ArrayList<Object>> result3 = gameQuery.getAllDicesFromOneRound(gameId, round);
-		//System.out.println(result3);
+		// System.out.println(result3);
 
-		ArrayList<ArrayList<Object>> diceOnTable = new ArrayList<>();
-		
-		for (ArrayList<Object> dicesFromRound: result3) {
-			if(!result2.contains(dicesFromRound)) {
+		ArrayList<ArrayList<Object>> diceOnTable = new ArrayList<ArrayList<Object>>();
+
+		for (ArrayList<Object> dicesFromRound : result3) {
+			if (!result2.contains(dicesFromRound)) {
 				diceOnTable.add(dicesFromRound);
 			}
 		}
-		
+
+		diceOnTableModel.removeAllDicesFromTable();
 		for (ArrayList<Object> dices : diceOnTable) {
-			ArrayList<ArrayList<Object>> eyes = gameQuery.getEyeOfDice(gameId, Integer.valueOf(String.valueOf(dices.get(0))), String.valueOf(dices.get(1)));
-			Dice dice = new Dice(Integer.valueOf(String.valueOf(eyes.get(0).get(0))), makeColorFromQuerie(dices.get(1)), Integer.valueOf(String.valueOf(dices.get(0))));
+			ArrayList<ArrayList<Object>> eyes = gameQuery.getEyeOfDice(gameId,
+					Integer.valueOf(String.valueOf(dices.get(0))), String.valueOf(dices.get(1)));
+			Dice dice = new Dice(Integer.valueOf(String.valueOf(eyes.get(0).get(0))), makeColorFromQuerie(dices.get(1)),
+					Integer.valueOf(String.valueOf(dices.get(0))));
 			dice.setEyes(Integer.valueOf(String.valueOf(eyes.get(0).get(0))));
 			diceOnTableModel.addDiceToTable(dice);
 		}
-		
-		
-	}
-	
-	private Color makeColorFromQuerie(Object c) {
-		return getColorFromQuery(c);
+
 	}
 
-	static Color getColorFromQuery(Object c) {
+	public Color makeColorFromQuerie(Object c) {
 		String color = String.valueOf(c);
-		switch (color) {
-			case "geel":
-				return Color.YELLOW;
-			case "groen":
-				return Color.LIGHTGREEN;
-			case "blauw":
-				return Color.CORNFLOWERBLUE;
-			case "paars":
-				return Color.MAGENTA;
-			case "rood":
-				return Color.RED;
-			case "":
-				return Color.LIGHTGRAY;
+		if (color.equals("geel")) {
+			return Color.YELLOW;
+		} else if (color.equals("groen")) {
+			return Color.LIGHTGREEN;
+		} else if (color.equals("blauw")) {
+			return Color.CORNFLOWERBLUE;
+		} else if (color.equals("paars")) {
+			return Color.MAGENTA;
+		} else if (color.equals("rood")) {
+			return Color.RED;
+		} else if (color.equals("")) {
+			return Color.LIGHTGRAY;
 		}
 		return Color.LIGHTGRAY;
+	}
+
+	public void checkWhoIsQurrentPlayer() {
+		ArrayList<ArrayList<Object>> result = gameQuery.getPlayerIdsAndNames(gameId);
+		for (int i = 0; i < result.size(); i++) {
+			players.get(i).getWindowPatternPlayer().setBackground(Color.WHITE);
+			if(players.get(i).selectCurrentPlayer()) {
+				players.get(i).getWindowPatternPlayer().setBackground(Color.RED);
+			}
+		}
+	}
+
+	public void giveTurnToNextPlayer() {
+		
+		ArrayList<ArrayList<Object>> result = gameQuery.getPlayerIdsAndNames(gameId);
+		int sqnrPlayer = players.get(0).selectSqnr();
+		System.out.println(result.size());
+		if (players.get(0).selectCurrentPlayer()) {
+			if (result.size() == 2) {
+				if(sqnrPlayer == 1) {
+					players.get(0).updateSqnr(4);
+					players.get(0).updateQurrentPlayer(0);
+					gameQuery.updateTurnPlayerInGameTable(gameId, players.get(1).getPlayerId());
+					players.get(1).updateQurrentPlayer(1);
+				}
+				else if(sqnrPlayer == 2) {
+					players.get(0).updateSqnr(3);
+				}
+				else if(sqnrPlayer == 3) {
+					players.get(0).updateQurrentPlayer(0);
+					
+					gameQuery.updateTurnPlayerInGameTable(gameId, players.get(1).getPlayerId());
+					players.get(1).updateQurrentPlayer(1);
+				}
+				else if(sqnrPlayer == 4) {
+					players.get(0).updateSqnr(2);
+					players.get(1).updateSqnr(1);
+					players.get(0).updateQurrentPlayer(0);
+					
+					gameQuery.updateTurnPlayerInGameTable(gameId, players.get(1).getPlayerId());
+					players.get(1).updateQurrentPlayer(1);
+				}
+
+			} 
+			else if (result.size() == 3) {
+				if(sqnrPlayer == 1) {
+					players.get(0).updateSqnr(6);
+					players.get(0).updateQurrentPlayer(0);
+					
+					gameQuery.updateTurnPlayerInGameTable(gameId, players.get(1).getPlayerId());
+					players.get(1).updateQurrentPlayer(1);
+				}
+				else if(sqnrPlayer == 2) {
+					players.get(0).updateSqnr(5);
+					players.get(0).updateQurrentPlayer(0);
+					
+					gameQuery.updateTurnPlayerInGameTable(gameId, players.get(1).getPlayerId());
+					players.get(1).updateQurrentPlayer(1);
+				}
+				else if(sqnrPlayer == 3) {
+					players.get(0).updateSqnr(4);
+				}
+				else if(sqnrPlayer == 4) {
+					players.get(0).updateQurrentPlayer(0);
+					
+					gameQuery.updateTurnPlayerInGameTable(gameId, players.get(2).getPlayerId());
+					players.get(2).updateQurrentPlayer(1);
+				}
+				else if(sqnrPlayer == 5) {
+					players.get(0).updateQurrentPlayer(0);
+					
+					gameQuery.updateTurnPlayerInGameTable(gameId, players.get(2).getPlayerId());
+					players.get(2).updateQurrentPlayer(1);
+				}
+				else if(sqnrPlayer == 6) {
+					players.get(0).updateSqnr(3);
+					players.get(1).updateSqnr(1);
+					players.get(2).updateSqnr(2);
+					players.get(0).updateQurrentPlayer(0);
+					
+					gameQuery.updateTurnPlayerInGameTable(gameId, players.get(1).getPlayerId());
+					players.get(1).updateQurrentPlayer(1);
+				}
+
+			} 
+			else if (result.size() == 4) {
+				if(sqnrPlayer == 1) {
+					players.get(0).updateSqnr(8);
+					players.get(0).updateQurrentPlayer(0);
+					
+					gameQuery.updateTurnPlayerInGameTable(gameId, players.get(1).getPlayerId());
+					players.get(1).updateQurrentPlayer(1);
+				}
+				else if(sqnrPlayer == 2) {
+					players.get(0).updateSqnr(7);
+					players.get(0).updateQurrentPlayer(0);
+					
+					gameQuery.updateTurnPlayerInGameTable(gameId, players.get(1).getPlayerId());
+					players.get(1).updateQurrentPlayer(1);
+				}
+				else if(sqnrPlayer == 3) {
+					players.get(0).updateSqnr(6);
+					players.get(0).updateQurrentPlayer(0);
+					
+					gameQuery.updateTurnPlayerInGameTable(gameId, players.get(1).getPlayerId());
+					players.get(1).updateQurrentPlayer(1);
+				
+				}
+				else if(sqnrPlayer == 4) {
+					players.get(0).updateSqnr(5);
+				}
+				else if(sqnrPlayer == 5) {
+					players.get(0).updateQurrentPlayer(0);
+					
+					gameQuery.updateTurnPlayerInGameTable(gameId, players.get(3).getPlayerId());
+					players.get(3).updateQurrentPlayer(1);
+				}
+				else if(sqnrPlayer == 6) {
+					players.get(0).updateQurrentPlayer(0);
+					
+					gameQuery.updateTurnPlayerInGameTable(gameId, players.get(3).getPlayerId());
+					players.get(3).updateQurrentPlayer(1);
+				}
+				else if(sqnrPlayer == 7) {
+					players.get(0).updateQurrentPlayer(0);
+					
+					gameQuery.updateTurnPlayerInGameTable(gameId, players.get(3).getPlayerId());
+					players.get(3).updateQurrentPlayer(1);
+				}
+				else if(sqnrPlayer == 8) {
+					players.get(0).updateSqnr(4);
+					players.get(1).updateSqnr(1);
+					players.get(2).updateSqnr(2);
+					players.get(3).updateSqnr(3);
+					players.get(0).updateQurrentPlayer(0);
+					
+					gameQuery.updateTurnPlayerInGameTable(gameId, players.get(1).getPlayerId());
+					players.get(1).updateQurrentPlayer(1);
+				}
+			}
+		}
+		
+		checkWhoIsQurrentPlayer();
 	}
 
 }

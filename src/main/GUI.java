@@ -7,15 +7,16 @@ import controller.WindowController;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import model.WindowPattern;
+import view.WindowPatternScreen;
 
 public class GUI extends Application {
-	private DatabaseController databaseController;
-	private WindowController windowController;
-	private DiceController diceController;
-	private GameController gameController;
+	DatabaseController databaseController;
+	WindowController windowController;
+	DiceController diceController;
+	GameController gameController;
 	
 
-	void startup(String[] args) {
+	public void startup(String[] args) {
 		launch(args);
 	}
 	

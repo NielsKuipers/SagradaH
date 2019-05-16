@@ -3,7 +3,7 @@ package queries;
 import java.util.ArrayList;
 
 public class WindowPatternQuerie {
-	private StandardQueries standardQueries;
+	StandardQueries standardQueries;
 
 	public WindowPatternQuerie(StandardQueries standardQueries) {
 		this.standardQueries = standardQueries;

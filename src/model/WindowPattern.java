@@ -2,11 +2,12 @@ package model;
 
 import java.util.ArrayList;
 
+import javafx.beans.property.Property;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.paint.Color;
 import queries.WindowPatternQuerie;
-import static model.Game.getColorFromQuery;
 
 public class WindowPattern {
 
@@ -15,6 +16,7 @@ public class WindowPattern {
 	private StringProperty difficulty = new SimpleStringProperty(this, "difficulty", "empty");
 	private StringProperty playerName = new SimpleStringProperty(this, "playerName", "empty");
 	private StringProperty playerScore = new SimpleStringProperty(this, "playerScore", "empty");
+	private Property<Color> backgroundProperty = new SimpleObjectProperty<>();
 
 	private WindowPatternQuerie windowPatternQuerie;
 
@@ -46,7 +48,7 @@ public class WindowPattern {
 		return difficulty;
 	}
 	
-	void setPlayerName(String name) {
+	public void setPlayerName(String name) {
 		playerName.set(name);
 	}
 
@@ -54,12 +56,20 @@ public class WindowPattern {
 		return playerName;
 	}
 	
-	void setPlayerScore(String s) {
+	public void setPlayerScore(String s) {
 		playerScore.set(String.valueOf(s));
 	}
 
 	public final StringProperty playerScoreProperty() {
 		return playerScore;
+	}
+	
+	public Property<Color> backgroundPropery() {
+		return backgroundProperty;
+	}
+	
+	public void setBackground(Color color) {
+		backgroundProperty.setValue(color);
 	}
 
 	public void removeDiceFromWindowPattern(Dice dice) {
@@ -85,10 +95,10 @@ public class WindowPattern {
 		ArrayList<ArrayList<Object>> result = windowPatternQuerie.getAllFields(idWindow);
 		for (int row = 1; row < 5; row++) {
 			for (int column = 0; column < 5; column++) {
-				for (ArrayList<Object> objects : result) {
+				for (int i = 0; i < result.size(); i++) {
 					try {
-						if (row == Integer.valueOf(objects.get(3).toString()) && column == Integer.valueOf(objects.get(2).toString()) - 1) {
-							getFieldOfWindow(column, row).setColorAndEyes(makeColorFromQuerie(objects.get(0)), makeEyeFromQuerie(objects.get(1)));
+						if (row == Integer.valueOf(result.get(i).get(3).toString()) && column == Integer.valueOf(result.get(i).get(2).toString()) - 1) {
+							getFieldOfWindow(column, row).setColorAndEyes(makeColorFromQuerie(result.get(i).get(0)),makeEyeFromQuerie(result.get(i).get(1)));
 						}
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -101,15 +111,15 @@ public class WindowPattern {
 		
 	}
 	
-	void selectAllDicesOnField(int idPlayer) {
+	public void selectAllDicesOnField(int idPlayer) {
 		ArrayList<ArrayList<Object>> result = windowPatternQuerie.getAllDicesOnField(idPlayer);
 		for (int row = 1; row < 5; row++) {
 			for (int column = 0; column < 5; column++) {
-				for (ArrayList<Object> objects : result) {
+				for (int i = 0; i < result.size(); i++) {
 					try {
-						if (row == Integer.valueOf(objects.get(3).toString()) && column == Integer.valueOf(objects.get(2).toString()) - 1) {
-							int eyes = Integer.valueOf(objects.get(1).toString());
-							getFieldOfWindow(column, row).addDice(new Dice(makeEyeFromQuerie(objects.get(1)), makeColorFromQuerie(objects.get(0)), Integer.valueOf(String.valueOf(objects.get(4)))));
+						if (row == Integer.valueOf(result.get(i).get(3).toString()) && column == Integer.valueOf(result.get(i).get(2).toString()) - 1) {
+							int eyes = Integer.valueOf(result.get(i).get(1).toString());
+							getFieldOfWindow(column, row).addDice(new Dice(makeEyeFromQuerie(result.get(i).get(1)), makeColorFromQuerie(result.get(i).get(0)), Integer.valueOf(String.valueOf(result.get(i).get(4)))));
 							getFieldOfWindow(column, row).getDice().setEyes(eyes);
 						}
 					} catch (Exception e) {
@@ -124,14 +134,28 @@ public class WindowPattern {
 	
 	public void selectDifficulty() {
 		ArrayList<ArrayList<Object>> result = windowPatternQuerie.getDifficulty(idWindow);
-		difficulty.set("Moeilijkheidsgraad: " + result.get(0).get(0));
+		difficulty.set(String.valueOf("Moeilijkheidsgraad: " + result.get(0).get(0)));
 	}
 
-	private Color makeColorFromQuerie(Object c) {
-		return getColorFromQuery(c);
+	public Color makeColorFromQuerie(Object c) {
+		String color = String.valueOf(c);
+		if (color.equals("geel")) {
+			return Color.YELLOW;
+		} else if (color.equals("groen")) {
+			return Color.LIGHTGREEN;
+		} else if (color.equals("blauw")) {
+			return Color.CORNFLOWERBLUE;
+		} else if (color.equals("paars")) {
+			return Color.MAGENTA;
+		} else if (color.equals("rood")) {
+			return Color.RED;
+		} else if (color.equals("")) {
+			return Color.LIGHTGRAY;
+		}
+		return Color.LIGHTGRAY;
 	}
 	
-	private int makeEyeFromQuerie(Object eye) {
+	public int makeEyeFromQuerie(Object eye) {
 		
 		if (eye == null) {
 			return 0;
@@ -139,11 +163,13 @@ public class WindowPattern {
 		return Integer.valueOf(String.valueOf(eye));
 	}
 	
-	void setId(int id) {
+	public void setId(int id) {
 		idWindow = id;
 	}
 	
 	public int getId() {
 		return idWindow;
 	}
+	
+	
 }

@@ -10,7 +10,7 @@ public class DiceOnTable {
 	private Property<ArrayList<Dice>> diceOnTableProperty = new SimpleObjectProperty<>();
 
 
-	void addDiceToTable(Dice dice) {
+	public void addDiceToTable(Dice dice) {
 		allDice.add(dice);
 		diceOnTableProperty.setValue(new ArrayList<>());
 		diceOnTableProperty.setValue(allDice);
@@ -30,7 +30,11 @@ public class DiceOnTable {
 		if (allDice.size() == 0) {
 			diceOnTableProperty.setValue(null);
 		}
-		
+	}
+	
+	public void removeAllDicesFromTable() {
+		allDice.clear();
+		diceOnTableProperty.setValue(allDice);
 	}
 
 	public boolean isDiceOnTable(Dice dice) {

@@ -1,5 +1,7 @@
 package model;
 
+import java.sql.Connection;
+
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -43,7 +45,11 @@ public class Field {
 	}
 
 	public boolean hasDice() {
-		return diceProperty.getValue() != null;
+		if (diceProperty.getValue() == null) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 	public void addDice(Dice dice) {
@@ -76,7 +82,7 @@ public class Field {
 		eyesProperty.set(eyes);
 	}
 
-	void deleteDice() {
+	public void deleteDice() {
 		diceProperty.setValue(null);
 	}
 }
