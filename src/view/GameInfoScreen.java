@@ -1,6 +1,5 @@
 package view;
 
-import controller.GameController;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -13,8 +12,6 @@ import model.Game;
 
 public class GameInfoScreen extends VBox{
 	private Label l;
-
-	private GameController GC;
 
 	private GUI gui;
 	
@@ -65,8 +62,8 @@ public class GameInfoScreen extends VBox{
 		l.setText(Integer.toString(value));
 	}
 	
+
 	private void handleCheat(boolean allPossible, boolean bestChoice) {
 		gui.handleCheat(allPossible, bestChoice);
-		
 	}
 }

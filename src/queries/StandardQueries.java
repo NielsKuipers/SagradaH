@@ -15,14 +15,14 @@ public class StandardQueries {
 	}
 
 	//method for select queries
-    ArrayList<ArrayList<Object>> selectQuery(String query, String where, String whereVal){
+    public ArrayList<ArrayList<Object>> selectQuery(String query, String where, String whereVal, String orderBY){
         ArrayList<ArrayList<Object>> result = new ArrayList<>();
         try {
-            PreparedStatement stmt = mConn.prepareStatement(query + where);
+            PreparedStatement stmt = mConn.prepareStatement(query + where + orderBY);
 
             //if there's a where clause handle it
             int i = 1;
-            if(!where.isEmpty()){ handleWhere(whereVal, stmt, i); }
+            if(!where.isEmpty()){ handleVals(whereVal, stmt, i); }
 
             //get the results from the query and put them in an array
             ResultSet rs = stmt.executeQuery();
@@ -36,7 +36,12 @@ public class StandardQueries {
 
     //overload for selectquery without where clause
     public ArrayList<ArrayList<Object>> selectQuery(String query){
-        return selectQuery(query, "", "");
+        return selectQuery(query, "", "", "");
+    }
+
+    //overload for selectquery with where but without order by
+    public ArrayList<ArrayList<Object>> selectQuery(String query, String where, String whereVal){
+	    return selectQuery(query, where, whereVal, "");
     }
 
     //method for update queries
@@ -61,7 +66,7 @@ public class StandardQueries {
             }
 
             //if there's a where clause handle it
-            if(!where.isEmpty()){ handleWhere(whereVal, stmt, i); }
+            if(!where.isEmpty()){ handleVals(whereVal, stmt, i); }
             stmt.executeUpdate();
         }
         catch(SQLException e){
@@ -83,9 +88,9 @@ public class StandardQueries {
         return true;
     }
 
-    private void handleWhere(String whereVal, PreparedStatement stmt, int i) throws SQLException {
-        String[] whereVals = whereVal.split("\0");
-        for(String val : whereVals){
+    private void handleVals(String v, PreparedStatement stmt, int i) throws SQLException {
+        String[] vals = v.split("\0");
+        for(String val : vals){
             if(checkInt(val)){
                 int x = Integer.parseInt(val);
                 stmt.setInt(i, x);
@@ -110,3 +115,4 @@ public class StandardQueries {
         }
     }
 }
+

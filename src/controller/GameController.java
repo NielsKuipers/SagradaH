@@ -8,15 +8,15 @@ import main.GUI;
 import model.Game;
 import model.Player;
 import model.WindowPattern;
+import view.ChatScreen;
 import view.GameInfoScreen;
 import view.GameScreen;
 import view.WindowPatternChooseScreen;
 
 public class GameController extends Scene {
 	private GameInfoScreen gameInfo;
-	private GameInfoScreen chat;
+	private ChatScreen chat;
 	private GameInfoScreen kaarten;
-
 	private GameScreen gameScreen;
 
 	private Game gameModel;
@@ -24,8 +24,7 @@ public class GameController extends Scene {
 	private WindowController WC;
 	private DiceController DC;
 
-
-	public GameController(GUI gui, DatabaseController databaseController, WindowController WC, DiceController DC) {
+	public GameController(GUI gui, DatabaseController databaseController, WindowController WC, DiceController DC, ChatController CC) {
 		super(new Pane());
 		this.WC = WC;
 		this.DC = DC;
@@ -43,9 +42,11 @@ public class GameController extends Scene {
 		gameModel.getPlayer(3).givePlayerWindowPattern(WC.getWindow4().getWindowPatternModel());
 
 		gameScreen = new GameScreen();
+
 		gameInfo = new GameInfoScreen(gui, gameModel,"GameInfo");
-		chat = new GameInfoScreen(gui, gameModel,"Chat");
+		chat = CC.getChatScreen();
 		kaarten = new GameInfoScreen(gui, gameModel,"Kaarten");
+
 
 		gameInfo.setStyle("-fx-background-radius: 0 0 300 0;-fx-background-color: DEEPSKYBLUE; ");
 		chat.setStyle("-fx-background-radius: 0 300 0 0;-fx-background-color: DEEPSKYBLUE;");

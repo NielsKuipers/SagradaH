@@ -3,11 +3,11 @@ import javafx.animation.AnimationTimer;
 
 public abstract class AnimationTimerEXT extends AnimationTimer {
 
-	private long sleepNs = 0;
+	private long sleepNs;
 
-	long prevTime = 0;
+	private long prevTime = 0;
 
-	public AnimationTimerEXT(long sleepMs) {
+	protected AnimationTimerEXT(long sleepMs) {
 		this.sleepNs = sleepMs * 1_000_000;
 	}
 
