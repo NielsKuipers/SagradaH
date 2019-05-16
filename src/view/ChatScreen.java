@@ -36,7 +36,7 @@ public class ChatScreen extends BorderPane {
 
         chatInput.getChildren().addAll(input, send);
 
-        sp.setPrefHeight(fullSize - 675);
+        sp.setPrefHeight(fullSize - 685);
         sp.vvalueProperty().bind(chat.heightProperty());
         sp.setContent(chat);
 

@@ -11,7 +11,7 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../mysql-connector-java-8.0.16/mysql-connector-java-8.0.16.jar!/" />
+          <root url="jar://$USER_HOME$/Desktop/mysql-connector-java-8.0.15/mysql-connector-java-8.0.15.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
