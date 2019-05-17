@@ -1,6 +1,8 @@
 package main;
-
 import controller.AccountController;
+
+
+import controller.ChatController;
 import controller.DatabaseController;
 import controller.DiceController;
 import controller.GameController;
@@ -15,6 +17,7 @@ import model.WindowPattern;
 import view.HomePane;
 import view.StartPane;
 
+
 public class GUI extends Application {
 	DatabaseController databaseController;
 	WindowController windowController;
@@ -25,27 +28,27 @@ public class GUI extends Application {
 	HomePane homepane;
 	Scene scene;
 	Stage stage;
-	
+	private ChatController chatController;
 
-	public void startup(String[] args) {
+	void startup(String[] args) {
 		launch(args);
 	}
 	
 	public void start(Stage stage) {
+		
 		this.stage = stage;
 		startPane = new StartPane(this);
 		homepane = new HomePane(this);
 		databaseController = new DatabaseController();
 		windowController = new WindowController(this, databaseController);
 		diceController = new DiceController(this, windowController);
-		gameController = new GameController(this, windowController, diceController);
+		gameController = new GameController(this, databaseController, windowController, diceController, chatController);
 		accountController = new AccountController(this, databaseController, homepane,startPane);
 		scene = new Scene(startPane);
 		this.stage.setScene(scene);
 		//stage.setFullScreen(true);
 		//stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH); might be nice for test day.
 		this.stage.show();
-		
 	}
 	
 	public void createGame(WindowPattern windowModel) {
@@ -59,6 +62,7 @@ public class GUI extends Application {
 	public void makeDices() {
 		diceController.makeDices();
 	}
+
 	
 	public void handlelogin(TextField username, PasswordField password) {
 		accountController.login(username, password);
@@ -75,4 +79,9 @@ public class GUI extends Application {
 	public void handleUitloggen() {
 		accountController.uitloggen();
 	}
+
+	public void sendMessage(String input){
+		chatController.sendMessage(input);
+	}
+
 }

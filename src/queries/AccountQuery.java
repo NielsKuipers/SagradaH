@@ -1,8 +1,8 @@
 package queries;
 
 public class AccountQuery {
-	StandardQuerie standardQuery;
-	public AccountQuery(StandardQuerie standardQuery) {
+	StandardQueries standardQuery;
+	public AccountQuery(StandardQueries standardQuery) {
 		this.standardQuery = standardQuery;
 	}
 	
