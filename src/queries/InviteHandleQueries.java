@@ -20,6 +20,29 @@ public class InviteHandleQueries {
 		username = "Gijs";
 	}
 	
+	// returnt array met verschillende random getallen
+	private int[] getRandomNums(int minVal, int maxVal, int resultAmount) {
+		int randoms[] = new int[resultAmount];
+		int counter = 0;
+		boolean exists = false;
+		
+		while(counter < resultAmount) {
+			int random = (int)(Math.random() * (maxVal - minVal) + minVal);
+			
+			for(int i =0; i<resultAmount; i++) {
+				if(randoms[i] == random) {
+					exists = true;
+				}
+			}
+			if(!exists) {
+				randoms[counter] = random;
+				counter++;
+			}
+			exists =false;
+		}
+		return randoms;
+	}
+	
 	// gameID ophalen en int returnen
 		public int getGameIDint() {
 			return (int) getGameID().get(0).get(0);
@@ -38,10 +61,22 @@ public class InviteHandleQueries {
 		standardQuerie.updateQuery("INSERT INTO game(creationdate) VALUES(?)",""+currentDate+"");
 		gameID = getGameIDint();
 		
-		// gamedie toevoegen
+		// 90 gamedie toevoegen
 		standardQuerie.updateQuery("INSERT INTO gamedie(idgame, dienumber, diecolor) SELECT ?, number, color FROM die", ""+gameID+"");
 		
-		// betaalstenen toevoegen
+		// 3 random toolcards toevoegen
+		int randomToolcards[] = getRandomNums(1,13,3);
+		for(int i = 0; i < 3; i++) {
+			standardQuerie.updateQuery("INSERT INTO gametoolcard(idtoolcard, idgame) VALUES(?,?)", ""+randomToolcards[i]+"\0"+gameID+"");
+		}
+		
+		// 3 random public objectivecards toevoegen
+		int randomObjectiveCards[] = getRandomNums(1,11,3);
+		for(int i = 0; i < 3; i++) {
+			standardQuerie.updateQuery("INSERT INTO sharedpublic_objectivecard(idpublic_objectivecard, idgame) VALUES(?,?)", ""+randomObjectiveCards[i]+"\0"+gameID+"");
+		}
+		
+		// 24 random betaalstenen toevoegen
 		for(int i = 1; i < 25; i++) {
 			standardQuerie.updateQuery("INSERT INTO gamefavortoken(idgame, idfavortoken) VALUES(?,?)", ""+gameID+"\0"+i+"");
 		}
