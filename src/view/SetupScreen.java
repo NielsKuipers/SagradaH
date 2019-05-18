@@ -189,7 +189,7 @@ public class SetupScreen extends BorderPane {
 	
 	// schakelt naar het volgende scherm via de controller
 	private void startGame() {
-		controller.finishSetup();
+		
 	}
 	
 	// maakt inviteBar

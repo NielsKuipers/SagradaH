@@ -8,7 +8,6 @@ import view.SetupScreen;
 import java.util.ArrayList;
 
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class SetupScreenController {
@@ -31,7 +30,7 @@ public class SetupScreenController {
 
 	// bepaalt random/standaard patterns
 	public void setRandomWindow(boolean random) {
-		
+		openInviteGetScreen();
 	}
 	
 
@@ -55,7 +54,6 @@ public class SetupScreenController {
 		ArrayList<ArrayList <Object>> result = cModel.getInviteablePlayers();
 		
 		for(int i = 0; i < result.size(); i++) {
-			System.out.println(result.get(i).get(0));
 			inviteScreen.addPlayer((String) result.get(i).get(0));
 		}
 	}
@@ -81,38 +79,49 @@ public class SetupScreenController {
 		long invitedPlayerCount = (long) cModel.getInvitedPlayerCount().get(0).get(0);
 		String color;
 		
-		if(invitedPlayerCount < 4) {
-			color = cModel.getPrivateObjectiveColor();
-			cModel.invitePlayer(username, color);	
-		}else {
-			inviteScreen.maxInvitedWarning();
+		
+		if(cModel.checkInviteAllowed(username)) {
+			if(cModel.checkIfAlreadyAccepted(username)) {
+				if(invitedPlayerCount < 4) {
+					color = cModel.getPrivateObjectiveColor();
+					cModel.invitePlayer(username, color);	
+				}else {
+					inviteScreen.maxInvitedWarning();
+				}
+			}else {
+				inviteScreen.alreadyAcceptedWarning();
+			}
+		}else{
+			inviteScreen.inviteNotAllowedWarning();
 		}
 	}
 	
 //////////////////////// inviteGetScreen ///////////////////////////////	
 	// schakel van setup scherm naar patternkeuze scherm
-	public void finishSetup() {
+	public void openInviteGetScreen() {
 		inviteGetScreen = new InviteGetScreen(this);
 		addPlayersToInviteGetList();
 		scene.setRoot(inviteGetScreen);
 	}
 
+	// voegt uitnodigingen en inviternaam toe aan de invite getlist
 	public void addPlayersToInviteGetList() {
 		ArrayList<ArrayList <Object>> result = cModel.getInviteGetList();
 		
 		for(int i = 0; i < result.size(); i++) {
 			
 			int gameid = (int) result.get(i).get(0);
-			System.out.println(gameid);
 			String inviter = (String)cModel.getInviter(gameid).get(0).get(0);
 			inviteGetScreen.addPlayer(inviter, gameid);
 		}
 	}
 	
+	// verandert spelerstatus naar geaccepteerd
 	public void acceptInvite(String host, int gameid) {
 		cModel.acceptInvite(host, gameid);
 	}
 	
+	// verandert spelerstatus naar geweigerd
 	public void declineInvite(String host, int gameid) {
 		cModel.declineInvite(host, gameid);
 	}

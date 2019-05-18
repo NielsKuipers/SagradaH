@@ -68,6 +68,13 @@ public class CommunicationModel {
 		inviteQueries.declineInvite(host, gameid);
 		
 	}
+
+	public boolean checkInviteAllowed(String username) {
+		return inviteQueries.unAnsweredChallenges(username);
+	}
 	
+	public boolean checkIfAlreadyAccepted(String username) {
+		return inviteQueries.alreadyAcceptedInvite(username);
+	}
 	
 }

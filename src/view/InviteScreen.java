@@ -87,10 +87,27 @@ public class InviteScreen extends BorderPane{
 	}
 	
 	public void maxInvitedWarning() {
-		Alert alert = new Alert(AlertType.INFORMATION);
+		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("Maximaal aantal spelers bereikt!!");
 		alert.setHeaderText("WAARSCHUWING");
 		alert.setContentText("Je hebt al drie spelers uitgenodigd!!");
 		alert.showAndWait();
+	}
+
+	public void inviteNotAllowedWarning() {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Je hebt deze speler al uitgenodigd!!");
+		alert.setHeaderText("WAARSCHUWING");
+		alert.setContentText("deze speler heeft al een openstaande uitnodiging!!");
+		alert.showAndWait();
+	}
+
+	public void alreadyAcceptedWarning() {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Je hebt deze speler al uitgenodigd!!");
+		alert.setHeaderText("WAARSCHUWING");
+		alert.setContentText("deze speler heeft je uitnodiging al geaccepteerd!!");
+		alert.showAndWait();
+		
 	}
 }
