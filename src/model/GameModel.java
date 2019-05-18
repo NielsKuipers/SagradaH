@@ -17,4 +17,10 @@ public class GameModel {
 	public ArrayList<ArrayList<Object>> getDicesOnRoundBoard(int round) {
 		return gameQueries.getDicesOnRoundBoard(round);
 	}
+
+	// verwijdert dobbelsteen van rondebord
+	public void removeDice(int diceID, String colorText) {
+		gameQueries.removeDice(diceID, colorText);
+		
+	}
 }

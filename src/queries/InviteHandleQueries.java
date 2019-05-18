@@ -11,11 +11,12 @@ public class InviteHandleQueries {
 	private String currentDate;
 	private int seqNR = 1;
 	private String hostUsername;
-	private String username = "Gijs";
+	private String username;
 
 	public InviteHandleQueries(StandardQuerie standardQuerie) {
 		this.standardQuerie = standardQuerie;
 		hostUsername = "Lucas";
+		username = "Gijs";
 	}
 	
 	// gameID ophalen en int returnen
@@ -35,6 +36,9 @@ public class InviteHandleQueries {
 		
 		// nieuwe gameID aanmaken
 		standardQuerie.updateQuery("INSERT INTO game(creationdate) VALUES(?)",""+currentDate+"");
+		
+		// gamedie toevoegen
+		standardQuerie.updateQuery("INSERT INTO gamedie(idgame, dienumber, diecolor) VALUES(SELECT ?, number, color FROM die)", ""+getGameIDint()+"");
 		
 		// HOST player aanmaken
 		standardQuerie.updateQuery("INSERT INTO player(username, game_idgame, playstatus_playstatus, seqnr, isCurrentPlayer, private_objectivecard_color) VALUES (?,?,?,?,?,?)", ""+hostUsername+"\0"+getGameIDint()+"\0uitdager\0"+seqNR+"\0 1\0"+color+"");
@@ -73,7 +77,7 @@ public class InviteHandleQueries {
 	}
 	
 	// nieuwe GameID ophalen
-	public ArrayList<ArrayList<Object>> getGameID() {
+	private ArrayList<ArrayList<Object>> getGameID() {
 		return standardQuerie.selectQuery("SELECT idgame FROM game", " WHERE creationdate=?", ""+currentDate+"");
 	}
 	

@@ -1,10 +1,13 @@
 package view;
 
+import controller.RoundScreenController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
@@ -38,15 +41,27 @@ public class DiceScreen extends StackPane {
 	}
 	
 	// constructor voor roundscreen dice
-	public DiceScreen(int number, Color color) {
+	public DiceScreen(int number, Color color, int diceID, RoundScreenController controller) {
 		this.setBackground(new Background(new BackgroundFill(color, null, null)));
 		this.setMaxSize(50, 50);
 		this.setMinSize(50, 50);
-		setPadding(new Insets(10));
+		this.setPadding(new Insets(10));
 		this.setMargin(this, new Insets(10));
 		diceCircleSize = 3;
 		checkNumber(number);
+		
+		if(controller.getRoundScreenToolcardActive()) {
+			
+			setOnMouseClicked(new EventHandler<MouseEvent>() {
+				public void handle(MouseEvent t) {
+					controller.removeDice(diceID, color);
+					controller.refreshDice();
+				}
+			}); 
+		}
 	}
+	
+	
 
 	public void checkNumber(int value) {
 		getChildren().clear();

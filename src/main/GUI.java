@@ -29,9 +29,9 @@ public class GUI extends Application {
 		diceController = new DiceController(this, windowController);
 		gameController = new GameController(this, windowController, diceController);
 		
-		// SetupScreenController SetupController = new SetupScreenController(stage, databaseController);
+		 SetupScreenController SetupController = new SetupScreenController(stage, databaseController);
 		// EndScreenController EndController = new EndScreenController(stage);
-		 RoundScreenController RoundController = new RoundScreenController(stage, databaseController);
+		// RoundScreenController RoundController = new RoundScreenController(stage, databaseController);
 		
 		//stage.setScene(gameController);
 		

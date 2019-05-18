@@ -1,12 +1,16 @@
 package view;
 import java.util.ArrayList;
 
+import controller.RoundScreenController;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
@@ -22,8 +26,10 @@ import javafx.scene.shape.Rectangle;
 
 public class RoundScreen extends GridPane {
 	private ArrayList <CustomStackPane> stackPanes;
+	private RoundScreenController controller;
 	
-	public RoundScreen() {
+	public RoundScreen(RoundScreenController controller) {
+		this.controller = controller;
 		stackPanes = new ArrayList<CustomStackPane>();
 		addRoundNumbers();
 		makePane();
@@ -52,14 +58,20 @@ public class RoundScreen extends GridPane {
 		}
 	}
 	
+	//methode om board te clearen
+	public void clearBoard() {
+		for(int i = 0; i < stackPanes.size(); i++) {
+			stackPanes.get(i).getChildren().clear();
+		}
+	}
 	
-	// methode om dice toe te voegen, moet nog verandert worden.
-	public void addDice(int round, int number, String color, int row) {
+	// methode om dice toe te voegen
+	public void addDice(int round, int number, String color, int row,int diceID) {
 		round--;
 		Color diceColor = getColorTranslation(color);
 		
 		CustomStackPane node = (CustomStackPane) getNode(round, row);
-		node.getChildren().add(new DiceScreen(number, diceColor));
+		node.getChildren().add(new DiceScreen(number, diceColor, diceID, controller));
 	}
 	
 	// geeft de node in de gridpane waar een dobbelsteen in moet komen
@@ -77,20 +89,7 @@ public class RoundScreen extends GridPane {
 		return stackpaneNode;
 	}
 	
-	// methode om dice te verwijderen
-	public void removeDice(int round) {
-		if(round < stackPanes.size()) {
-			if(stackPanes.get(round).getChildren().size() > 1) {
-				stackPanes.get(round).getChildren().remove(1);
-			}else {
-				System.out.println("geen dobbelsteen hier!!");
-			}
-		}else {
-			System.out.println("geen steen ruimte hier!!");
-		}
-	}
-	
-	// verandert kleur uit database naar javafxkleur
+	// verandert kleur uit database naar javakleur
 	private Color getColorTranslation(String color){
 		
 		switch(color) {
@@ -107,7 +106,6 @@ public class RoundScreen extends GridPane {
 		  default:
 		    return Color.BLACK;
 		}
-		
 	}
 	
 	// voeg rondenummers toe
@@ -130,6 +128,10 @@ public class RoundScreen extends GridPane {
 			 setMaxWidth(size);
 			 setMaxHeight(size);
 			 setMinHeight(size);
+			 
+			 
+			 
+			 
 		 }
 	}
 	
