@@ -156,6 +156,8 @@ public class DiceScreen extends StackPane {
 
 		@Override
 		public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+			
+			
 			checkNumber((int) newValue);
 		}
 	}
