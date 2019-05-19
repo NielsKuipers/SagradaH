@@ -1,19 +1,18 @@
 package main;
 
 
-import controller.ChatController;
-import controller.DatabaseController;
-import controller.DiceController;
-import controller.GameController;
-import controller.WindowController;
+import controller.*;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import model.WindowPattern;
+
+import java.util.ArrayList;
 
 public class GUI extends Application {
 	private DiceController diceController;
 	private GameController gameController;
 	private ChatController chatController;
+	private UserListController userListController;
 
 
 	void startup(String[] args) {
@@ -26,8 +25,10 @@ public class GUI extends Application {
 		diceController = new DiceController(this, windowController);
 		chatController = new ChatController(this, databaseController);
         gameController = new GameController(this, databaseController, windowController, diceController, chatController);
-		
-		stage.setScene(gameController);
+
+        userListController = new UserListController(this, databaseController);
+
+		stage.setScene(userListController);
 		stage.setFullScreen(true);
 		stage.show();
 	}
@@ -45,5 +46,9 @@ public class GUI extends Application {
 	}
 
 	public void sendMessage(String input){chatController.sendMessage(input);}
+
+	public void handleSort(Object val){
+		userListController.handleSort(val);
+	}
 
 }

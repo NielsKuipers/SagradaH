@@ -1,11 +1,8 @@
 package controller;
 
 import model.DatabaseModel;
-import queries.ChatQueries;
-import queries.GameQuery;
-import queries.PlayerQuery;
-import queries.StandardQueries;
-import queries.WindowPatternQuerie;
+import queries.*;
+
 import java.sql.Connection;
 
 
@@ -15,7 +12,7 @@ public class DatabaseController {
     private GameQuery gameQuery;
     private PlayerQuery playerQuery;
     private WindowPatternQuerie windowPatternQuerie;
-
+    private UserListQueries userListQueries;
 
     //establish connection with database
     public DatabaseController() {
@@ -24,6 +21,7 @@ public class DatabaseController {
 
         StandardQueries standardQueries = new StandardQueries(mConn);
 
+        userListQueries = new UserListQueries(standardQueries);
         chatQueries = new ChatQueries(standardQueries);
         gameQuery = new GameQuery(standardQueries);
         playerQuery = new PlayerQuery(standardQueries);
@@ -44,6 +42,10 @@ public class DatabaseController {
 
     WindowPatternQuerie getWindowPatternQuerie() {
         return windowPatternQuerie;
+    }
+
+    public UserListQueries getUserListQueries() {
+        return userListQueries;
     }
 }
 
