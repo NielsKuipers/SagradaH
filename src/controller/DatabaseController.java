@@ -1,29 +1,37 @@
 package controller;
 
 import model.DatabaseModel;
+
 import queries.GameQueries;
 import queries.InviteHandleQueries;
-import queries.StandardQuerie;
-import queries.WindowPatternQuerie;
 
-import java.sql.*;
+import queries.ChatQueries;
+import queries.GameQuery;
+import queries.PlayerQuery;
+import queries.StandardQueries;
+
+import queries.WindowPatternQuerie;
+import java.sql.Connection;
+
 
 public class DatabaseController {
 
-    private Connection mConn;
-    
-    private StandardQuerie standardQuerie;
-    
+    private ChatQueries chatQueries;
+    private GameQuery gameQuery;
+    private PlayerQuery playerQuery;
     private WindowPatternQuerie windowPatternQuerie;
     private InviteHandleQueries inviteHandleQueries;
     private GameQueries gameQueries;
+
+
+    
     
     //establish connection with database
-    public DatabaseController(){
+    public DatabaseController() {
         DatabaseModel sagradaBaseConn = new DatabaseModel();
-        this.mConn = sagradaBaseConn.connectDB();
+		Connection mConn = sagradaBaseConn.connectDB();
        
-        standardQuerie = new StandardQuerie(mConn);
+		StandardQueries standardQuerie = new StandardQueries(mConn);
         
         windowPatternQuerie = new WindowPatternQuerie(standardQuerie);
         inviteHandleQueries = new InviteHandleQueries(standardQuerie);
@@ -40,18 +48,31 @@ public class DatabaseController {
     	return inviteHandleQueries;
     }
     
-    public WindowPatternQuerie getWindowPatternQuerie() {
-    	return windowPatternQuerie;
+   
+
+    GameQuery getGameQuery() {
+        return gameQuery;
     }
 
-    
+    public ChatQueries getChatQueries() {
+        return chatQueries;
+    }
+
+    PlayerQuery getPlayerQuery() {
+        return playerQuery;
+    }
+
+    WindowPatternQuerie getWindowPatternQuerie() {
+        return windowPatternQuerie;
+    }
+}
 
 //        example queries below:
 //        use question marks for where you want to use variables, declare them in the variable parameters
 //        if you're using multiple variables, separate them with a space
 
-//        updateQuery("UPDATE account set username=?, password=?", "Niels2 Gay1234", " WHERE username=? AND password=?", "Niels0/Gay1234");
+//        updateQuery("UPDATE account set username=?, password=?", "Niels2 Gay1234", " WHERE username=? AND password=?", "Niels\0Gay1234");
 //        updateQuery("INSERT INTO account VALUES(?,?)", "Mario\0Zario", "", "");
 //        selectQuery("SELECT username FROM account", " WHERE username=?", "Niels2");
 //        selectQuery("SELECT username FROM account");
-}
+

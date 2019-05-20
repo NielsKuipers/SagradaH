@@ -20,7 +20,9 @@ public class GameModel {
 		return gameQueries.getPlayerScores();
 	}
 	
-	
+	public void setPlayerStatusFinished() {
+		gameQueries.setPlayerStatusFinished();
+	}
 	
 	
 	////////////////////////////////////RONDEBORD/////////////////////////////////////////////////////////////////////////////

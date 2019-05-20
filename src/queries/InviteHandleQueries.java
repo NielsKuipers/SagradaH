@@ -7,14 +7,14 @@ import java.util.Date;
 
 
 public class InviteHandleQueries {
-	private StandardQuerie standardQuerie;
+	private StandardQueries standardQuerie;
 	private String currentDate;
 	private int seqNR = 1;
 	private String hostUsername;
 	private String username;
 	private int gameID;
 
-	public InviteHandleQueries(StandardQuerie standardQuerie) {
+	public InviteHandleQueries(StandardQueries standardQuerie) {
 		this.standardQuerie = standardQuerie;
 		hostUsername = "Lucas";
 		username = "Gijs";

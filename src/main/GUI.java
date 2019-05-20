@@ -1,6 +1,11 @@
 package main;
 
+
 import controller.SetupScreenController;
+
+
+import controller.ChatController;
+
 import controller.DatabaseController;
 import controller.DiceController;
 import controller.EndScreenController;
@@ -10,24 +15,24 @@ import controller.WindowController;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import model.WindowPattern;
-import view.WindowPatternScreen;
 
 public class GUI extends Application {
-	DatabaseController databaseController;
-	WindowController windowController;
-	DiceController diceController;
-	GameController gameController;
-	
+	private DiceController diceController;
+	private GameController gameController;
+	private ChatController chatController;
 
-	public void startup(String[] args) {
+
+	void startup(String[] args) {
 		launch(args);
 	}
 	
 	public void start(Stage stage) {
-		databaseController = new DatabaseController();
-		windowController = new WindowController(this, databaseController);
-		diceController = new DiceController(this, windowController);
-		gameController = new GameController(this, windowController, diceController);
+		DatabaseController databaseController = new DatabaseController();
+	
+		//WindowController windowController = new WindowController(this, databaseController);
+		//diceController = new DiceController(this, windowController);
+		//chatController = new ChatController(this, databaseController);
+        //gameController = new GameController(this, databaseController, windowController, diceController, chatController);
 		
 		// SetupScreenController SetupController = new SetupScreenController(stage, databaseController);
 		 EndScreenController EndController = new EndScreenController(stage, databaseController);
@@ -37,7 +42,6 @@ public class GUI extends Application {
 		
 		stage.setFullScreen(true);
 		stage.show();
-		
 	}
 	
 	public void createGame(WindowPattern windowModel) {
@@ -51,4 +55,7 @@ public class GUI extends Application {
 	public void makeDices() {
 		diceController.makeDices();
 	}
+
+	public void sendMessage(String input){chatController.sendMessage(input);}
+
 }

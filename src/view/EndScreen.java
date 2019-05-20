@@ -20,16 +20,15 @@ public class EndScreen extends BorderPane {
 	private ArrayList <StackPane> stackpanes;
 	private Label text;
 	private EndScreenController controller;
+	private ArrayList<PlayerLabel> playerLabels;
 
 	public EndScreen(EndScreenController controller) {
 		this.controller = controller;
 		gridpane = new GridPane();
 		stackpanes = new ArrayList<StackPane>();
-
+		playerLabels = new ArrayList<PlayerLabel>();
 		makeGridPane();
-		makeTop();
-		makeBottom();
-		
+		makeTop();		
 	}
 
 	// maakt  scorebord rondjes + getallen
@@ -62,21 +61,25 @@ public class EndScreen extends BorderPane {
 		this.setAlignment(text, Pos.CENTER);
 	}
 	
+	// voegt speler label toe
+	public void addPlayerLabels(String name, int points, String color) {
+		String point = Integer.toString(points);
+		playerLabels.add(new PlayerLabel(name, point, color));
+	}
+	
 	// maakt speler/score lijst
-	private void makeBottom() {
-		Label player1 = new Label("a ------------------  22points");
-		Label player2 = new Label("b ------------------  22points");
-		Label player3 = new Label("c ------------------  22points");
-		Label player4 = new Label("d ------------------  22points");
+	public void makeBottom() {
+		
 		
 		VBox bottom = new VBox();
-		bottom.getChildren().addAll(player1,player2,player3,player4);
+		bottom.getChildren().addAll(playerLabels);
 		this.setBottom(bottom);
 		this.setAlignment(bottom, Pos.CENTER);
 	}
 	
 	// voegt speler toe
-	public void addPlayer(int score, Color color) {
+	public void addPlayer(int score, String stringColor) {
+		Color color = getColorTranslation(stringColor);
 		
 		if(score < 101 && score > 0) {
 			int sizeHelp = stackpanes.get(score - 1).getChildren().size();
@@ -85,6 +88,23 @@ public class EndScreen extends BorderPane {
 		}
 	}
 	
+private Color getColorTranslation(String color){
+		
+		switch(color) {
+		  case "blauw":
+			 return Color.BLUE;
+		  case "geel":
+			 return Color.YELLOW;
+		  case "rood":
+			 return Color.RED;
+		  case "paars":
+			  return Color.PURPLE;
+		  case "groen":
+			  return Color.GREEN;
+		  default:
+		    return Color.BLACK;
+		}
+	}
 	
 	
 	private class CustomCircle extends Circle{
@@ -109,6 +129,12 @@ public class EndScreen extends BorderPane {
 		}
 	}
 	
-	
-	
+	private class PlayerLabel extends Label {
+		private PlayerLabel(String name, String points, String stringColor) {
+			setText(name + " heeft " + points + " punten!!!");
+			setTextFill(getColorTranslation(stringColor));
+			setFont(new Font(22));
+			
+		}
+	}
 }

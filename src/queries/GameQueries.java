@@ -6,10 +6,10 @@ import controller.DatabaseController;
 
 public class GameQueries {
 	
-	StandardQuerie standardQuerie;
+	StandardQueries standardQuerie;
 	private int gameID;
 
-	public GameQueries(StandardQuerie standardQuerie) {
+	public GameQueries(StandardQueries standardQuerie) {
 		this.standardQuerie = standardQuerie;
 		gameID=2;
 	}
@@ -20,9 +20,13 @@ public class GameQueries {
 	
 	// geeft spelersnamen, kleur en punten
 	public ArrayList<ArrayList<Object>> getPlayerScores() {
-		return standardQuerie.selectQuery("SELECT username, private_objectivecard_color, score FROM speler", " WHERE idgame=?",""+gameID+"", "ORDER BY score DESC");
+		return standardQuerie.selectQuery("SELECT username, private_objectivecard_color, score FROM player", " WHERE game_idgame=?", ""+gameID+"", " ORDER BY score DESC");
 	}
 	
+	// zet alle spelerstatusen op uitgespeeld
+	public void setPlayerStatusFinished() {
+		standardQuerie.updateQuery("UPDATE player SET playstatus_playstatus=?", "uitgespeeld", " WHERE game_idgame=?", ""+gameID+"");
+	}
 	
 	
 	
