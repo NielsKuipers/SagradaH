@@ -86,6 +86,7 @@ public class InviteScreen extends BorderPane{
 		}
 	}
 	
+	
 	public void maxInvitedWarning() {
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("Maximaal aantal spelers bereikt!!");
@@ -106,7 +107,7 @@ public class InviteScreen extends BorderPane{
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("Je hebt deze speler al uitgenodigd!!");
 		alert.setHeaderText("WAARSCHUWING");
-		alert.setContentText("deze speler heeft je uitnodiging al geaccepteerd!!");
+		alert.setContentText("Deze speler heeft je uitnodiging al geaccepteerd/geweigerd!!");
 		alert.showAndWait();
 		
 	}

@@ -8,6 +8,7 @@ import view.SetupScreen;
 import java.util.ArrayList;
 
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class SetupScreenController {
@@ -26,6 +27,19 @@ public class SetupScreenController {
 		
 		stage.setScene(scene);
 
+	}
+	
+	// spel wordt gestart als alle uitgenodigden geaccepteerd hebben. schakel van setup scherm naar window kies scherm 
+	public void startGame() {
+		if((long) cModel.getInvitedPlayerCount().get(0).get(0) < 2) {
+			setupScreen.onlyOnePlayerWarning();
+		}else if(cModel.checkDeclined()) {
+			setupScreen.declinedInviteWarning();
+		}else if(cModel.checkUnansweredInGame()) {
+			setupScreen.unAnsweredInviteWarning();
+		}else {
+			scene.setRoot(new Pane());
+		}
 	}
 
 	// bepaalt random/standaard patterns
@@ -79,20 +93,19 @@ public class SetupScreenController {
 		long invitedPlayerCount = (long) cModel.getInvitedPlayerCount().get(0).get(0);
 		String color;
 		
-		
-		if(cModel.checkInviteAllowed(username)) {
-			if(cModel.checkIfAlreadyAccepted(username)) {
-				if(invitedPlayerCount < 4) {
+		if(invitedPlayerCount < 4) {
+			if(cModel.notAlreadyAccepted(username)) {
+				if(cModel.checkInviteAllowed(username)) {
 					color = cModel.getPrivateObjectiveColor();
 					cModel.invitePlayer(username, color);	
 				}else {
-					inviteScreen.maxInvitedWarning();
+					inviteScreen.inviteNotAllowedWarning();
 				}
 			}else {
 				inviteScreen.alreadyAcceptedWarning();
 			}
 		}else{
-			inviteScreen.inviteNotAllowedWarning();
+			inviteScreen.maxInvitedWarning();
 		}
 	}
 	
@@ -125,4 +138,6 @@ public class SetupScreenController {
 	public void declineInvite(String host, int gameid) {
 		cModel.declineInvite(host, gameid);
 	}
+
+	
 }

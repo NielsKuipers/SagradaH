@@ -56,25 +56,30 @@ public class CommunicationModel {
 		String color = colors.get(random);
 		colors.remove(random);
 		return color;
-		
 	}
 
 	public void acceptInvite(String host, int gameid) {
 		inviteQueries.acceptInvite(host, gameid);
-		
 	}
 
 	public void declineInvite(String host, int gameid) {
 		inviteQueries.declineInvite(host, gameid);
-		
 	}
 
 	public boolean checkInviteAllowed(String username) {
 		return inviteQueries.unAnsweredChallenges(username);
 	}
 	
-	public boolean checkIfAlreadyAccepted(String username) {
+	public boolean notAlreadyAccepted(String username) {
 		return inviteQueries.alreadyAcceptedInvite(username);
+	}
+
+	public boolean checkDeclined() {
+		return inviteQueries.checkDeclined();
+	}
+	
+	public boolean checkUnansweredInGame() {
+		return inviteQueries.checkUnasweredInGame();
 	}
 	
 }

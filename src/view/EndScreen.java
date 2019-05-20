@@ -68,7 +68,6 @@ public class EndScreen extends BorderPane {
 		Label player2 = new Label("b ------------------  22points");
 		Label player3 = new Label("c ------------------  22points");
 		Label player4 = new Label("d ------------------  22points");
-		System.out.println("hallo");
 		
 		VBox bottom = new VBox();
 		bottom.getChildren().addAll(player1,player2,player3,player4);

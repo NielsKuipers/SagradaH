@@ -13,6 +13,18 @@ public class GameModel {
 		this.gameQueries = gameQueries;
 	}
 	
+	
+	
+	////////////////////////////////////ENDSCREEN////////////////////////////////////////////////////////////////////////////
+	public ArrayList<ArrayList<Object>> getPlayerScores() {
+		return gameQueries.getPlayerScores();
+	}
+	
+	
+	
+	
+	////////////////////////////////////RONDEBORD/////////////////////////////////////////////////////////////////////////////
+	
 	// returnt rondebord dobbelstenen
 	public ArrayList<ArrayList<Object>> getDicesOnRoundBoard(int round) {
 		return gameQueries.getDicesOnRoundBoard(round);

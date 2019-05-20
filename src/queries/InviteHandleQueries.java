@@ -130,7 +130,7 @@ public class InviteHandleQueries {
 	
 	// controlleer of de speler al de uitdaging geaccepteerd heeft
 	public boolean alreadyAcceptedInvite(String username) {
-		ArrayList<ArrayList<Object>> playercheck = standardQuerie.selectQuery("SELECT game_idgame FROM player", " WHERE username=? AND game_idgame=? AND playstatus_playstatus=?", ""+username+"\0"+gameID+"\0geaccepteerd");	
+		ArrayList<ArrayList<Object>> playercheck = standardQuerie.selectQuery("SELECT game_idgame FROM player", " WHERE username=? AND game_idgame=? AND (playstatus_playstatus=? OR playstatus_playstatus=?)", ""+username+"\0"+gameID+"\0geaccepteerd\0geweigerd");	
 		try {
 			if(playercheck.get(0).get(0) != null) {
 				return false;
@@ -166,8 +166,22 @@ public class InviteHandleQueries {
 		return standardQuerie.selectQuery("SELECT username, game_idgame FROM player", " WHERE game_idgame=? AND playstatus_playstatus=?", ""+gameid+"\0uitdager");
 	}
 
+	// controlleert of er geweigerde uitnodigingen zijn
+	public boolean checkDeclined() {
+		ArrayList<ArrayList<Object>> result = standardQuerie.selectQuery("SELECT COUNT(idplayer) FROM player", " WHERE game_idgame=? AND playstatus_playstatus=?", ""+gameID+"\0geweigerd");
+		if((long)result.get(0).get(0) > 0) {
+			return true;
+		}
+		return false;
+	}
 	
-	
-	
-	
+	// controlleert of er geweigerde uitnodigingen zijn in de game
+	public boolean checkUnasweredInGame() {
+		ArrayList<ArrayList<Object>> result = standardQuerie.selectQuery("SELECT COUNT(idplayer) FROM player", " WHERE game_idgame=? AND playstatus_playstatus=?", ""+gameID+"\0uitgedaagde");
+		if((long)result.get(0).get(0) > 0) {
+			return true;
+		}
+		return false;
+	}
+
 }

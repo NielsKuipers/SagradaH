@@ -65,6 +65,8 @@ public class SetupScreen extends BorderPane {
 	
 	// maakt alle knoppen aan en plaatst ze in de correcte plekken
 	private void makeButtons() {
+		
+		//////////////////top buttons////////////////////////
 		Button start = new Button("START");
 		start.setPrefSize(80, 60);
 		start.setOnAction(e -> startSearch());
@@ -77,16 +79,24 @@ public class SetupScreen extends BorderPane {
 		topButtons.setAlignment(Pos.CENTER);
 		topButtons.setSpacing(5);
 		
+		
+		/////////////////bottom buttons/////////////////////////
 		WindowFrameSetChooser = new Button("Standaard windowpatterns");
 		WindowFrameSetChooser.setOnAction(e -> clickPatternButton());
 		
 		startGame = new Button("Start Spel");
-		startGame.setOnAction(e -> startGame());
+		startGame.setOnAction(e -> controller.startGame());
 		
 		HBox bottomButtons = new HBox(WindowFrameSetChooser, startGame);
 		bottomButtons.setAlignment(Pos.CENTER);
 		bottomButtons.setSpacing(5);
 		
+		setupPane.setTop(topButtons);
+		setupPane.setBottom(bottomButtons);
+		setupPane.setAlignment(WindowFrameSetChooser, Pos.BOTTOM_CENTER);
+		
+		
+		/////////////////inviteBar//////////////////////////
 		inviteButton = new Button("Invite");
 		inviteButton.setOnAction(e -> controller.openInviterMenu());
 		inviteButton.setDisable(true);
@@ -103,10 +113,6 @@ public class SetupScreen extends BorderPane {
 		playerListBottomButtons.setPadding(new Insets(10));
 		
 		inviteBar.setBottom(playerListBottomButtons);
-
-		setupPane.setTop(topButtons);
-		setupPane.setBottom(bottomButtons);
-		setupPane.setAlignment(WindowFrameSetChooser, Pos.BOTTOM_CENTER);
 	}
 
 	
@@ -187,11 +193,6 @@ public class SetupScreen extends BorderPane {
 		setupPane.setCenter(stackpane);
 	}
 	
-	// schakelt naar het volgende scherm via de controller
-	private void startGame() {
-		
-	}
-	
 	// maakt inviteBar
 	private void makeInviteBar() {
 			
@@ -218,6 +219,7 @@ public class SetupScreen extends BorderPane {
 		playerList.getChildren().clear();
 	}
 	
+	// vernieuwt spelerlijst + speleraantal
 	private void refreshPlayerList() {
 		clearJoinedList();
 		controller.addJoinedPlayers();
@@ -225,6 +227,33 @@ public class SetupScreen extends BorderPane {
 		if(searching) {
 			transition.play();
 		}
+	}
+
+
+	public void declinedInviteWarning() {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Iemand heeft je uitnodiging geweigerd!!");
+		alert.setHeaderText("WAARSCHUWING");
+		alert.setContentText("Spel kan niet meer gespeeld worden!!");
+		alert.showAndWait();
+	}
+
+
+	public void unAnsweredInviteWarning() {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Je hebt nog onbeantwoorde uitnodigingen!!");
+		alert.setHeaderText("WAARSCHUWING");
+		alert.setContentText("Het spel kan niet starten voordat iedereen accepteerd!!");
+		alert.showAndWait();
+	}
+
+
+	public void onlyOnePlayerWarning() {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Je kan niet alleen spelen!!");
+		alert.setHeaderText("WAARSCHUWING");
+		alert.setContentText("Het spel kan gespeeld worden met 2-4 mensen!!");
+		alert.showAndWait();
 	}
 
 
