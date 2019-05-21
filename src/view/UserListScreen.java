@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class UserListScreen extends BorderPane {
 
     private VBox userList = new VBox();
-    private String[] statText = {"Hoogste score: ", "Meest gebruikte kleur: ", "Meest gebruikte ogen: "};
+    private String[] statText = {"Hoogste score: ", "Aantal keer gewonnen: ", "Aantal keer verloren: ", "Meest gebruikte kleur: ", "Meest gebruikte ogen: ", "Unieke tegenstanders: "};
     private ArrayList<Button> buttons = new ArrayList<>();
     private GUI gui;
 
@@ -24,8 +24,7 @@ public class UserListScreen extends BorderPane {
         HBox sortBox = new HBox();
         Label sortLabel = new Label("Sorteren op:");
         ChoiceBox sort = new ChoiceBox();
-        sort.getItems().add("Gewonnen potjes");
-        sort.getItems().add("Alfabetisch");
+        sort.getItems().addAll("Gewonnen potjes", "Alfabetisch");
         sortBox.getChildren().addAll(sortLabel, sort);
         sortBox.setPadding(new Insets(5,5,0,5));
 
@@ -72,13 +71,14 @@ public class UserListScreen extends BorderPane {
     }
 
     private VBox showUserStats(ArrayList<ArrayList<Object>> stats, String name){
-        String statLine;
+        String statLine = "";
         VBox playerStats = new VBox();
+        int i=0;
         for(ArrayList row : stats){
-            int i = 0;
+            if(i==statText.length){i=0;}
             if(row.contains(name)) {
                 for (Object stat : row.subList(1, row.size())) {
-                    statLine = stat.toString();
+                    if(stat != null){statLine = stat.toString();}
                     Label statLineLabel = new Label(statLine);
                     Label standardText = new Label(statText[i]);
                     Region region = new Region();
@@ -103,7 +103,6 @@ public class UserListScreen extends BorderPane {
             userInfo.setManaged(false);
             userInfo.setVisible(false);
             userInfo.setId("invisible");
-
         }
     }
 

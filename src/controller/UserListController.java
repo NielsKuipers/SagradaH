@@ -6,13 +6,10 @@ import main.GUI;
 import model.UserListModel;
 import view.UserListScreen;
 
-import java.util.ArrayList;
-
 public class UserListController extends Scene {
 
     private UserListModel userListModel;
     private UserListScreen userListScreen;
-    private ArrayList<Object> playerStats;
 
     public UserListController(GUI gui, DatabaseController databaseController){
         super(new Pane());
