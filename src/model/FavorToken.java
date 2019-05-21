@@ -36,6 +36,10 @@ public class FavorToken {
 		this.amount = amount;
 	}
 	
+	public int getAmount() {
+		return amount;
+	}
+	
 	
 
 	public StringProperty getAmountProperty() {

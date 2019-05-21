@@ -29,14 +29,19 @@ public void updatePUBOBJC(int GameID,int IDCard) {
 	
 public void BuyTC(int tc,int FT,int GameID,int playerID) {
 		
-		standardQuerie.updateQuery("INSERT INTO gametoolcard (gametoolcard,round) VALUES(?,?)", ""+tc+"\0"+FT+""," where FT=?  and GameID=? and PlayerID=?", ""+FT+"\0"+GameID+"\0"+playerID+"");
+		standardQuerie.updateQuery("update gamefavortoken Set gametoolcard=?, round=?", ""+tc+"\0"+FT+""," where idfavortoken=?  and idgame=? and idplayer=?", ""+FT+"\0"+GameID+"\0"+playerID+"");
 		
 	}
 
 public void BuyTCPrice2(int tc,int FT,int FT2,int GameID,int playerID) {
 	
-	standardQuerie.updateQuery("INSERT INTO gametoolcard (gametoolcard,round) VALUES(?,?)", ""+tc+"\0"+FT+""," where FT=? or FT=? and GameID=? and PlayerID=?", ""+FT+"\0"+FT2+"\0"+GameID+"\0"+playerID+"");
+	standardQuerie.updateQuery("update gamefavortoken Set gametoolcard=?, round=?", ""+tc+"\0"+FT+""," where idfavortoken=? or idfavortoken=?  and idgame=? and idplayer=?", ""+FT+"\0"+FT2+"\0"+GameID+"\0"+playerID+"");
 	
+}
+
+public ArrayList<ArrayList<Object>> CheckAmountFTonTC(int tc, int playerID,int idgame) {
+	return standardQuerie.selectQuery("Select idfavortoken from gamefavortoken", " where gametoolcard=? and idGame=? and idplayer=?",""+tc+"\0"+idgame+"\0"+playerID+"");
+	//
 }
 	
 	
