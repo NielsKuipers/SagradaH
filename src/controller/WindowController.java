@@ -69,13 +69,9 @@ public class WindowController {
 		createGrayWindowPattern(3, window3, windowPattern3Model);
 		createGrayWindowPattern(4, window4, windowPattern4Model);
 
-		//createRandomWindow(windowPattern1Model);
-		//createRandomWindow(windowPattern2Model);
-		//createRandomWindow(windowPattern3Model);
-		//createRandomWindow(windowPattern4Model);
-		//setStandardWindowPatern(windowPattern1Model);
 
-		//createTimer();
+
+
 	}
 
 	private void addColorsField() {
