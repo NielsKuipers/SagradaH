@@ -1,5 +1,7 @@
 package view;
 
+import java.util.Iterator;
+
 import controller.WindowController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -14,7 +16,6 @@ import model.Dice;
 import model.Field;
 
 public class FieldScreen extends StackPane {
-	private Rectangle rec;
 
 	private Field fieldModel;
 
@@ -148,7 +149,6 @@ public class FieldScreen extends StackPane {
 	}
 
 	private class MyDiceListener implements ChangeListener<Dice> {
-
 		@Override
 		public void changed(ObservableValue<? extends Dice> observable, Dice oldValue, Dice newValue) {
 			// TODO Auto-generated method stub
@@ -162,15 +162,12 @@ public class FieldScreen extends StackPane {
 					newValue.setEyes(0);
 					newValue.setEyes(eyes);
 					getChildren().add(diceScreen);
-				} else {
-					for (Node node : getChildren()) {
-						if (node instanceof DiceScreen) {
-							getChildren().remove(node);
-						}
-					}
+				} 
+				else {
+					getChildren().remove(getChildren().size() - 1);
 				}
 			} catch (Exception e) {
-				// TODO: handle exception
+				e.printStackTrace();
 			}
 		}
 	}

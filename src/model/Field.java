@@ -16,7 +16,7 @@ public class Field {
 	private Property<Background> backgroundProperty;
 	private Property<Dice> diceProperty;
 
-	public Field(int column, int row, Color color, int eyes, int id) {
+	public Field(int column, int row, Color color) {
 		this.row = row;
 		this.column = column;
 		this.color = color;
@@ -79,4 +79,5 @@ public class Field {
 	void deleteDice() {
 		diceProperty.setValue(null);
 	}
+	
 }

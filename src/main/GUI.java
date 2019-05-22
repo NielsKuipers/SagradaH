@@ -1,15 +1,8 @@
 package main;
-import controller.AccountController;
-import controller.ChatController;
-import controller.DatabaseController;
-import controller.DiceController;
-import controller.GameController;
-import controller.WindowController;
+
+import controller.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import model.WindowPattern;
@@ -24,6 +17,8 @@ public class GUI extends Application {
 	private AccountController accountController;
 	private Scene scene;
 	private ChatController chatController;
+	private RoundScreenController roundController;
+	private Scene scene;
 
 	void startup(String[] args) {
 		launch(args);
@@ -34,21 +29,32 @@ public class GUI extends Application {
 		StartPane startPane = new StartPane(this);
 		HomePane homepane = new HomePane(this);
 		GameListScreen gameListScreen = new GameListScreen(this);
+		
 		DatabaseController databaseController = new DatabaseController();
+	
 		WindowController windowController = new WindowController(this, databaseController);
+    accountController = new AccountController(this, databaseController, homepane, startPane, gameListScreen
+		DiceController diceController = new DiceController(this, windowController);
+
 		chatController = new ChatController(this, databaseController);
-		diceController = new DiceController(this, windowController);
 		gameController = new GameController(this, databaseController, windowController, diceController, chatController);
-		accountController = new AccountController(this, databaseController, homepane, startPane, gameListScreen);
+		CardController cardController = new CardController(windowController, diceController, gameController, databaseController);
+		
+//	  SetupScreenController SetupController = new SetupScreenController(stage, databaseController);
+//	  EndScreenController EndController = new EndScreenController(stage, databaseController);
+		 roundController = new RoundScreenController(stage, databaseController, this);
+		
 		scene = new Scene(startPane);
 		stage.setScene(scene);
-		//stage.setFullScreen(true);
 		//stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH); might be nice for test day.
+		
+		stage.setFullScreen(true);
 		stage.show();
 	}
 	
 	public void createGame(WindowPattern windowModel) {
 		gameController.createGame(windowModel);
+		scene.setRoot(gameController.getGameScreen());
 	}
 	
 	public void handleCheat(boolean allPossible, boolean bestChoice) {
@@ -56,9 +62,8 @@ public class GUI extends Application {
 	}
 	
 	public void makeDices() {
-		diceController.makeDices();
+		gameController.handleRollDices();
 	}
-
 	
 	public void handlelogin(TextField username, PasswordField password) {
 		accountController.login(username, password);
@@ -79,14 +84,11 @@ public class GUI extends Application {
 	public void handleUitloggen() {
 		accountController.uitloggen();
 	}
-
-	public void sendMessage(String input){
-		chatController.sendMessage(input);
-	}
 	
 	public void handleToGameList() {
 		accountController.showGames();
 	}
+                                              
 	public void handlegamesort(Object sortV) {
 		accountController.handleSort(sortV);
 	}
@@ -99,4 +101,17 @@ public class GUI extends Application {
 		accountController.setGameboolean(S);
 	}
 
+	public void sendMessage(String input){chatController.sendMessage(input);}
+	
+	public void handleFinishTurn() {
+		gameController.handleFinishTurn();
+	}
+	
+	public void handleGoToRoundTrack() {
+		scene.setRoot(roundController.getRoundScreen());
+	}
+	
+	public void handleGoBackToGame() {
+		scene.setRoot(gameController.getGameScreen());
+	}
 }
