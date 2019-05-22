@@ -27,7 +27,7 @@ public class DatabaseController {
         windowPatternQuerie = new WindowPatternQuerie(standardQueries);
     }
     
-    public GameQuery getGameQuery() {
+    GameQuery getGameQuery() {
     	return gameQuery;
     }
 
@@ -38,9 +38,8 @@ public class DatabaseController {
     PlayerQuery getPlayerQuery() {
         return playerQuery;
     }
-    
-    
-    public WindowPatternQuerie getWindowPatternQuerie() {
+
+    WindowPatternQuerie getWindowPatternQuerie() {
     	return windowPatternQuerie;
     }
     

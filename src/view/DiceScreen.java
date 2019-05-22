@@ -20,7 +20,7 @@ public class DiceScreen extends StackPane {
 
 	private Dice diceModel;
 
-	public DiceScreen(Dice diceModel) {
+	DiceScreen(Dice diceModel) {
 
 		this.diceModel = diceModel;
 		setMinWidth(40);
@@ -35,7 +35,7 @@ public class DiceScreen extends StackPane {
 
 	}
 
-	public void checkNumber(int value) {
+	private void checkNumber(int value) {
 		getChildren().clear();
 		switch (value) {
 		case 1:
@@ -124,7 +124,7 @@ public class DiceScreen extends StackPane {
 		}
 	}
 
-	public void makeBorderWhite() {
+	void makeBorderWhite() {
 		setBorder(new Border(new BorderStroke(Color.WHITE, BorderStrokeStyle.SOLID, null, new BorderWidths(3))));
 	}
 

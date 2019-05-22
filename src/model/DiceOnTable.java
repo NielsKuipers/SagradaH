@@ -10,7 +10,7 @@ public class DiceOnTable {
 	private Property<ArrayList<Dice>> diceOnTableProperty = new SimpleObjectProperty<>();
 
 
-	public void addDiceToTable(Dice dice) {
+	void addDiceToTable(Dice dice) {
 		allDice.add(dice);
 		diceOnTableProperty.setValue(new ArrayList<>());
 		diceOnTableProperty.setValue(allDice);
@@ -32,7 +32,7 @@ public class DiceOnTable {
 		}
 	}
 	
-	public void removeAllDicesFromTable() {
+	void removeAllDicesFromTable() {
 		allDice.clear();
 		diceOnTableProperty.setValue(allDice);
 	}
@@ -44,10 +44,6 @@ public class DiceOnTable {
 			}
 		}
 		return false;
-	}
-
-	public void getDice(int i) {
-		allDice.get(i);
 	}
 
 	public Property<ArrayList<Dice>> diceOnTableProperty() {

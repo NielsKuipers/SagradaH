@@ -40,20 +40,16 @@ public class WindowPattern {
 		return result;
 	}
 
-	public void setDifficultyWindowPattern(int dif) {
-		difficulty.set("Moeilijkheidsgraad: " + dif);
-	}
-
 	public final StringProperty difficultyProperty() {
 		return difficulty;
 	}
 	
-	public int getDifficulty() {
+	int getDifficulty() {
 		ArrayList<ArrayList<Object>> result = windowPatternQuerie.getDifficulty(idWindow);
 		return Integer.valueOf(String.valueOf(result.get(0).get(0)));
 	}
 	
-	public void setPlayerName(String name) {
+	void setPlayerName(String name) {
 		playerName.set(name);
 	}
 
@@ -61,7 +57,7 @@ public class WindowPattern {
 		return playerName;
 	}
 	
-	public void setPlayerScore(String s) {
+	void setPlayerScore(String s) {
 		playerScore.set(String.valueOf(s));
 	}
 
@@ -96,17 +92,17 @@ public class WindowPattern {
 
 	
 	//get all the fields and add it to the right model
-	public void selectAllFields() {
+	void selectAllFields() {
 		for (Field field : fields) {
 			field.deleteDice();
 		}
 		ArrayList<ArrayList<Object>> result = windowPatternQuerie.getAllFields(idWindow);
 		for (int row = 1; row < 5; row++) {
 			for (int column = 0; column < 5; column++) {
-				for (int i = 0; i < result.size(); i++) {
+				for (ArrayList<Object> objects : result) {
 					try {
-						if (row == Integer.valueOf(result.get(i).get(3).toString()) && column == Integer.valueOf(result.get(i).get(2).toString()) - 1) {
-							getFieldOfWindow(column, row).setColorAndEyes(makeColorFromQuerie(result.get(i).get(0)),makeEyeFromQuerie(result.get(i).get(1)));
+						if (row == Integer.valueOf(objects.get(3).toString()) && column == Integer.valueOf(objects.get(2).toString()) - 1) {
+							getFieldOfWindow(column, row).setColorAndEyes(makeColorFromQuerie(objects.get(0)), makeEyeFromQuerie(objects.get(1)));
 						}
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -120,16 +116,16 @@ public class WindowPattern {
 	}
 	
 	//get all the dices on all fields
-	public void selectAllDicesOnField(int idPlayer, int idGame) {
+	void selectAllDicesOnField(int idPlayer, int idGame) {
 		ArrayList<ArrayList<Object>> result = windowPatternQuerie.getAllDicesOnField(idPlayer, idGame);
 		for (int row = 1; row < 5; row++) {
 			for (int column = 0; column < 5; column++) {
 				getFieldOfWindow(column, row).deleteDice();
-				for (int i = 0; i < result.size(); i++) {
+				for (ArrayList<Object> objects : result) {
 					try {
-						if (row == Integer.valueOf(result.get(i).get(3).toString()) && column == Integer.valueOf(result.get(i).get(2).toString()) - 1 && result.get(i).get(1) != null) {
-							int eyes = Integer.valueOf(result.get(i).get(1).toString());
-							getFieldOfWindow(column, row).addDice(new Dice(makeEyeFromQuerie(result.get(i).get(1)), makeColorFromQuerie(result.get(i).get(0)), Integer.valueOf(String.valueOf(result.get(i).get(4)))));
+						if (row == Integer.valueOf(objects.get(3).toString()) && column == Integer.valueOf(objects.get(2).toString()) - 1 && objects.get(1) != null) {
+							int eyes = Integer.valueOf(objects.get(1).toString());
+							getFieldOfWindow(column, row).addDice(new Dice(makeEyeFromQuerie(objects.get(1)), makeColorFromQuerie(objects.get(0)), Integer.valueOf(String.valueOf(objects.get(4)))));
 							getFieldOfWindow(column, row).getDice().setEyes(eyes);
 						}
 					} catch (Exception e) {
@@ -142,12 +138,12 @@ public class WindowPattern {
 		}
 	}
 	
-	public void selectDifficulty() {
+	void selectDifficulty() {
 		ArrayList<ArrayList<Object>> result = windowPatternQuerie.getDifficulty(idWindow);
-		difficulty.set(String.valueOf("Moeilijkheidsgraad: " + result.get(0).get(0)));
+		difficulty.set("Moeilijkheidsgraad: " + result.get(0).get(0));
 	}
 
-	public Color makeColorFromQuerie(Object c) {
+	private Color makeColorFromQuerie(Object c) {
 		String color = String.valueOf(c);
 		if (color.equals("geel")) {
 			return Color.YELLOW;
@@ -165,7 +161,7 @@ public class WindowPattern {
 		return Color.LIGHTGRAY;
 	}
 	
-	public int makeEyeFromQuerie(Object eye) {
+	private int makeEyeFromQuerie(Object eye) {
 		
 		if (eye == null) {
 			return 0;
@@ -173,7 +169,7 @@ public class WindowPattern {
 		return Integer.valueOf(String.valueOf(eye));
 	}
 	
-	public void setId(int id) {
+	void setId(int id) {
 		idWindow = id;
 	}
 	

@@ -15,7 +15,7 @@ public class Player {
 		this.playerQuery = playerQuery;
 	}
 	
-	public WindowPattern getWindowPatternPlayer() {
+	WindowPattern getWindowPatternPlayer() {
 		return windowPattern;
 	}
 	
@@ -23,16 +23,16 @@ public class Player {
 		this.windowPattern = windowPattern;
 	}
 	
-	public void setPlayerId(int id) {
+	void setPlayerId(int id) {
 		idPlayer = id;
 	}
 	
-	public int getPlayerId() {
+	int getPlayerId() {
 		return idPlayer;
 	}
 	
 	//get all the information about a windowpattern and add it to the model
-	public void selectWindow(int idGame) {
+	void selectWindow(int idGame) {
 		ArrayList<ArrayList<Object>> result = playerQuery.getWindowId(idPlayer);
 			windowPattern.setId(Integer.valueOf(String.valueOf(result.get(0).get(0))));
 			windowPattern.selectAllFields();
@@ -43,15 +43,15 @@ public class Player {
 	}
 	
 	//get player name
-	public void selectPlayerName() {
+	private void selectPlayerName() {
 		ArrayList<ArrayList<Object>> result = playerQuery.getPlayerName(idPlayer);
-		windowPattern.setPlayerName("Naam: "+ String.valueOf(result.get(0).get(0)));
+		windowPattern.setPlayerName("Naam: "+ result.get(0).get(0));
 	}
 	
 	//get player score
-	public void selectPlayerScore() {
+	private void selectPlayerScore() {
 		ArrayList<ArrayList<Object>> result = playerQuery.getPlayerScore(idPlayer);
-		windowPattern.setPlayerScore("Score: " + String.valueOf(result.get(0).get(0)));
+		windowPattern.setPlayerScore("Score: " + result.get(0).get(0));
 	}
 	
 	//give the window of the player the right id
@@ -63,25 +63,22 @@ public class Player {
 	public boolean selectCurrentPlayer() {
 		ArrayList<ArrayList<Object>> result = playerQuery.getIsCurrentPlayer(idPlayer);
 		int currentPlayer = Integer.valueOf(String.valueOf(result.get(0).get(0)));
-		if (currentPlayer == 1) {
-			return true;
-		}
-		return false;
+		return currentPlayer == 1;
 	}
 	
 	//get seqnr of player
-	public int selectSqnr() {
+	int selectSqnr() {
 		ArrayList<ArrayList<Object>> result = playerQuery.getSqnrPlayer(idPlayer);
 		return Integer.valueOf(String.valueOf(result.get(0).get(0)));
 	}
 	
 	//update seqnr
-	public void updateSqnr(int sqnr) {
+	void updateSqnr(int sqnr) {
 		playerQuery.updateSqnrPlayer(idPlayer, sqnr);
 	}
 	
 	//update currentplayer in game table
-	public void updateQurrentPlayer(int isQurrent) {
+	void updateQurrentPlayer(int isQurrent) {
 		playerQuery.updateIsCurrentPlayer(idPlayer, isQurrent);
 	}
 	

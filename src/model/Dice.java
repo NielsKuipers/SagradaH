@@ -1,7 +1,5 @@
 package model;
 
-import java.sql.Connection;
-
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -18,7 +16,7 @@ public class Dice {
 	private IntegerProperty eyesProperty;
 
 
-	public Dice(int eyes, Color color, int dieNumber) {
+	Dice(int eyes, Color color, int dieNumber) {
 		this.color = color;
 		this.dieNumber = dieNumber;
 		backgroundProperty = new SimpleObjectProperty<>();

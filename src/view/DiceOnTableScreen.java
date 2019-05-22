@@ -1,27 +1,23 @@
 package view;
 
-import java.util.ArrayList;
-
 import controller.WindowController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import main.GUI;
 import model.Dice;
 import model.DiceOnTable;
 
+import java.util.ArrayList;
+
 public class DiceOnTableScreen extends GridPane {
-	private DiceOnTable diceOnTableModel;
 	private Button createNewDices;
-	private GUI gui;
 
 	private WindowController WC;
 
 	public DiceOnTableScreen(GUI gui, DiceOnTable diceOnTableModel, WindowController WC) {
-		this.diceOnTableModel = diceOnTableModel;
 		this.WC = WC;
 
 		createNewDices = new Button("Gooi");
@@ -34,7 +30,7 @@ public class DiceOnTableScreen extends GridPane {
 		setAlignment(Pos.CENTER);
 		setStyle("-fx-background-radius: 0 0 0 300;-fx-background-color: DEEPSKYBLUE;");
 
-		this.diceOnTableModel.diceOnTableProperty().addListener(new MyDiceOnTableListener());
+		diceOnTableModel.diceOnTableProperty().addListener(new MyDiceOnTableListener());
 	}
 
 	private class MyDiceOnTableListener implements ChangeListener<ArrayList<Dice>> {
@@ -71,7 +67,7 @@ public class DiceOnTableScreen extends GridPane {
 				}
 
 			} catch (Exception e) {
-
+				e.printStackTrace();
 			}
 		}
 	}

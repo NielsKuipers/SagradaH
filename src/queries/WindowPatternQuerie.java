@@ -3,7 +3,7 @@ package queries;
 import java.util.ArrayList;
 
 public class WindowPatternQuerie {
-	StandardQueries standardQueries;
+	private StandardQueries standardQueries;
 
 	public WindowPatternQuerie(StandardQueries standardQueries) {
 		this.standardQueries = standardQueries;
@@ -15,7 +15,9 @@ public class WindowPatternQuerie {
 	}
 
 	public ArrayList<ArrayList<Object>> getAllDicesOnField(int idPlayer, int idGame) {
-		return standardQueries.selectQuery("SELECT gamedie.diecolor, gamedie.eyes, playerframefield.position_x, playerframefield.position_y, gamedie.dienumber FROM playerframefield INNER JOIN gamedie ON gamedie.dienumber = playerframefield.dienumber AND gamedie.diecolor = playerframefield.diecolor ",
+		return standardQueries.selectQuery("SELECT gamedie.diecolor, gamedie.eyes, playerframefield.position_x, playerframefield.position_y, " +
+						" gamedie.dienumber FROM playerframefield INNER JOIN gamedie ON gamedie.dienumber = playerframefield.dienumber " +
+						" AND gamedie.diecolor = playerframefield.diecolor ",
 				" WHERE playerframefield.player_idplayer=? AND gamedie.idgame=?", idPlayer + "\0" + idGame);
 	}
 	

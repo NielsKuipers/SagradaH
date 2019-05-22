@@ -32,7 +32,7 @@ public class Game {
 		gameRound = new SimpleStringProperty(this, "round", "empty");
 	}
 
-	public void setRound(String round) {
+	private void setRound(String round) {
 		gameRound.set("Ronde: " + round);
 	}
 
@@ -49,27 +49,27 @@ public class Game {
 	}
 
 	// give all the players the right id
-	public void selectPlayerIds() {
+	private void selectPlayerIds() {
 		ArrayList<ArrayList<Object>> result = gameQuery.getPlayerIdsAndNames(gameId);
 		int playerLocation = 0;
 		boolean accountPlaced = false;
 		boolean stop = false;
 
-		for (int i = 0; i < result.size(); i++) {
+		for (ArrayList<Object> objects : result) {
 			if (accountPlaced) {
-				players.get(playerLocation).setPlayerId(Integer.valueOf(String.valueOf(result.get(i).get(0))));
+				players.get(playerLocation).setPlayerId(Integer.valueOf(String.valueOf(objects.get(0))));
 				playerLocation++;
 			}
-			if (String.valueOf(result.get(i).get(1)).equals(accountName)) {
-				players.get(playerLocation).setPlayerId(Integer.valueOf(String.valueOf(result.get(i).get(0))));
+			if (String.valueOf(objects.get(1)).equals(accountName)) {
+				players.get(playerLocation).setPlayerId(Integer.valueOf(String.valueOf(objects.get(0))));
 				playerLocation++;
 				accountPlaced = true;
 			}
 		}
 
-		for (int i = 0; i < result.size(); i++) {
-			if (!String.valueOf(result.get(i).get(1)).equals(accountName) && !stop) {
-				players.get(playerLocation).setPlayerId(Integer.valueOf(String.valueOf(result.get(i).get(0))));
+		for (ArrayList<Object> objects : result) {
+			if (!String.valueOf(objects.get(1)).equals(accountName) && !stop) {
+				players.get(playerLocation).setPlayerId(Integer.valueOf(String.valueOf(objects.get(0))));
 				playerLocation++;
 			} else {
 				stop = true;
@@ -99,8 +99,8 @@ public class Game {
 		//selectPlayerIds();
 		ArrayList<ArrayList<Object>> result = gameQuery.getPlayerIdsAndNames(gameId);
 		int amountOfPlayers = result.size();
-		for (int j = 0; j < players.size(); j++) {
-			players.get(j).getWindowPatternPlayer().setPlayerName("Naam: NIEMAND!!!");
+		for (Player player : players) {
+			player.getWindowPatternPlayer().setPlayerName("Naam: NIEMAND!!!");
 		}
 		for (int i = 0; i < amountOfPlayers; i++) {
 			players.get(i).selectWindow(gameId);
@@ -111,7 +111,7 @@ public class Game {
 	}
 
 	// get the dice with highest roundtrack and fill the round
-	public void selectRound() {
+	private void selectRound() {
 		ArrayList<ArrayList<Object>> result = gameQuery.getRound(gameId);
 		if (result.get(0).get(0) == null) {
 			setRound("1");
@@ -124,7 +124,7 @@ public class Game {
 	}
 
 	//show all the dices on the table
-	public void selectAllDicesOnTable() {
+	private void selectAllDicesOnTable() {
 		//check which round you are in 
 		ArrayList<ArrayList<Object>> result = gameQuery.getRound(gameId);
 		int round = Integer.valueOf(String.valueOf(result.get(0).get(0)));
@@ -136,7 +136,7 @@ public class Game {
 		//get all the dices that exist on certain round
 		ArrayList<ArrayList<Object>> result3 = gameQuery.getAllDicesFromOneRound(gameId, round);
 
-		ArrayList<ArrayList<Object>> diceOnTable = new ArrayList<ArrayList<Object>>();
+		ArrayList<ArrayList<Object>> diceOnTable = new ArrayList<>();
 
 		//if none of the players have the dice put put it in arraylist diceOnTable
 		for (ArrayList<Object> dicesFromRound : result3) {
@@ -160,7 +160,7 @@ public class Game {
 	}
 
 	//make a color from a querie
-	public Color makeColorFromQuerie(Object c) {
+	private Color makeColorFromQuerie(Object c) {
 		String color = String.valueOf(c);
 		if (color.equals("geel")) {
 			return Color.YELLOW;
@@ -179,7 +179,7 @@ public class Game {
 	}
 
 	//check which player is the qurrentplayer
-	public void checkWhoIsQurrentPlayer() {
+	private void checkWhoIsQurrentPlayer() {
 		ArrayList<ArrayList<Object>> result = gameQuery.getPlayerIdsAndNames(gameId);
 		for (int i = 0; i < result.size(); i++) {
 			players.get(i).getWindowPatternPlayer().setBackground(Color.WHITE);
@@ -357,36 +357,30 @@ public class Game {
 		
 		//check how many players there are, and give each player 4 window options
 		for (int i = 0; i < 4; i++) {
-			if(idPlayer1 != 0) {
-				int arrayIndex = r.nextInt(windowIds.size());
-				gameQuery.insertPatternCardToPlayerOption(windowIds.get(arrayIndex), idPlayer1);
-				windowIds.remove(arrayIndex);
-			}
-			
-			if(idPlayer2 != 0) {
-				int arrayIndex = r.nextInt(windowIds.size());
-				gameQuery.insertPatternCardToPlayerOption(windowIds.get(arrayIndex), idPlayer2);
-				windowIds.remove(arrayIndex);
-			}
-			
-			if(idPlayer3 != 0) {
-				int arrayIndex = r.nextInt(windowIds.size());
-				gameQuery.insertPatternCardToPlayerOption(windowIds.get(arrayIndex), idPlayer3);
-				windowIds.remove(arrayIndex);
-			}
-			
-			if(idPlayer4 != 0) {
-				int arrayIndex = r.nextInt(windowIds.size());
-				gameQuery.insertPatternCardToPlayerOption(windowIds.get(arrayIndex), idPlayer4);
-				windowIds.remove(arrayIndex);
-			}
-			
+			giveWindowOptions(idPlayer1, idPlayer2, windowIds);
+
+			giveWindowOptions(idPlayer3, idPlayer4, windowIds);
+
 		}
 		
 	}
-	
+
+	private void giveWindowOptions(int idPlayer1, int idPlayer2, ArrayList<Integer> windowIds) {
+		if(idPlayer1 != 0) {
+			int arrayIndex = r.nextInt(windowIds.size());
+			gameQuery.insertPatternCardToPlayerOption(windowIds.get(arrayIndex), idPlayer1);
+			windowIds.remove(arrayIndex);
+		}
+
+		if(idPlayer2 != 0) {
+			int arrayIndex = r.nextInt(windowIds.size());
+			gameQuery.insertPatternCardToPlayerOption(windowIds.get(arrayIndex), idPlayer2);
+			windowIds.remove(arrayIndex);
+		}
+	}
+
 	//insert ONE field to patterncardfiel table, this is used when making a random window
-	public void insertAllFieldsToPatternCard(WindowPattern windowModel, int idWindow) {
+	private void insertAllFieldsToPatternCard(WindowPattern windowModel, int idWindow) {
 		for (int column = 0; column < 5; column++) {
 			for (int row = 1; row < 5; row++) {
 				gameQuery.insertPatternCardField(idWindow, column + 1, row, getColorForQuerie(windowModel.getFieldOfWindow(column, row).getColor()), 
@@ -396,7 +390,7 @@ public class Game {
 	}
 	
 	//make a string for amount of eyes, used when updating or inserting queries
-	public String getNumberForQuerie(int number) {
+	private String getNumberForQuerie(int number) {
 		if (number == 1) {
 			return "1";
 		} else if (number == 2) {
@@ -416,7 +410,7 @@ public class Game {
 	}
 	
 	//make a string for color, used when updating or inserting queries
-	public String getColorForQuerie(Color color) {
+	private String getColorForQuerie(Color color) {
 		if (color == Color.RED) {
 			return "rood";
 		} else if (color == Color.YELLOW) {
@@ -427,8 +421,6 @@ public class Game {
 			return "groen";
 		} else if (color == Color.CORNFLOWERBLUE) {
 			return "blauw";
-		} else if (color == Color.CORNFLOWERBLUE) {
-			return "blauw";
 		} else if (color == Color.LIGHTGRAY) {
 			return "null";
 		}
@@ -436,7 +428,7 @@ public class Game {
 	}
 	
 	//give ONE player a amount of favortokens
-	public void givePlayerFavorTokens(int idPlayer, int amount) {
+	private void givePlayerFavorTokens(int idPlayer, int amount) {
 		ArrayList<ArrayList<Object>> result = gameQuery.getLastFavorTokenId(gameId);
 		for (int i = 0; i < amount; i++) {
 			gameQuery.updateFavorTokenPlayer(idPlayer, gameId, Integer.valueOf(String.valueOf(result.get(i).get(0))));
@@ -487,17 +479,11 @@ public class Game {
 	
 
 	public boolean checkIfMainPlayerCanThrowDices() {
-		if(players.get(0).selectCurrentPlayer() && players.get(0).selectSqnr() == 1) {
-			return true;
-		}
-		return false;
+		return players.get(0).selectCurrentPlayer() && players.get(0).selectSqnr() == 1;
 	}
 	
 	public boolean checkIfGameIsOver() {
 		ArrayList<ArrayList<Object>> result2 = gameQuery.checkIfThereIsADiceOnRoundtrack10(gameId);
-		if(!result2.isEmpty()) {
-			return true;
-		}
-		return false;
+		return !result2.isEmpty();
 	}
 }

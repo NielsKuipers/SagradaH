@@ -2,6 +2,7 @@ package controller;
 
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import main.GUI;
 import model.Game;
@@ -19,11 +20,7 @@ public class GameController extends Scene {
 	private GameInfoScreen kaarten;
 	private GameScreen gameScreen;
 
-	private WindowPatternChooseScreen windowChoooseScreen;
-
 	private Game gameModel;
-
-	private AnimationTimerEXT timer;
 
 	private WindowController WC;
 	private DiceController DC;
@@ -58,7 +55,7 @@ public class GameController extends Scene {
 		chat.setStyle("-fx-background-radius: 0 300 0 0;-fx-background-color: DEEPSKYBLUE;");
 		kaarten.setStyle("-fx-background-radius: 300 0 0 0;-fx-background-color: DEEPSKYBLUE;");
 
-		windowChoooseScreen = new WindowPatternChooseScreen(gui, WC);
+		WindowPatternChooseScreen windowChoooseScreen = new WindowPatternChooseScreen(gui, WC);
 
 		windowChoooseScreen.add(WC.getWindow1(), 0, 1);
 		windowChoooseScreen.add(WC.getWindow2(), 1, 1);
@@ -87,8 +84,8 @@ public class GameController extends Scene {
 		gameScreen.add(WC.getWindow3(), 2, 1);
 		gameScreen.add(WC.getWindow4(), 3, 1);
 
-		gameScreen.setMargin(WC.getWindow1(), new Insets(0, 0, 0, 80));
-		gameScreen.setMargin(WC.getWindow4(), new Insets(0, 80, 0, 0));
+		GridPane.setMargin(WC.getWindow1(), new Insets(0, 0, 0, 80));
+		GridPane.setMargin(WC.getWindow4(), new Insets(0, 80, 0, 0));
 
 		gameModel.getPlayer(0).updateWindowId(windowModel.getId());
 
@@ -103,16 +100,19 @@ public class GameController extends Scene {
 		WC.setCheatBestChoice(bestChoice);
 	}
 
-	public void setPoints(int value) {
+	void setPoints(int value) {
 		gameInfo.setPoints(value);
 	}
 
-	public Game getGameModel() {
+	Game getGameModel() {
 		return gameModel;
 	}
 
-	public void createTimer() {
-		timer = new AnimationTimerEXT(5000) {
+	private void createTimer() {
+		//favor tokens
+		//card costs
+		//chat
+		AnimationTimerEXT timer = new AnimationTimerEXT(5000) {
 			@Override
 			public void doAction() {
 				gameModel.selectWholeGame();
@@ -134,7 +134,7 @@ public class GameController extends Scene {
 	}
 	
 	public void handleRollDices() {
-		if(hasThrown == false && gameModel.checkIfMainPlayerCanThrowDices()) {
+		if(!hasThrown && gameModel.checkIfMainPlayerCanThrowDices()) {
 			//gameModel.rollTheDices();
 			hasThrown = true;
 		}

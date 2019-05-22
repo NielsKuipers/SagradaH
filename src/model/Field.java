@@ -1,7 +1,5 @@
 package model;
 
-import java.sql.Connection;
-
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -18,7 +16,7 @@ public class Field {
 	private Property<Background> backgroundProperty;
 	private Property<Dice> diceProperty;
 
-	public Field(int column, int row, Color color, int eyes, int id) {
+	public Field(int column, int row, Color color) {
 		this.row = row;
 		this.column = column;
 		this.color = color;
@@ -45,11 +43,7 @@ public class Field {
 	}
 
 	public boolean hasDice() {
-		if (diceProperty.getValue() == null) {
-			return false;
-		} else {
-			return true;
-		}
+		return diceProperty.getValue() != null;
 	}
 
 	public void addDice(Dice dice) {
@@ -82,7 +76,7 @@ public class Field {
 		eyesProperty.set(eyes);
 	}
 
-	public void deleteDice() {
+	void deleteDice() {
 		diceProperty.setValue(null);
 	}
 	
