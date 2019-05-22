@@ -1,9 +1,8 @@
 package model;
 
-import java.util.ArrayList;
-
 import queries.GameQueries;
-import queries.InviteHandleQueries;
+
+import java.util.ArrayList;
 
 public class GameModel {
 	

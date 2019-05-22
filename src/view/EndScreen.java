@@ -1,7 +1,5 @@
 package view;
-import java.util.ArrayList;
 
-import controller.EndScreenController;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
@@ -9,24 +7,21 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Arc;
-import javafx.scene.shape.ArcType;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
+
+import java.util.ArrayList;
 
 public class EndScreen extends BorderPane {
 
 	private GridPane gridpane;
 	private ArrayList <StackPane> stackpanes;
-	private Label text;
-	private EndScreenController controller;
 	private ArrayList<PlayerLabel> playerLabels;
 
-	public EndScreen(EndScreenController controller) {
-		this.controller = controller;
+	public EndScreen() {
 		gridpane = new GridPane();
-		stackpanes = new ArrayList<StackPane>();
-		playerLabels = new ArrayList<PlayerLabel>();
+		stackpanes = new ArrayList<>();
+		playerLabels = new ArrayList<>();
 		makeGridPane();
 		makeTop();		
 	}
@@ -50,15 +45,15 @@ public class EndScreen extends BorderPane {
 		}
 		
 		this.setCenter(gridpane);
-		this.setAlignment(gridpane, Pos.CENTER);
+		setAlignment(gridpane, Pos.CENTER);
 	}
 	
 	// maakt titel
 	private void makeTop() {
-		text = new Label("Eindscherm scorebord");
+		Label text = new Label("Eindscherm scorebord");
 		text.setFont(new Font("Arial", 30));
 		this.setTop(text);
-		this.setAlignment(text, Pos.CENTER);
+		setAlignment(text, Pos.CENTER);
 	}
 	
 	// voegt speler label toe
@@ -74,7 +69,7 @@ public class EndScreen extends BorderPane {
 		VBox bottom = new VBox();
 		bottom.getChildren().addAll(playerLabels);
 		this.setBottom(bottom);
-		this.setAlignment(bottom, Pos.CENTER);
+		setAlignment(bottom, Pos.CENTER);
 	}
 	
 	// voegt speler toe
@@ -87,9 +82,9 @@ public class EndScreen extends BorderPane {
 			stackpanes.get(score - 1).getChildren().add(new PlayerCircle(color, size));
 		}
 	}
-	
-private Color getColorTranslation(String color){
-		
+
+	// verandert kleur uit database naar javakleur
+	static Color getColorTranslation(String color) {
 		switch(color) {
 		  case "blauw":
 			 return Color.BLUE;
@@ -105,14 +100,13 @@ private Color getColorTranslation(String color){
 		    return Color.BLACK;
 		}
 	}
-	
-	
+
+
 	private class CustomCircle extends Circle{
-		private final String[] colors = { "GREENYELLOW", "YELLOW",
-				"SADDLEBROWN", "DEEPSKYBLUE", "LAVENDER", "BISQUE", "FORESTGREEN" };
-		
 		private CustomCircle() {
 			setRadius(35);
+			String[] colors = {"GREENYELLOW", "YELLOW",
+					"SADDLEBROWN", "DEEPSKYBLUE", "LAVENDER", "BISQUE", "FORESTGREEN"};
 			int random = (int)(Math.random() * colors.length);
 			setFill(Color.valueOf(colors[random]));
 			

@@ -66,9 +66,9 @@ public class SetupScreenController {
 	// voeg spelers to aan de invite lijst
 	public void addPlayersToInviteList() {
 		ArrayList<ArrayList <Object>> result = cModel.getInviteablePlayers();
-		
-		for(int i = 0; i < result.size(); i++) {
-			inviteScreen.addPlayer((String) result.get(i).get(0));
+
+		for (ArrayList<Object> objects : result) {
+			inviteScreen.addPlayer((String) objects.get(0));
 		}
 	}
 	
@@ -76,10 +76,10 @@ public class SetupScreenController {
 	// voeg toegevoegde spelers aan speler lijst
 	public void addJoinedPlayers() {
 		ArrayList<ArrayList <Object>> result = cModel.getJoinedPlayers();
-		
-		for(int i = 0; i < result.size(); i++) {
-			if(result.get(i).get(0) != null) {
-				setupScreen.addJoinedPlayer((String) result.get(i).get(0));
+
+		for (ArrayList<Object> objects : result) {
+			if (objects.get(0) != null) {
+				setupScreen.addJoinedPlayer((String) objects.get(0));
 			}
 		}
 	}
@@ -111,7 +111,7 @@ public class SetupScreenController {
 	
 //////////////////////// inviteGetScreen ///////////////////////////////	
 	// schakel van setup scherm naar patternkeuze scherm
-	public void openInviteGetScreen() {
+	private void openInviteGetScreen() {
 		inviteGetScreen = new InviteGetScreen(this);
 		addPlayersToInviteGetList();
 		scene.setRoot(inviteGetScreen);
@@ -120,11 +120,11 @@ public class SetupScreenController {
 	// voegt uitnodigingen en inviternaam toe aan de invite getlist
 	public void addPlayersToInviteGetList() {
 		ArrayList<ArrayList <Object>> result = cModel.getInviteGetList();
-		
-		for(int i = 0; i < result.size(); i++) {
-			
-			int gameid = (int) result.get(i).get(0);
-			String inviter = (String)cModel.getInviter(gameid).get(0).get(0);
+
+		for (ArrayList<Object> objects : result) {
+
+			int gameid = (int) objects.get(0);
+			String inviter = (String) cModel.getInviter(gameid).get(0).get(0);
 			inviteGetScreen.addPlayer(inviter, gameid);
 		}
 	}

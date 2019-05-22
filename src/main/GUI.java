@@ -29,16 +29,16 @@ public class GUI extends Application {
 	public void start(Stage stage) {
 		DatabaseController databaseController = new DatabaseController();
 	
-		//WindowController windowController = new WindowController(this, databaseController);
-		//diceController = new DiceController(this, windowController);
-		//chatController = new ChatController(this, databaseController);
-        //gameController = new GameController(this, databaseController, windowController, diceController, chatController);
+		WindowController windowController = new WindowController(this, databaseController);
+		diceController = new DiceController(this, windowController);
+		chatController = new ChatController(this, databaseController);
+        gameController = new GameController(this, databaseController, windowController, diceController, chatController);
 		
 		// SetupScreenController SetupController = new SetupScreenController(stage, databaseController);
-		 EndScreenController EndController = new EndScreenController(stage, databaseController);
+//		 EndScreenController EndController = new EndScreenController(stage, databaseController);
 		// RoundScreenController RoundController = new RoundScreenController(stage, databaseController);
 		
-		//stage.setScene(gameController);
+		stage.setScene(gameController);
 		
 		stage.setFullScreen(true);
 		stage.show();

@@ -46,7 +46,7 @@ public class InviteGetScreen extends BorderPane{
 		}
 		
 		// leegt invitelijst
-		public void clearList() {
+		private void clearList() {
 			inviteList.getChildren().clear();
 		}
 		

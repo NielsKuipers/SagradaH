@@ -45,23 +45,21 @@ public class DiceScreen extends StackPane {
 	}
 	
 	// constructor voor roundscreen dice
-	public DiceScreen(int number, Color color, int diceID, RoundScreenController controller) {
+	DiceScreen(int number, Color color, int diceID, RoundScreenController controller) {
 		this.setBackground(new Background(new BackgroundFill(color, null, null)));
 		this.setMaxSize(50, 50);
 		this.setMinSize(50, 50);
 		this.setPadding(new Insets(10));
-		this.setMargin(this, new Insets(10));
+		setMargin(this, new Insets(10));
 		diceCircleSize = 3;
 		checkNumber(number);
 		
 		if(controller.getRoundScreenToolcardActive()) {
 			
-			setOnMouseClicked(new EventHandler<MouseEvent>() {
-				public void handle(MouseEvent t) {
-					controller.removeDice(diceID, color);
-					controller.refreshDice();
-				}
-			}); 
+			setOnMouseClicked(e -> {
+				controller.removeDice(diceID, color);
+				controller.refreshDice();
+			});
 		}
 	}
 	

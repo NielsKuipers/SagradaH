@@ -22,7 +22,7 @@ public class InviteHandleQueries {
 	
 	// returnt array met verschillende random getallen
 	private int[] getRandomNums(int minVal, int maxVal, int resultAmount) {
-		int randoms[] = new int[resultAmount];
+		int[] randoms = new int[resultAmount];
 		int counter = 0;
 		boolean exists = false;
 		
@@ -44,7 +44,7 @@ public class InviteHandleQueries {
 	}
 	
 	// gameID ophalen en int returnen
-		public int getGameIDint() {
+	private int getGameIDint() {
 			return (int) getGameID().get(0).get(0);
 		}
 		
@@ -65,13 +65,13 @@ public class InviteHandleQueries {
 		standardQuerie.updateQuery("INSERT INTO gamedie(idgame, dienumber, diecolor) SELECT ?, number, color FROM die", ""+gameID+"");
 		
 		// 3 random toolcards toevoegen
-		int randomToolcards[] = getRandomNums(1,13,3);
+		int[] randomToolcards = getRandomNums(1, 13, 3);
 		for(int i = 0; i < 3; i++) {
 			standardQuerie.updateQuery("INSERT INTO gametoolcard(idtoolcard, idgame) VALUES(?,?)", ""+randomToolcards[i]+"\0"+gameID+"");
 		}
 		
 		// 3 random public objectivecards toevoegen
-		int randomObjectiveCards[] = getRandomNums(1,11,3);
+		int[] randomObjectiveCards = getRandomNums(1, 11, 3);
 		for(int i = 0; i < 3; i++) {
 			standardQuerie.updateQuery("INSERT INTO sharedpublic_objectivecard(idpublic_objectivecard, idgame) VALUES(?,?)", ""+randomObjectiveCards[i]+"\0"+gameID+"");
 		}
@@ -93,12 +93,12 @@ public class InviteHandleQueries {
 	}
 	
 	// invite accepteren
-	public void acceptInvite(String host, int gameid) {
+	public void acceptInvite(int gameid) {
 		standardQuerie.updateQuery("UPDATE player SET playstatus_playstatus=?", "geaccepteerd", " WHERE username=? AND game_idgame=?", ""+username+"\0"+gameid+"");
 	}
 	
 	// invite weigeren
-	public void declineInvite(String host, int gameid) {
+	public void declineInvite(int gameid) {
 		standardQuerie.updateQuery("UPDATE player SET playstatus_playstatus=?", "geweigerd", " WHERE username=? AND game_idgame=?", ""+username+"\0"+gameid+"");
 	}
 
@@ -113,16 +113,16 @@ public class InviteHandleQueries {
 	public boolean unAnsweredChallenges(String invitedUsername) {
 		
 		ArrayList<ArrayList<Object>> hostGameIDs = standardQuerie.selectQuery("SELECT game_idgame FROM player", " WHERE username=? AND playstatus_playstatus=?", ""+hostUsername+"\0uitdager");
-		
-		for(int i =0; i <hostGameIDs.size(); i++) {
-			int id = (int) hostGameIDs.get(i).get(0);
+
+		for (ArrayList<Object> hostGameID : hostGameIDs) {
+			int id = (int) hostGameID.get(0);
 			try {
-				ArrayList<ArrayList<Object>> playercheck = standardQuerie.selectQuery("SELECT game_idgame FROM player", " WHERE username=? AND playstatus_playstatus=? AND game_idgame=?", ""+invitedUsername+"\0uitgedaagde\0"+id+"");
-				if(playercheck.get(0).get(0) != null) {
+				ArrayList<ArrayList<Object>> playercheck = standardQuerie.selectQuery("SELECT game_idgame FROM player", " WHERE username=? AND playstatus_playstatus=? AND game_idgame=?", "" + invitedUsername + "\0uitgedaagde\0" + id + "");
+				if (playercheck.get(0).get(0) != null) {
 					return false;
 				}
-			}
-			catch(Exception e) {
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		}
 		return true;
@@ -136,6 +136,7 @@ public class InviteHandleQueries {
 				return false;
 			}
 		}catch(Exception e) {
+			e.printStackTrace();
 		}
 		return true;
 	}
@@ -169,19 +170,13 @@ public class InviteHandleQueries {
 	// controlleert of er geweigerde uitnodigingen zijn
 	public boolean checkDeclined() {
 		ArrayList<ArrayList<Object>> result = standardQuerie.selectQuery("SELECT COUNT(idplayer) FROM player", " WHERE game_idgame=? AND playstatus_playstatus=?", ""+gameID+"\0geweigerd");
-		if((long)result.get(0).get(0) > 0) {
-			return true;
-		}
-		return false;
+		return (long) result.get(0).get(0) > 0;
 	}
 	
 	// controlleert of er geweigerde uitnodigingen zijn in de game
 	public boolean checkUnasweredInGame() {
 		ArrayList<ArrayList<Object>> result = standardQuerie.selectQuery("SELECT COUNT(idplayer) FROM player", " WHERE game_idgame=? AND playstatus_playstatus=?", ""+gameID+"\0uitgedaagde");
-		if((long)result.get(0).get(0) > 0) {
-			return true;
-		}
-		return false;
+		return (long) result.get(0).get(0) > 0;
 	}
 
 }

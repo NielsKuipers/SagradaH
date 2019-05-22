@@ -15,7 +15,6 @@ public class RoundScreenController {
 	private RoundScreen roundScreen;
 	private GameModel gameModel;
 	private Boolean roundScreenToolcardActive = false;
-	private AnimationTimerEXT timer;
 
 	public RoundScreenController(Stage stage, DatabaseController dataController) {
 		roundScreen = new RoundScreen(this);
@@ -27,14 +26,13 @@ public class RoundScreenController {
 	}
 	
 	// aan de hand van rondenummers worden alle dobbelstenen op het rondebord opgevraagd uit de database, en in de view gezet.
-	public void addDice() {
-		
+	private void addDice() {
 		for(int round = 1; round <11; round++) {
 			int row = 2;
 			ArrayList<ArrayList <Object>> result = gameModel.getDicesOnRoundBoard(round);
-			
-			for(int i=0; i<result.size(); i++) {
-				roundScreen.addDice(round, (int) result.get(i).get(1), (String) result.get(i).get(0), row, (int) result.get(i).get(2));
+
+			for (ArrayList<Object> objects : result) {
+				roundScreen.addDice(round, (int) objects.get(1), (String) objects.get(0), row, (int) objects.get(2));
 				row++;
 			}
 		}
@@ -81,7 +79,7 @@ public class RoundScreenController {
 	}
 	
 	private void createTimer() {
-		timer = new AnimationTimerEXT(10000) {
+		AnimationTimerEXT timer = new AnimationTimerEXT(10000) {
 			@Override
 			public void doAction() {
 				refreshDice();

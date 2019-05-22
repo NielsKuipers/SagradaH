@@ -1,13 +1,11 @@
 package controller;
 
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import model.GameModel;
 import view.EndScreen;
 
 import java.util.ArrayList;
-
-import javafx.scene.Scene;
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
-import model.GameModel;
 
 public class EndScreenController {
 	
@@ -27,18 +25,18 @@ public class EndScreenController {
 	// zet speler pion op scorebord
 	private void putPlayersOnBoard() {
 		ArrayList<ArrayList<Object>> result = gameModel.getPlayerScores();
-		
-		for(int i=0; i < result.size(); i++) {
-			endScreen.addPlayer((int)result.get(i).get(2), (String) result.get(i).get(1));
+
+		for (ArrayList<Object> objects : result) {
+			endScreen.addPlayer((int) objects.get(2), (String) objects.get(1));
 		}
 	}
 	
 	// maakt speler + score lijst
 	private void makeEndScoreList() {
 		ArrayList<ArrayList<Object>> result = gameModel.getPlayerScores();
-		
-		for(int i=0; i<result.size(); i++) {
-			endScreen.addPlayerLabels((String) result.get(i).get(0), (int) result.get(i).get(2), (String) result.get(i).get(1));
+
+		for (ArrayList<Object> objects : result) {
+			endScreen.addPlayerLabels((String) objects.get(0), (int) objects.get(2), (String) objects.get(1));
 		}
 		endScreen.makeBottom();
 	}

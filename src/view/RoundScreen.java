@@ -1,28 +1,18 @@
 package view;
-import java.util.ArrayList;
 
 import controller.RoundScreenController;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.BorderWidths;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
+
+import java.util.ArrayList;
+
+import static view.EndScreen.getColorTranslation;
 
 public class RoundScreen extends GridPane {
 	private ArrayList <CustomStackPane> stackPanes;
@@ -30,7 +20,7 @@ public class RoundScreen extends GridPane {
 	
 	public RoundScreen(RoundScreenController controller) {
 		this.controller = controller;
-		stackPanes = new ArrayList<CustomStackPane>();
+		stackPanes = new ArrayList<>();
 		addRoundNumbers();
 		makePane();
 		
@@ -52,7 +42,7 @@ public class RoundScreen extends GridPane {
 			for(int i = 0; i< 10; i++) {
 				stackPanes.add(new CustomStackPane());
 				this.add(stackPanes.get(counter), i, row);
-				this.setMargin(stackPanes.get(counter), new Insets(10));
+				setMargin(stackPanes.get(counter), new Insets(10));
 				counter++;
 			}	
 		}
@@ -60,8 +50,8 @@ public class RoundScreen extends GridPane {
 	
 	//methode om board te clearen
 	public void clearBoard() {
-		for(int i = 0; i < stackPanes.size(); i++) {
-			stackPanes.get(i).getChildren().clear();
+		for (CustomStackPane stackPane : stackPanes) {
+			stackPane.getChildren().clear();
 		}
 	}
 	
@@ -80,7 +70,7 @@ public class RoundScreen extends GridPane {
 		ObservableList<Node> gridChildren = this.getChildren();
 		
 		for(Node node: gridChildren) {
-			if(this.getColumnIndex(node) == column && this.getRowIndex(node) == row) {
+			if(getColumnIndex(node) == column && getRowIndex(node) == row) {
 				stackpaneNode = node;
 				break;
 			}
@@ -89,32 +79,13 @@ public class RoundScreen extends GridPane {
 		return stackpaneNode;
 	}
 	
-	// verandert kleur uit database naar javakleur
-	private Color getColorTranslation(String color){
-		
-		switch(color) {
-		  case "blauw":
-			 return Color.BLUE;
-		  case "geel":
-			 return Color.YELLOW;
-		  case "rood":
-			 return Color.RED;
-		  case "paars":
-			  return Color.PURPLE;
-		  case "groen":
-			  return Color.GREEN;
-		  default:
-		    return Color.BLACK;
-		}
-	}
-	
 	// voeg rondenummers toe
 	private void addRoundNumbers() {
 		Label [] labels = new Label[10];
 		for(int i =0; i<labels.length; i++) {
 			labels[i] = new Label("" + (i +1));
 			this.add(labels[i], i, 1);
-			this.setHalignment(this.getChildren().get(i), HPos.CENTER);
+			setHalignment(this.getChildren().get(i), HPos.CENTER);
 		}
 	}
 	

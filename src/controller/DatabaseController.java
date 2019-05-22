@@ -24,8 +24,6 @@ public class DatabaseController {
     private GameQueries gameQueries;
 
 
-    
-    
     //establish connection with database
     public DatabaseController() {
         DatabaseModel sagradaBaseConn = new DatabaseModel();
@@ -36,19 +34,15 @@ public class DatabaseController {
         windowPatternQuerie = new WindowPatternQuerie(standardQuerie);
         inviteHandleQueries = new InviteHandleQueries(standardQuerie);
         gameQueries = new GameQueries(standardQuerie);
-        
-        
     }
     
-    public GameQueries getGameQueries() {
+    GameQueries getGameQueries() {
     	return gameQueries;
     }
     
-    public InviteHandleQueries getInviteQueries() {
+    InviteHandleQueries getInviteQueries() {
     	return inviteHandleQueries;
     }
-    
-   
 
     GameQuery getGameQuery() {
         return gameQuery;

@@ -10,7 +10,7 @@ public class CommunicationModel {
 	
 	public CommunicationModel(InviteHandleQueries inviteQueries) {
 		this.inviteQueries = inviteQueries;
-		colors = new ArrayList<String>();
+		colors = new ArrayList<>();
 		addColors();
 	}
 	

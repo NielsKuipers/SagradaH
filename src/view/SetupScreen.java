@@ -93,7 +93,7 @@ public class SetupScreen extends BorderPane {
 		
 		setupPane.setTop(topButtons);
 		setupPane.setBottom(bottomButtons);
-		setupPane.setAlignment(WindowFrameSetChooser, Pos.BOTTOM_CENTER);
+		setAlignment(WindowFrameSetChooser, Pos.BOTTOM_CENTER);
 		
 		
 		/////////////////inviteBar//////////////////////////
@@ -119,14 +119,14 @@ public class SetupScreen extends BorderPane {
 	// zet spelersaantal in rondje
 	private void setPlayerAmountText() {
 		int playerCount = playerList.getChildren().size();
-		playerCountText = new Text("speleraantal: \r         " + Integer.toString(playerCount));
+		playerCountText = new Text("speleraantal: \r         " + (playerCount));
 		currentPlayerAmount();
 	}
 
 	
 	// start spelerzoeken, speler invitescherm wordt ingeschakeld en startgame knop stop met werken, game wordt aangemaakt in de database
 	private void startSearch() {
-		if(gameMade == false) {
+		if(!gameMade) {
 			gameMade = true;
 			controller.makeGame();
 			refreshListButton.setDisable(false);

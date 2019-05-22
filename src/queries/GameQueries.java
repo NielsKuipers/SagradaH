@@ -2,11 +2,9 @@ package queries;
 
 import java.util.ArrayList;
 
-import controller.DatabaseController;
-
 public class GameQueries {
 	
-	StandardQueries standardQuerie;
+	private StandardQueries standardQuerie;
 	private int gameID;
 
 	public GameQueries(StandardQueries standardQuerie) {
