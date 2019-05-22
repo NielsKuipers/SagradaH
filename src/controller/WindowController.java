@@ -73,7 +73,6 @@ public class WindowController {
 		createGrayWindowPattern(4, window4, windowPattern4Model);
 		createGrayWindowPattern(5, window5, windowModel);
 
-		// createTimer();
 	}
 
 	private void addColorsField() {
@@ -720,7 +719,7 @@ public class WindowController {
 	private void createGrayWindowPattern(int id, WindowPatternScreen windowScreen, WindowPattern windowModel) {
 		for (int row = 1; row < 5; row++) {
 			for (int column = 0; column < 5; column++) {
-				Field fieldModel = new Field(column, row, Color.LIGHTGRAY, 0, id);
+				Field fieldModel = new Field(column, row, Color.LIGHTGRAY);
 				FieldScreen fieldScreen = new FieldScreen(fieldModel, this);
 				fieldModel.setEyes(0);
 				addDropHandling(fieldScreen);

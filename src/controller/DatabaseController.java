@@ -1,10 +1,15 @@
 package controller;
 
 import model.DatabaseModel;
+
+import queries.GameQueries;
+import queries.InviteHandleQueries;
+
 import queries.ChatQueries;
 import queries.GameQuery;
 import queries.PlayerQuery;
 import queries.StandardQueries;
+
 import queries.WindowPatternQuerie;
 import java.sql.Connection;
 
@@ -15,16 +20,29 @@ public class DatabaseController {
     private GameQuery gameQuery;
     private PlayerQuery playerQuery;
     private WindowPatternQuerie windowPatternQuerie;
+    private InviteHandleQueries inviteHandleQueries;
+    private GameQueries gameQueries;
 
     //establish connection with database
     public DatabaseController(){
         DatabaseModel sagradaBaseConn = new DatabaseModel();
+
         Connection mConn = sagradaBaseConn.connectDB();
         StandardQueries standardQueries = new StandardQueries(mConn);
         chatQueries = new ChatQueries(standardQueries);
         gameQuery = new GameQuery(standardQueries);
         playerQuery = new PlayerQuery(standardQueries);
         windowPatternQuerie = new WindowPatternQuerie(standardQueries);
+        inviteHandleQueries = new InviteHandleQueries(standardQueries);
+        gameQueries = new GameQueries(standardQueries);
+    }
+    
+    GameQueries getGameQueries() {
+    	return gameQueries;
+    }
+    
+    InviteHandleQueries getInviteQueries() {
+    	return inviteHandleQueries;
     }
     
     GameQuery getGameQuery() {
