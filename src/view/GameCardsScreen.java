@@ -18,8 +18,7 @@ import javafx.scene.text.Font;
 public class GameCardsScreen  extends VBox{
 	
 private CardController cardController;
-    
-    
+
     //drie van de twaalf random gekozen toolcards
     private CardScreen gameTC1;
     private CardScreen gameTC2;
@@ -30,20 +29,12 @@ private CardController cardController;
     private CardScreen pubOBJCard1;
     private CardScreen pubOBJCard2;
     private CardScreen pubOBJCard3;
-    
-    
-    
-    private Button buyTC1;
-    private Button buyTC2;
-    private Button buyTC3;
+
     private Button exit;
     
     private Label labelTC;
     private Label labelOBC;
-    
-    
-    
-    
+
     private HBox toolCards;
     private HBox objectiveCards;
     private HBox buttons;
@@ -51,16 +42,10 @@ private CardController cardController;
     private Label priceTC1= new Label("Price = 1");
     private Label priceTC2= new Label("Price = 1");
     private Label priceTC3= new Label("Price = 1");
-    
 
-
-
-    
-    
     public GameCardsScreen(CardController CC) {
         super(new Pane());
         cardController = CC;
-        
     }
     
     public void setTC1(CardScreen toolcard) {
@@ -95,10 +80,10 @@ private CardController cardController;
     public void createView() {
         
         setBackground(new Background(new BackgroundFill(Color.SKYBLUE,null,null)));
-    
-    buyTC1 = new Button("buy toolcard");
-    buyTC2 = new Button("buy toolcard");
-    buyTC3 = new Button("buy toolcard");
+
+        Button buyTC1 = new Button("buy toolcard");
+        Button buyTC2 = new Button("buy toolcard");
+        Button buyTC3 = new Button("buy toolcard");
     
     
     
@@ -122,7 +107,7 @@ private CardController cardController;
     
     
     //creates and positions buttons
-    buttons = new HBox(150,buyTC1,buyTC2,buyTC3);
+    buttons = new HBox(150, buyTC1, buyTC2, buyTC3);
     buttons.setPadding(new Insets(5,0,0,400));
     
     prices = new HBox(200,priceTC1,priceTC2,priceTC3);

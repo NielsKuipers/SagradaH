@@ -63,7 +63,7 @@ public class DiceController {
 		return diceOnTableModel;
 	}
 
-	public void setDiceGlowBorder(int nummer) {
+	void setDiceGlowBorder(int nummer) {
 		for (Node node : diceOnTableScreen.getChildren()) {
 			if (node instanceof DiceScreen) {
 				DiceScreen result = (DiceScreen) node;
@@ -89,7 +89,7 @@ public class DiceController {
 
 	}
 
-	public void selectDice(DiceScreen dice, int nummer) {
+	private void selectDice(DiceScreen dice, int nummer) {
 		setDiceBlackBorder();
 		dice.setGlowBorder();
 		
@@ -108,19 +108,19 @@ public class DiceController {
 
 	}
 	
-	public void pickNewDice(DiceScreen dice) {
+	private void pickNewDice(DiceScreen dice) {
 		
 		dice.getDiceModel().setColor(colorsDice.get(r.nextInt(5)));
 		dice.setOnMouseClicked(e -> DicesPlus1(dice, true));
 	}
 	
-	public void throwDiceOnes(DiceScreen dice) {
+	private void throwDiceOnes(DiceScreen dice) {
 		dice.setOnMouseClicked(null);
 		dice.getDiceModel().setEyes(r.nextInt((6 - 1) + 1) + 1);
 	}
 	
 	
-	public void DiceTurnAround(DiceScreen dice) {
+	private void DiceTurnAround(DiceScreen dice) {
 		switch(dice.getDiceModel().getEyes()) {
 		case 1:	dice.getDiceModel().setEyes(6);
 			break;
@@ -130,7 +130,7 @@ public class DiceController {
 		break;
 		case 4:	dice.getDiceModel().setEyes(3);
 		break;
-		case 5:	dice.getDiceModel().setEyes(5);
+		case 5:	dice.getDiceModel().setEyes(2);
 		break;
 		case 6:	dice.getDiceModel().setEyes(1);
 		break;
@@ -138,16 +138,16 @@ public class DiceController {
 	}
 
 	private void DicesPlus1(DiceScreen dice, boolean repeat) {
-		if (dice.getDiceModel().getEyes() == 6 && repeat == false) {
+		if (dice.getDiceModel().getEyes() == 6 && !repeat) {
 			dice.getDiceModel().setEyes(6);
 		}
-		if(dice.getDiceModel().getEyes() == 6 && repeat == true){
+		if(dice.getDiceModel().getEyes() == 6 && repeat){
 			dice.getDiceModel().setEyes(1);
 			}
 		else {
 			dice.getDiceModel().setEyes(dice.getDiceModel().getEyes() + 1);
 		}
-		if(repeat == false) {
+		if(!repeat) {
 		dice.setOnMouseClicked(e -> dicesMinus2(dice));
 		}
 		

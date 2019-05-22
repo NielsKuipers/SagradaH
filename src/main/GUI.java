@@ -16,11 +16,7 @@ import model.WindowPattern;
 
 public class GUI extends Application {
 
-	
-	
-	
-	private CardController cardController;
-	private DiceController diceController;
+
 	private GameController gameController;
 	private ChatController chatController;
 
@@ -33,14 +29,13 @@ public class GUI extends Application {
 	public void start(Stage stage) {
 		DatabaseController databaseController = new DatabaseController();
 		WindowController windowController = new WindowController(this, databaseController);
-		diceController = new DiceController(this, windowController);
+		DiceController diceController = new DiceController(this, windowController);
+		CardController cardController = new CardController(windowController, diceController, gameController, databaseController);
 
 		chatController = new ChatController(this, databaseController);
         gameController = new GameController(this, databaseController, windowController, diceController, chatController);
-
-		
 		gameController = new GameController(this, databaseController, windowController, diceController, chatController);
-		cardController = new CardController(this,windowController,diceController, gameController,databaseController);
+
 		stage.setScene(gameController);
 		stage.setFullScreen(true);
 		stage.show();

@@ -2,23 +2,13 @@ package controller;
 
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import main.GUI;
-
-import view.CardScreen;
-import view.CardsInfoScreen;
-
 import model.Game;
 import model.Player;
 import model.WindowPattern;
-
-import view.ChatScreen;
-
-import view.GameInfoScreen;
-import view.GameScreen;
-import view.WindowPatternChooseScreen;
+import view.*;
 
 public class GameController extends Scene {
 	private GameInfoScreen gameInfo;
@@ -28,7 +18,6 @@ public class GameController extends Scene {
 
 	private GameScreen gameScreen;
 	private CardController CardController;
-	private Button btncard;
 
 
 
@@ -94,7 +83,7 @@ public class GameController extends Scene {
 
 	}
 	
-	public void setCardController(CardController cc) {
+	void setCardController(CardController cc) {
 		this.CardController=cc;
 	}
 	
@@ -152,18 +141,18 @@ public class GameController extends Scene {
 		setRoot(CardController.showcards());
 	}
 	
-	public void switchToGameScreen() {
+	void switchToGameScreen() {
 		setRoot(gameScreen);
 		
 	}
 	
 	
     
-    public void setAmountFT(String tokens) {
+    void setAmountFT(String tokens) {
         kaarten.setAmountFT(tokens);
     }
     
-    public int getAmountFT() {
+    int getAmountFT() {
         return Integer.parseInt(kaarten.getAmountFT());
     }
 

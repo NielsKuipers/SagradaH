@@ -41,7 +41,7 @@ public class DatabaseController {
     }
     
     
-    public CardQueries getCardQueries() {
+    CardQueries getCardQueries() {
     	return CQ;
     }
 

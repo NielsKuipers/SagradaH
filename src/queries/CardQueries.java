@@ -3,7 +3,7 @@ package queries;
 import java.util.ArrayList;
 
 public class CardQueries {
-	StandardQueries standardQuerie;
+	private StandardQueries standardQuerie;
 	
 	
 	public CardQueries(StandardQueries standardQueries) {
@@ -16,7 +16,7 @@ public class CardQueries {
 		
 	}
 	
-public void updatePUBOBJC(int GameID,int IDCard) {
+	public void updatePUBOBJC(int GameID,int IDCard) {
 		
 		standardQuerie.updateQuery("INSERT INTO sharedpublic_objectivecard VALUES(?,?)", ""+GameID+"\0"+IDCard+"");
 		
