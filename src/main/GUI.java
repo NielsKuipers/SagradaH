@@ -15,14 +15,14 @@ import controller.WindowController;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import model.WindowPattern;
+import view.WindowPatternScreen;
 
 public class GUI extends Application {
 	private DiceController diceController;
 	private GameController gameController;
 	private ChatController chatController;
 
-
-	void startup(String[] args) {
+	public void startup(String[] args) {
 		launch(args);
 	}
 	
@@ -53,9 +53,13 @@ public class GUI extends Application {
 	}
 	
 	public void makeDices() {
-		diceController.makeDices();
+		gameController.handleRollDices();
 	}
 
 	public void sendMessage(String input){chatController.sendMessage(input);}
+	
+	public void handleFinishTurn() {
+		gameController.handleFinishTurn();
+	}
 
 }

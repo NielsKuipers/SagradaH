@@ -1,7 +1,5 @@
 package model;
 
-import java.sql.Connection;
-
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -12,15 +10,15 @@ import javafx.scene.paint.Color;
 
 public class Dice {
 
-	private int id;
 	private Color color;
-	private boolean moved;
+	private int dieNumber;
 	private Property<Background> backgroundProperty;
 	private IntegerProperty eyesProperty;
 
 
-	public Dice(int eyes, Color color, int dieNumber) {
+	Dice(int eyes, Color color, int dieNumber) {
 		this.color = color;
+		this.dieNumber = dieNumber;
 		backgroundProperty = new SimpleObjectProperty<>();
 		backgroundProperty.setValue(new Background(new BackgroundFill(color, null, null)));
 		eyesProperty = new SimpleIntegerProperty(this, "eyesProperty");
@@ -28,14 +26,6 @@ public class Dice {
 
 	public void setEyes(int newVal) {
 		eyesProperty.set(newVal);
-	}
-
-	public void setMoved() {
-		moved = true;
-	}
-
-	public boolean getMoved() {
-		return moved;
 	}
 
 	public int getEyes() {
@@ -59,4 +49,26 @@ public class Dice {
 		backgroundProperty.setValue(new Background(new BackgroundFill(color, null, null)));
 	}
 
+	public int getDiceNumber() {
+		return dieNumber;
+	}
+	
+	public String getColorForQuerie() {
+		if(color == Color.RED) {
+			return "rood";
+		}
+		else if(color == Color.YELLOW) {
+			return "geel";
+		}
+		else if(color == Color.MAGENTA) {
+			return "paars";
+		}
+		else if(color == Color.LIGHTGREEN) {
+			return "groen";
+		}
+		else if(color == Color.CORNFLOWERBLUE) {
+			return "blauw";
+		}
+		return "rood";
+	}
 }
