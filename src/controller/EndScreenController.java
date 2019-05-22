@@ -13,7 +13,7 @@ public class EndScreenController {
 	private GameModel gameModel;
 	
 	public EndScreenController(Stage stage, DatabaseController dataController) {
-		endScreen = new EndScreen(this);
+		endScreen = new EndScreen();
 		gameModel = new GameModel(dataController.getGameQueries());
 		gameModel.setPlayerStatusFinished();
 		stage.setScene(new Scene(endScreen));

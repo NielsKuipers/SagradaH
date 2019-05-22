@@ -70,19 +70,19 @@ public class InviteGetScreen extends BorderPane{
 				setSpacing(20);
 				setAlignment(Pos.CENTER);
 				Label label = new Label("Host: " + name + "            GameID: " + gameid);
-				AcceptButton button = new AcceptButton(name, gameid);
-				DeclineButton button2 = new DeclineButton(name, gameid);
+				AcceptButton button = new AcceptButton(gameid);
+				DeclineButton button2 = new DeclineButton(gameid);
 				getChildren().addAll(label, button, button2);
 			}
 		}
 		
 		//  accept button
 		private class AcceptButton extends Button{
-			private AcceptButton(String host, int gameid) {
+			private AcceptButton(int gameid) {
 				setText("Accept");
 				setBackground(new Background(new BackgroundFill(Color.GREENYELLOW, null, null)));
 				setOnAction(e -> {
-					controller.acceptInvite(host, gameid);
+					controller.acceptInvite(gameid);
 					setDisable(true);
 					refreshList();
 				});
@@ -92,11 +92,11 @@ public class InviteGetScreen extends BorderPane{
 		
 		// decline button
 		private class DeclineButton extends Button{
-			private DeclineButton(String host, int gameid) {
+			private DeclineButton(int gameid) {
 				setText("Decline");
 				setBackground(new Background(new BackgroundFill(Color.RED, null, null)));
 				setOnAction(e -> {
-					controller.declineInvite(host, gameid);
+					controller.declineInvite(gameid);
 					setDisable(true);
 					refreshList();
 				});

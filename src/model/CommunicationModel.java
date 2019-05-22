@@ -58,12 +58,12 @@ public class CommunicationModel {
 		return color;
 	}
 
-	public void acceptInvite(String host, int gameid) {
-		inviteQueries.acceptInvite(host, gameid);
+	public void acceptInvite(int gameid) {
+		inviteQueries.acceptInvite(gameid);
 	}
 
-	public void declineInvite(String host, int gameid) {
-		inviteQueries.declineInvite(host, gameid);
+	public void declineInvite(int gameid) {
+		inviteQueries.declineInvite(gameid);
 	}
 
 	public boolean checkInviteAllowed(String username) {

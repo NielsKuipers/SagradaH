@@ -130,13 +130,13 @@ public class SetupScreenController {
 	}
 	
 	// verandert spelerstatus naar geaccepteerd
-	public void acceptInvite(String host, int gameid) {
-		cModel.acceptInvite(host, gameid);
+	public void acceptInvite(int gameid) {
+		cModel.acceptInvite(gameid);
 	}
 	
 	// verandert spelerstatus naar geweigerd
-	public void declineInvite(String host, int gameid) {
-		cModel.declineInvite(host, gameid);
+	public void declineInvite(int gameid) {
+		cModel.declineInvite(gameid);
 	}
 
 	
