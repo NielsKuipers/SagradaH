@@ -8,38 +8,38 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.QuadCurve;
 import javafx.scene.shape.Rectangle;
 
-public class Window extends Pane {
-	Stop[] R = new Stop[] { new Stop(0, Color.rgb(246, 17, 0)), new Stop(1, Color.rgb(250, 76, 31))};
-	LinearGradient toplg = new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE, R);
-	Stop[] RO = new Stop[] { new Stop(0, Color.rgb(250, 80, 33)), new Stop(1, Color.rgb(255, 140, 67))};
-	LinearGradient toplrlg = new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE, RO);
-	Stop[] OG = new Stop[] { new Stop(0, Color.rgb(248, 156, 83)), new Stop(1, Color.rgb(252, 195, 102))};
-	LinearGradient FirstRowToplg = new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE, OG);
-	Stop[] OG2 = new Stop[] { new Stop(0, Color.rgb(251, 177, 92)), new Stop(1, Color.rgb(253, 215, 114))};
-	LinearGradient FirstRowlg = new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE, OG2);
-	Stop[] GG = new Stop[] { new Stop(0, Color.rgb(227, 255, 162)), new Stop(1, Color.rgb(218, 254, 167))};
-	LinearGradient SecondRowlg = new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE, GG);
-	Stop[] GB = new Stop[] { new Stop(0, Color.rgb(203, 248, 200)), new Stop(1, Color.rgb(206, 243, 210))};
-	LinearGradient ThirdRowlg = new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE, GB);
-	Stop[] OG3 = new Stop[] { new Stop(0, Color.rgb(254, 209, 110)), new Stop(1, Color.rgb(250, 254, 142))};
-	LinearGradient firstRowMiddlelg = new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE, OG3);
-	Stop[] OG4 = new Stop[] { new Stop(0, Color.rgb(255, 227, 121)), new Stop(1, Color.rgb(247, 254, 144))};
-	LinearGradient firstRowlrlg = new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE, OG4);
-	Stop[] GG2 = new Stop[] { new Stop(0, Color.rgb(213, 251, 168)), new Stop(1, Color.rgb(203, 250, 176))};
-	LinearGradient SecondRowqlg = new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE, GG2);
-	Stop[] GB2 = new Stop[] { new Stop(0, Color.rgb(207, 243, 214)), new Stop(1, Color.rgb(209, 237, 222))};
-	LinearGradient ThirdRowqlg = new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE, GB2);
-	Stop[] GG3 = new Stop[] { new Stop(0, Color.rgb(250, 254, 142)), new Stop(1, Color.rgb(227, 254, 159))};
-	LinearGradient FirstRowToprlg = new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE, GG3);
-	Stop[] GG4 = new Stop[] { new Stop(0, Color.rgb(247, 254, 144)), new Stop(1, Color.rgb(227, 254, 159))};
-	LinearGradient FirstRowlrrlg = new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE, GG4);
-	Stop[] GB3 = new Stop[] { new Stop(0, Color.rgb(203, 250, 176)), new Stop(1, Color.rgb(200, 246, 194))};
-	LinearGradient SecondRowrlg = new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE, GB3);
-	Stop[] BB = new Stop[] { new Stop(0, Color.rgb(209, 237, 222)), new Stop(1, Color.rgb(215, 232, 240))};
-	LinearGradient ThirdRowrlg = new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE, BB);
+class Window extends Pane {
+	private Stop[] R = new Stop[] { new Stop(0, Color.rgb(246, 17, 0)), new Stop(1, Color.rgb(250, 76, 31))};
+	private LinearGradient toplg = new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE, R);
+	private Stop[] RO = new Stop[] { new Stop(0, Color.rgb(250, 80, 33)), new Stop(1, Color.rgb(255, 140, 67))};
+	private LinearGradient toplrlg = new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE, RO);
+	private Stop[] OG = new Stop[] { new Stop(0, Color.rgb(248, 156, 83)), new Stop(1, Color.rgb(252, 195, 102))};
+	private LinearGradient FirstRowToplg = new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE, OG);
+	private Stop[] OG2 = new Stop[] { new Stop(0, Color.rgb(251, 177, 92)), new Stop(1, Color.rgb(253, 215, 114))};
+	private LinearGradient FirstRowlg = new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE, OG2);
+	private Stop[] GG = new Stop[] { new Stop(0, Color.rgb(227, 255, 162)), new Stop(1, Color.rgb(218, 254, 167))};
+	private LinearGradient SecondRowlg = new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE, GG);
+	private Stop[] GB = new Stop[] { new Stop(0, Color.rgb(203, 248, 200)), new Stop(1, Color.rgb(206, 243, 210))};
+	private LinearGradient ThirdRowlg = new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE, GB);
+	private Stop[] OG3 = new Stop[] { new Stop(0, Color.rgb(254, 209, 110)), new Stop(1, Color.rgb(250, 254, 142))};
+	private LinearGradient firstRowMiddlelg = new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE, OG3);
+	private Stop[] OG4 = new Stop[] { new Stop(0, Color.rgb(255, 227, 121)), new Stop(1, Color.rgb(247, 254, 144))};
+	private LinearGradient firstRowlrlg = new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE, OG4);
+	private Stop[] GG2 = new Stop[] { new Stop(0, Color.rgb(213, 251, 168)), new Stop(1, Color.rgb(203, 250, 176))};
+	private LinearGradient SecondRowqlg = new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE, GG2);
+	private Stop[] GB2 = new Stop[] { new Stop(0, Color.rgb(207, 243, 214)), new Stop(1, Color.rgb(209, 237, 222))};
+	private LinearGradient ThirdRowqlg = new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE, GB2);
+	private Stop[] GG3 = new Stop[] { new Stop(0, Color.rgb(250, 254, 142)), new Stop(1, Color.rgb(227, 254, 159))};
+	private LinearGradient FirstRowToprlg = new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE, GG3);
+	private Stop[] GG4 = new Stop[] { new Stop(0, Color.rgb(247, 254, 144)), new Stop(1, Color.rgb(227, 254, 159))};
+	private LinearGradient FirstRowlrrlg = new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE, GG4);
+	private Stop[] GB3 = new Stop[] { new Stop(0, Color.rgb(203, 250, 176)), new Stop(1, Color.rgb(200, 246, 194))};
+	private LinearGradient SecondRowrlg = new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE, GB3);
+	private Stop[] BB = new Stop[] { new Stop(0, Color.rgb(209, 237, 222)), new Stop(1, Color.rgb(215, 232, 240))};
+	private LinearGradient ThirdRowrlg = new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE, BB);
 	
 	
-	public Window() {
+	Window() {
 		addCircles();
 		addQuadCurve();
 		addSquares();

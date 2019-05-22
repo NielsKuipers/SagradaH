@@ -17,13 +17,13 @@ import view.HomePane;
 import view.StartPane;
 
 public class AccountController {
-	Account myaccount;
-	GUI myGUI;
-	HomePane homePane;
-	StartPane startpane;
-	String accountname;
-	GameListScreen gameListScreen;
-	String gameboolean = "";
+	private Account myaccount;
+	private GUI myGUI;
+	private HomePane homePane;
+	private StartPane startpane;
+	private String accountname;
+	private GameListScreen gameListScreen;
+	private String gameboolean = "";
 	
 	public AccountController(GUI gui, DatabaseController DC, HomePane HP, StartPane SP, GameListScreen GLS) {
 		this.myGUI = gui;
@@ -34,7 +34,7 @@ public class AccountController {
 	}
 	
 	public void login(TextField username, PasswordField password) {
-		if(myaccount.login(username.getText(), password.getText()) == true) {
+		if(myaccount.login(username.getText(), password.getText())) {
 			//System.out.println(username+""+password);
 			myGUI.changePane(homePane);
 			setAccount(username.getText());
@@ -46,28 +46,16 @@ public class AccountController {
 		}
 	}
 	public void register(TextField username, PasswordField password) {
-		if(myaccount.register(username.getText(), password.getText()) == true) {
+		if(myaccount.register(username.getText(), password.getText())) {
 			startpane.getReg().setGreenBorder(username, password);
 		} else {
 			startpane.getReg().setRedBorder(username, password);
 		}
 	}
 	
-//	public void makeGameList() {
-//		myGUI.changePane(gameListScreen);
-//		for(int x = 1; x <= myaccount.getMax(); x++) {
-//			//System.out.println("loop "+x);
-//			if(myaccount.checkIDgame(x)) {
-//				gameListScreen.addGameBox(myaccount.getPlayers(x), myaccount.getRound(x), myaccount.getDate(x));
-//				//System.out.println(myaccount.getPlayers(x)+" "+ myaccount.getRound(x)+" "+myaccount.getDate(x));
-//			}
-//		}
-//		//gameListScreen.addGameList();
-//	}
-	
-	public ArrayList<HBox> getGames(ArrayList<ArrayList<Object>> games) {
+	private ArrayList<HBox> getGames(ArrayList<ArrayList<Object>> games) {
 		StringBuilder stringBuilder = new StringBuilder();
-		ArrayList<HBox> hboxList = new ArrayList<HBox>();
+		ArrayList<HBox> hboxList = new ArrayList<>();
 		int gameID = 0;
 		int newGameID;
 		
@@ -100,10 +88,10 @@ public class AccountController {
 	}
 	
 	public void handleSort(Object sortV) {
-		if(gameboolean == "Alle spellen") {
+		if(gameboolean.equals("Alle spellen")) {
 			gameListScreen.showGames(getGames(myaccount.getGames(sortV)));
 		}
-		if(gameboolean == "Mijn spellen") {
+		if(gameboolean.equals("Mijn spellen")) {
 			gameListScreen.showGames(getGames(myaccount.getGames(sortV, getAccount())));
 		}
 	}
@@ -118,11 +106,11 @@ public class AccountController {
 		setAccount(null);
 	}
 	
-	public void setAccount(String AC) {
+	private void setAccount(String AC) {
 		this.accountname = AC;
 	}
 	
-	public String getAccount() {
+	private String getAccount() {
 		return accountname;
 	}
 	

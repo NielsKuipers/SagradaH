@@ -12,11 +12,10 @@ import javafx.scene.paint.Color;
 import main.GUI;
 
 public class RegisterScreen extends VBox {
-	private Button register;
 	private TextField username;
 	private PasswordField password;
-	GUI myGUI;
-	public RegisterScreen(GUI mygui) {
+	private GUI myGUI;
+	RegisterScreen(GUI mygui) {
 		this.myGUI = mygui;
 		addFields();
 		addButton();
@@ -24,7 +23,7 @@ public class RegisterScreen extends VBox {
 	}
 	
 	private void addButton() {
-		register = new Button("Register");
+		Button register = new Button("Register");
 		register.setMaxWidth(150);
 		getChildren().add(register);
 		register.setOnMouseClicked(e -> handleClick());
@@ -38,7 +37,7 @@ public class RegisterScreen extends VBox {
 		getChildren().addAll(username,password);
 	}
 	
-	public void handleClick() {
+	private void handleClick() {
 		myGUI.handleregister(username, password);
 	}
 	

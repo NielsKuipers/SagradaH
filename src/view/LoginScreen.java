@@ -12,11 +12,10 @@ import javafx.scene.paint.Color;
 import main.GUI;
 
 public class LoginScreen extends VBox {
-	private Button login;
 	private TextField username;
 	private PasswordField password;
-	GUI myGUI;
-	public LoginScreen(GUI mygui) {
+	private GUI myGUI;
+	LoginScreen(GUI mygui) {
 		this.myGUI = mygui;
 		addFields();
 		addButton();
@@ -24,7 +23,7 @@ public class LoginScreen extends VBox {
 	}
 	
 	private void addButton() {
-		login = new Button("Login");
+		Button login = new Button("Login");
 		login.setMaxWidth(150);
 		getChildren().add(login);
 		login.setOnMouseClicked(e -> handleClick());
@@ -38,13 +37,10 @@ public class LoginScreen extends VBox {
 	}
 	
 	public void badFields(TextField username, PasswordField password) {
-		//System.out.println(password.getBorder());
-		//System.out.println(username.getText());
 		username.clear();
 		username.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, null, new BorderWidths(1))));
 		password.clear();
 		password.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, null, new BorderWidths(1))));
-		//System.out.println(password.getBorder());
 	}
 	
 	public void emptyFields() {
@@ -52,9 +48,8 @@ public class LoginScreen extends VBox {
 		password.clear();
 	}
 	
-	public void handleClick() {
+	private void handleClick() {
 		myGUI.handlelogin(username, password);
-		//username.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, null, new BorderWidths(1))));
 	}
 	
 }

@@ -19,39 +19,32 @@ import view.StartPane;
 
 
 public class GUI extends Application {
-	DatabaseController databaseController;
-	WindowController windowController;
-	DiceController diceController;
-	GameController gameController;
-	AccountController accountController;
-	StartPane startPane;
-	HomePane homepane;
-	Scene scene;
-	Stage stage;
-	ChatController chatController;
-	GameListScreen gameListScreen;
+	private DiceController diceController;
+	private GameController gameController;
+	private AccountController accountController;
+	private Scene scene;
+	private ChatController chatController;
 
 	void startup(String[] args) {
 		launch(args);
 	}
 	
 	public void start(Stage stage) {
-		
-		this.stage = stage;
-		startPane = new StartPane(this);
-		homepane = new HomePane(this);
-		gameListScreen = new GameListScreen(this);
-		databaseController = new DatabaseController();
-		windowController = new WindowController(this, databaseController);
+
+		StartPane startPane = new StartPane(this);
+		HomePane homepane = new HomePane(this);
+		GameListScreen gameListScreen = new GameListScreen(this);
+		DatabaseController databaseController = new DatabaseController();
+		WindowController windowController = new WindowController(this, databaseController);
 		chatController = new ChatController(this, databaseController);
 		diceController = new DiceController(this, windowController);
 		gameController = new GameController(this, databaseController, windowController, diceController, chatController);
-		accountController = new AccountController(this, databaseController, homepane,startPane,gameListScreen);
+		accountController = new AccountController(this, databaseController, homepane, startPane, gameListScreen);
 		scene = new Scene(startPane);
-		this.stage.setScene(scene);
+		stage.setScene(scene);
 		//stage.setFullScreen(true);
 		//stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH); might be nice for test day.
-		this.stage.show();
+		stage.show();
 	}
 	
 	public void createGame(WindowPattern windowModel) {

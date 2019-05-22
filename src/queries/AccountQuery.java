@@ -2,26 +2,21 @@ package queries;
 import java.util.ArrayList;
 
 public class AccountQuery {
-	StandardQueries standardQuery;
+	private StandardQueries standardQuery;
 	public AccountQuery(StandardQueries standardQuery) {
 		this.standardQuery = standardQuery;
 	}
 	
 	public Boolean Login(String username, String password) {
 		if(!username.isEmpty() && !password.isEmpty())
-		if(!standardQuery.selectQuery("SELECT username, password FROM account", " WHERE username=? AND password=?", username+"\0"+password).isEmpty()) {
-			return true;
-		} else {
-			return false;
-		}
+			return !standardQuery.selectQuery("SELECT username, password FROM account", " WHERE username=? AND password=?", username + "\0" + password).isEmpty();
 		return false;
 	}
 	
 	public boolean register(String username, String password) {
 		if(username.length() >= 3 && password.length() >= 3) {
 			if(standardQuery.selectQuery("SELECT username FROM account", " WHERE username=?", username).isEmpty()) {
-				//standardQuery.updateQuery("INSERT INTO account VALUES(?,?)", username+"\0"+password);
-				System.out.println("new AC is ok!");
+				standardQuery.updateQuery("INSERT INTO account VALUES(?,?)", username+"\0"+password);
 				return true;
 			} else {
 				return false;
@@ -32,39 +27,8 @@ public class AccountQuery {
 	}
 	
 	public boolean getPlayers(int idGame, String username){
-		if(!standardQuery.selectQuery("SELECT username FROM player"," WHERE game_idgame=? AND username=?", ""+idGame+""+"\0"+username).isEmpty()) {
-			return true;
-		} else {
-			return false;
-		}
+		return !standardQuery.selectQuery("SELECT username FROM player", " WHERE game_idgame=? AND username=?", "" + idGame + "" + "\0" + username).isEmpty();
 	}
-//	
-//	public ArrayList<ArrayList<Object>> getRound(int idGame) {
-//		return standardQuery.selectQuery("SELECT MAX(roundtrack) FROM gamedie",
-//				" WHERE idgame=? ORDER BY roundtrack DESC", "" + idGame + "");
-//	}
-//	
-//	public Boolean getGameStatus(int idGame){
-//		if(standardQuery.selectQuery("SELECT DISTINCT playstatus_playstatus FROM player", " WHERE game_idgame=?", ""+idGame+"") == standardQuery.selectQuery("SELECT playstatus FROM playstatus", " WHERE playstatus = 'uitgespeeld'", null)) {
-//			return true;
-//		}
-//		return false;
-//	}
-//	
-//	public ArrayList<ArrayList<Object>> getDate(int idGame){
-//		return standardQuery.selectQuery("SELECT date(creationdate) FROM game", " WHERE idgame=?", ""+idGame+"");
-//	}
-//	
-//	public boolean checkIDgame(int idGame) {
-//		if(!standardQuery.selectQuery("SELECT idgame FROM game", " WHERE idgame=?", ""+idGame+"").isEmpty()){
-//			return true;
-//		}
-//		return false;
-//	}
-//	
-//	public ArrayList<ArrayList<Object>> getMaxidGame() {
-//		return standardQuery.selectQuery("SELECT MAX(idgame) FROM game");
-//	}
 	
 	public ArrayList<ArrayList<Object>> getGames(){
 		return standardQuery.selectQuery("SELECT p.username, g.idgame, g.creationdate, p.playstatus_playstatus FROM game g INNER JOIN player p ON p.game_idgame = g.idgame");
