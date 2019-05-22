@@ -3,11 +3,11 @@ package queries;
 import java.util.ArrayList;
 
 public class CardQueries {
-	StandardQuerie standardQuerie;
+	StandardQueries standardQuerie;
 	
 	
-	public CardQueries(StandardQuerie standardQuerie) {
-		this.standardQuerie = standardQuerie;
+	public CardQueries(StandardQueries standardQueries) {
+		this.standardQuerie = standardQueries;
 	}
 	
 	public void updateGameTC(int tc,int intTC,int GameID) {

@@ -1,40 +1,30 @@
 package view;
 
-import java.util.ArrayList;
-
 import controller.WindowController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.BorderWidths;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.Node;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import model.Dice;
 import model.Field;
 
-
 public class FieldScreen extends StackPane {
-	Rectangle rec;
+	private Rectangle rec;
 
+	private Field fieldModel;
 
-	Field fieldModel;
-	
-	WindowController WC;
+	private WindowController WC;
 
 	public FieldScreen(Field fieldModel, WindowController WC) {
 		this.fieldModel = fieldModel;
 		this.WC = WC;
-		setMinHeight(50);
-		setMinWidth(50);
+		setMinSize(50, 50);
+		setMaxSize(50, 50);
 		setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, new BorderWidths(3))));
 		setPadding(new Insets(5));
 
@@ -45,7 +35,7 @@ public class FieldScreen extends StackPane {
 		this.fieldModel.diceProperty().addListener(dicelistener);
 	}
 
-	public void checkNumber(int value) {
+	private void checkNumber(int value) {
 		getChildren().clear();
 		switch (value) {
 		case 1:
@@ -133,22 +123,16 @@ public class FieldScreen extends StackPane {
 			getChildren().addAll(cir16, cir17, cir18, cir19, cir20, cir21);
 
 			break;
-		case 0:
-
-			getChildren().clear();
-
-			break;
 		default:
 			break;
 		}
 	}
 
-
-	public void cheatBorder() {
+	void cheatBorder() {
 		setBorder(new Border(new BorderStroke(Color.ORANGE, BorderStrokeStyle.SOLID, null, new BorderWidths(3))));
 	}
 
-	public void normalBorder() {
+	void normalBorder() {
 		setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, new BorderWidths(3))));
 	}
 
@@ -162,22 +146,32 @@ public class FieldScreen extends StackPane {
 			checkNumber((int) newValue);
 		}
 	}
-	
+
 	private class MyDiceListener implements ChangeListener<Dice> {
 
 		@Override
 		public void changed(ObservableValue<? extends Dice> observable, Dice oldValue, Dice newValue) {
 			// TODO Auto-generated method stub
-			if(newValue != null) {
-			int eyes = newValue.getEyes();
-			DiceScreen diceScreen = new DiceScreen(newValue);
-			WC.dragButton(diceScreen);
-			diceScreen.makeBorderWhite();
-			newValue.setEyes(0);
-			newValue.setEyes(eyes);
-			getChildren().add(diceScreen);
+			try {
+
+				if (newValue != null) {
+					int eyes = newValue.getEyes();
+					DiceScreen diceScreen = new DiceScreen(newValue);
+					WC.dragButton(diceScreen);
+					diceScreen.makeBorderWhite();
+					newValue.setEyes(0);
+					newValue.setEyes(eyes);
+					getChildren().add(diceScreen);
+				} else {
+					for (Node node : getChildren()) {
+						if (node instanceof DiceScreen) {
+							getChildren().remove(node);
+						}
+					}
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
 			}
-			
 		}
 	}
 

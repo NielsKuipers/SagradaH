@@ -4,23 +4,16 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.BorderWidths;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import model.Dice;
 
 public class DiceScreen extends StackPane {
 
-	Dice diceModel;
+	private Dice diceModel;
 
-	public DiceScreen(Dice diceModel) {
+	DiceScreen(Dice diceModel) {
 
 		this.diceModel = diceModel;
 		setMinWidth(40);
@@ -35,16 +28,15 @@ public class DiceScreen extends StackPane {
 
 	}
 
+
 	public void setBlackBorder() {
 		setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, new BorderWidths(2))));
 		
 	}
 	
-	public void selectedDice() {
-		
-	}
+	
+	private void checkNumber(int value) {
 
-	public void checkNumber(int value) {
 		getChildren().clear();
 		switch (value) {
 		case 1:
@@ -133,6 +125,7 @@ public class DiceScreen extends StackPane {
 		}
 	}
 
+
 	
 	public void setGlowBorder() {
 		setBorder(new Border(new BorderStroke(Color.YELLOW, BorderStrokeStyle.SOLID,null, new BorderWidths(2))));
@@ -143,7 +136,11 @@ public class DiceScreen extends StackPane {
 		setBorder(new Border(new BorderStroke(Color.BLUE, BorderStrokeStyle.SOLID,null, new BorderWidths(2))));
 	}
 	
-	public void makeBorderWhite() {
+
+
+
+	void makeBorderWhite() {
+
 		setBorder(new Border(new BorderStroke(Color.WHITE, BorderStrokeStyle.SOLID, null, new BorderWidths(3))));
 	}
 
