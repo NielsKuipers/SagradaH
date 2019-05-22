@@ -1,7 +1,9 @@
 package controller;
 
-import model.DatabaseModel;
+import java.sql.Connection;
 
+import model.DatabaseModel;
+import queries.AccountQuery;
 import queries.CardQueries;
 import queries.GameQueries;
 import queries.InviteHandleQueries;
@@ -11,10 +13,12 @@ import queries.PlayerQuery;
 import queries.StandardQueries;
 
 import queries.WindowPatternQuerie;
-import java.sql.Connection;
-
 
 public class DatabaseController {
+
+    private Connection mConn;
+    private AccountQuery AQ;
+    private StandardQueries standardQuerie;
     private CardQueries CQ;
     private ChatQueries chatQueries;
     private GameQuery gameQuery;
@@ -27,7 +31,6 @@ public class DatabaseController {
     //establish connection with database
     public DatabaseController(){
         DatabaseModel sagradaBaseConn = new DatabaseModel();
-
         Connection mConn = sagradaBaseConn.connectDB();
         StandardQueries standardQueries = new StandardQueries(mConn);
         chatQueries = new ChatQueries(standardQueries);
@@ -37,6 +40,11 @@ public class DatabaseController {
         windowPatternQuerie = new WindowPatternQuerie(standardQueries);
         inviteHandleQueries = new InviteHandleQueries(standardQueries);
         gameQueries = new GameQueries(standardQueries);
+        AQ = new AccountQuery(standardQueries);
+    }
+  
+    public AccountQuery getAccountQuery() {
+    	return AQ;
     }
 
     CardQueries getCardQueries() {

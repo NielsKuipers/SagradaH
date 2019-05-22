@@ -1,16 +1,21 @@
 package main;
 
-
 import controller.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import model.WindowPattern;
+import view.GameListScreen;
+import view.HomePane;
+import view.StartPane;
+
 
 public class GUI extends Application {
 	private DiceController diceController;
 	private GameController gameController;
+	private AccountController accountController;
+	private Scene scene;
 	private ChatController chatController;
 	private RoundScreenController roundController;
 	private Scene scene;
@@ -20,23 +25,28 @@ public class GUI extends Application {
 	}
 	
 	public void start(Stage stage) {
-		scene = new Scene(new Pane());
+
+		StartPane startPane = new StartPane(this);
+		HomePane homepane = new HomePane(this);
+		GameListScreen gameListScreen = new GameListScreen(this);
 		
 		DatabaseController databaseController = new DatabaseController();
 	
 		WindowController windowController = new WindowController(this, databaseController);
+    accountController = new AccountController(this, databaseController, homepane, startPane, gameListScreen
 		DiceController diceController = new DiceController(this, windowController);
 
 		chatController = new ChatController(this, databaseController);
 		gameController = new GameController(this, databaseController, windowController, diceController, chatController);
 		CardController cardController = new CardController(windowController, diceController, gameController, databaseController);
 		
-//		 SetupScreenController SetupController = new SetupScreenController(stage, databaseController);
-//		 EndScreenController EndController = new EndScreenController(stage, databaseController);
+//	  SetupScreenController SetupController = new SetupScreenController(stage, databaseController);
+//	  EndScreenController EndController = new EndScreenController(stage, databaseController);
 		 roundController = new RoundScreenController(stage, databaseController, this);
 		
-		scene.setRoot(gameController.getChooseScreen());
+		scene = new Scene(startPane);
 		stage.setScene(scene);
+		//stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH); might be nice for test day.
 		
 		stage.setFullScreen(true);
 		stage.show();
@@ -53,6 +63,42 @@ public class GUI extends Application {
 	
 	public void makeDices() {
 		gameController.handleRollDices();
+	}
+	
+	public void handlelogin(TextField username, PasswordField password) {
+		accountController.login(username, password);
+	}
+	
+	public void changePane(Pane pane) {
+		scene.setRoot(pane);
+	}
+	
+	public void changePane(ScrollPane pane) {
+		scene.setRoot(pane);
+	}
+	
+	public void handleregister(TextField username, PasswordField password) {
+		accountController.register(username, password);
+	}
+	
+	public void handleUitloggen() {
+		accountController.uitloggen();
+	}
+	
+	public void handleToGameList() {
+		accountController.showGames();
+	}
+                                              
+	public void handlegamesort(Object sortV) {
+		accountController.handleSort(sortV);
+	}
+	
+	public void handleHomeMenu() {
+		accountController.toHomeMenu();
+	}
+	
+	public void sendString(String S) {
+		accountController.setGameboolean(S);
 	}
 
 	public void sendMessage(String input){chatController.sendMessage(input);}

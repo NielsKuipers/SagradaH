@@ -23,8 +23,6 @@ public class GameController extends Scene {
 
 	private Game gameModel;
 
-
-
 	private WindowController WC;
 	private DiceController DC;
 	
@@ -73,15 +71,12 @@ public class GameController extends Scene {
 		WC.setDiceController(DC);
 		//setRoot(windowChoooseScreen);
 		gameModel.selectwindowOptions();
-
 	}
 	
 	void setCardController(CardController cc) {
 		this.CardController=cc;
 	}
 	
-	
-
 	public void createGame(WindowPattern windowModel) {
 
 		gameScreen.add(gameInfo, 0, 0, 2, 1);
@@ -127,7 +122,6 @@ public class GameController extends Scene {
 	
 	void switchToGameScreen() {
 		setRoot(gameScreen);
-		
 	}
 	
 	
