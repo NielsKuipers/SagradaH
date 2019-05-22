@@ -48,6 +48,11 @@ public class WindowPattern {
 		return difficulty;
 	}
 	
+	public int getDifficulty() {
+		ArrayList<ArrayList<Object>> result = windowPatternQuerie.getDifficulty(idWindow);
+		return Integer.valueOf(String.valueOf(result.get(0).get(0)));
+	}
+	
 	public void setPlayerName(String name) {
 		playerName.set(name);
 	}
@@ -90,8 +95,11 @@ public class WindowPattern {
 	}
 
 	
-	//mysql related
+	//get all the fields and add it to the right model
 	public void selectAllFields() {
+		for (Field field : fields) {
+			field.deleteDice();
+		}
 		ArrayList<ArrayList<Object>> result = windowPatternQuerie.getAllFields(idWindow);
 		for (int row = 1; row < 5; row++) {
 			for (int column = 0; column < 5; column++) {
@@ -111,13 +119,15 @@ public class WindowPattern {
 		
 	}
 	
-	public void selectAllDicesOnField(int idPlayer) {
-		ArrayList<ArrayList<Object>> result = windowPatternQuerie.getAllDicesOnField(idPlayer);
+	//get all the dices on all fields
+	public void selectAllDicesOnField(int idPlayer, int idGame) {
+		ArrayList<ArrayList<Object>> result = windowPatternQuerie.getAllDicesOnField(idPlayer, idGame);
 		for (int row = 1; row < 5; row++) {
 			for (int column = 0; column < 5; column++) {
+				getFieldOfWindow(column, row).deleteDice();
 				for (int i = 0; i < result.size(); i++) {
 					try {
-						if (row == Integer.valueOf(result.get(i).get(3).toString()) && column == Integer.valueOf(result.get(i).get(2).toString()) - 1) {
+						if (row == Integer.valueOf(result.get(i).get(3).toString()) && column == Integer.valueOf(result.get(i).get(2).toString()) - 1 && result.get(i).get(1) != null) {
 							int eyes = Integer.valueOf(result.get(i).get(1).toString());
 							getFieldOfWindow(column, row).addDice(new Dice(makeEyeFromQuerie(result.get(i).get(1)), makeColorFromQuerie(result.get(i).get(0)), Integer.valueOf(String.valueOf(result.get(i).get(4)))));
 							getFieldOfWindow(column, row).getDice().setEyes(eyes);

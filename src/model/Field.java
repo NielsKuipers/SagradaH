@@ -85,4 +85,5 @@ public class Field {
 	public void deleteDice() {
 		diceProperty.setValue(null);
 	}
+	
 }

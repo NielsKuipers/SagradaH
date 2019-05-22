@@ -76,6 +76,7 @@ public class GameInfoScreen extends VBox{
 		noCheat.setOnMouseClicked(e -> handleCheat(false, false));
 		cheatAllPossible.setOnMouseClicked(e -> handleCheat(true, false));
 		cheatBestChoice.setOnMouseClicked(e -> handleCheat(false, true));
+		finishTurn.setOnMouseClicked(e -> handleFinishTurn());
 	}
 	
 	public void setPoints(int value) {
@@ -85,5 +86,9 @@ public class GameInfoScreen extends VBox{
 
 	private void handleCheat(boolean allPossible, boolean bestChoice) {
 		gui.handleCheat(allPossible, bestChoice);
+	}
+	
+	private void handleFinishTurn() {
+		gui.handleFinishTurn();
 	}
 }

@@ -14,9 +14,9 @@ public class WindowPatternQuerie {
 				" WHERE patterncard_idpatterncard=?", "" + id + "");
 	}
 
-	public ArrayList<ArrayList<Object>> getAllDicesOnField(int id) {
+	public ArrayList<ArrayList<Object>> getAllDicesOnField(int idPlayer, int idGame) {
 		return standardQueries.selectQuery("SELECT gamedie.diecolor, gamedie.eyes, playerframefield.position_x, playerframefield.position_y, gamedie.dienumber FROM playerframefield INNER JOIN gamedie ON gamedie.dienumber = playerframefield.dienumber AND gamedie.diecolor = playerframefield.diecolor ",
-				" WHERE playerframefield.player_idplayer=?", "" + id + "");
+				" WHERE playerframefield.player_idplayer=? AND gamedie.idgame=?", idPlayer + "\0" + idGame);
 	}
 	
 	public ArrayList<ArrayList<Object>> getDifficulty(int id) {

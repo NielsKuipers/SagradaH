@@ -27,6 +27,8 @@ public class GameController extends Scene {
 
 	private WindowController WC;
 	private DiceController DC;
+	
+	private boolean hasThrown = false;
 
 	public GameController(GUI gui, DatabaseController databaseController, WindowController WC, DiceController DC,
 			ChatController CC) {
@@ -34,7 +36,7 @@ public class GameController extends Scene {
 		this.WC = WC;
 		this.DC = DC;
 
-		gameModel = new Game(databaseController.getGameQuery(), DC.getDiceOnTableModel());
+		gameModel = new Game(databaseController.getGameQuery(), DC.getDiceOnTableModel(), WC);
 
 		gameModel.addPlayer(new Player(databaseController.getPlayerQuery()));
 		gameModel.addPlayer(new Player(databaseController.getPlayerQuery()));
@@ -76,10 +78,6 @@ public class GameController extends Scene {
 		gameScreen.add(chat, 0, 2, 2, 1);
 		gameScreen.add(kaarten, 2, 2, 2, 1);
 
-		// if (windowModel != WC.getWindow1().getWindowPatternModel()) {
-		// WC.setWindow1(windowModel);
-		// }
-
 		WC.makeWindowsGray(WC.getWindow2().getWindowPatternModel());
 		WC.makeWindowsGray(WC.getWindow3().getWindowPatternModel());
 		WC.makeWindowsGray(WC.getWindow4().getWindowPatternModel());
@@ -96,6 +94,8 @@ public class GameController extends Scene {
 
 		setRoot(gameScreen);
 		createTimer();
+		//gameModel.giveAllThePlayersTheirFavorTokens(); give all the players their favortokens
+		
 	}
 
 	public void handleCheatGame(boolean allPossible, boolean bestChoice) {
@@ -115,11 +115,34 @@ public class GameController extends Scene {
 		timer = new AnimationTimerEXT(5000) {
 			@Override
 			public void doAction() {
-				// TODO Auto-generated method stub
-				gameModel.selectAllWindowsForAllPlayers();
+				gameModel.selectWholeGame();
+				//favor tokens
+				//card costs
+				//chat
 			}
 		};
 		timer.start();
 	}
+	
+	public void handleFinishTurn() {
+		if(gameModel.getPlayer(0).selectCurrentPlayer()) {
+			gameModel.giveTurnToNextPlayer();
+			WC.setMovedToFalse();
+			hasThrown = false;
+		}
+		
+	}
+	
+	public void handleRollDices() {
+		if(hasThrown == false && gameModel.checkIfMainPlayerCanThrowDices()) {
+			//gameModel.rollTheDices();
+			hasThrown = true;
+		}
+	}
+	
+	//creating game
+	//createNewRandomPatternCard(147); create random window for one player and give it to him
+	//givePlayerCardOption(119, 120, 121, 122); give all the players standard window choise
+	//createPlayerFrameField(); create a player frame field
 
 }

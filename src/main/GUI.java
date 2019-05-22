@@ -41,9 +41,13 @@ public class GUI extends Application {
 	}
 	
 	public void makeDices() {
-		diceController.makeDices();
+		gameController.handleRollDices();
 	}
 
 	public void sendMessage(String input){chatController.sendMessage(input);}
+	
+	public void handleFinishTurn() {
+		gameController.handleFinishTurn();
+	}
 
 }
