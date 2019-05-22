@@ -37,6 +37,9 @@ public class GameInfoScreen extends VBox{
 		Button finishTurn = new Button("Beurt beëndigen");
 		finishTurn.setStyle("-fx-background-radius: 50 50 50 50; -fx-background-color: lavender");
 		
+		Button roundTrack = new Button("Rondebord");
+		roundTrack.setStyle("-fx-background-radius: 50 50 50 50; -fx-background-color: lavender");
+		
 		Button backToHomeScreen = new Button("Terug naar hoofdscherm");
 		backToHomeScreen.setStyle("-fx-background-color: linear-gradient(to right, lightblue 0%,white 50%, cornflowerblue 100%);-fx-background-radius: 50 50 50 50;");
 		backToHomeScreen.setBorder(new Border(new BorderStroke(Color.GRAY, BorderStrokeStyle.SOLID,new CornerRadii(50), new BorderWidths(2))));
@@ -53,7 +56,10 @@ public class GameInfoScreen extends VBox{
 		VBox cheatBox = new VBox(l, noCheat, cheatAllPossible, cheatBestChoice);
 		cheatBox.setPadding(new Insets(50, 0, 20, 30));
 		
-		VBox otherVbox = new VBox(round, finishTurn);
+		VBox roundTrackBox = new VBox(roundTrack);
+		roundTrackBox.setPadding(new Insets(20, 0, 20, 0));
+		
+		VBox otherVbox = new VBox(round, finishTurn, roundTrackBox);
 		otherVbox.setPadding(new Insets(50, 0, 20, 80));
 		
 		VBox homeScreenButton = new VBox(backToHomeScreen);
@@ -66,8 +72,13 @@ public class GameInfoScreen extends VBox{
 		cheatAllPossible.setOnMouseClicked(e -> handleCheat(true, false));
 		cheatBestChoice.setOnMouseClicked(e -> handleCheat(false, true));
 		finishTurn.setOnMouseClicked(e -> handleFinishTurn());
+		roundTrack.setOnMouseClicked(e -> handleGoToRoundTrack());
 	}
 	
+	private void handleGoToRoundTrack() {
+		gui.handleGoToRoundTrack();
+	}
+
 	public void setPoints(int value) {
 		l.setText(Integer.toString(value));
 	}
