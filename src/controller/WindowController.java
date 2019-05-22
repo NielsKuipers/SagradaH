@@ -341,7 +341,7 @@ public class WindowController {
 			}
 
 		} catch (Exception e2) {
-			e2.printStackTrace();
+			//e2.printStackTrace();
 		}
 
 		// check right
@@ -358,7 +358,7 @@ public class WindowController {
 			}
 
 		} catch (Exception e2) {
-			e2.printStackTrace();
+			//e2.printStackTrace();
 		}
 
 		// check above
@@ -375,7 +375,7 @@ public class WindowController {
 			}
 
 		} catch (Exception e2) {
-			e2.printStackTrace();
+			//e2.printStackTrace();
 		}
 
 		// check bottom
@@ -392,7 +392,7 @@ public class WindowController {
 			}
 
 		} catch (Exception e2) {
-			e2.printStackTrace();
+			//e2.printStackTrace();
 		}
 		return accept;
 	}
@@ -423,7 +423,7 @@ public class WindowController {
 				isNextToAnotherDice = true;
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 
 		try {
@@ -433,7 +433,7 @@ public class WindowController {
 				isNextToAnotherDice = true;
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 
 		try {
@@ -443,7 +443,7 @@ public class WindowController {
 				isNextToAnotherDice = true;
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 
 		try {
@@ -453,7 +453,7 @@ public class WindowController {
 				isNextToAnotherDice = true;
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 
 		try {
@@ -463,7 +463,7 @@ public class WindowController {
 				isNextToAnotherDice = true;
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 
 		try {
@@ -473,7 +473,7 @@ public class WindowController {
 				isNextToAnotherDice = true;
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 
 		try {
@@ -483,7 +483,7 @@ public class WindowController {
 				isNextToAnotherDice = true;
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 
 		try {
@@ -493,7 +493,7 @@ public class WindowController {
 				isNextToAnotherDice = true;
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 
 		if (calculatePoints() == 0 && (row == 1 || row == 4 || column == 0 || column == 4)) {
