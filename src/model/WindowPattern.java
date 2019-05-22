@@ -46,11 +46,6 @@ public class WindowPattern {
 		return difficulty;
 	}
 	
-	int getDifficulty() {
-		ArrayList<ArrayList<Object>> result = windowPatternQuerie.getDifficulty(idWindow);
-		return Integer.valueOf(String.valueOf(result.get(0).get(0)));
-	}
-	
 	void setPlayerName(String name) {
 		playerName.set(name);
 	}
@@ -139,15 +134,15 @@ public class WindowPattern {
 			}
 		}
 	}
-	
+
 	public int getDifficulty() {
-		return Integer.parseInt(difficulty.get());
+		ArrayList<ArrayList<Object>> result = windowPatternQuerie.getDifficulty(idWindow);
+		return Integer.valueOf(String.valueOf(result.get(0).get(0)));
 	}
 
 	void selectDifficulty() {
 		ArrayList<ArrayList<Object>> result = windowPatternQuerie.getDifficulty(idWindow);
 		difficulty.set("Moeilijkheidsgraad: " + result.get(0).get(0));
-
 	}
 
 	private Color makeColorFromQuerie(Object c) {

@@ -9,10 +9,7 @@ import model.Game;
 import model.Player;
 import model.WindowPattern;
 import timer.AnimationTimerEXT;
-import view.ChatScreen;
-import view.GameInfoScreen;
-import view.GameScreen;
-import view.WindowPatternChooseScreen;
+import view.*;
 
 public class GameController extends Scene {
 	private GameInfoScreen gameInfo;

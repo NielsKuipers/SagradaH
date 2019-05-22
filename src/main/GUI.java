@@ -7,7 +7,6 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import model.WindowPattern;
-import view.WindowPatternScreen;
 
 public class GUI extends Application {
 	private DiceController diceController;
@@ -16,7 +15,7 @@ public class GUI extends Application {
 	private RoundScreenController roundController;
 	private Scene scene;
 
-	public void startup(String[] args) {
+	void startup(String[] args) {
 		launch(args);
 	}
 	
@@ -27,10 +26,10 @@ public class GUI extends Application {
 	
 		WindowController windowController = new WindowController(this, databaseController);
 		DiceController diceController = new DiceController(this, windowController);
-		CardController cardController = new CardController(windowController, diceController, gameController, databaseController);
 
 		chatController = new ChatController(this, databaseController);
 		gameController = new GameController(this, databaseController, windowController, diceController, chatController);
+		CardController cardController = new CardController(windowController, diceController, gameController, databaseController);
 		
 //		 SetupScreenController SetupController = new SetupScreenController(stage, databaseController);
 //		 EndScreenController EndController = new EndScreenController(stage, databaseController);
@@ -69,6 +68,4 @@ public class GUI extends Application {
 	public void handleGoBackToGame() {
 		scene.setRoot(gameController.getGameScreen());
 	}
-
-
 }

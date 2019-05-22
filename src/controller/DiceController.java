@@ -1,14 +1,11 @@
 package controller;
 
-import java.util.ArrayList;
-import java.util.Random;
-
 import javafx.scene.Node;
-import javafx.scene.paint.Color;
 import main.GUI;
 import model.DiceOnTable;
 import view.DiceOnTableScreen;
 import view.DiceScreen;
+
 import java.util.Random;
 
 
@@ -28,10 +25,8 @@ public class DiceController {
 
 		
 		diceOnTableScreen = new DiceOnTableScreen(gui, diceOnTableModel, WC);
-	
-		addColorsDice();
-		//makeDices();
 
+		//makeDices();
 	}
 
 	
@@ -39,15 +34,6 @@ public class DiceController {
 				//diceModel.setEyes(eyes);
 				//diceOnTableModel.addDiceToTable(diceModel);
 
-
-	private void addColorsDice() {
-
-		colorsDice.add(Color.CORNFLOWERBLUE);
-		colorsDice.add(Color.YELLOW);
-		colorsDice.add(Color.RED);
-		colorsDice.add(Color.MAGENTA);
-		colorsDice.add(Color.LIGHTGREEN);
-	}
 
 
 	DiceOnTableScreen getDiceOnTableScreen(){
@@ -101,16 +87,15 @@ public class DiceController {
 			
 		case 10: dice.setOnMouseClicked(e -> DiceTurnAround(dice));
 			break;
-		case 11: dice.setOnMouseClicked(e -> pickNewDice(dice));
+//		case 11: dice.setOnMouseClicked(e -> pickNewDice(dice));
 		}
 
 	}
 	
-	private void pickNewDice(DiceScreen dice) {
-		
-		dice.getDiceModel().setColor(colorsDice.get(r.nextInt(5)));
-		dice.setOnMouseClicked(e -> DicesPlus1(dice, true));
-	}
+//	private void pickNewDice(DiceScreen dice) {
+//		dice.getDiceModel().setColor(colorsDice.get(r.nextInt(5)));
+//		dice.setOnMouseClicked(e -> DicesPlus1(dice, true));
+//	}
 	
 	private void throwDiceOnes(DiceScreen dice) {
 		dice.setOnMouseClicked(null);
