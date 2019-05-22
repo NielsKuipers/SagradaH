@@ -1,15 +1,7 @@
 package main;
 
 
-import controller.CardController;
-
-
-import controller.ChatController;
-
-import controller.DatabaseController;
-import controller.DiceController;
-import controller.GameController;
-import controller.WindowController;
+import controller.*;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import model.WindowPattern;
@@ -28,15 +20,20 @@ public class GUI extends Application {
 	
 	public void start(Stage stage) {
 		DatabaseController databaseController = new DatabaseController();
+	
 		WindowController windowController = new WindowController(this, databaseController);
 		DiceController diceController = new DiceController(this, windowController);
 		CardController cardController = new CardController(windowController, diceController, gameController, databaseController);
 
 		chatController = new ChatController(this, databaseController);
-        gameController = new GameController(this, databaseController, windowController, diceController, chatController);
 		gameController = new GameController(this, databaseController, windowController, diceController, chatController);
+		
+//		 SetupScreenController SetupController = new SetupScreenController(stage, databaseController);
+//		 EndScreenController EndController = new EndScreenController(stage, databaseController);
+		// RoundScreenController RoundController = new RoundScreenController(stage, databaseController);
 
 		stage.setScene(gameController);
+		
 		stage.setFullScreen(true);
 		stage.show();
 	}
