@@ -2,9 +2,9 @@ package controller;
 
 import model.DatabaseModel;
 
+import queries.CardQueries;
 import queries.GameQueries;
 import queries.InviteHandleQueries;
-
 import queries.ChatQueries;
 import queries.GameQuery;
 import queries.PlayerQuery;
@@ -15,10 +15,11 @@ import java.sql.Connection;
 
 
 public class DatabaseController {
-    
+    private CardQueries CQ;
     private ChatQueries chatQueries;
     private GameQuery gameQuery;
     private PlayerQuery playerQuery;
+
     private WindowPatternQuerie windowPatternQuerie;
     private InviteHandleQueries inviteHandleQueries;
     private GameQueries gameQueries;
@@ -32,11 +33,16 @@ public class DatabaseController {
         chatQueries = new ChatQueries(standardQueries);
         gameQuery = new GameQuery(standardQueries);
         playerQuery = new PlayerQuery(standardQueries);
+        CQ = new CardQueries(standardQueries);
         windowPatternQuerie = new WindowPatternQuerie(standardQueries);
         inviteHandleQueries = new InviteHandleQueries(standardQueries);
         gameQueries = new GameQueries(standardQueries);
     }
-    
+
+    CardQueries getCardQueries() {
+        return CQ;
+    }
+
     GameQueries getGameQueries() {
     	return gameQueries;
     }

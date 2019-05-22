@@ -37,7 +37,9 @@ public class DiceOnTable {
 		diceOnTableProperty.setValue(allDice);
 	}
 
+
 	public boolean isDiceOnTable(Dice dice) {
+
 		for (Dice die : allDice) {
 			if (die.equals(dice)) {
 				return true;
@@ -45,7 +47,7 @@ public class DiceOnTable {
 		}
 		return false;
 	}
-
+  
 	public Property<ArrayList<Dice>> diceOnTableProperty() {
 		return diceOnTableProperty;
 	}

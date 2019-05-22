@@ -13,11 +13,12 @@ import model.WindowPattern;
 
 public class WindowPatternScreen extends GridPane{
 	private WindowPattern windowPatternModel;
+	private Label difficulty;
 	
 	public WindowPatternScreen(String name, WindowPattern windowPatternModel, String color) {
 		this.windowPatternModel = windowPatternModel;
 		Label name1 = new Label(name);
-		Label difficulty = new Label();
+		 difficulty = new Label();
 		Label score = new Label();
 		this.add(name1, 0, 0, 5, 1);
 		Font font = new Font("Consolas", 18);
@@ -29,6 +30,9 @@ public class WindowPatternScreen extends GridPane{
 		score.setFont(font);
 		setHalignment(score, HPos.CENTER);
 		setHalignment(difficulty, HPos.CENTER);
+
+		windowPatternModel.difficultyProperty().addListener(new MyDifficultyListener());
+
 		setHalignment(name1, HPos.CENTER);
 		score.textProperty().bind(windowPatternModel.playerScoreProperty());
 		difficulty.textProperty().bind(windowPatternModel.difficultyProperty());
@@ -84,6 +88,12 @@ public class WindowPatternScreen extends GridPane{
 	}
 	
 	
-	
+	private class MyDifficultyListener implements ChangeListener<String> {
+        @Override
+        public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+            difficulty.setText("moelijkheidsgraad: " + newValue);
+            
+        }
+    }
 
 }

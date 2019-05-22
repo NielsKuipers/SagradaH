@@ -32,7 +32,7 @@ public class DiceScreen extends StackPane {
 		setPadding(new Insets(5));
 		diceCircleSize = 4;
 
-		setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, new BorderWidths(2))));
+		setBlackBorder();
 		backgroundProperty().bind(diceModel.backgroundPropery());
 
 		MyEyesListener listener = new MyEyesListener();
@@ -61,7 +61,15 @@ public class DiceScreen extends StackPane {
 	
 	
 
+
+	public void setBlackBorder() {
+		setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, new BorderWidths(2))));
+		
+	}
+	
+	
 	private void checkNumber(int value) {
+
 		getChildren().clear();
 		switch (value) {
 		case 1:
@@ -150,9 +158,25 @@ public class DiceScreen extends StackPane {
 		}
 	}
 
+
+	
+	public void setGlowBorder() {
+		setBorder(new Border(new BorderStroke(Color.YELLOW, BorderStrokeStyle.SOLID,null, new BorderWidths(2))));
+	}
+	
+	public void clicked() {
+	
+		setBorder(new Border(new BorderStroke(Color.BLUE, BorderStrokeStyle.SOLID,null, new BorderWidths(2))));
+	}
+	
+
+
+
 	void makeBorderWhite() {
+
 		setBorder(new Border(new BorderStroke(Color.WHITE, BorderStrokeStyle.SOLID, null, new BorderWidths(3))));
 	}
+
 
 	public Dice getDiceModel() {
 		return diceModel;
@@ -162,6 +186,8 @@ public class DiceScreen extends StackPane {
 
 		@Override
 		public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+			
+			
 			checkNumber((int) newValue);
 		}
 	}

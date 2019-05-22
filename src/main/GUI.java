@@ -1,17 +1,7 @@
 package main;
 
 
-import controller.SetupScreenController;
-
-
-import controller.ChatController;
-
-import controller.DatabaseController;
-import controller.DiceController;
-import controller.EndScreenController;
-import controller.GameController;
-import controller.RoundScreenController;
-import controller.WindowController;
+import controller.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -36,9 +26,11 @@ public class GUI extends Application {
 		DatabaseController databaseController = new DatabaseController();
 	
 		WindowController windowController = new WindowController(this, databaseController);
-		diceController = new DiceController(this, windowController);
+		DiceController diceController = new DiceController(this, windowController);
+		CardController cardController = new CardController(windowController, diceController, gameController, databaseController);
+
 		chatController = new ChatController(this, databaseController);
-        gameController = new GameController(this, databaseController, windowController, diceController, chatController);
+		gameController = new GameController(this, databaseController, windowController, diceController, chatController);
 		
 //		 SetupScreenController SetupController = new SetupScreenController(stage, databaseController);
 //		 EndScreenController EndController = new EndScreenController(stage, databaseController);
@@ -77,5 +69,6 @@ public class GUI extends Application {
 	public void handleGoBackToGame() {
 		scene.setRoot(gameController.getGameScreen());
 	}
+
 
 }

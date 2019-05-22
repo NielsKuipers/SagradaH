@@ -16,12 +16,17 @@ import view.WindowPatternChooseScreen;
 
 public class GameController extends Scene {
 	private GameInfoScreen gameInfo;
+
 	private ChatScreen chat;
-	private GameInfoScreen kaarten;
+	private CardsInfoScreen kaarten;
+
 	private GameScreen gameScreen;
 	private WindowPatternChooseScreen windowChoooseScreen;
+	private CardController CardController;
 
 	private Game gameModel;
+
+
 
 	private WindowController WC;
 	private DiceController DC;
@@ -35,7 +40,6 @@ public class GameController extends Scene {
 		this.DC = DC;
 
 		gameModel = new Game(databaseController.getGameQuery(), DC.getDiceOnTableModel(), WC);
-
 		gameModel.addPlayer(new Player(databaseController.getPlayerQuery()));
 		gameModel.addPlayer(new Player(databaseController.getPlayerQuery()));
 		gameModel.addPlayer(new Player(databaseController.getPlayerQuery()));
@@ -46,11 +50,12 @@ public class GameController extends Scene {
 		gameModel.getPlayer(2).givePlayerWindowPattern(WC.getWindow3().getWindowPatternModel());
 		gameModel.getPlayer(3).givePlayerWindowPattern(WC.getWindow4().getWindowPatternModel());
 
-		gameScreen = new GameScreen();
 
+		gameScreen = new GameScreen();
+		kaarten = new CardsInfoScreen(gui,"Kaarten",this);
 		gameInfo = new GameInfoScreen(gui, gameModel, "GameInfo");
 		chat = CC.getChatScreen();
-		kaarten = new GameInfoScreen(gui, gameModel, "Kaarten");
+
 
 		gameInfo.setStyle("-fx-background-radius: 0 0 300 0;-fx-background-color: DEEPSKYBLUE; ");
 		chat.setStyle("-fx-background-radius: 0 300 0 0;-fx-background-color: DEEPSKYBLUE;");
@@ -62,12 +67,23 @@ public class GameController extends Scene {
 		windowChoooseScreen.add(WC.getWindow2(), 1, 1);
 		windowChoooseScreen.add(WC.getWindow3(), 2, 1);
 		windowChoooseScreen.add(WC.getWindow4(), 3, 1);
+		
+		
+		
+		
 
 		WC.setGameController(this);
 		WC.setDiceController(DC);
 		//setRoot(windowChoooseScreen);
 		gameModel.selectwindowOptions();
+
 	}
+	
+	void setCardController(CardController cc) {
+		this.CardController=cc;
+	}
+	
+	
 
 	public void createGame(WindowPattern windowModel) {
 
@@ -84,6 +100,9 @@ public class GameController extends Scene {
 		gameScreen.add(WC.getWindow2(), 1, 1);
 		gameScreen.add(WC.getWindow3(), 2, 1);
 		gameScreen.add(WC.getWindow4(), 3, 1);
+
+
+		setAmountFT(WC.getDifficulty());
 
 		GridPane.setMargin(WC.getWindow1(), new Insets(0, 0, 0, 80));
 		GridPane.setMargin(WC.getWindow4(), new Insets(0, 80, 0, 0));
@@ -104,6 +123,29 @@ public class GameController extends Scene {
 	void setPoints(int value) {
 		gameInfo.setPoints(value);
 	}
+	
+	public void switchToolcards() {
+		setRoot(CardController.showcards());
+	}
+	
+	void switchToGameScreen() {
+		setRoot(gameScreen);
+		
+	}
+	
+	
+    
+    void setAmountFT(String tokens) {
+        kaarten.setAmountFT(tokens);
+    }
+    
+    int getAmountFT() {
+        return Integer.parseInt(kaarten.getAmountFT());
+    }
+
+
+
+	        
 
 	Game getGameModel() {
 		return gameModel;
