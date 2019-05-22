@@ -16,7 +16,6 @@ import java.sql.Connection;
 
 public class DatabaseController {
     private CardQueries CQ;
-
     private ChatQueries chatQueries;
     private GameQuery gameQuery;
     private PlayerQuery playerQuery;
@@ -25,14 +24,15 @@ public class DatabaseController {
     private InviteHandleQueries inviteHandleQueries;
     private GameQueries gameQueries;
 
-
     //establish connection with database
-    public DatabaseController() {
+    public DatabaseController(){
         DatabaseModel sagradaBaseConn = new DatabaseModel();
+
         Connection mConn = sagradaBaseConn.connectDB();
-
         StandardQueries standardQueries = new StandardQueries(mConn);
-
+        chatQueries = new ChatQueries(standardQueries);
+        gameQuery = new GameQuery(standardQueries);
+        playerQuery = new PlayerQuery(standardQueries);
         CQ = new CardQueries(standardQueries);
         windowPatternQuerie = new WindowPatternQuerie(standardQueries);
         inviteHandleQueries = new InviteHandleQueries(standardQueries);
@@ -50,9 +50,9 @@ public class DatabaseController {
     InviteHandleQueries getInviteQueries() {
     	return inviteHandleQueries;
     }
-
+    
     GameQuery getGameQuery() {
-        return gameQuery;
+    	return gameQuery;
     }
 
     public ChatQueries getChatQueries() {
@@ -64,16 +64,18 @@ public class DatabaseController {
     }
 
     WindowPatternQuerie getWindowPatternQuerie() {
-        return windowPatternQuerie;
+    	return windowPatternQuerie;
     }
-}
+    
+
+    
 
 //        example queries below:
 //        use question marks for where you want to use variables, declare them in the variable parameters
 //        if you're using multiple variables, separate them with a space
-
+    
 //        updateQuery("UPDATE account set username=?, password=?", "Niels2 Gay1234", " WHERE username=? AND password=?", "Niels\0Gay1234");
 //        updateQuery("INSERT INTO account VALUES(?,?)", "Mario\0Zario", "", "");
 //        selectQuery("SELECT username FROM account", " WHERE username=?", "Niels2");
 //        selectQuery("SELECT username FROM account");
-
+}

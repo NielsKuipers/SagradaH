@@ -30,7 +30,11 @@ public class DiceOnTable {
 		if (allDice.size() == 0) {
 			diceOnTableProperty.setValue(null);
 		}
-		
+	}
+	
+	void removeAllDicesFromTable() {
+		allDice.clear();
+		diceOnTableProperty.setValue(allDice);
 	}
 
 
@@ -43,12 +47,7 @@ public class DiceOnTable {
 		}
 		return false;
 	}
-
-	public void getDice(int i) {
-		allDice.get(i);
-
-	}
-
+  
 	public Property<ArrayList<Dice>> diceOnTableProperty() {
 		return diceOnTableProperty;
 	}

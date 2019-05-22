@@ -1,21 +1,19 @@
 package view;
 
-import java.util.ArrayList;
-
 import controller.WindowController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import main.GUI;
 import model.Dice;
 import model.DiceOnTable;
 
+import java.util.ArrayList;
+
 public class DiceOnTableScreen extends GridPane {
 	private Button createNewDices;
-	private GUI gui;
 
 	private WindowController WC;
 

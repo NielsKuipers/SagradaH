@@ -14,7 +14,6 @@ import model.Dice;
 import model.Field;
 
 public class FieldScreen extends StackPane {
-	private Rectangle rec;
 
 	private Field fieldModel;
 
@@ -148,7 +147,6 @@ public class FieldScreen extends StackPane {
 	}
 
 	private class MyDiceListener implements ChangeListener<Dice> {
-
 		@Override
 		public void changed(ObservableValue<? extends Dice> observable, Dice oldValue, Dice newValue) {
 			// TODO Auto-generated method stub
@@ -170,7 +168,7 @@ public class FieldScreen extends StackPane {
 					}
 				}
 			} catch (Exception e) {
-				// TODO: handle exception
+				e.printStackTrace();
 			}
 		}
 	}

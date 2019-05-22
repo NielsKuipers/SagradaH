@@ -1,6 +1,5 @@
 package controller;
 
-
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -9,12 +8,12 @@ import javafx.scene.paint.Color;
 import main.GUI;
 import model.DiceOnTable;
 import view.DiceOnTableScreen;
-
 import view.DiceScreen;
+import java.util.Random;
+
 
 public class DiceController {
 
-	private ArrayList<Color> colorsDice = new ArrayList<>();
 	private Random r = new Random();
 
 	private DiceOnTableScreen diceOnTableScreen;
@@ -40,7 +39,6 @@ public class DiceController {
 				//diceModel.setEyes(eyes);
 				//diceOnTableModel.addDiceToTable(diceModel);
 
-	
 
 	private void addColorsDice() {
 
@@ -51,7 +49,7 @@ public class DiceController {
 		colorsDice.add(Color.LIGHTGREEN);
 	}
 
-	
+
 	DiceOnTableScreen getDiceOnTableScreen(){
 
 		return diceOnTableScreen;
