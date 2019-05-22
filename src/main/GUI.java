@@ -1,7 +1,5 @@
 package main;
 import controller.AccountController;
-
-
 import controller.ChatController;
 import controller.DatabaseController;
 import controller.DiceController;
@@ -10,10 +8,12 @@ import controller.WindowController;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import model.WindowPattern;
+import view.GameListScreen;
 import view.HomePane;
 import view.StartPane;
 
@@ -28,7 +28,8 @@ public class GUI extends Application {
 	HomePane homepane;
 	Scene scene;
 	Stage stage;
-	private ChatController chatController;
+	ChatController chatController;
+	GameListScreen gameListScreen;
 
 	void startup(String[] args) {
 		launch(args);
@@ -39,11 +40,13 @@ public class GUI extends Application {
 		this.stage = stage;
 		startPane = new StartPane(this);
 		homepane = new HomePane(this);
+		gameListScreen = new GameListScreen(this);
 		databaseController = new DatabaseController();
 		windowController = new WindowController(this, databaseController);
+		chatController = new ChatController(this, databaseController);
 		diceController = new DiceController(this, windowController);
 		gameController = new GameController(this, databaseController, windowController, diceController, chatController);
-		accountController = new AccountController(this, databaseController, homepane,startPane);
+		accountController = new AccountController(this, databaseController, homepane,startPane,gameListScreen);
 		scene = new Scene(startPane);
 		this.stage.setScene(scene);
 		//stage.setFullScreen(true);
@@ -72,6 +75,10 @@ public class GUI extends Application {
 		scene.setRoot(pane);
 	}
 	
+	public void changePane(ScrollPane pane) {
+		scene.setRoot(pane);
+	}
+	
 	public void handleregister(TextField username, PasswordField password) {
 		accountController.register(username, password);
 	}
@@ -82,6 +89,21 @@ public class GUI extends Application {
 
 	public void sendMessage(String input){
 		chatController.sendMessage(input);
+	}
+	
+	public void handleToGameList() {
+		accountController.showGames();
+	}
+	public void handlegamesort(Object sortV) {
+		accountController.handleSort(sortV);
+	}
+	
+	public void handleHomeMenu() {
+		accountController.toHomeMenu();
+	}
+	
+	public void sendString(String S) {
+		accountController.setGameboolean(S);
 	}
 
 }

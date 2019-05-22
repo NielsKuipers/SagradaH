@@ -36,6 +36,7 @@ public class Buttons extends VBox {
 		setMargin(gameLijst, new Insets(20.0));
 		startGame.setBackground(buttonBackground);
 		gameLijst.setBackground(buttonBackground);
+		gameLijst.setOnMouseClicked(e -> handleToGameList());
 		openUitdaging.setBackground(buttonBackground);
 		spelerLijst.setBackground(buttonBackground);
 		uitloggen.setBackground(buttonBackground);
@@ -55,5 +56,9 @@ public class Buttons extends VBox {
 	
 	public void handleUitloggen() {
 		myGUI.handleUitloggen();
-	} 
+	}
+	
+	public void handleToGameList() {
+		myGUI.handleToGameList();
+	}
 }

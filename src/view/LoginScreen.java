@@ -30,7 +30,7 @@ public class LoginScreen extends VBox {
 		login.setOnMouseClicked(e -> handleClick());
 	}
 	private void addFields() {
-		username = new TextField();
+		username = new TextField("Gijs");
 		username.setPromptText("Username");
 		password = new PasswordField();
 		password.setPromptText("Password");

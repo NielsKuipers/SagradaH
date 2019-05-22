@@ -18,9 +18,7 @@ public class GameController extends Scene {
 	private ChatScreen chat;
 	private GameInfoScreen kaarten;
 	private GameScreen gameScreen;
-
 	private Game gameModel;
-
 	private WindowController WC;
 	private DiceController DC;
 
@@ -64,7 +62,7 @@ public class GameController extends Scene {
 		WC.setGameController(this);
 		WC.setDiceController(DC);
 		setRoot(windowChoooseScreen);
-		gameModel.selectwindowOptions();
+		//gameModel.selectwindowOptions();
 	}
 
 	public void createGame(WindowPattern windowModel) {

@@ -16,14 +16,14 @@ public class ChatController {
     public ChatController(GUI gui, DatabaseController databaseController){
         chatModel = new ChatModel(databaseController);
         chatScreen = new ChatScreen(gui);
-        getMessages();
-        createTimer();
+       // getMessages();
+       // createTimer();
     }
 
     public void sendMessage(String input){chatModel.sendMessage(input);}
 
     // get all the messages beloning to the current gameID
-    private void getMessages(){
+    public void getMessages(){
         int gameID = 2;
         this.messages = chatModel.getMessages(gameID);
         chatScreen.displayMessages(messages);
@@ -51,7 +51,7 @@ public class ChatController {
     }
 
     // create timer to check for new messages
-    private void createTimer(){
+    public void createTimer(){
         AnimationTimerEXT timer = new AnimationTimerEXT(5000) {
             @Override
             public void doAction() {
