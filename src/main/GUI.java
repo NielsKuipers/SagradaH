@@ -3,6 +3,8 @@ package main;
 
 import controller.*;
 import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import model.WindowPattern;
 import view.WindowPatternScreen;
@@ -11,12 +13,16 @@ public class GUI extends Application {
 	private DiceController diceController;
 	private GameController gameController;
 	private ChatController chatController;
+	private RoundScreenController roundController;
+	private Scene scene;
 
 	public void startup(String[] args) {
 		launch(args);
 	}
 	
 	public void start(Stage stage) {
+		scene = new Scene(new Pane());
+		
 		DatabaseController databaseController = new DatabaseController();
 	
 		WindowController windowController = new WindowController(this, databaseController);
@@ -28,9 +34,10 @@ public class GUI extends Application {
 		
 //		 SetupScreenController SetupController = new SetupScreenController(stage, databaseController);
 //		 EndScreenController EndController = new EndScreenController(stage, databaseController);
-		// RoundScreenController RoundController = new RoundScreenController(stage, databaseController);
-
-		stage.setScene(gameController);
+		 roundController = new RoundScreenController(stage, databaseController, this);
+		
+		scene.setRoot(gameController.getChooseScreen());
+		stage.setScene(scene);
 		
 		stage.setFullScreen(true);
 		stage.show();
@@ -38,6 +45,7 @@ public class GUI extends Application {
 	
 	public void createGame(WindowPattern windowModel) {
 		gameController.createGame(windowModel);
+		scene.setRoot(gameController.getGameScreen());
 	}
 	
 	public void handleCheat(boolean allPossible, boolean bestChoice) {
@@ -52,6 +60,14 @@ public class GUI extends Application {
 	
 	public void handleFinishTurn() {
 		gameController.handleFinishTurn();
+	}
+	
+	public void handleGoToRoundTrack() {
+		scene.setRoot(roundController.getRoundScreen());
+	}
+	
+	public void handleGoBackToGame() {
+		scene.setRoot(gameController.getGameScreen());
 	}
 
 

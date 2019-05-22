@@ -21,9 +21,8 @@ public class GameController extends Scene {
 	private CardsInfoScreen kaarten;
 
 	private GameScreen gameScreen;
+	private WindowPatternChooseScreen windowChoooseScreen;
 	private CardController CardController;
-
-
 
 	private Game gameModel;
 
@@ -62,7 +61,7 @@ public class GameController extends Scene {
 		chat.setStyle("-fx-background-radius: 0 300 0 0;-fx-background-color: DEEPSKYBLUE;");
 		kaarten.setStyle("-fx-background-radius: 300 0 0 0;-fx-background-color: DEEPSKYBLUE;");
 
-		WindowPatternChooseScreen windowChoooseScreen = new WindowPatternChooseScreen(gui, WC);
+		windowChoooseScreen = new WindowPatternChooseScreen(gui, WC);
 
 		windowChoooseScreen.add(WC.getWindow1(), 0, 1);
 		windowChoooseScreen.add(WC.getWindow2(), 1, 1);
@@ -75,8 +74,7 @@ public class GameController extends Scene {
 
 		WC.setGameController(this);
 		WC.setDiceController(DC);
-
-		setRoot(windowChoooseScreen);
+		//setRoot(windowChoooseScreen);
 		gameModel.selectwindowOptions();
 
 	}
@@ -111,7 +109,7 @@ public class GameController extends Scene {
 
 		gameModel.getPlayer(0).updateWindowId(windowModel.getId());
 
-		setRoot(gameScreen);
+		//setRoot(gameScreen);
 		createTimer();
 		//gameModel.giveAllThePlayersTheirFavorTokens(); give all the players their favortokens
 		
@@ -190,4 +188,12 @@ public class GameController extends Scene {
 	//givePlayerCardOption(119, 120, 121, 122); give all the players standard window choise
 	//createPlayerFrameField(); create a player frame field
 
+	
+	public WindowPatternChooseScreen getChooseScreen() {
+		return windowChoooseScreen;
+	}
+	
+	public GameScreen getGameScreen() {
+		return gameScreen;
+	}
 }

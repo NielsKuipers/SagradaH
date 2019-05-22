@@ -1,5 +1,7 @@
 package view;
 
+import java.util.Iterator;
+
 import controller.WindowController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -160,12 +162,9 @@ public class FieldScreen extends StackPane {
 					newValue.setEyes(0);
 					newValue.setEyes(eyes);
 					getChildren().add(diceScreen);
-				} else {
-					for (Node node : getChildren()) {
-						if (node instanceof DiceScreen) {
-							getChildren().remove(node);
-						}
-					}
+				} 
+				else {
+					getChildren().remove(getChildren().size() - 1);
 				}
 			} catch (Exception e) {
 				e.printStackTrace();

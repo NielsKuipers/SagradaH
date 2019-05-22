@@ -6,9 +6,11 @@ import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import main.GUI;
 
 import java.util.ArrayList;
 
@@ -17,9 +19,11 @@ import static view.EndScreen.getColorTranslation;
 public class RoundScreen extends GridPane {
 	private ArrayList <CustomStackPane> stackPanes;
 	private RoundScreenController controller;
+	private GUI gui;
 	
-	public RoundScreen(RoundScreenController controller) {
+	public RoundScreen(RoundScreenController controller, GUI gui) {
 		this.controller = controller;
+		this.gui = gui;
 		stackPanes = new ArrayList<>();
 		addRoundNumbers();
 		makePane();
@@ -27,6 +31,13 @@ public class RoundScreen extends GridPane {
 		Label round = new Label("RONDEBORD");
 		round.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 		round.setPadding(new Insets(5));
+		
+		Button goBackToGame = new Button("Terug naar spel");
+		goBackToGame.setOnMouseClicked(e -> handleGoBackToGame());
+		
+		VBox goBacktoGameBox = new VBox(goBackToGame);
+		this.add(goBacktoGameBox, 9, 0, 11, 1);
+		goBacktoGameBox.setPadding(new Insets(0, 20, 0, 0));
 	
 		this.setAlignment(Pos.CENTER);
 		this.setPadding(new Insets(20));
@@ -99,13 +110,12 @@ public class RoundScreen extends GridPane {
 			 setMaxWidth(size);
 			 setMaxHeight(size);
 			 setMinHeight(size);
-			 
-			 
-			 
-			 
 		 }
 	}
 	
 
+	private void handleGoBackToGame() {
+		gui.handleGoBackToGame();
+	}
 	
 }

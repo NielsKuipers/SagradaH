@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import main.GUI;
 
 public class RoundScreenController {
 
@@ -16,10 +17,10 @@ public class RoundScreenController {
 	private GameModel gameModel;
 	private Boolean roundScreenToolcardActive = false;
 
-	public RoundScreenController(Stage stage, DatabaseController dataController) {
-		roundScreen = new RoundScreen(this);
+	public RoundScreenController(Stage stage, DatabaseController dataController, GUI gui) {
+		roundScreen = new RoundScreen(this, gui);
 		gameModel = new GameModel(dataController.getGameQueries());
-		stage.setScene(new Scene(roundScreen));
+		//stage.setScene(new Scene(roundScreen));
 		
 		addDice();
 		createTimer();
@@ -86,5 +87,9 @@ public class RoundScreenController {
 			}
 		};
 		timer.start();
+	}
+	
+	public RoundScreen getRoundScreen() {
+		return roundScreen;
 	}
 }
