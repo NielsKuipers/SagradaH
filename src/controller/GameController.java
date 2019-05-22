@@ -24,7 +24,7 @@ public class GameController extends Scene {
 	private GameInfoScreen gameInfo;
 
 	private ChatScreen chat;
-	private GameInfoScreen kaarten;
+	private CardsInfoScreen kaarten;
 
 	private GameScreen gameScreen;
 	private CardController CardController;
@@ -65,7 +65,7 @@ public class GameController extends Scene {
 
 		gameInfo = new GameInfoScreen(gui, gameModel,"GameInfo");
 		chat = CC.getChatScreen();
-		kaarten = new GameInfoScreen(gui, gameModel,"Kaarten");
+		kaarten = new CardsInfoScreen(gui,"Kaarten",this);
 
 
 

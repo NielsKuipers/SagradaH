@@ -133,26 +133,7 @@ public class WindowPattern {
 	
 	
 
-	public void updateAllDicesOnField() {
-		ArrayList<ArrayList<Object>> result = windowPatternQuerie.getAllDicesOnField(id);
-		for (int row = 1; row < 5; row++) {
-			for (int column = 0; column < 5; column++) {
-				for (int i = 0; i < result.size(); i++) {
-					try {
-						if (row == Integer.valueOf(result.get(i).get(3).toString()) && column == Integer.valueOf(result.get(i).get(2).toString()) - 1) {
-							int eyes = Integer.valueOf(result.get(i).get(1).toString());
-							getFieldOfWindow(column, row).addDice(new Dice(Integer.valueOf(result.get(i).get(1).toString()), makeColorFromQuerie(result.get(i).get(0).toString())));
-							getFieldOfWindow(column, row).getDice().setEyes(eyes);
-						}
-					} catch (Exception e) {
-						// TODO: handle exception
-					}
-
-
-				}
-
-			}
-		}
+	
 
 	public void selectDifficulty() {
 		ArrayList<ArrayList<Object>> result = windowPatternQuerie.getDifficulty(idWindow);
