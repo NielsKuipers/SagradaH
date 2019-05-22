@@ -48,6 +48,8 @@ public class Dice {
 		this.color = color;
 		backgroundProperty.setValue(new Background(new BackgroundFill(color, null, null)));
 	}
+	
+	
 
 	public int getDiceNumber() {
 		return dieNumber;

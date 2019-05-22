@@ -6,6 +6,8 @@ import javafx.beans.property.Property;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.paint.Color;
 import queries.WindowPatternQuerie;
 
@@ -138,9 +140,14 @@ public class WindowPattern {
 		}
 	}
 	
+	public int getDifficulty() {
+		return Integer.parseInt(difficulty.get());
+	}
+
 	void selectDifficulty() {
 		ArrayList<ArrayList<Object>> result = windowPatternQuerie.getDifficulty(idWindow);
 		difficulty.set("Moeilijkheidsgraad: " + result.get(0).get(0));
+
 	}
 
 	private Color makeColorFromQuerie(Object c) {
@@ -179,3 +186,4 @@ public class WindowPattern {
 	
 	
 }
+
