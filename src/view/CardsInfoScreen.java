@@ -31,7 +31,7 @@ public class CardsInfoScreen extends BorderPane{
 
 		btnCard = new Button("Show cards");
 
-		btnCard.setOnAction(e -> gui.switchToolcards());
+		btnCard.setOnAction(e -> gui.handleGoToCards());
 
 
 		favorTokens = new Label("amount of favor tokens:"+ tokens);

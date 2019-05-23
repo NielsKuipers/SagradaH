@@ -190,7 +190,7 @@ public class CardController extends Scene {
 	}
 	
 	private void checkBoughtTC(int TC, int idGame) {
-		if(!cardModel.checkboughtTC(TC,idGame)) {
+		if(!cardModel.checkboughtTC(TC)) {
 			switch(TC) {
 				case 1: boughtTC1 = true;
 					break;
