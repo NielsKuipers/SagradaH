@@ -47,6 +47,9 @@ public class Game {
 	public Player getPlayer(int i) {
 		return players.get(i);
 	}
+	public int getGameID() {
+		return gameId;
+	}
 
 	// give all the players the right id
 	private void selectPlayerIds() {

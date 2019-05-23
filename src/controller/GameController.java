@@ -69,7 +69,7 @@ public class GameController extends Scene {
 
 		WC.setGameController(this);
 		WC.setDiceController(DC);
-		//setRoot(windowChoooseScreen);
+	
 		gameModel.selectwindowOptions();
 	}
 	
@@ -101,7 +101,7 @@ public class GameController extends Scene {
 
 		gameModel.getPlayer(0).updateWindowId(windowModel.getId());
 
-		//setRoot(gameScreen);
+		
 		createTimer();
 		//gameModel.giveAllThePlayersTheirFavorTokens(); give all the players their favortokens
 		
@@ -138,7 +138,7 @@ public class GameController extends Scene {
 
 	        
 
-	Game getGameModel() {
+	public Game getGameModel() {
 		return gameModel;
 	}
 
