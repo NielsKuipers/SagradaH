@@ -11,7 +11,7 @@ import queries.GameQuery;
 
 public class Game {
 
-	private int gameId = 2;
+	private int gameId = 1;
 	private ArrayList<Player> players = new ArrayList<>();
 
 	private String accountName = "Gijs";
@@ -113,7 +113,7 @@ public class Game {
 	// get the dice with highest roundtrack and fill the round
 	private void selectRound() {
 		ArrayList<ArrayList<Object>> result = gameQuery.getRound(gameId);
-		if (result.get(0).get(0) == null) {
+		if (result.isEmpty()) {
 			setRound("1");
 		} else {
 			int round = Integer.valueOf(String.valueOf(result.get(0).get(0)));
@@ -127,9 +127,14 @@ public class Game {
 	private void selectAllDicesOnTable() {
 		//check which round you are in 
 		ArrayList<ArrayList<Object>> result = gameQuery.getRound(gameId);
-		int round = Integer.valueOf(String.valueOf(result.get(0).get(0)));
-		round++;
-
+		int round = 0;
+		if(result.isEmpty()) {
+			round = 1;
+		}else {
+			round = Integer.valueOf(String.valueOf(result.get(0).get(0)));
+			round++;
+		}
+		
 		//get all the dices from all the players
 		ArrayList<ArrayList<Object>> result2 = gameQuery.getAllDicesFromAllPlayers(gameId);
 		
@@ -323,10 +328,10 @@ public class Game {
 	}
 	
 	//create a player frame field
-	public void createPlayerFrameField() {
+	public void createPlayerFrameField(int idPlayer, int idGame) {
 		for (int x = 1; x < 6; x++) {
 			for (int y = 1; y < 5; y++) {
-				gameQuery.insertOneLineForPlayerFrameField(4, x, y, 2);
+				gameQuery.insertOneLineForPlayerFrameField(idPlayer, x, y, idGame);
 			}
 		}
 	}

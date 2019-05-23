@@ -3,6 +3,7 @@ package controller;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import main.GUI;
 import model.FavorToken;
 import queries.CardQueries;
 import view.CardScreen;
@@ -17,6 +18,8 @@ public class CardController extends Scene {
 
 	private WindowController windowController;
 	private DiceController diceController;
+	
+	private GUI gui;
 
 	// alle toolcards
 	private ToolCardScreen toolCard1;
@@ -86,16 +89,17 @@ public class CardController extends Scene {
 	private CardQueries CQ;
 
 	public CardController(WindowController cc, DiceController dc, GameController GC,
-			DatabaseController databaseController) {
+			DatabaseController databaseController, GUI gui) {
 		super(new Pane());
 		this.gameController = GC;
 		windowController = cc;
 		diceController = dc;
+		this.gui = gui;
 		gameController.setCardController(this);
 
 		CQ = databaseController.getCardQueries();
 
-		cardScreen = new GameCardsScreen(this);
+		cardScreen = new GameCardsScreen(this, gui);
 
 		toolCard1  = new ToolCardScreen("file:Sagrada-cards/sagrada-toolcards/toolcard1-driepuntstang.png");
 		toolCard2  = new ToolCardScreen("file:Sagrada-cards/sagrada-toolcards/toolcard2-eglomiseBorstel.png");
@@ -166,7 +170,7 @@ public class CardController extends Scene {
 		return (int) (Math.random() * (NR)) + 1;
 	}
 
-	GameCardsScreen showcards() {
+	public GameCardsScreen showcards() {
 		return cardScreen;
 	}
 
@@ -474,7 +478,7 @@ public class CardController extends Scene {
 
 
 		}
-		gameController.switchToGameScreen();
+		gui.handleGoBackToGame();
 	}
 
 	public void buyTC2(CardScreen cardscreen) {
@@ -536,7 +540,7 @@ public class CardController extends Scene {
 	}
 
 	private void buyTC12() {
-
+		
 	}
 
 	private void generateToolcards() {
