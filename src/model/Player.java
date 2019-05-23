@@ -2,12 +2,14 @@ package model;
 
 import java.util.ArrayList;
 
+import javafx.scene.paint.Color;
 import queries.PlayerQuery;
 
 public class Player {
 
 	private int idPlayer;
 	private WindowPattern windowPattern;
+	private Color playerColor;
 	
 	private PlayerQuery playerQuery;
 	

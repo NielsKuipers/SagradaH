@@ -14,6 +14,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import main.GUI;
 
 public class GameCardsScreen  extends VBox{
 	
@@ -42,10 +43,13 @@ private CardController cardController;
     private Label priceTC1= new Label("Price = 1");
     private Label priceTC2= new Label("Price = 1");
     private Label priceTC3= new Label("Price = 1");
+    
+    private GUI gui;
 
-    public GameCardsScreen(CardController CC) {
+    public GameCardsScreen(CardController CC, GUI gui) {
         super(new Pane());
         cardController = CC;
+        this.gui = gui;
     }
     
     public void setTC1(CardScreen toolcard) {
@@ -94,7 +98,7 @@ private CardController cardController;
     exit = new Button("Exit");
     exit.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE,null,null)));
     exit.setPrefSize(1600, 50);
-    exit.setOnAction(e -> cardController.handleExit());
+    exit.setOnAction(e -> gui.handleGoBackToGame());
     
     
     labelTC = new Label("Toolcards");
