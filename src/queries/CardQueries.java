@@ -15,8 +15,7 @@ public class CardQueries {
 				"" + tc + "\0" + intTC + "\0" + GameID + "");
 
 	}
-	
-	
+
 
 	public void updatePUBOBJC(int GameID, int IDCard) {
 
@@ -49,6 +48,7 @@ public class CardQueries {
 	public ArrayList<ArrayList<Object>> CheckAmountFTonTC(int tc, int playerID, int idgame) {
 		return standardQuerie.selectQuery("Select idfavortoken from gamefavortoken",
 				" where gametoolcard=? and idGame=? and idplayer=?", "" + tc + "\0" + idgame + "\0" + playerID + "");
+
 		
 	}
 	
@@ -57,6 +57,7 @@ public class CardQueries {
 		
 	}
 	
+	}
 
 
-}
+

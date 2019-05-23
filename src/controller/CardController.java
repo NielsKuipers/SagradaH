@@ -4,7 +4,10 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import main.GUI;
+
 import model.Card;
+
+
 import model.FavorToken;
 import queries.CardQueries;
 import view.CardScreen;
@@ -19,6 +22,8 @@ public class CardController extends Scene {
 
 	private WindowController windowController;
 	private DiceController diceController;
+	
+	
 
 	// alle toolcards
 	private ToolCardScreen toolCard1;
@@ -94,10 +99,16 @@ public class CardController extends Scene {
 		this.gameController = GC;
 		windowController = cc;
 		diceController = dc;
-		gameController.setCardController(this);
 		this.gui = gui;
+		gameController.setCardController(this);
+		
+
 
 		cardModel = new Card(databaseController.getCardQueries(), GC.getGameModel());
+
+		
+
+
 		cardScreen = new GameCardsScreen(this, gui);
 
 		toolCard1  = new ToolCardScreen("file:Sagrada-cards/sagrada-toolcards/toolcard1-driepuntstang.png");
@@ -499,6 +510,7 @@ public class CardController extends Scene {
 
 		}
 		gui.handleGoBackToGame();
+
 		return false;
 	}
 	public void buyTC1(CardScreen cardscreen) {
@@ -508,6 +520,8 @@ public class CardController extends Scene {
 				cardScreen.BoughtTC1();
 			}
 		}
+
+
 	}
 
 	public void buyTC2(CardScreen cardscreen) {
@@ -574,7 +588,7 @@ public class CardController extends Scene {
 	}
 
 	private void buyTC12() {
-
+		
 	}
 
 	private void generateToolcards() {

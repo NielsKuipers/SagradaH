@@ -43,9 +43,12 @@ private CardController cardController;
     private Label priceTC1= new Label("Price = 1");
     private Label priceTC2= new Label("Price = 1");
     private Label priceTC3= new Label("Price = 1");
+
     private GUI gui;
 
-    public GameCardsScreen(CardController CC,GUI gui) {
+
+    public GameCardsScreen(CardController CC, GUI gui) {
+
         super(new Pane());
         cardController = CC;
         this.gui = gui;
