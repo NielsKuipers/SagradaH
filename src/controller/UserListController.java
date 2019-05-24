@@ -21,6 +21,8 @@ public class UserListController extends Scene {
         setRoot(userListScreen);
     }
 
+    public UserListScreen getUserListScreen(){ return userListScreen; }
+
     private void getUsers(){
         userListScreen.displayUsers(userListModel.getUsers(), userListModel.getUserStats());
     }

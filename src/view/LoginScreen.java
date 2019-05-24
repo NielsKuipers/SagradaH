@@ -1,0 +1,55 @@
+package view;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import main.GUI;
+
+public class LoginScreen extends VBox {
+	private TextField username;
+	private PasswordField password;
+	private GUI myGUI;
+	LoginScreen(GUI mygui) {
+		this.myGUI = mygui;
+		addFields();
+		addButton();
+		setAlignment(Pos.CENTER_LEFT);
+	}
+	
+	private void addButton() {
+		Button login = new Button("Login");
+		login.setMaxWidth(150);
+		getChildren().add(login);
+		login.setOnMouseClicked(e -> handleClick());
+	}
+	private void addFields() {
+		username = new TextField("Gijs");
+		username.setPromptText("Username");
+		password = new PasswordField();
+		password.setPromptText("Password");
+		getChildren().addAll(username,password);
+	}
+	
+	public void badFields(TextField username, PasswordField password) {
+		username.clear();
+		username.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, null, new BorderWidths(1))));
+		password.clear();
+		password.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, null, new BorderWidths(1))));
+	}
+	
+	public void emptyFields() {
+		username.clear();
+		password.clear();
+	}
+	
+	private void handleClick() {
+		myGUI.handlelogin(username, password);
+	}
+	
+}

@@ -1,16 +1,19 @@
 package view;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import model.WindowPattern;
 
 public class WindowPatternScreen extends GridPane{
 	private WindowPattern windowPatternModel;
-	
+
 	public WindowPatternScreen(String name, WindowPattern windowPatternModel, String color) {
 		this.windowPatternModel = windowPatternModel;
 		Label name1 = new Label(name);
@@ -30,6 +33,7 @@ public class WindowPatternScreen extends GridPane{
 		score.textProperty().bind(windowPatternModel.playerScoreProperty());
 		difficulty.textProperty().bind(windowPatternModel.difficultyProperty());
 		name1.textProperty().bind(windowPatternModel.playerNameProperty());
+		this.windowPatternModel.backgroundPropery().addListener(new MyBackgroundListener());
 		
 		setHgap(2); // horizontal gap in pixels
 		setVgap(2); // vertical gap in pixels
@@ -66,7 +70,16 @@ public class WindowPatternScreen extends GridPane{
 		}
 	}
 	
-	
-	
-
+	private class MyBackgroundListener implements ChangeListener<Color> {
+		@Override
+		public void changed(ObservableValue<? extends Color> observable, Color oldValue, Color newValue) {
+			if(newValue == Color.WHITE) {
+				setStyle("-fx-background-color: linear-gradient(to bottom, white 0%,#cccccc 100%);-fx-background-radius: 20 20 20 20;");
+			}
+			else if(newValue == Color.RED) {
+				setStyle("-fx-background-color: linear-gradient(to bottom, red 0%,#cccccc 100%);-fx-background-radius: 20 20 20 20;");
+			}
+				
+		}
+	}
 }

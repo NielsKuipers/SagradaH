@@ -44,7 +44,7 @@ public class StandardQueries {
     }
 
     //method for update queries
-    void updateQuery(String query, String values, String where, String whereVal){
+    public void updateQuery(String query, String values, String where, String whereVal){
         try {
             PreparedStatement stmt = mConn.prepareStatement(query + where);
             //split the values and use them in the statement
@@ -117,4 +117,3 @@ public class StandardQueries {
         }
     }
 }
-
