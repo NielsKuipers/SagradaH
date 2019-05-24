@@ -50,14 +50,13 @@ public class UserListQueries {
 
         for(Object rows : names){
             for(Object name : names){
-                String nameVal = name.toString();
+                String nameVal = name.toString().replace("[", "").replace("]", "");
                 uniquePlayers.addAll(queries.selectQuery("SELECT DISTINCT p.username FROM player p" +
                         " INNER JOIN (SELECT p2.game_idgame FROM player p2 WHERE username=? AND playstatus_playstatus = 'uitgespeeld')" +
                         " AS games ON p.game_idgame = p.game_idgame" +
                         " WHERE p.playstatus_playstatus = 'uitgespeeld' AND username !=?", " ", "" + nameVal +"\0"+ nameVal + ""));
             }
         }
-
         return groupStats(gameStats, dieColors, eyes, uniquePlayers);
     }
 

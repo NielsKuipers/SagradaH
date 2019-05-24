@@ -25,7 +25,6 @@ public class GUI extends Application {
 		diceController = new DiceController(this, windowController);
 		chatController = new ChatController(this, databaseController);
         gameController = new GameController(this, databaseController, windowController, diceController, chatController);
-
         userListController = new UserListController(this, databaseController);
 
 		stage.setScene(userListController);

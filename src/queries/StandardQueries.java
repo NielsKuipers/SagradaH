@@ -78,13 +78,16 @@ public class StandardQueries {
 
     //check if passed string is an int
     private boolean checkInt(String str){
-        for(int x=0;x<str.length(); x++){
-            char c = str.charAt(x);
-            if(c < '0' || c > '9'){
-                return false;
+	    if(!str.isEmpty()) {
+            for (int x = 0; x < str.length(); x++) {
+                char c = str.charAt(x);
+                if (c < '0' || c > '9') {
+                    return false;
+                }
             }
+            return true;
         }
-        return true;
+	    return false;
     }
 
     private void handleVals(String v, PreparedStatement stmt, int i) throws SQLException {
