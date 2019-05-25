@@ -83,7 +83,6 @@ public class InviteGetScreen extends BorderPane{
 				setBackground(new Background(new BackgroundFill(Color.GREENYELLOW, null, null)));
 				setOnAction(e -> {
 					controller.acceptInvite(gameid);
-					setDisable(true);
 					refreshList();
 				});
 				
@@ -97,7 +96,6 @@ public class InviteGetScreen extends BorderPane{
 				setBackground(new Background(new BackgroundFill(Color.RED, null, null)));
 				setOnAction(e -> {
 					controller.declineInvite(gameid);
-					setDisable(true);
 					refreshList();
 				});
 				
