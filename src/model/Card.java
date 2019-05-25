@@ -37,6 +37,10 @@ public class Card {
 		
 	}
 	
+	public Game getGameModel() {
+		return gameModel;
+	}
+	
 	
 	
 }

@@ -7,7 +7,6 @@ import main.GUI;
 
 import model.Card;
 
-
 import model.FavorToken;
 import queries.CardQueries;
 import view.CardScreen;
@@ -22,8 +21,6 @@ public class CardController extends Scene {
 
 	private WindowController windowController;
 	private DiceController diceController;
-	
-	
 
 	// alle toolcards
 	private ToolCardScreen toolCard1;
@@ -77,21 +74,19 @@ public class CardController extends Scene {
 	private FavorTokensScreen TC1FTS2;
 	private FavorTokensScreen TC1FTS3;
 	private FavorTokensScreen TC1FTS4;
-	
+
 	private FavorTokensScreen TC2FTS1;
 	private FavorTokensScreen TC2FTS2;
 	private FavorTokensScreen TC2FTS3;
 	private FavorTokensScreen TC2FTS4;
-	
-	
+
 	private FavorTokensScreen TC3FTS1;
 	private FavorTokensScreen TC3FTS2;
 	private FavorTokensScreen TC3FTS3;
 	private FavorTokensScreen TC3FTS4;
-	 
+
 	private Card cardModel;
 	private GUI gui;
-	
 
 	public CardController(WindowController cc, DiceController dc, GameController GC,
 			DatabaseController databaseController, GUI gui) {
@@ -101,25 +96,20 @@ public class CardController extends Scene {
 		diceController = dc;
 		this.gui = gui;
 		gameController.setCardController(this);
-		
-
 
 		cardModel = new Card(databaseController.getCardQueries(), GC.getGameModel());
 
-		
-
-
 		cardScreen = new GameCardsScreen(this, gui);
 
-		toolCard1  = new ToolCardScreen("file:Sagrada-cards/sagrada-toolcards/toolcard1-driepuntstang.png");
-		toolCard2  = new ToolCardScreen("file:Sagrada-cards/sagrada-toolcards/toolcard2-eglomiseBorstel.png");
-		toolCard3  = new ToolCardScreen("file:Sagrada-cards/sagrada-toolcards/toolcard3-folie-andrukker.png");
-		toolCard4  = new ToolCardScreen("file:Sagrada-cards/sagrada-toolcards/toolcard4-loodopenhaler.png");
-		toolCard5  = new ToolCardScreen("file:Sagrada-cards/sagrada-toolcards/toolcard5-rondsnijder.png");
-		toolCard6  = new ToolCardScreen("file:Sagrada-cards/sagrada-toolcards/toolcard6-fluxborstel.png");
-		toolCard7  = new ToolCardScreen("file:Sagrada-cards/sagrada-toolcards/toolcard7-loodhamer.png");
-		toolCard8  = new ToolCardScreen("file:Sagrada-cards/sagrada-toolcards/toolcard8-glasbreektang.png");
-		toolCard9  = new ToolCardScreen("file:Sagrada-cards/sagrada-toolcards/toolcard9-snijliniaal.png");
+		toolCard1 = new ToolCardScreen("file:Sagrada-cards/sagrada-toolcards/toolcard1-driepuntstang.png");
+		toolCard2 = new ToolCardScreen("file:Sagrada-cards/sagrada-toolcards/toolcard2-eglomiseBorstel.png");
+		toolCard3 = new ToolCardScreen("file:Sagrada-cards/sagrada-toolcards/toolcard3-folie-andrukker.png");
+		toolCard4 = new ToolCardScreen("file:Sagrada-cards/sagrada-toolcards/toolcard4-loodopenhaler.png");
+		toolCard5 = new ToolCardScreen("file:Sagrada-cards/sagrada-toolcards/toolcard5-rondsnijder.png");
+		toolCard6 = new ToolCardScreen("file:Sagrada-cards/sagrada-toolcards/toolcard6-fluxborstel.png");
+		toolCard7 = new ToolCardScreen("file:Sagrada-cards/sagrada-toolcards/toolcard7-loodhamer.png");
+		toolCard8 = new ToolCardScreen("file:Sagrada-cards/sagrada-toolcards/toolcard8-glasbreektang.png");
+		toolCard9 = new ToolCardScreen("file:Sagrada-cards/sagrada-toolcards/toolcard9-snijliniaal.png");
 		toolCard10 = new ToolCardScreen("file:Sagrada-cards/sagrada-toolcards/toolcard10-schuurblok.png");
 		toolCard11 = new ToolCardScreen("file:Sagrada-cards/sagrada-toolcards/toolcard11-fluxverwijderaar.png");
 		toolCard12 = new ToolCardScreen("file:Sagrada-cards/sagrada-toolcards/toolcard12-olieglassnijder.png");
@@ -150,30 +140,26 @@ public class CardController extends Scene {
 				"file:Sagrada-cards/sagrade-objectivecards/objectivecard-pub.lichte-tinten.png");
 		objectiveCard10 = new CardScreen(
 				"file:Sagrada-cards/sagrade-objectivecards/objectivecard-pub.tintvarieteit-per-rij.png");
-		
-		
-		
+
 		TC1FTS1 = new FavorTokensScreen(new FavorToken(0, Color.BLUE));
 		TC1FTS2 = new FavorTokensScreen(new FavorToken(0, Color.RED));
 		TC1FTS3 = new FavorTokensScreen(new FavorToken(0, Color.GREEN));
 		TC1FTS4 = new FavorTokensScreen(new FavorToken(0, Color.YELLOW));
-		
+
 		TC2FTS1 = new FavorTokensScreen(new FavorToken(0, Color.BLUE));
 		TC2FTS2 = new FavorTokensScreen(new FavorToken(0, Color.RED));
 		TC2FTS3 = new FavorTokensScreen(new FavorToken(0, Color.GREEN));
 		TC2FTS4 = new FavorTokensScreen(new FavorToken(0, Color.YELLOW));
-		
+
 		TC3FTS1 = new FavorTokensScreen(new FavorToken(0, Color.BLUE));
 		TC3FTS2 = new FavorTokensScreen(new FavorToken(0, Color.RED));
 		TC3FTS3 = new FavorTokensScreen(new FavorToken(0, Color.GREEN));
 		TC3FTS4 = new FavorTokensScreen(new FavorToken(0, Color.YELLOW));
-		
-		 
 
 		generateToolcards();
 		generateObjectiveCards();
 		cardScreen.createView();
-		
+
 	}
 
 	private int generateRandNR(int NR) {
@@ -188,120 +174,127 @@ public class CardController extends Scene {
 		gameController.switchToGameScreen();
 
 	}
-	
+
 	private void checkBoughtTC(int TC, int idGame) {
-		if(!cardModel.checkboughtTC(TC)) {
-			switch(TC) {
-				case 1: boughtTC1 = true;
-					break;
-				case 2: boughtTC2 = true;
-					break;
-				case 3: boughtTC3 = true;
-					break;
-				case 4: boughtTC4 = true;
-					break;
-				case 5: boughtTC5 = true;
-					break;
-				case 6: boughtTC6 = true;
-					break;
-				case 7: boughtTC7 = true;
-					break;
-				case 8: boughtTC8 = true;
-					break;
-				case 9: boughtTC9 = true;
-					break;
-				case 10: boughtTC10 = true;
-					break;
-				case 11: boughtTC11 = true;
-					break;
-				case 12: boughtTC12 = true;
-					break;
+		if (!cardModel.checkboughtTC(TC)) {
+			switch (TC) {
+			case 1:
+				boughtTC1 = true;
+				break;
+			case 2:
+				boughtTC2 = true;
+				break;
+			case 3:
+				boughtTC3 = true;
+				break;
+			case 4:
+				boughtTC4 = true;
+				break;
+			case 5:
+				boughtTC5 = true;
+				break;
+			case 6:
+				boughtTC6 = true;
+				break;
+			case 7:
+				boughtTC7 = true;
+				break;
+			case 8:
+				boughtTC8 = true;
+				break;
+			case 9:
+				boughtTC9 = true;
+				break;
+			case 10:
+				boughtTC10 = true;
+				break;
+			case 11:
+				boughtTC11 = true;
+				break;
+			case 12:
+				boughtTC12 = true;
+				break;
 			}
 		}
 	}
-	
+
 	private void buyTCSetDB(int TC, Boolean bought) {
-		if(!bought) {
-			cardModel.BuyTC(TC,gameController.getAmountFT());
-			
-		}if(bought){
-			cardModel.BuyTCPric2(TC,gameController.getAmountFT(),gameController.getAmountFT()-1);
-			
+		if (!bought) {
+			cardModel.BuyTC(TC, gameController.getAmountFT());
+
+		}
+		if (bought) {
+			cardModel.BuyTCPric2(TC, gameController.getAmountFT(), gameController.getAmountFT() - 1);
+
 		}
 	}
-	
+
 	public void checkAmountFTonTC(int tc) {
-		if(tc == TC1) {
-			switch(0) {
+		if (tc == TC1) {
+			switch (0) {
 			case 1:
-				TC1FTS1.getModel().setAmount(TC1FTS1.getModel().getAmount()+cardModel.getAmountFTOnTC(tc));
+				TC1FTS1.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnTC(tc));
 				break;
 			case 2:
-				TC1FTS2.getModel().setAmount(TC1FTS1.getModel().getAmount()+cardModel.getAmountFTOnTC(tc));
+				TC1FTS2.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnTC(tc));
 				break;
 			case 3:
-				TC1FTS3.getModel().setAmount(TC1FTS1.getModel().getAmount()+cardModel.getAmountFTOnTC(tc));
+				TC1FTS3.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnTC(tc));
 				break;
 			case 4:
-				TC1FTS4.getModel().setAmount(TC1FTS1.getModel().getAmount()+cardModel.getAmountFTOnTC(tc));
+				TC1FTS4.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnTC(tc));
 				break;
 			}
-			
+
 		}
-		if(tc == TC2) {
-			switch(0) {
+		if (tc == TC2) {
+			switch (0) {
 			case 1:
-				TC2FTS1.getModel().setAmount(TC1FTS1.getModel().getAmount()+cardModel.getAmountFTOnTC(tc));
+				TC2FTS1.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnTC(tc));
 				break;
 			case 2:
-				TC2FTS2.getModel().setAmount(TC1FTS1.getModel().getAmount()+cardModel.getAmountFTOnTC(tc));
+				TC2FTS2.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnTC(tc));
 				break;
 			case 3:
-				TC2FTS3.getModel().setAmount(TC1FTS1.getModel().getAmount()+cardModel.getAmountFTOnTC(tc));
+				TC2FTS3.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnTC(tc));
 				break;
 			case 4:
-				TC2FTS4.getModel().setAmount(TC1FTS1.getModel().getAmount()+cardModel.getAmountFTOnTC(tc));
-				break;
-			}
-		}
-		if(tc == TC3) {
-			switch(0) {
-			case 1:
-				TC3FTS1.getModel().setAmount(TC1FTS1.getModel().getAmount()+cardModel.getAmountFTOnTC(tc));
-				break;
-			case 2:
-				TC3FTS2.getModel().setAmount(TC1FTS1.getModel().getAmount()+cardModel.getAmountFTOnTC(tc));
-				break;
-			case 3:
-				TC3FTS3.getModel().setAmount(TC1FTS1.getModel().getAmount()+cardModel.getAmountFTOnTC(tc));
-				break;
-			case 4:
-				TC3FTS4.getModel().setAmount(TC1FTS1.getModel().getAmount()+cardModel.getAmountFTOnTC(tc));
+				TC2FTS4.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnTC(tc));
 				break;
 			}
 		}
-		
+		if (tc == TC3) {
+			switch (0) {
+			case 1:
+				TC3FTS1.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnTC(tc));
+				break;
+			case 2:
+				TC3FTS2.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnTC(tc));
+				break;
+			case 3:
+				TC3FTS3.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnTC(tc));
+				break;
+			case 4:
+				TC3FTS4.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnTC(tc));
+				break;
+			}
+		}
+
 	}
-	
-
-
-	
-	
-
 
 	public boolean buyToolcard(CardScreen cardscreen) {
-		
+
 		if (cardscreen == toolCard1) {
-			
-				checkBoughtTC(1,56);
+
+			checkBoughtTC(1, 56);
 			if (boughtTC9 && gameController.getAmountFT() > 1) {
-				buyTCSetDB(1,true);
+				buyTCSetDB(1, true);
 				gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 2));
 				buyTC1();
 				return true;
 			}
 			if (!boughtTC1) {
-				buyTCSetDB(1,false);
+				buyTCSetDB(1, false);
 				gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 1));
 				boughtTC1 = true;
 				buyTC1();
@@ -309,15 +302,15 @@ public class CardController extends Scene {
 			}
 		}
 		if (cardscreen == toolCard2) {
-			checkBoughtTC(2,56);
+			checkBoughtTC(2, 56);
 			if (boughtTC9 && gameController.getAmountFT() > 1) {
-				buyTCSetDB(2,true);
+				buyTCSetDB(2, true);
 				gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 2));
 				buyTC2();
 				return true;
 			}
 			if (!boughtTC2) {
-				buyTCSetDB(2,false);
+				buyTCSetDB(2, false);
 				gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 1));
 				boughtTC2 = true;
 				buyTC2();
@@ -325,16 +318,16 @@ public class CardController extends Scene {
 			}
 		}
 		if (cardscreen == toolCard3) {
-			checkBoughtTC(3,56);
+			checkBoughtTC(3, 56);
 			if (boughtTC9 && gameController.getAmountFT() > 1) {
-				buyTCSetDB(3,true);
+				buyTCSetDB(3, true);
 				gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 2));
 				buyTC3();
 				return true;
 
 			}
 			if (!boughtTC3) {
-				buyTCSetDB(3,false);
+				buyTCSetDB(3, false);
 				gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 1));
 				boughtTC3 = true;
 				buyTC3();
@@ -343,16 +336,16 @@ public class CardController extends Scene {
 			}
 		}
 		if (cardscreen == toolCard4) {
-			checkBoughtTC(4,56);
+			checkBoughtTC(4, 56);
 			if (boughtTC5 && gameController.getAmountFT() > 1) {
-				buyTCSetDB(4,true);
+				buyTCSetDB(4, true);
 				gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 2));
 				buyTC4();
 				return true;
 
 			}
 			if (!boughtTC4) {
-				buyTCSetDB(4,false);
+				buyTCSetDB(4, false);
 				gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 1));
 				boughtTC4 = true;
 				buyTC4();
@@ -361,16 +354,16 @@ public class CardController extends Scene {
 			}
 		}
 		if (cardscreen == toolCard5) {
-			checkBoughtTC(5,56);
+			checkBoughtTC(5, 56);
 			if (boughtTC5 && gameController.getAmountFT() > 1) {
-				buyTCSetDB(5,true);
+				buyTCSetDB(5, true);
 				gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 2));
 				buyTC5();
 				return true;
 
 			}
 			if (!boughtTC5) {
-				buyTCSetDB(5,false);
+				buyTCSetDB(5, false);
 				gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 1));
 				boughtTC5 = true;
 				buyTC5();
@@ -378,39 +371,35 @@ public class CardController extends Scene {
 
 			}
 
-
-
 		}
 		if (cardscreen == toolCard6) {
-			checkBoughtTC(6,56);
+			checkBoughtTC(6, 56);
 			if (boughtTC6 && gameController.getAmountFT() > 1) {
-				buyTCSetDB(6,true);
+				buyTCSetDB(6, true);
 				gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 2));
 				buyTC6();
 				return true;
 			}
 			if (!boughtTC6) {
-				buyTCSetDB(6,false);
+				buyTCSetDB(6, false);
 				gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 1));
 				boughtTC6 = true;
 				buyTC6();
 				return true;
 			}
 
-
-
 		}
 		if (cardscreen == toolCard7) {
-			checkBoughtTC(7,56);
+			checkBoughtTC(7, 56);
 			if (boughtTC7 && gameController.getAmountFT() > 1) {
-				buyTCSetDB(7,true);
+				buyTCSetDB(7, true);
 				gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 2));
 				buyTC7();
 				return true;
 
 			}
 			if (!boughtTC7) {
-				buyTCSetDB(7,false);
+				buyTCSetDB(7, false);
 				gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 1));
 				boughtTC7 = true;
 				buyTC7();
@@ -419,16 +408,16 @@ public class CardController extends Scene {
 			}
 		}
 		if (cardscreen == toolCard8) {
-			checkBoughtTC(8,56);
+			checkBoughtTC(8, 56);
 			if (boughtTC8 && gameController.getAmountFT() > 1) {
-				buyTCSetDB(8,true);
+				buyTCSetDB(8, true);
 				gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 2));
 				buyTC8();
 				return true;
 
 			}
 			if (!boughtTC8) {
-				buyTCSetDB(8,false);
+				buyTCSetDB(8, false);
 				gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 1));
 				boughtTC8 = true;
 				buyTC8();
@@ -436,15 +425,15 @@ public class CardController extends Scene {
 			}
 		}
 		if (cardscreen == toolCard9) {
-			checkBoughtTC(9,56);
+			checkBoughtTC(9, 56);
 			if (boughtTC9 && gameController.getAmountFT() > 1) {
-				buyTCSetDB(9,true);
+				buyTCSetDB(9, true);
 				gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 2));
 				buyTC9();
 				return true;
 			}
 			if (!boughtTC9) {
-				buyTCSetDB(19,false);
+				buyTCSetDB(19, false);
 				gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 1));
 				boughtTC9 = true;
 				buyTC9();
@@ -452,15 +441,15 @@ public class CardController extends Scene {
 			}
 		}
 		if (cardscreen == toolCard10) {
-			checkBoughtTC(10,56);
+			checkBoughtTC(10, 56);
 			if (boughtTC10 && gameController.getAmountFT() > 1) {
-				buyTCSetDB(10,true);
+				buyTCSetDB(10, true);
 				gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 2));
 				buyTC10();
 				return true;
 			}
 			if (!boughtTC10) {
-				buyTCSetDB(10,false);
+				buyTCSetDB(10, false);
 				gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 1));
 				boughtTC10 = true;
 				buyTC10();
@@ -469,58 +458,54 @@ public class CardController extends Scene {
 			}
 		}
 		if (cardscreen == toolCard11) {
-			checkBoughtTC(11,56);
+			checkBoughtTC(11, 56);
 			if (boughtTC11 && gameController.getAmountFT() > 1) {
-				buyTCSetDB(11,true);
+				buyTCSetDB(11, true);
 				gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 2));
 				buyTC11();
 				return true;
 
 			}
 			if (!boughtTC11) {
-				buyTCSetDB(11,false);
+				buyTCSetDB(11, false);
 				gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 1));
 				boughtTC11 = true;
 				buyTC11();
 				return true;
 			}
 
-
-
 		}
 		if (cardscreen == toolCard12) {
-			checkBoughtTC(12,56);
+			checkBoughtTC(12, 56);
 			if (boughtTC12 && gameController.getAmountFT() > 1) {
-				buyTCSetDB(12,true);
+				buyTCSetDB(12, true);
 				gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 2));
 				buyTC12();
 				return true;
 
 			}
 			if (!boughtTC12) {
-				buyTCSetDB(12,false);
+				buyTCSetDB(12, false);
 				gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 1));
 				boughtTC12 = true;
 				buyTC12();
 				return true;
 
 			}
-			
-
 
 		}
 		gui.handleGoBackToGame();
 
 		return false;
 	}
+
 	public void buyTC1(CardScreen cardscreen) {
 		if (gameController.getAmountFT() != 0) {
 			buyToolcard(cardscreen);
-			if(buyToolcard(cardscreen)) {
+			if (buyToolcard(cardscreen)) {
 				cardScreen.BoughtTC1();
 			}
 		}
-
 
 	}
 
@@ -559,7 +544,12 @@ public class CardController extends Scene {
 	}
 
 	private void buyTC5() {
-		System.out.println("test");
+		if (!cardModel.getGameModel().isRoundTrackEmpty()
+				&& cardModel.getGameModel().getPlayer(0).selectCurrentPlayer()) {
+			windowController.selectDiceOnWindow();
+			gui.handleGoBackToGame();
+		}
+
 	}
 
 	private void buyTC6() {
@@ -568,11 +558,16 @@ public class CardController extends Scene {
 	}
 
 	private void buyTC7() {
-
+		if (cardModel.getGameModel().isSecondTurn()) {
+			cardModel.getGameModel().throwAgainWithSameDicesOnTable();
+		}
 	}
 
 	private void buyTC8() {
-
+		if (!cardModel.getGameModel().isSecondTurn() && cardModel.getGameModel().getPlayer(0).selectCurrentPlayer()) {
+			windowController.setExtraTurnTrue();
+		}
+		// you cant go to homescreen
 	}
 
 	private void buyTC9() {
@@ -588,7 +583,11 @@ public class CardController extends Scene {
 	}
 
 	private void buyTC12() {
-		
+		if (cardModel.getGameModel().getPlayer(0).selectCurrentPlayer()) {
+			windowController.setExtraTurnSameColorRoundtrackTrue();
+			windowController.setCanOnlyMoveDiceWithSameColorAsDIceOnRoundTrackTrue();
+			windowController.setDiceCanBeMovedTrue();
+		}
 	}
 
 	private void generateToolcards() {
@@ -774,7 +773,6 @@ public class CardController extends Scene {
 			pubOBJ2 = generateRandNR(10);
 		}
 
-		
 		switch (pubOBJ1) {
 		case 1:
 			cardScreen.setPUBOBJCard1(objectiveCard1);
@@ -892,5 +890,10 @@ public class CardController extends Scene {
 
 		}
 	}
+	
+	//check with every button click if cardModel.getGameModel().getPlayer(0).selectCurrentPlayer(), main player is currentplayer
+	//favortokens not always -1 or -2 when clicked, only when main player is qurrentplayer and when other if statements in methods are true
+	//fix that when card has been bought you cant go to home screen, you can back to home screen when you click ronde beëindigen.
+	//with some cards you can cant go back untill there is a new round, for example the card where you can do two turns in one.
 
 }

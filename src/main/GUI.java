@@ -51,7 +51,7 @@ public class GUI extends Application {
 		
 //	  SetupScreenController SetupController = new SetupScreenController(stage, databaseController);
 //	  EndScreenController EndController = new EndScreenController(stage, databaseController);
-		 roundController = new RoundScreenController(stage, databaseController, this);
+		roundController = new RoundScreenController(stage, databaseController, this, windowController);
 		
 		scene = new Scene(gameController.getChooseScreen());
 

@@ -79,6 +79,18 @@ public class WindowPatternScreen extends GridPane{
 			else if(newValue == Color.RED) {
 				setStyle("-fx-background-color: linear-gradient(to bottom, red 0%,#cccccc 100%);-fx-background-radius: 20 20 20 20;");
 			}
+			else if(newValue == Color.BLUE) {
+				setStyle("-fx-background-color: linear-gradient(to bottom, blue 0%,#cccccc 100%);-fx-background-radius: 20 20 20 20;");
+			}
+			else if(newValue == Color.GREEN) {
+				setStyle("-fx-background-color: linear-gradient(to bottom, green 0%,#cccccc 100%);-fx-background-radius: 20 20 20 20;");
+			}
+			else if(newValue == Color.YELLOW) {
+				setStyle("-fx-background-color: linear-gradient(to bottom, yellow 0%,#cccccc 100%);-fx-background-radius: 20 20 20 20;");
+			}
+			else if(newValue == Color.PINK) {
+				setStyle("-fx-background-color: linear-gradient(to bottom, red 20%, orange 40%,yellow 60%,lightgreen 80%, aqua 100%);-fx-background-radius: 20 20 20 20;");
+			}
 				
 		}
 	}

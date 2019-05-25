@@ -101,7 +101,7 @@ public class RoundScreen extends GridPane {
 	}
 	
 
-	private class CustomStackPane extends StackPane{
+	public class CustomStackPane extends StackPane{
 		 private CustomStackPane() {
 			 int size = 60;
 			 setBackground(new Background(new BackgroundFill(Color.WHITE, null, null)));
