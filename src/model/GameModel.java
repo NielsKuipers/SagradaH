@@ -36,4 +36,14 @@ public class GameModel {
 		gameQueries.removeDice(diceID, colorText);
 		
 	}
+	
+	public int getRoundTrackOfDice(int diceID, String colorText) {
+		ArrayList<ArrayList<Object>> result = gameQueries.getRoundTrackOfDice(diceID, colorText);
+		int round = Integer.valueOf(String.valueOf(result.get(0).get(0)));
+		return round;
+	}
+	
+	public void addDiceToRoundTrack(int diceID, String colorText, int round) {
+		gameQueries.addDiceToRoundTrack(diceID, colorText, round);
+	}
 }

@@ -67,6 +67,10 @@ public class DatabaseController {
     WindowPatternQuerie getWindowPatternQuerie() {
     	return windowPatternQuerie;
     }
+    
+    public CardQueries getCardQuery() {
+    	return CQ;
+    }
 
     public UserListQueries getUserListQueries() {
         return userListQueries;

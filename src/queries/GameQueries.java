@@ -9,7 +9,7 @@ public class GameQueries {
 
 	public GameQueries(StandardQueries standardQuerie) {
 		this.standardQuerie = standardQuerie;
-		gameID=2;
+		gameID=1;
 	}
 	
 	
@@ -39,8 +39,14 @@ public class GameQueries {
 	
 	// zet dobbelstenen roundtrack waarde op null
 	public void removeDice(int diceID, String colorText) {
-		int gameid =2;
-		standardQuerie.updateQuery("UPDATE gamedie SET roundtrack=?", ""+null+"", " WHERE idgame=? AND dienumber=? AND diecolor=?", ""+gameid+"\0"+diceID+"\0"+colorText+"");
-		
+		standardQuerie.updateQuery("UPDATE gamedie SET roundtrack=?", ""+null+"", " WHERE idgame=? AND dienumber=? AND diecolor=?", ""+gameID+"\0"+diceID+"\0"+colorText+"");
+	}
+	
+	public void addDiceToRoundTrack(int diceID, String colorText, int round) {
+		standardQuerie.updateQuery("UPDATE gamedie SET roundtrack=?", ""+round+"", " WHERE idgame=? AND dienumber=? AND diecolor=?", ""+gameID+"\0"+diceID+"\0"+colorText+"");
+	}
+	
+	public ArrayList<ArrayList<Object>> getRoundTrackOfDice(int diceID, String colorText) {
+		return standardQuerie.selectQuery("SELECT roundtrack FROM gamedie", " WHERE idgame=? AND dienumber=? AND diecolor=?",""+gameID+"\0"+diceID+"\0"+colorText+"");
 	}
 }
