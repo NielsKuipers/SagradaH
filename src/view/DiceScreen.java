@@ -23,6 +23,8 @@ public class DiceScreen extends StackPane {
 
 	private Dice diceModel;
 	private int diceCircleSize;
+	private int idRoundTrack;
+	private Color colorRoundTrack;
 
 	DiceScreen(Dice diceModel) {
 
@@ -49,14 +51,9 @@ public class DiceScreen extends StackPane {
 		setMargin(this, new Insets(10));
 		diceCircleSize = 3;
 		checkNumber(number);
+		this.idRoundTrack = diceID;
+		this.colorRoundTrack = color;
 		
-		if(controller.getRoundScreenToolcardActive()) {
-			
-			setOnMouseClicked(e -> {
-				controller.removeDice(diceID, color);
-				controller.refreshDice();
-			});
-		}
 	}
 	
 	
@@ -172,7 +169,7 @@ public class DiceScreen extends StackPane {
 
 
 
-	void makeBorderWhite() {
+	public void makeBorderWhite() {
 
 		setBorder(new Border(new BorderStroke(Color.WHITE, BorderStrokeStyle.SOLID, null, new BorderWidths(3))));
 	}
@@ -190,6 +187,14 @@ public class DiceScreen extends StackPane {
 			
 			checkNumber((int) newValue);
 		}
+	}
+	
+	public int getIdRoundTrack() {
+		return idRoundTrack;
+	}
+	
+	public Color getColorRoundTrack() {
+		return colorRoundTrack;
 	}
 
 }
