@@ -21,7 +21,18 @@ public class ScoreQueries {
 	public ArrayList<ArrayList<Object>> getPlayerDiceColors(int playerID) {
 		return standardQueries.selectQuery("SELECT diecolor FROM playerframefield", " WHERE idgame=? AND player_idplayer=? AND diecolor!=?", ""+gameID+"\0"+playerID+"\0"+null+"");
 	}
-	
-	
-	
+
+	public ArrayList<ArrayList<Object>> getPlayerDiceColorsPos(int playerID) {
+		return standardQueries.selectQuery("SELECT position_x, position_y, diecolor FROM playerframefield", " WHERE idgame=? AND player_idplayer=? AND diecolor!=?", ""+gameID+"\0"+playerID+"\0"+null+"");
+	}
+
+	public ArrayList<ArrayList<Object>> getPlayerDiceEyesPos(int playerID) {
+		System.out.println(standardQueries.selectQuery("SELECT p.position_x, p.position_y, g.eyes FROM gamedie g" +
+						" INNER JOIN playerframefield p on g.idgame = p.idgame and g.dienumber = p.dienumber and g.diecolor = p.diecolor",
+				" WHERE p.idgame=? AND p.player_idplayer=? AND p.diecolor IS NOT NULL", ""+gameID+"\0"+playerID));
+
+		return standardQueries.selectQuery("SELECT p.position_x, p.position_y, g.eyes FROM gamedie g" +
+				" INNER JOIN playerframefield p on g.idgame = p.idgame and g.dienumber = p.dienumber and g.diecolor = p.diecolor",
+				" WHERE p.idgame=? AND p.player_idplayer=? AND p.diecolor IS NOT NULL ORDER BY p.position_x ASC", ""+gameID+"\0"+playerID);
+	}
 }

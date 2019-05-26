@@ -1,8 +1,9 @@
 package controller;
 
-import java.util.ArrayList;
-
 import model.CalculateScoreModel;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class CalculateScore {
 	private CalculateScoreModel scoreModel;
@@ -13,16 +14,15 @@ public class CalculateScore {
 	
 	// kiest correcte public objectivecard id en returnt punten;
 	public int getpoints(int playerID, int publicCardID) {
-		
 		switch(publicCardID) {
 		case 1:
 			return calculatePublic1(playerID);
 		case 2:
 			return calculatePublic2(playerID, 3, 4);
 		case 3:
-			return 0;
+			return calculatePublic3(playerID);
 		case 4:
-			return 0;
+			return calculatePublic4(playerID);
 		case 5:
 			return calculatePublic2(playerID, 5, 6);
 		case 6:
@@ -41,7 +41,7 @@ public class CalculateScore {
 
 	// sets van een van elke waarde, Tintvarieteit
 	private int calculatePublic1(int playerID) {
-		int score = 0;
+		int score;
 		int cardpoints = 5;
 		int[] counter = new int[6];
 		ArrayList<ArrayList<Object>> result = scoreModel.getPlayerDiceNumbers(playerID);
@@ -56,7 +56,7 @@ public class CalculateScore {
 
 	// sets van van 2 waarden
 	private int calculatePublic2(int playerID, int value1, int value2) {
-		int score = 0;
+		int score;
 		int cardpoints = 2;
 		int[] counter = new int[2];
 		ArrayList<ArrayList<Object>> result = scoreModel.getPlayerDiceNumbers(playerID);
@@ -72,7 +72,15 @@ public class CalculateScore {
 		score = getMinValue(counter) * cardpoints;
 		return score;
 	}
-	
+
+	private int calculatePublic3(int playerID){
+		return calculateRow(playerID, scoreModel.getPlayerDiceColorsPos(playerID), 'y' , 5);
+	}
+
+	private int calculatePublic4(int playerID){
+		return calculateRow(playerID, scoreModel.getPlayerDiceEyesPos(playerID), 'y' , 4);
+	}
+
 	// sets van een van elke kleur, Kleurvarieteit
 	private int calculatePublic6(int playerID) {
 		int score = 0;
@@ -96,6 +104,37 @@ public class CalculateScore {
 		}
 
 		score = getMinValue(counter) * cardpoints;
+		return score;
+	}
+
+	private int calculateRow(int playerID, ArrayList<ArrayList<Object>> die, char dir, int scoreAdd){
+		ArrayList<Object> rowDie = new ArrayList<>();
+		int score = 0;
+		int i = 1;
+		int x = 0;
+		int j = 4;
+
+		if(dir == 'x'){
+			j = 5;
+		}
+
+		for(ArrayList<Object> dice : die ){
+			if((int) dice.get(0) == i && !rowDie.contains(dice.get(2))){
+				rowDie.add(dice.get(2));
+				x++;
+				if(x == j){
+					score += scoreAdd;
+					x = 0;
+					rowDie.clear();
+					i++;
+				}
+			}
+			else{
+				rowDie.clear();
+				x = 0;
+				i++;
+			}
+		}
 		return score;
 	}
 
