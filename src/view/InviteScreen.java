@@ -80,7 +80,6 @@ public class InviteScreen extends BorderPane{
 			setText("Invite");
 			setOnAction(e -> {
 				controller.invitePlayer(username);
-				setDisable(true);
 			});
 			
 		}

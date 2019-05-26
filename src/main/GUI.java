@@ -22,6 +22,7 @@ public class GUI extends Application {
 	private UserListController userListController;
 	private RoundScreenController roundController;
 	private CardController cardController;
+	private CalculateScore calcScore;
 
 
 	void startup(String[] args) {
@@ -47,9 +48,10 @@ public class GUI extends Application {
 		
 		cardController = new CardController(windowController, diceController, gameController, databaseController, this);
 
-//	  SetupScreenController SetupController = new SetupScreenController(stage, databaseController);
+		roundController = new RoundScreenController(stage, databaseController, this);
+//		SetupScreenController SetupController = new SetupScreenController(stage, databaseController);
 //	  EndScreenController EndController = new EndScreenController(stage, databaseController);
-		roundController = new RoundScreenController(stage, databaseController, this, windowController);
+		calcScore = new CalculateScore(databaseController);
 		
 		scene = new Scene(gameController.getChooseScreen());
 

@@ -18,6 +18,7 @@ public class DatabaseController {
     private UserListQueries userListQueries;
     private InviteHandleQueries inviteHandleQueries;
     private GameQueries gameQueries;
+    private ScoreQueries scoreQueries;
 
     //establish connection with database
     public DatabaseController(){
@@ -34,6 +35,7 @@ public class DatabaseController {
         inviteHandleQueries = new InviteHandleQueries(standardQueries);
         gameQueries = new GameQueries(standardQueries);
         AQ = new AccountQuery(standardQueries);
+        scoreQueries = new ScoreQueries(standardQueries);
     }
   
     public AccountQuery getAccountQuery() {
@@ -74,6 +76,10 @@ public class DatabaseController {
 
     public UserListQueries getUserListQueries() {
         return userListQueries;
+    }
+    
+    public ScoreQueries getScoreQueries() {
+    	return scoreQueries;
     }
 }
 
