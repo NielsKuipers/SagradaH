@@ -47,7 +47,7 @@ public class CalculateScore {
 		ArrayList<ArrayList<Object>> result = scoreModel.getPlayerDiceNumbers(playerID);
 
 		for (ArrayList<Object> objects : result) {
-			counter[(int) objects.get(0)]++;
+			counter[(int) objects.get(0) - 1]++;
 		}
 
 		score = getMinValue(counter) * cardpoints;
@@ -92,14 +92,19 @@ public class CalculateScore {
 			switch((String) objects.get(0)) {
 			case "rood":
 				counter[0]++;
+				break;
 			case "geel":
 				counter[1]++;
+				break;
 			case "paars":
 				counter[2]++;
+				break;
 			case "groen":
 				counter[3]++;
+				break;
 			case "blauw":
 				counter[4]++;
+				break;
 			}
 		}
 

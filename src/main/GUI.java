@@ -48,12 +48,13 @@ public class GUI extends Application {
 		calcScore = new CalculateScore(databaseController);
 		
 		// scoretests
-		System.out.println("public card 1: " + calcScore.getpoints(1, 1));
-		System.out.println("public card 2: " + calcScore.getpoints(1, 2));
+		System.out.println("public card 1: " + calcScore.getpoints(3, 1));
+		System.out.println("public card 2: " + calcScore.getpoints(3, 2));
 		System.out.println("public card 4: " + calcScore.getpoints(3, 4));
-		System.out.println("public card 5: " + calcScore.getpoints(1, 5));
-		System.out.println("public card 9: " + calcScore.getpoints(1, 9));
-		System.out.println("public card 6: " + calcScore.getpoints(1, 6));
+		System.out.println("public card 5: " + calcScore.getpoints(3, 5));
+		System.out.println("public card 6: " + calcScore.getpoints(3, 6));
+		System.out.println("public card 9: " + calcScore.getpoints(3, 9));
+		
 		
 		scene = new Scene(gameController.getChooseScreen());
 		stage.setScene(scene);
