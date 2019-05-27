@@ -54,6 +54,10 @@ public class GUI extends Application {
 		System.out.println("public card 5: " + calcScore.getpoints(3, 5));
 		System.out.println("public card 6: " + calcScore.getpoints(3, 6));
 		System.out.println("public card 9: " + calcScore.getpoints(3, 9));
+		System.out.println("favor tokens: " + calcScore.calculateFavorTokens(3));
+		System.out.println("empty fields: " + calcScore.calculateEmptyFields(3));
+		calcScore.calculatePrivatePoints(3);
+		
 		
 		
 		scene = new Scene(gameController.getChooseScreen());
