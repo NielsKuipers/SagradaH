@@ -14,12 +14,34 @@ public class ScoreQueries {
 	
 	// returnt alle dobbelsteen waarden voor 1 speler
 	public ArrayList<ArrayList<Object>> getPlayerDiceNumbers(int playerID) {
-		return standardQueries.selectQuery("SELECT dienumber FROM playerframefield", " WHERE idgame=? AND player_idplayer=? AND dienumber!=?", ""+gameID+"\0"+playerID+"\0"+null+"");
+		return standardQueries.selectQuery("SELECT eyes FROM gamedie g" + 
+				" INNER JOIN playerframefield p ON g.idgame = p.idgame AND g.dienumber = p.dienumber AND g.diecolor = p.diecolor",
+				" WHERE g.idgame=? AND player_idplayer=?", ""+gameID+"\0"+playerID+"");
 	}
 	
 	// returnt alle dobbelsteen kleuren voor 1 speler
 	public ArrayList<ArrayList<Object>> getPlayerDiceColors(int playerID) {
-		return standardQueries.selectQuery("SELECT diecolor FROM playerframefield", " WHERE idgame=? AND player_idplayer=? AND diecolor!=?", ""+gameID+"\0"+playerID+"\0"+null+"");
+		return standardQueries.selectQuery("SELECT g.diecolor FROM gamedie g" + 
+				" INNER JOIN playerframefield p ON g.idgame = p.idgame AND g.dienumber = p.dienumber AND g.diecolor = p.diecolor", 
+				" WHERE g.idgame=? AND player_idplayer=?", ""+gameID+"\0"+playerID+"");
+	}
+	
+	// returnt dobbelstenen waarden+kleuren voor 1 speler EN return private objectivekaartkleur
+	public ArrayList<ArrayList<Object>> getAllColorsEyes(int playerID) {
+		return standardQueries.selectQuery("SELECT g.eyes, g.diecolor, pr.private_objectivecard_color FROM gamedie g" + 
+				" INNER JOIN playerframefield pl ON g.idgame = pl.idgame AND g.dienumber = pl.dienumber AND g.diecolor = pl.diecolor" + 
+				" INNER JOIN player pr ON pl.player_idplayer = pr.idplayer",
+				" WHERE g.idgame=? AND pl.player_idplayer=?", ""+gameID+"\0"+playerID+"");
+	}
+	
+	// returnt aantal favortokens voor 1 speler
+	public ArrayList<ArrayList<Object>> getPlayerFavortokens(int playerID) {
+		return standardQueries.selectQuery("SELECT COUNT(idfavortoken) FROM gamefavortoken", " WHERE idgame=? AND idplayer=?", ""+gameID+"\0"+playerID+"");
+	}
+	
+	// return openstaande velden op patroonkaart voor 1 speler
+	public ArrayList<ArrayList<Object>> getEmptyFields(int playerID) {
+		return standardQueries.selectQuery("SELECT COUNT(player_idplayer) FROM playerframefield", " WHERE idgame=? AND player_idplayer=? AND dienumber is null", ""+gameID+"\0"+playerID+"");
 	}
 
 	public ArrayList<ArrayList<Object>> getPlayerDiceColorsPos(int playerID) {

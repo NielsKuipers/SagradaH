@@ -11,10 +11,10 @@ public class CalculateScore {
 	public CalculateScore(DatabaseController dataC) {
 		scoreModel = new CalculateScoreModel(dataC.getScoreQueries());
 	}
-	
+
 	// kiest correcte public objectivecard id en returnt punten;
 	public int getpoints(int playerID, int publicCardID) {
-		switch(publicCardID) {
+		switch (publicCardID) {
 		case 1:
 			return calculatePublic1(playerID);
 		case 2:
@@ -35,8 +35,39 @@ public class CalculateScore {
 			return calculatePublic2(playerID, 1, 2);
 		case 10:
 			return 0;
-		default: return 0;
+		default:
+			return 0;
 		}
+	}
+
+	// berekent private objective kaart punten
+	public int calculatePrivatePoints(int playerID) {
+		ArrayList<ArrayList<Object>> result = scoreModel.getAllColorsEyes(playerID);
+		int score = 0;
+
+		try {
+			String privateColor = (String) result.get(0).get(2);
+
+			for (ArrayList<Object> objects : result) {
+				if (objects.get(1).equals(privateColor)) {
+					score += (int) objects.get(0);
+				}
+			}
+		} catch (Exception e) {
+			System.out.println("no points");
+		}
+		System.out.println(score);
+		return score;
+	}
+	
+	// return aantal favortokens van speler
+	public int calculateFavorTokens(int playerID) {
+		return (int) (long) scoreModel.getPlayerFavortokens(playerID).get(0).get(0);
+	}
+	
+	// return aantal leegstaande velden
+	public int calculateEmptyFields(int playerID) {
+		return (int) (long) scoreModel.getEmptyFields(playerID).get(0).get(0);
 	}
 
 	// sets van een van elke waarde, Tintvarieteit
@@ -47,7 +78,7 @@ public class CalculateScore {
 		ArrayList<ArrayList<Object>> result = scoreModel.getPlayerDiceNumbers(playerID);
 
 		for (ArrayList<Object> objects : result) {
-			counter[(int) objects.get(0)]++;
+			counter[(int) objects.get(0) - 1]++;
 		}
 
 		score = getMinValue(counter) * cardpoints;
@@ -73,12 +104,12 @@ public class CalculateScore {
 		return score;
 	}
 
-	private int calculatePublic3(int playerID){
-		return calculateRow(playerID, scoreModel.getPlayerDiceColorsPos(playerID), 'y' , 5);
+	private int calculatePublic3(int playerID) {
+		return calculateRow(playerID, scoreModel.getPlayerDiceColorsPos(playerID), 'y', 5);
 	}
 
-	private int calculatePublic4(int playerID){
-		return calculateRow(playerID, scoreModel.getPlayerDiceEyesPos(playerID), 'y' , 4);
+	private int calculatePublic4(int playerID) {
+		return calculateRow(playerID, scoreModel.getPlayerDiceEyesPos(playerID), 'y', 4);
 	}
 
 	// sets van een van elke kleur, Kleurvarieteit
@@ -89,17 +120,22 @@ public class CalculateScore {
 		ArrayList<ArrayList<Object>> result = scoreModel.getPlayerDiceColors(playerID);
 
 		for (ArrayList<Object> objects : result) {
-			switch((String) objects.get(0)) {
+			switch ((String) objects.get(0)) {
 			case "rood":
 				counter[0]++;
+				break;
 			case "geel":
 				counter[1]++;
+				break;
 			case "paars":
 				counter[2]++;
+				break;
 			case "groen":
 				counter[3]++;
+				break;
 			case "blauw":
 				counter[4]++;
+				break;
 			}
 		}
 
@@ -107,14 +143,14 @@ public class CalculateScore {
 		return score;
 	}
 
-	private int calculateRow(int playerID, ArrayList<ArrayList<Object>> die, char dir, int scoreAdd){
+	private int calculateRow(int playerID, ArrayList<ArrayList<Object>> die, char dir, int scoreAdd) {
 		ArrayList<Object> rowDie = new ArrayList<>();
 		int score = 0;
 		int i = 1;
 		int x = 0;
 		int j = 4;
 
-		if(dir == 'x'){
+		if (dir == 'x') {
 			j = 5;
 		}
 
@@ -123,14 +159,13 @@ public class CalculateScore {
 				System.out.println(dice.get(0) + " - " + dice.get(2));
 				rowDie.add(dice.get(2));
 				x++;
-				if(x == j){
+				if (x == j) {
 					score += scoreAdd;
 					x = 0;
 					rowDie.clear();
 					i++;
 				}
-			}
-			else{
+			} else {
 				rowDie.clear();
 				x = 0;
 				i++;
