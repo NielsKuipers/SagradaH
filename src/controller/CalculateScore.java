@@ -28,13 +28,13 @@ public class CalculateScore {
 		case 6:
 			return calculatePublic6(playerID);
 		case 7:
-			return 0;
+			return calculatePublic7(playerID);
 		case 8:
 			return 0;
 		case 9:
 			return calculatePublic2(playerID, 1, 2);
 		case 10:
-			return 0;
+			return calculatePublic10(playerID);
 		default:
 			return 0;
 		}
@@ -105,11 +105,11 @@ public class CalculateScore {
 	}
 
 	private int calculatePublic3(int playerID) {
-		return calculateRow(playerID, scoreModel.getPlayerDiceColorsPos(playerID), 'y', 5);
+		return calculateRow(scoreModel.getPlayerDiceColorsPos(playerID), 'y', 5);
 	}
 
 	private int calculatePublic4(int playerID) {
-		return calculateRow(playerID, scoreModel.getPlayerDiceEyesPos(playerID), 'y', 4);
+		return calculateRow(scoreModel.getPlayerDiceEyesPos(playerID), 'y', 4);
 	}
 
 	// sets van een van elke kleur, Kleurvarieteit
@@ -143,11 +143,18 @@ public class CalculateScore {
 		return score;
 	}
 
-	private int calculateRow(int playerID, ArrayList<ArrayList<Object>> die, char dir, int scoreAdd) {
+	private int calculatePublic7(int playerID) {
+		return calculateRow(scoreModel.getPlayerDiceColorsPosX(playerID), 'x', 6);
+	}
+
+	private int calculatePublic10(int playerID) {
+		return calculateRow(scoreModel.getPlayerDiceEyesPosX(playerID), 'x', 5);
+	}
+
+	private int calculateRow(ArrayList<ArrayList<Object>> die, char dir, int scoreAdd) {
 		ArrayList<Object> rowDie = new ArrayList<>();
 		int score = 0;
 		int i = 1;
-		int x = 0;
 		int j = 4;
 
 		if (dir == 'x') {
@@ -156,18 +163,16 @@ public class CalculateScore {
 
 		for(ArrayList<Object> dice : die ){
 			if((int) dice.get(0) == i && !rowDie.contains(dice.get(2))){
-				System.out.println(dice.get(0) + " - " + dice.get(2));
 				rowDie.add(dice.get(2));
-				x++;
-				if (x == j) {
+				if (rowDie.size() == j) {
 					score += scoreAdd;
-					x = 0;
 					rowDie.clear();
 					i++;
 				}
 			} else {
+				if((int) dice.get(0) == i){ continue; }
 				rowDie.clear();
-				x = 0;
+				rowDie.add(dice.get(2));
 				i++;
 			}
 		}
