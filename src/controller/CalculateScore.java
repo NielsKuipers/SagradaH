@@ -120,6 +120,7 @@ public class CalculateScore {
 
 		for(ArrayList<Object> dice : die ){
 			if((int) dice.get(0) == i && !rowDie.contains(dice.get(2))){
+				System.out.println(dice.get(0) + " - " + dice.get(2));
 				rowDie.add(dice.get(2));
 				x++;
 				if(x == j){
