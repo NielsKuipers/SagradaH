@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class DatabaseModel {
     //set database login details
-    private static final String USER = "ggrpgest";
+    private static final String USER = "lrooij3";
     private static final String PASS = "Ab12345";
     private static final String DB_URL = "jdbc:mysql://databases.aii.avans.nl:3306/nprjkuip_db2";
 

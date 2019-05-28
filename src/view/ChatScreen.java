@@ -58,7 +58,7 @@ public class ChatScreen extends BorderPane {
         }
     }
 
-    //create new stringbuilding for handling result of query, put result into chat, reset string
+    //create new stringbuilder for handling result of query, put result into chat, reset string
     public void displayMessages(ArrayList<ArrayList<Object>> messages){
         StringBuilder message = new StringBuilder();
         for(ArrayList<Object> msg : messages){

@@ -26,7 +26,7 @@ public class GameQuery {
 	
 	public ArrayList<ArrayList<Object>> getRound(int idGame) {
 		return standardQueries.selectQuery("SELECT roundtrack FROM gamedie",
-				" WHERE idgame=? ORDER BY roundtrack DESC", "" + idGame + "");
+				" WHERE idgame=? AND roundtrack IS NOT NULL ORDER BY roundtrack DESC", "" + idGame + "");
 	}
 	
 	public ArrayList<ArrayList<Object>> getAllDicesFromAllPlayers(int idGame) {
@@ -36,7 +36,7 @@ public class GameQuery {
 	
 	public ArrayList<ArrayList<Object>> getAllDicesFromOneRound(int idGame, int round) {
 		return standardQueries.selectQuery("SELECT dienumber, diecolor FROM gamedie",
-				" WHERE idgame=? AND round=?", idGame + "\0" + round);
+				" WHERE idgame=? AND round=? AND roundtrack IS NULL", idGame + "\0" + round);
 	}
 	
 	public ArrayList<ArrayList<Object>> getEyeOfDice(int idGame, int dieNumber, String dieColor) {
@@ -89,6 +89,11 @@ public class GameQuery {
 	public ArrayList<ArrayList<Object>> checkIfThereIsADiceOnRoundtrack10(int idGame) {
 		return standardQueries.selectQuery("SELECT dienumber FROM gamedie",
 				" WHERE idgame=? AND roundtrack=?",idGame + "\0" + "10");
+	}
+	
+	public ArrayList<ArrayList<Object>> getAllTheDifferntColorsFromTheRoundTrack(int idGame) {
+		return standardQueries.selectQuery("SELECT DISTINCT diecolor FROM gamedie",
+				" WHERE idgame=? AND roundtrack IS NOT NULL","" + idGame + "");
 	}
 	
 	
