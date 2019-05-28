@@ -30,6 +30,11 @@ public class Game {
 		this.diceOnTableModel = diceOnTableModel;
 		this.windowController = windowController;
 		gameRound = new SimpleStringProperty(this, "round", "empty");
+		
+	}
+	
+	public void showID() {
+		
 	}
 
 	private void setRound(String round) {
@@ -49,6 +54,9 @@ public class Game {
 	}
 	public int getGameID() {
 		return gameId;
+	}
+	public int getAmountOffplayers() {
+		return players.size();
 	}
 
 	// give all the players the right id

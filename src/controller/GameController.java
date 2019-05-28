@@ -106,6 +106,7 @@ public class GameController extends Scene {
 		//gameModel.giveAllThePlayersTheirFavorTokens(); give all the players their favortokens
 		
 	}
+	
 
 	public void handleCheatGame(boolean allPossible, boolean bestChoice) {
 		WC.setCheatAllPossible(allPossible);

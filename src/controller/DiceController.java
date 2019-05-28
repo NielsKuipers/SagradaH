@@ -53,7 +53,7 @@ public class DiceController {
 				DiceScreen result = (DiceScreen) node;
 				result.setGlowBorder();
 				result.setOnMouseClicked(e -> selectDice(result, nummer));
-
+					
 			}
 
 		}

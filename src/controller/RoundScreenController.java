@@ -24,6 +24,7 @@ public class RoundScreenController {
 		
 		addDice();
 		createTimer();
+		
 	}
 	
 	// aan de hand van rondenummers worden alle dobbelstenen op het rondebord opgevraagd uit de database, en in de view gezet.
@@ -52,6 +53,8 @@ public class RoundScreenController {
 		gameModel.removeDice(diceID, colorText);
 		
 	}
+	
+
 
 	
 	// vertaald hexadecimale kleur naar nederlandse woorden
