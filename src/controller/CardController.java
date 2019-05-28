@@ -974,7 +974,7 @@ public class CardController extends Scene {
 	private void buyTC7() {
 		gui.handleGoBackToGame();
 
-	}
+	} 
 
 	private void buyTC8() {
 		gui.handleGoBackToGame();

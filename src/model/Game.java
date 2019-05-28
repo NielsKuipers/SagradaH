@@ -44,6 +44,9 @@ public class Game {
 	public final StringProperty gameRoundProperty() {
 		return gameRound;
 	}
+	public int getRound() {
+		return (int) gameQuery.getRound(gameId).get(0).get(0);
+	}
 
 	public void addPlayer(Player player) {
 		players.add(player);
