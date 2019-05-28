@@ -37,15 +37,15 @@ public class CardQueries {
 	}
 	
 
-	public void BuyTC(int tc, int FT, int GameID, int playerID,int round) {
-			standardQuerie.updateQuery("update gamefavortoken Set gametoolcard=?, round=?", "" + tc + "\0" + round + "",
+	public void BuyTC(int tc, int FT, int GameID, int playerID,int round,int inFirstTurn) {
+			standardQuerie.updateQuery("update gamefavortoken Set gametoolcard=?, round=?, inFirstTurn=?", "" + tc + "\0" + round +"\0"+inFirstTurn+ "",
 				" where idfavortoken=?  and idgame=? and idplayer=?", "" + FT + "\0" + GameID + "\0" + playerID + "");
 
 	}
 
-	public void BuyTCPrice2(int tc, int FT, int FT2, int GameID, int playerID,int round) {
+	public void BuyTCPrice2(int tc, int FT, int FT2, int GameID, int playerID,int round,int inFirstTurn) {
 
-		standardQuerie.updateQuery("update gamefavortoken Set gametoolcard=?, round=?", "" + tc + "\0" + round + "",
+		standardQuerie.updateQuery("update gamefavortoken Set gametoolcard=?, round=?", "" + tc + "\0" + round +"\0"+inFirstTurn+ "",
 				" where idfavortoken=? or idfavortoken=?  and idgame=? and idplayer=?",
 				"" + FT + "\0" + FT2 + "\0" + GameID + "\0" + playerID + "");
 

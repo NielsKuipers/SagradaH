@@ -30,16 +30,23 @@ public class Card {
     }
 
     public void BuyTC(int tc) {
-        
-        cardQuerie.BuyTC(tc,(int)cardQuerie.CheckIDFT(1, gameModel.getGameID()).get(0).get(0), gameModel.getGameID(), 1,gameModel.getRound());
+    	int infirstTurn=0;
+        if(gameModel.isSecondTurn()) {
+        	infirstTurn = 1;
+        }
+       
+        cardQuerie.BuyTC(tc,(int)cardQuerie.CheckIDFT(1, gameModel.getGameID()).get(0).get(0), gameModel.getGameID(), 1,gameModel.getRound(),infirstTurn);
         
         
     }
 
     public void BuyTCPric2(int tc) {
-    
+    	int infirstTurn=0;
+        if(gameModel.isSecondTurn()) {
+        	infirstTurn = 1;
+        }
         
-        cardQuerie.BuyTCPrice2(tc,(int)cardQuerie.CheckIDFT(1, gameModel.getGameID()).get(0).get(0),(int)cardQuerie.CheckIDFT(1, gameModel.getGameID()).get(1).get(0), gameModel.getGameID(),1,gameModel.getRound());
+        cardQuerie.BuyTCPrice2(tc,(int)cardQuerie.CheckIDFT(1, gameModel.getGameID()).get(0).get(0),(int)cardQuerie.CheckIDFT(1, gameModel.getGameID()).get(1).get(0), gameModel.getGameID(),1,gameModel.getRound(),infirstTurn);
         
     }
 public void setToolcards(int TC1,int TC2,int TC3) {
