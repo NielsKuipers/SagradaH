@@ -1,6 +1,6 @@
 package controller;
 
-import model.GameModel;
+import model.Game;
 import timer.AnimationTimerEXT;
 import view.DiceScreen;
 import view.FieldScreen;
@@ -18,14 +18,14 @@ import main.GUI;
 public class RoundScreenController {
 
 	private RoundScreen roundScreen;
-	private GameModel gameModel;
+	private Game gameModel;
 	private WindowController windowController;
 
 	public RoundScreenController(Stage stage, DatabaseController dataController, GUI gui,
-			WindowController windowController) {
+			WindowController windowController, GameController gameController) {
 		this.windowController = windowController;
 		roundScreen = new RoundScreen(this, gui);
-		gameModel = new GameModel(dataController.getGameQueries());
+		gameModel = gameController.getGameModel();
 		windowController.setRoundController(this);
 		// stage.setScene(new Scene(roundScreen));
 

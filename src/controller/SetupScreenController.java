@@ -16,21 +16,26 @@ public class SetupScreenController {
 	private CommunicationModel cModel;
 	private InviteScreen inviteScreen;
 	private InviteGetScreen inviteGetScreen;
-	//private Scene scene;
 	private GUI gui;
+	private boolean randomPatterns = false;
+	private GameController gameController;
 	
-	public SetupScreenController(GUI gui, DatabaseController dataController) {
-		cModel = new CommunicationModel(dataController.getInviteQueries());
-		inviteScreen = new InviteScreen(this);
-		setupScreen = new SetupScreen(this);
-		inviteGetScreen = new InviteGetScreen(this);
+	public SetupScreenController(DatabaseController dataController, GUI gui, GameController gameController) {
 		this.gui = gui;
-//		scene = new Scene(setupScreen);
-//		heb deze er even uitgehaald om de knop goed te kunnnen maken. -Michelle
-//		stage.setScene(scene);
-
-	} // deze moet er uit.
+		this.gameController = gameController;
+		cModel = new CommunicationModel(dataController.getInviteQueries());
+		inviteScreen = new InviteScreen(this, gui);
+		setupScreen = new SetupScreen(this, gui);
+	}
 	
+	public SetupScreen getSetupScreen() {
+		return setupScreen;
+	}
+	
+	public InviteScreen getInviteScreen() {
+		return inviteScreen;
+	}
+
 	// spel wordt gestart als alle uitgenodigden geaccepteerd hebben. schakel van setup scherm naar window kies scherm 
 	public void startGame() {
 		if((long) cModel.getInvitedPlayerCount().get(0).get(0) < 2) {
@@ -39,13 +44,18 @@ public class SetupScreenController {
 			setupScreen.declinedInviteWarning();
 		}else if(cModel.checkUnansweredInGame()) {
 			setupScreen.unAnsweredInviteWarning();
-		}else {
-			//scene.setRoot(new Pane());
+
+		}else{
+			gameController.getGameModel().setGameID(cModel.getGameID());
+			gameController.getGameModel().createAllPlayerFrameFields(cModel.getGameID(), randomPatterns);
+			gameController.getGameModel().selectwindowOptions();
+			gui.handleChooseScreen();
 		}
 	}
 
 	// bepaalt random/standaard patterns
 	public void setRandomWindow(boolean random) {
+		randomPatterns = random;
 		openInviteGetScreen();
 	}
 
@@ -115,7 +125,7 @@ public class SetupScreenController {
 //////////////////////// inviteGetScreen ///////////////////////////////	
 	// schakel van setup scherm naar patternkeuze scherm
 	private void openInviteGetScreen() {
-		inviteGetScreen = new InviteGetScreen(this);
+		inviteGetScreen = new InviteGetScreen(this, gui);
 		addPlayersToInviteGetList();
 //		scene.setRoot(inviteGetScreen);
 		toInviteGetScreen();

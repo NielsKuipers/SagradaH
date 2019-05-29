@@ -82,4 +82,8 @@ public class CommunicationModel {
 		return inviteQueries.checkUnasweredInGame();
 	}
 	
+	public int getGameID() {
+		return (int) inviteQueries.getGameID().get(0).get(0);
+	}
+	
 }
