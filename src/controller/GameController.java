@@ -71,15 +71,16 @@ public class GameController extends Scene {
 
 		WC.setGameController(this);
 		WC.setDiceController(DC);
+		createGame();
 	
-		gameModel.selectwindowOptions();
+		//gameModel.selectwindowOptions();
 	}
 	
 	void setCardController(CardController cc) {
 		this.CardController=cc;
 	}
 	
-	public void createGame(WindowPattern windowModel) {
+	public void createGame() {
 
 		gameScreen.add(gameInfo, 0, 0, 2, 1);
 		gameScreen.add(DC.getDiceOnTableScreen(), 2, 0, 2, 1);
@@ -96,16 +97,16 @@ public class GameController extends Scene {
 		gameScreen.add(WC.getWindow4(), 3, 1);
 
 
-		setAmountFT(WC.getDifficulty());
+		//setAmountFT(WC.getDifficulty());
 
 		GridPane.setMargin(WC.getWindow1(), new Insets(0, 0, 0, 80));
 		GridPane.setMargin(WC.getWindow4(), new Insets(0, 80, 0, 0));
 
-		gameModel.getPlayer(0).updateWindowId(windowModel.getId());
+		//gameModel.getPlayer(0).updateWindowId(windowModel.getId());
 
-		
+	
 		createTimer();
-		//gameModel.giveAllThePlayersTheirFavorTokens(); give all the players their favortokens
+		//gameModel.giveAllThePlayersTheirFavorTokens(); 
 		
 	}
 
@@ -138,8 +139,6 @@ public class GameController extends Scene {
 
 
 
-	        
-
 	public Game getGameModel() {
 		return gameModel;
 	}
@@ -152,6 +151,7 @@ public class GameController extends Scene {
 			@Override
 			public void doAction() {
 				gameModel.selectWholeGame();
+				System.out.println("timer");
 				//has to do with toolcard 8
 				if(WC.skipSecondTurn() && gameModel.isSecondTurn() && gameModel.getPlayer(0).selectCurrentPlayer()) {
 					WC.setSkipSecondTurnFalse();
@@ -186,9 +186,10 @@ public class GameController extends Scene {
 	}
 	
 	public void handleRollDices() {
-		if(!hasThrown && gameModel.checkIfMainPlayerCanThrowDices()) {
-			//gameModel.rollTheDices();
-			hasThrown = true;
+		System.out.println(gameModel.checkIfMainPlayerCanThrowDices());
+		if(gameModel.checkIfMainPlayerCanThrowDices()) {
+			gameModel.rollTheDices();
+			//change if
 		}
 	}
 	

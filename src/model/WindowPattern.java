@@ -179,6 +179,14 @@ public class WindowPattern {
 		return idWindow;
 	}
 	
+	public void makeWindowEmpty() {
+		for (Field field : fields) {
+			field.setColorAndEyes(Color.LIGHTGRAY, 0);
+			field.deleteDice();
+		}
+		difficulty.set("Moeilijkheidsgraad: 0" );
+	}
+	
 	
 }
 

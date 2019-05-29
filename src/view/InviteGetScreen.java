@@ -17,6 +17,7 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import main.GUI;
 
 
 
@@ -24,8 +25,10 @@ public class InviteGetScreen extends BorderPane{
 	
 	private VBox inviteList;
 	private SetupScreenController controller;
+	private GUI gui;
 	
-	public InviteGetScreen(SetupScreenController controller) {
+	public InviteGetScreen(SetupScreenController controller, GUI gui) {
+		this.gui = gui;
 		this.controller = controller;
 		inviteList = new VBox();
 		inviteList.setPrefWidth(600);
@@ -52,7 +55,7 @@ public class InviteGetScreen extends BorderPane{
 		
 		private void addLowerButtons() {
 			Button returnButton = new Button("terug");
-			returnButton.setOnAction(e -> controller.openSetupMenu());
+			returnButton.setOnAction(e -> gui.openSetupMenu());
 			
 			Button refreshButton = new Button("vernieuw");
 			refreshButton.setOnAction(e -> refreshList());
@@ -83,7 +86,6 @@ public class InviteGetScreen extends BorderPane{
 				setBackground(new Background(new BackgroundFill(Color.GREENYELLOW, null, null)));
 				setOnAction(e -> {
 					controller.acceptInvite(gameid);
-					setDisable(true);
 					refreshList();
 				});
 				
@@ -97,7 +99,6 @@ public class InviteGetScreen extends BorderPane{
 				setBackground(new Background(new BackgroundFill(Color.RED, null, null)));
 				setOnAction(e -> {
 					controller.declineInvite(gameid);
-					setDisable(true);
 					refreshList();
 				});
 				

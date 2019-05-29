@@ -23,6 +23,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
+import main.GUI;
 
 public class SetupScreen extends BorderPane {
 	
@@ -46,9 +47,11 @@ public class SetupScreen extends BorderPane {
 	private boolean regularSet = true;
 	private boolean gameMade = false;
 	
+	private GUI gui;
+	
 
-	public SetupScreen(SetupScreenController controller) {
-		
+	public SetupScreen(SetupScreenController controller, GUI gui) {
+		this.gui = gui;
 		this.controller = controller;
 		makeInviteBar();
 		
@@ -98,7 +101,7 @@ public class SetupScreen extends BorderPane {
 		
 		/////////////////inviteBar//////////////////////////
 		inviteButton = new Button("Invite");
-		inviteButton.setOnAction(e -> controller.openInviterMenu());
+		inviteButton.setOnAction(e -> gui.openInviterMenu());
 		inviteButton.setDisable(true);
 		inviteButton.setPrefSize(80, 30);
 		

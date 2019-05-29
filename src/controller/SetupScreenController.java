@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import main.GUI;
 
 public class SetupScreenController {
 	
@@ -17,16 +18,24 @@ public class SetupScreenController {
 	private CommunicationModel cModel;
 	private InviteScreen inviteScreen;
 	private InviteGetScreen inviteGetScreen;
-	private Scene scene;
+	private GUI gui;
+	private boolean randomPatterns = false;
+	private GameController gameController;
 	
-	public SetupScreenController(Stage stage, DatabaseController dataController) {
+	public SetupScreenController(DatabaseController dataController, GUI gui, GameController gameController) {
+		this.gui = gui;
+		this.gameController = gameController;
 		cModel = new CommunicationModel(dataController.getInviteQueries());
-		inviteScreen = new InviteScreen(this);
-		setupScreen = new SetupScreen(this);
-		scene = new Scene(setupScreen);
-		
-		stage.setScene(scene);
-
+		inviteScreen = new InviteScreen(this, gui);
+		setupScreen = new SetupScreen(this, gui);
+	}
+	
+	public SetupScreen getSetupScreen() {
+		return setupScreen;
+	}
+	
+	public InviteScreen getInviteScreen() {
+		return inviteScreen;
 	}
 	
 	// spel wordt gestart als alle uitgenodigden geaccepteerd hebben. schakel van setup scherm naar window kies scherm 
@@ -37,30 +46,17 @@ public class SetupScreenController {
 			setupScreen.declinedInviteWarning();
 		}else if(cModel.checkUnansweredInGame()) {
 			setupScreen.unAnsweredInviteWarning();
-		}else {
-			scene.setRoot(new Pane());
+		}else{
+			gameController.getGameModel().setGameID(cModel.getGameID());
+			gameController.getGameModel().createAllPlayerFrameFields(cModel.getGameID(), randomPatterns);
+			gameController.getGameModel().selectwindowOptions();
+			gui.handleChooseScreen();
 		}
 	}
 
 	// bepaalt random/standaard patterns
 	public void setRandomWindow(boolean random) {
-		openInviteGetScreen();
-	}
-	
-
-	
-	// schakel van setup scherm naar invite scherm
-	public void openInviterMenu() {
-		scene.setRoot(inviteScreen);
-		inviteScreen.clearList();
-		addPlayersToInviteList();
-	}
-	
-	// schakel van invite naar setup scherm
-	public void openSetupMenu() {
-		scene.setRoot(setupScreen);
-		setupScreen.clearJoinedList();
-		addJoinedPlayers();
+		randomPatterns = random;
 	}
 	
 	// voeg spelers to aan de invite lijst
@@ -112,9 +108,9 @@ public class SetupScreenController {
 //////////////////////// inviteGetScreen ///////////////////////////////	
 	// schakel van setup scherm naar patternkeuze scherm
 	private void openInviteGetScreen() {
-		inviteGetScreen = new InviteGetScreen(this);
+		inviteGetScreen = new InviteGetScreen(this, gui);
 		addPlayersToInviteGetList();
-		scene.setRoot(inviteGetScreen);
+		//scene.setRoot(inviteGetScreen);
 	}
 
 	// voegt uitnodigingen en inviternaam toe aan de invite getlist

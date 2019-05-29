@@ -2,7 +2,7 @@ package controller;
 
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import model.GameModel;
+import model.Game;
 import view.EndScreen;
 
 import java.util.ArrayList;
@@ -10,11 +10,11 @@ import java.util.ArrayList;
 public class EndScreenController {
 	
 	private EndScreen endScreen;
-	private GameModel gameModel;
+	private Game gameModel;
 	
-	public EndScreenController(Stage stage, DatabaseController dataController) {
+	public EndScreenController(Stage stage, DatabaseController dataController, GameController gameController) {
 		endScreen = new EndScreen();
-		gameModel = new GameModel(dataController.getGameQueries());
+		gameModel = gameController.getGameModel();
 		gameModel.setPlayerStatusFinished();
 		stage.setScene(new Scene(endScreen));
 		putPlayersOnBoard();

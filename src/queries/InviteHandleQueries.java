@@ -9,7 +9,6 @@ import java.util.Date;
 public class InviteHandleQueries {
 	private StandardQueries standardQuerie;
 	private String currentDate;
-	private int seqNR = 1;
 	private String hostUsername;
 	private String username;
 	private int gameID;
@@ -58,6 +57,7 @@ public class InviteHandleQueries {
 		currentDate = dateFormat.format(date);
 		
 		// nieuwe gameID aanmaken en gameid opslaan
+	//	standardQuerie.selectQuery("START TRANSACTION; INSERT INTO game (creationdate) VALUES (NOW()); SELECT LAST_INSERT_ID();commit;");
 		standardQuerie.updateQuery("INSERT INTO game(creationdate) VALUES(?)",""+currentDate+"");
 		gameID = getGameIDint();
 		
@@ -82,14 +82,17 @@ public class InviteHandleQueries {
 		}
 		
 		// HOST player aanmaken
-		standardQuerie.updateQuery("INSERT INTO player(username, game_idgame, playstatus_playstatus, seqnr, isCurrentPlayer, private_objectivecard_color) VALUES (?,?,?,?,?,?)", ""+hostUsername+"\0"+gameID+"\0uitdager\0"+seqNR+"\0 1\0"+color+"");
-		seqNR++;
+		standardQuerie.updateQuery("INSERT INTO player(username, game_idgame, playstatus_playstatus, seqnr, isCurrentPlayer, private_objectivecard_color) VALUES (?,?,?,?,?,?)", ""+hostUsername+"\0"+gameID+"\0uitdager\0"+1+"\0 1\0"+color+"");
+		
+		int idMainPlayer = (int) standardQuerie.selectQuery("SELECT idplayer FROM player", " WHERE game_idgame=?", ""+gameID+"").get(0).get(0);
+		
+		standardQuerie.updateQuery("UPDATE game SET turn_idplayer=?", ""+idMainPlayer+"", " WHERE idgame=? ", ""+gameID+"");
 	}
 	
 	// invite speler
 	public void invitePlayer(String username, String color) {
-		standardQuerie.updateQuery("INSERT INTO player(username, game_idgame, playstatus_playstatus, seqnr, isCurrentPlayer, private_objectivecard_color) VALUES (?,?,?,?,?,?)", ""+username+"\0"+gameID+"\0uitgedaagde\0"+seqNR+"\0 0\0"+color+"");
-		seqNR++;
+		standardQuerie.updateQuery("INSERT INTO player(username, game_idgame, playstatus_playstatus, seqnr, isCurrentPlayer, private_objectivecard_color) VALUES (?,?,?,?,?,?)", ""+username+"\0"+gameID+"\0uitgedaagde\0"+getSeqnr()+"\0 0\0"+color+"");
+		
 	}
 	
 	// invite accepteren
@@ -122,7 +125,7 @@ public class InviteHandleQueries {
 					return false;
 				}
 			} catch (Exception e) {
-				e.printStackTrace();
+				System.out.println("geen invites gevonden");
 			}
 		}
 		return true;
@@ -136,11 +139,16 @@ public class InviteHandleQueries {
 				return false;
 			}
 		}catch(Exception e) {
-			e.printStackTrace();
+			System.out.println("geen invites gevonden");
 		}
 		return true;
 	}
 		
+	// return next playerseqnr
+	private int getSeqnr() {
+		return (int) standardQuerie.selectQuery("SELECT MAX(seqnr) FROM player", " WHERE game_idgame=?", ""+gameID+"").get(0).get(0) + 1;
+		
+	}
 	
 	// geeft gejoinde spelerlijst
 	public ArrayList<ArrayList<Object>> getJoinedPlayers() {
@@ -148,7 +156,7 @@ public class InviteHandleQueries {
 	}
 	
 	// nieuwe GameID ophalen
-	private ArrayList<ArrayList<Object>> getGameID() {
+	public ArrayList<ArrayList<Object>> getGameID() {
 		return standardQuerie.selectQuery("SELECT idgame FROM game", " WHERE creationdate=?", ""+currentDate+"");
 	}
 	

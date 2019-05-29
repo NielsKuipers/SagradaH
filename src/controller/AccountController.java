@@ -24,9 +24,11 @@ public class AccountController {
 	private String accountname;
 	private GameListScreen gameListScreen;
 	private String gameboolean = "";
+	private GameController gameController;
 	
-	public AccountController(GUI gui, DatabaseController DC, HomePane HP, StartPane SP, GameListScreen GLS) {
+	public AccountController(GUI gui, DatabaseController DC, HomePane HP, StartPane SP, GameListScreen GLS, GameController gameController) {
 		this.myGUI = gui;
+		this.gameController = gameController;
 		this.homePane = HP;
 		this.startpane = SP;
 		this.gameListScreen = GLS;
@@ -38,6 +40,7 @@ public class AccountController {
 			//System.out.println(username+""+password);
 			myGUI.changePane(homePane);
 			setAccount(username.getText());
+			gameController.getGameModel().setAccountName(username.getText());
 			startpane.getLog().emptyFields();
 			//System.out.println("passed if in login");
 		} else {
@@ -57,10 +60,10 @@ public class AccountController {
 		StringBuilder stringBuilder = new StringBuilder();
 		ArrayList<HBox> hboxList = new ArrayList<>();
 		int gameID = 0;
-		int newGameID;
+		
 		
 		for(ArrayList<Object> row : games ) {
-			
+			int newGameID;
 			newGameID = (int) row.get(1);
 			
 			if(newGameID != gameID) {
@@ -69,6 +72,8 @@ public class AccountController {
 				if(myaccount.checkIfInGame(newGameID,getAccount())) {
 					gameLine.setBackground(new Background(new BackgroundFill(Color.LIGHTGREEN,null,null)));
 					joinGame.setDisable(false);
+					joinGame.setOnMouseClicked(e -> handleJoinGame(newGameID));
+					
 				}
 				else {
 					gameLine.setBackground(new Background(new BackgroundFill(Color.GRAY,null,null)));
@@ -85,6 +90,17 @@ public class AccountController {
 			}
 		}
 		return hboxList;
+	}
+	
+	public void handleJoinGame(int newGameID) {
+		gameController.getGameModel().makeGameEmpty();
+		gameController.getGameModel().setGameID(newGameID);
+		gameController.getGameModel().selectPlayerIds();
+		gameController.getGameModel().selectWholeGame();
+		gameController.startTimer();
+		myGUI.handleGoBackToGame();
+		System.out.println(newGameID);
+		
 	}
 	
 	public void handleSort(Object sortV) {
