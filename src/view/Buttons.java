@@ -30,27 +30,35 @@ class Buttons extends VBox {
 
 	private void addButtons() {
 		setMargin(startGame, new Insets(20.0));
-		setMargin(openUitdaging, new Insets(20.0));
-		setMargin(spelerLijst, new Insets(20.0));
-		setMargin(uitloggen, new Insets(20.0));
-		setMargin(gameLijst, new Insets(20.0));
 		startGame.setBackground(buttonBackground);
+		startGame.setOnMouseClicked(e -> handleToCreateGame());
+		startGame.setBorder(buttonBorder);
+		startGame.setPrefSize(300, 30);
+		
+		setMargin(gameLijst, new Insets(20.0));
 		gameLijst.setBackground(buttonBackground);
 		gameLijst.setOnMouseClicked(e -> handleToGameList());
-		openUitdaging.setBackground(buttonBackground);
-		spelerLijst.setBackground(buttonBackground);
-		uitloggen.setBackground(buttonBackground);
-		startGame.setBorder(buttonBorder);
 		gameLijst.setBorder(buttonBorder);
-		openUitdaging.setBorder(buttonBorder);
-		spelerLijst.setBorder(buttonBorder);
-		uitloggen.setBorder(buttonBorder);
-		startGame.setPrefSize(300, 30);
 		gameLijst.setPrefSize(300, 30);
+		
+		setMargin(openUitdaging, new Insets(20.0));
+		openUitdaging.setBackground(buttonBackground);
+		openUitdaging.setOnMouseClicked(e -> handleToGetInvite());
+		openUitdaging.setBorder(buttonBorder);
 		openUitdaging.setPrefSize(300, 30);
+		
+		setMargin(spelerLijst, new Insets(20.0));
+		spelerLijst.setBackground(buttonBackground);
+		spelerLijst.setOnMouseClicked(e -> handleToPlayerList());
+		spelerLijst.setBorder(buttonBorder);
 		spelerLijst.setPrefSize(300, 30);
-		uitloggen.setPrefSize(300, 30);
+		
+		setMargin(uitloggen, new Insets(20.0));
+		uitloggen.setBackground(buttonBackground);
 		uitloggen.setOnMouseClicked(e -> handleUitloggen());
+		uitloggen.setBorder(buttonBorder);
+		uitloggen.setPrefSize(300, 30);
+		
 		getChildren().addAll(startGame, gameLijst, openUitdaging, spelerLijst, uitloggen);
 	}
 	
@@ -60,5 +68,17 @@ class Buttons extends VBox {
 	
 	private void handleToGameList() {
 		myGUI.handleToGameList();
+	}
+	
+	private void handleToGetInvite() {
+		myGUI.handleToGetInvite();
+	}
+	
+	private void handleToPlayerList() {
+		myGUI.handleToPlayerList();
+	}
+	
+	private void handleToCreateGame() {
+		myGUI.handleToCreateGame();
 	}
 }

@@ -21,8 +21,9 @@ public class DiceOnTableScreen extends GridPane {
 		this.WC = WC;
 
 		createNewDices = new Button("Gooi");
-
+		createNewDices.setOnMouseClicked(e -> gui.makeDices());
 		add(createNewDices, 2, 3, 5, 1);
+		
 
 		setHgap(10);
 		setVgap(10);

@@ -27,6 +27,8 @@ public class GameController extends Scene {
 	private DiceController DC;
 	
 	private boolean hasThrown = false;
+	
+	private AnimationTimerEXT timer;
 
 	public GameController(GUI gui, DatabaseController databaseController, WindowController WC, DiceController DC,
 			ChatController CC) {
@@ -69,15 +71,16 @@ public class GameController extends Scene {
 
 		WC.setGameController(this);
 		WC.setDiceController(DC);
-		//setRoot(windowChoooseScreen);
-		gameModel.selectwindowOptions();
+		createGame();
+	
+		//gameModel.selectwindowOptions();
 	}
 	
 	void setCardController(CardController cc) {
 		this.CardController=cc;
 	}
 	
-	public void createGame(WindowPattern windowModel) {
+	public void createGame() {
 
 		gameScreen.add(gameInfo, 0, 0, 2, 1);
 		gameScreen.add(DC.getDiceOnTableScreen(), 2, 0, 2, 1);
@@ -94,16 +97,16 @@ public class GameController extends Scene {
 		gameScreen.add(WC.getWindow4(), 3, 1);
 
 
-		setAmountFT(WC.getDifficulty());
+		//setAmountFT(WC.getDifficulty());
 
 		GridPane.setMargin(WC.getWindow1(), new Insets(0, 0, 0, 80));
 		GridPane.setMargin(WC.getWindow4(), new Insets(0, 80, 0, 0));
 
-		gameModel.getPlayer(0).updateWindowId(windowModel.getId());
+		//gameModel.getPlayer(0).updateWindowId(windowModel.getId());
 
-		//setRoot(gameScreen);
+	
 		createTimer();
-		//gameModel.giveAllThePlayersTheirFavorTokens(); give all the players their favortokens
+		//gameModel.giveAllThePlayersTheirFavorTokens(); 
 		
 	}
 
@@ -136,9 +139,7 @@ public class GameController extends Scene {
 
 
 
-	        
-
-	Game getGameModel() {
+	public Game getGameModel() {
 		return gameModel;
 	}
 
@@ -146,10 +147,17 @@ public class GameController extends Scene {
 		//favor tokens
 		//card costs
 		//chat
-		AnimationTimerEXT timer = new AnimationTimerEXT(5000) {
+		timer = new AnimationTimerEXT(5000) {
 			@Override
 			public void doAction() {
 				gameModel.selectWholeGame();
+				System.out.println("timer");
+				//has to do with toolcard 8
+				if(WC.skipSecondTurn() && gameModel.isSecondTurn() && gameModel.getPlayer(0).selectCurrentPlayer()) {
+					WC.setSkipSecondTurnFalse();
+					gameModel.giveTurnToNextPlayer();
+				}
+				//roundtrack
 				//favor tokens
 				//card costs
 				//chat
@@ -158,19 +166,30 @@ public class GameController extends Scene {
 		timer.start();
 	}
 	
+	public void stopTimer() {
+		timer.stop();
+	}
+	
+	public void startTimer() {
+		timer.start();
+	}
+	
 	public void handleFinishTurn() {
 		if(gameModel.getPlayer(0).selectCurrentPlayer()) {
 			gameModel.giveTurnToNextPlayer();
 			WC.setMovedToFalse();
 			hasThrown = false;
+			WC.setCanOnlyMoveDiceWithSameColorAsDIceOnRoundTrackFalse();
+			WC.setDiceCanBeMovedFalse();
 		}
 		
 	}
 	
 	public void handleRollDices() {
-		if(!hasThrown && gameModel.checkIfMainPlayerCanThrowDices()) {
-			//gameModel.rollTheDices();
-			hasThrown = true;
+		System.out.println(gameModel.checkIfMainPlayerCanThrowDices());
+		if(gameModel.checkIfMainPlayerCanThrowDices()) {
+			gameModel.rollTheDices();
+			//change if
 		}
 	}
 	

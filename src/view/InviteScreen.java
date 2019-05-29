@@ -17,12 +17,15 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import main.GUI;
 
 public class InviteScreen extends BorderPane{
 	private VBox playerList;
 	private SetupScreenController controller;
+	private GUI gui;
 	
-	public InviteScreen(SetupScreenController controller) {
+	public InviteScreen(SetupScreenController controller, GUI gui) {
+		this.gui = gui;
 		this.controller = controller;
 		playerList = new VBox();
 		playerList.setPrefWidth(600);
@@ -35,7 +38,7 @@ public class InviteScreen extends BorderPane{
 	// maakt knoppen aan onderkant
 	private void addLowerButtons() {
 		Button returnButton = new Button("terug");
-		returnButton.setOnAction(e -> controller.openSetupMenu());
+		returnButton.setOnAction(e -> gui.openSetupMenu());
 		
 		Button refreshButton = new Button("vernieuw");
 		refreshButton.setOnAction(e -> refreshList());

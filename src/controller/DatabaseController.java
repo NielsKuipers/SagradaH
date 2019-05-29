@@ -17,7 +17,6 @@ public class DatabaseController {
     private WindowPatternQuerie windowPatternQuerie;
     private UserListQueries userListQueries;
     private InviteHandleQueries inviteHandleQueries;
-    private GameQueries gameQueries;
     private ScoreQueries scoreQueries;
 
     //establish connection with database
@@ -33,7 +32,6 @@ public class DatabaseController {
         CQ = new CardQueries(standardQueries);
         windowPatternQuerie = new WindowPatternQuerie(standardQueries);
         inviteHandleQueries = new InviteHandleQueries(standardQueries);
-        gameQueries = new GameQueries(standardQueries);
         AQ = new AccountQuery(standardQueries);
         scoreQueries = new ScoreQueries(standardQueries);
     }
@@ -46,10 +44,6 @@ public class DatabaseController {
         return CQ;
     }
 
-    GameQueries getGameQueries() {
-    	return gameQueries;
-    }
-    
     InviteHandleQueries getInviteQueries() {
     	return inviteHandleQueries;
     }
@@ -68,6 +62,10 @@ public class DatabaseController {
 
     WindowPatternQuerie getWindowPatternQuerie() {
     	return windowPatternQuerie;
+    }
+    
+    public CardQueries getCardQuery() {
+    	return CQ;
     }
 
     public UserListQueries getUserListQueries() {

@@ -83,6 +83,11 @@ public class InviteHandleQueries {
 		
 		// HOST player aanmaken
 		standardQuerie.updateQuery("INSERT INTO player(username, game_idgame, playstatus_playstatus, seqnr, isCurrentPlayer, private_objectivecard_color) VALUES (?,?,?,?,?,?)", ""+hostUsername+"\0"+gameID+"\0uitdager\0"+1+"\0 1\0"+color+"");
+		
+		int idMainPlayer = (int) standardQuerie.selectQuery("SELECT idplayer FROM player", " WHERE game_idgame=?", ""+gameID+"").get(0).get(0);
+		
+		standardQuerie.updateQuery("UPDATE game SET turn_idplayer=?", ""+idMainPlayer+"", " WHERE idgame=? ", ""+gameID+"");
+
 	}
 	
 	// invite speler
@@ -152,7 +157,7 @@ public class InviteHandleQueries {
 	}
 	
 	// nieuwe GameID ophalen
-	private ArrayList<ArrayList<Object>> getGameID() {
+	public ArrayList<ArrayList<Object>> getGameID() {
 		return standardQuerie.selectQuery("SELECT idgame FROM game", " WHERE creationdate=?", ""+currentDate+"");
 	}
 	
