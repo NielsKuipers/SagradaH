@@ -47,4 +47,8 @@ public class CalculateScoreModel {
 	public ArrayList<ArrayList<Object>> getPlayerDiceEyesPosX(int playerID){
 		return scoreQueries.getPlayerDiceEyesPosX(playerID);
 	}
+
+	public ArrayList<ArrayList<Object>> getPublicCards(){
+		return scoreQueries.getPublicCards();
+	}
 }

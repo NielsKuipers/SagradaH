@@ -6,7 +6,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import model.WindowPattern;
@@ -23,7 +22,6 @@ public class GUI extends Application {
 	private UserListController userListController;
 	private RoundScreenController roundController;
 	private CardController cardController;
-	private CalculateScore calcScore;
 	private SetupScreenController setupScreenController;
 	//private EndScreenController EndController;
 
@@ -38,11 +36,12 @@ public class GUI extends Application {
 		GameListScreen gameListScreen = new GameListScreen(this);
 		DatabaseController databaseController = new DatabaseController();
 		WindowController windowController = new WindowController(this, databaseController);
+		CalculateScoreController calcController = new CalculateScoreController(databaseController);
 
 		DiceController diceController = new DiceController(this, windowController);
 		chatController = new ChatController(this, databaseController);
         userListController = new UserListController(this, databaseController);
-		gameController = new GameController(this, databaseController, windowController, diceController, chatController);
+		gameController = new GameController(this, databaseController, windowController, diceController, chatController, calcController);
 
 		accountController = new AccountController(this, databaseController, homepane, startPane, gameListScreen, gameController);
 		cardController = new CardController(windowController, diceController, gameController, databaseController, this);
@@ -50,23 +49,9 @@ public class GUI extends Application {
 		roundController = new RoundScreenController(stage, databaseController, this, windowController, gameController);
 		setupScreenController = new SetupScreenController(databaseController, this, gameController);
 //	  EndScreenController EndController = new EndScreenController(stage, databaseController, gameController);
-		calcScore = new CalculateScore(databaseController);
 
-		// scoretests
-		System.out.println("public card 1: " + calcScore.getpoints(3, 1));
-		System.out.println("public card 2: " + calcScore.getpoints(3, 2));
-		System.out.println("public card 3: " + calcScore.getpoints(3, 3));
-		System.out.println("public card 4: " + calcScore.getpoints(3, 4));
-		System.out.println("public card 5: " + calcScore.getpoints(3, 5));
-		System.out.println("public card 6: " + calcScore.getpoints(3, 6));
-		System.out.println("public card 7: " + calcScore.getpoints(3, 7));
-		System.out.println("public card 9: " + calcScore.getpoints(3, 9));
-		System.out.println("public card 10: " + calcScore.getpoints(3, 10));
-		System.out.println("favor tokens: " + calcScore.calculateFavorTokens(3));
-		System.out.println("empty fields: " + calcScore.calculateEmptyFields(3));
-		calcScore.calculatePrivatePoints(3);
-		
-		scene = new Scene(gameController.getChooseScreen());
+
+		scene = new Scene(startPane);
 		stage.setScene(scene);
 
 	//	stage.setScene(gameController);

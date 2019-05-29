@@ -7,17 +7,18 @@ import javafx.scene.layout.Pane;
 import main.GUI;
 import model.Game;
 import model.Player;
-import model.WindowPattern;
 import timer.AnimationTimerEXT;
 import view.*;
+
+import java.util.ArrayList;
 
 public class GameController extends Scene {
 	private GameInfoScreen gameInfo;
 
 	private ChatScreen chat;
 	private CardsInfoScreen kaarten;
-
 	private GameScreen gameScreen;
+	private CalculateScoreController calculateScoreController;
 	private WindowPatternChooseScreen windowChoooseScreen;
 	private CardController CardController;
 
@@ -25,16 +26,17 @@ public class GameController extends Scene {
 
 	private WindowController WC;
 	private DiceController DC;
-	
-	private boolean hasThrown = false;
-	
+
 	private AnimationTimerEXT timer;
 
+	private boolean gameStarted = false;
+
 	public GameController(GUI gui, DatabaseController databaseController, WindowController WC, DiceController DC,
-			ChatController CC) {
+						  ChatController CC, CalculateScoreController CSC) {
 		super(new Pane());
 		this.WC = WC;
 		this.DC = DC;
+		this.calculateScoreController = CSC;
 
 		gameModel = new Game(databaseController.getGameQuery(), DC.getDiceOnTableModel(), WC);
 		gameModel.addPlayer(new Player(databaseController.getPlayerQuery()));
@@ -64,10 +66,6 @@ public class GameController extends Scene {
 		windowChoooseScreen.add(WC.getWindow2(), 1, 1);
 		windowChoooseScreen.add(WC.getWindow3(), 2, 1);
 		windowChoooseScreen.add(WC.getWindow4(), 3, 1);
-		
-		
-		
-		
 
 		WC.setGameController(this);
 		WC.setDiceController(DC);
@@ -126,9 +124,7 @@ public class GameController extends Scene {
 	void switchToGameScreen() {
 		setRoot(gameScreen);
 	}
-	
-	
-    
+
     void setAmountFT(String tokens) {
         kaarten.setAmountFT(tokens);
     }
@@ -136,8 +132,6 @@ public class GameController extends Scene {
     int getAmountFT() {
         return Integer.parseInt(kaarten.getAmountFT());
     }
-
-
 
 	public Game getGameModel() {
 		return gameModel;
@@ -156,6 +150,14 @@ public class GameController extends Scene {
 				if(WC.skipSecondTurn() && gameModel.isSecondTurn() && gameModel.getPlayer(0).selectCurrentPlayer()) {
 					WC.setSkipSecondTurnFalse();
 					gameModel.giveTurnToNextPlayer();
+				}
+
+				if(!gameStarted){
+					if(gameModel.gameStarted()){ gameStarted = true; }
+				}
+				else{
+					getClientScore();
+					getOtherScore();
 				}
 				//roundtrack
 				//favor tokens
@@ -178,11 +180,23 @@ public class GameController extends Scene {
 		if(gameModel.getPlayer(0).selectCurrentPlayer()) {
 			gameModel.giveTurnToNextPlayer();
 			WC.setMovedToFalse();
-			hasThrown = false;
+			boolean hasThrown = false;
 			WC.setCanOnlyMoveDiceWithSameColorAsDIceOnRoundTrackFalse();
 			WC.setDiceCanBeMovedFalse();
 		}
 		
+	}
+
+	private void getClientScore(){
+		int playerID = gameModel.getClientPlayer().getPlayerId();
+		gameModel.getClientPlayer().getWindowPatternPlayer().setPlayerScore(Integer.toString(calculateScoreController.getClientScore(playerID)));
+	}
+
+	private void getOtherScore(){
+		ArrayList<Player> players = gameModel.getAllPlayers();
+		for(Player player : players.subList(1, players.size())){
+			player.getWindowPatternPlayer().setPlayerScore(Integer.toString(calculateScoreController.getOtherScore(player.getPlayerId())));
+		}
 	}
 	
 	public void handleRollDices() {

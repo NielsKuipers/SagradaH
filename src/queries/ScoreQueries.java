@@ -11,6 +11,8 @@ public class ScoreQueries {
 		this.standardQueries = standardQueries;
 		gameID = 1;
 	}
+
+
 	
 	// returnt alle dobbelsteen waarden voor 1 speler
 	public ArrayList<ArrayList<Object>> getPlayerDiceNumbers(int playerID) {
@@ -63,4 +65,8 @@ public class ScoreQueries {
 						" INNER JOIN playerframefield p on g.idgame = p.idgame and g.dienumber = p.dienumber and g.diecolor = p.diecolor",
 				" WHERE p.idgame=? AND p.player_idplayer=? AND p.diecolor IS NOT NULL ORDER BY p.position_y ASC", ""+gameID+"\0"+playerID);
 	}
+
+    public ArrayList<ArrayList<Object>> getPublicCards() {
+	    return standardQueries.selectQuery("SELECT idpublic_objectivecard FROM sharedpublic_objectivecard", " WHERE idgame=?", ""+ gameID +"");
+    }
 }

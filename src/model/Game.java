@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.Random;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import controller.WindowController;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -11,7 +12,7 @@ import queries.GameQuery;
 
 public class Game {
 
-	private int gameId = 0;
+	private int gameId = 1;
 	private ArrayList<Player> players = new ArrayList<>();
 
 	private String accountName = "";
@@ -649,7 +650,6 @@ public class Game {
 	// verwijdert dobbelsteen van rondebord
 	public void removeDice(int diceID, String colorText) {
 		gameQuery.removeDice(diceID, colorText, gameId);
-
 	}
 
 	public int getRoundTrackOfDice(int diceID, String colorText) {
@@ -669,4 +669,12 @@ public class Game {
 	public void setAccountName(String accountName) {
 		this.accountName = accountName;
 	}
+
+	public Player getClientPlayer(){ return players.get(0); }
+
+	public ArrayList getAllPlayers(){
+		return players;
+	}
+
+	public boolean gameStarted(){ return gameQuery.gameStarted(gameId); }
 }
