@@ -9,14 +9,16 @@ import java.util.Date;
 public class InviteHandleQueries {
 	private StandardQueries standardQuerie;
 	private String currentDate;
-	private String hostUsername;
-	private String username;
+	private String clientUsername;
 	private int gameID;
 
 	public InviteHandleQueries(StandardQueries standardQuerie) {
 		this.standardQuerie = standardQuerie;
-		hostUsername = "Lucas";
-		username = "Gijs";
+	}
+	
+	// zet username op ingelogde account naam
+	public void setClientUserName(String username) {
+		clientUsername = username;
 	}
 	
 	// returnt array met verschillende random getallen
@@ -57,7 +59,7 @@ public class InviteHandleQueries {
 		currentDate = dateFormat.format(date);
 		
 		// nieuwe gameID aanmaken en gameid opslaan
-	//	standardQuerie.selectQuery("START TRANSACTION; INSERT INTO game (creationdate) VALUES (NOW()); SELECT LAST_INSERT_ID();commit;");
+		// gameID = (int) standardQuerie.selectQuery("START TRANSACTION; INSERT INTO game (creationdate) VALUES (NOW()); SELECT LAST_INSERT_ID();commit;").get(0).get(0);
 		standardQuerie.updateQuery("INSERT INTO game(creationdate) VALUES(?)",""+currentDate+"");
 		gameID = getGameIDint();
 		
@@ -82,7 +84,7 @@ public class InviteHandleQueries {
 		}
 		
 		// HOST player aanmaken
-		standardQuerie.updateQuery("INSERT INTO player(username, game_idgame, playstatus_playstatus, seqnr, isCurrentPlayer, private_objectivecard_color) VALUES (?,?,?,?,?,?)", ""+hostUsername+"\0"+gameID+"\0uitdager\0"+1+"\0 1\0"+color+"");
+		standardQuerie.updateQuery("INSERT INTO player(username, game_idgame, playstatus_playstatus, seqnr, isCurrentPlayer, private_objectivecard_color) VALUES (?,?,?,?,?,?)", ""+clientUsername+"\0"+gameID+"\0uitdager\0"+1+"\0 1\0"+color+"");
 		
 		int idMainPlayer = (int) standardQuerie.selectQuery("SELECT idplayer FROM player", " WHERE game_idgame=?", ""+gameID+"").get(0).get(0);
 		
@@ -98,25 +100,25 @@ public class InviteHandleQueries {
 	
 	// invite accepteren
 	public void acceptInvite(int gameid) {
-		standardQuerie.updateQuery("UPDATE player SET playstatus_playstatus=?", "geaccepteerd", " WHERE username=? AND game_idgame=?", ""+username+"\0"+gameid+"");
+		standardQuerie.updateQuery("UPDATE player SET playstatus_playstatus=?", "geaccepteerd", " WHERE username=? AND game_idgame=?", ""+clientUsername+"\0"+gameid+"");
 	}
 	
 	// invite weigeren
 	public void declineInvite(int gameid) {
-		standardQuerie.updateQuery("UPDATE player SET playstatus_playstatus=?", "geweigerd", " WHERE username=? AND game_idgame=?", ""+username+"\0"+gameid+"");
+		standardQuerie.updateQuery("UPDATE player SET playstatus_playstatus=?", "geweigerd", " WHERE username=? AND game_idgame=?", ""+clientUsername+"\0"+gameid+"");
 	}
 
 	///////////////select queries/////////////////////////////	
 	
 	// geeft spelerlijst uit alle accounts behalve hostaccount
 	public ArrayList<ArrayList<Object>> getPlayers() {
-		return standardQuerie.selectQuery("SELECT username FROM account", " WHERE username!=?", ""+hostUsername+"");
+		return standardQuerie.selectQuery("SELECT username FROM account", " WHERE username!=?", ""+clientUsername+"");
 	}
 	
 	// controlleer of speler al een openstaande uitdaging heeft van de host
 	public boolean unAnsweredChallenges(String invitedUsername) {
 		
-		ArrayList<ArrayList<Object>> hostGameIDs = standardQuerie.selectQuery("SELECT game_idgame FROM player", " WHERE username=? AND playstatus_playstatus=?", ""+hostUsername+"\0uitdager");
+		ArrayList<ArrayList<Object>> hostGameIDs = standardQuerie.selectQuery("SELECT game_idgame FROM player", " WHERE username=? AND playstatus_playstatus=?", ""+clientUsername+"\0uitdager");
 
 		for (ArrayList<Object> hostGameID : hostGameIDs) {
 			int id = (int) hostGameID.get(0);
@@ -168,7 +170,7 @@ public class InviteHandleQueries {
 	
 	// inviteGetLijst ophalen
 	public ArrayList<ArrayList<Object>> getInviteGetList(){
-		return standardQuerie.selectQuery("SELECT game_idgame FROM player", " WHERE username=? AND playstatus_playstatus=?", ""+username+"\0uitgedaagde");
+		return standardQuerie.selectQuery("SELECT game_idgame FROM player", " WHERE username=? AND playstatus_playstatus=?", ""+clientUsername+"\0uitgedaagde");
 	}
 	
 	// haalt uitdager naam op om toe te voegen aan invitegetlist screen

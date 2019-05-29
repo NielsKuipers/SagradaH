@@ -129,7 +129,7 @@ public class AccountController {
 		this.accountname = AC;
 	}
 	
-	private String getAccount() {
+	public String getAccount() {
 		return accountname;
 	}
 	

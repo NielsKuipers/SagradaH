@@ -48,7 +48,7 @@ public class GUI extends Application {
 		cardController = new CardController(windowController, diceController, gameController, databaseController, this);
 
 		roundController = new RoundScreenController(stage, databaseController, this, windowController, gameController);
-		setupScreenController = new SetupScreenController(databaseController, this, gameController);
+		setupScreenController = new SetupScreenController(databaseController, this, gameController, accountController);
 //	  EndScreenController EndController = new EndScreenController(stage, databaseController, gameController);
 		calcScore = new CalculateScore(databaseController);
 		
@@ -138,7 +138,7 @@ public class GUI extends Application {
             // TODO kan ik nog niet, mis userlist.
 	}
 
-	public void handleToCreateGame() { setupScreenController.toSetupScreen(); }
+	public void handleToCreateGame() { setupScreenController.toSetupScreen(); setupScreenController.makeNewGame(); }
 
 	public void HandleExitGame() { System.exit(0); }
 

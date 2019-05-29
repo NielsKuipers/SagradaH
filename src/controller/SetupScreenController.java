@@ -19,13 +19,23 @@ public class SetupScreenController {
 	private GUI gui;
 	private boolean randomPatterns = false;
 	private GameController gameController;
+	private AccountController accountController;
 	
-	public SetupScreenController(DatabaseController dataController, GUI gui, GameController gameController) {
+	public SetupScreenController(DatabaseController dataController, GUI gui, GameController gameController, AccountController accountController) {
 		this.gui = gui;
 		this.gameController = gameController;
+		this.accountController = accountController;
 		cModel = new CommunicationModel(dataController.getInviteQueries());
 		inviteScreen = new InviteScreen(this, gui);
 		setupScreen = new SetupScreen(this, gui);
+		cModel.setClientUsername(accountController.getAccount());
+	}
+	
+	public void makeNewGame() {
+		setupScreen.makeNewGame();
+		randomPatterns = false;
+		cModel.refreshRandomColors();
+		cModel.setClientUsername(accountController.getAccount());
 	}
 	
 	public SetupScreen getSetupScreen() {
@@ -57,7 +67,6 @@ public class SetupScreenController {
 	// bepaalt random/standaard patterns
 	public void setRandomWindow(boolean random) {
 		randomPatterns = random;
-		openInviteGetScreen();
 	}
 
 	// schakel van setup scherm naar invite scherm
