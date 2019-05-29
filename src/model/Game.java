@@ -99,6 +99,7 @@ public class Game {
 	}
 	
 	public void makeGameEmpty() {
+		diceOnTableModel.removeAllDicesFromTable();
 		for (Player player : players) {
 			player.setPlayerId(0);
 			player.getWindowPatternPlayer().setId(0);
@@ -177,6 +178,7 @@ public class Game {
 				diceOnTable.add(dicesFromRound);
 			}
 		}
+
 		return diceOnTable;
 	}
 
