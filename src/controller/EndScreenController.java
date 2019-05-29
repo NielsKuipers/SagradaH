@@ -20,7 +20,7 @@ public class EndScreenController {
 		putPlayersOnBoard();
 		makeEndScoreList();
 		
-	}
+	} // moet er uit.
 	
 	// zet speler pion op scorebord
 	private void putPlayersOnBoard() {
