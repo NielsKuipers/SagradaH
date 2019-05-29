@@ -36,12 +36,12 @@ public class ScoreQueries {
 	
 	// returnt aantal favortokens voor 1 speler
 	public ArrayList<ArrayList<Object>> getPlayerFavortokens(int playerID) {
-		return standardQueries.selectQuery("SELECT COUNT(idfavortoken) FROM gamefavortoken", " WHERE idgame=? AND idplayer=?", ""+gameID+"\0"+playerID+"");
+		return standardQueries.selectQuery("SELECT COUNT(idfavortoken) FROM gamefavortoken", " WHERE idgame=? AND idplayer=? AND gametoolcard IS NULL AND round IS NULL", ""+gameID+"\0"+playerID+"");
 	}
 	
 	// return openstaande velden op patroonkaart voor 1 speler
 	public ArrayList<ArrayList<Object>> getEmptyFields(int playerID) {
-		return standardQueries.selectQuery("SELECT COUNT(player_idplayer) FROM playerframefield", " WHERE idgame=? AND player_idplayer=? AND dienumber is null", ""+gameID+"\0"+playerID+"");
+		return standardQueries.selectQuery("SELECT COUNT(player_idplayer) FROM playerframefield", " WHERE idgame=? AND player_idplayer=? AND dienumber IS NULL", ""+gameID+"\0"+playerID+"");
 	}
 
 	public ArrayList<ArrayList<Object>> getPlayerDiceColorsPos(int playerID) {
