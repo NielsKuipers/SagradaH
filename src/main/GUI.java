@@ -64,8 +64,14 @@ public class GUI extends Application {
 	}
 	
 	public void createGame(WindowPattern windowModel) {
-		//gameController.createGame(windowModel);
+		gameController.chooseWindow(windowModel);
+		gameController.addGameScreens();
+		gameController.getGameModel().makeGameEmpty();
+		gameController.getGameModel().selectPlayerIds();
+		gameController.getGameModel().selectWholeGame();
+		
 		scene.setRoot(gameController.getGameScreen());
+		gameController.startTimer();
 	}
 	
 	public void handleCheat(boolean allPossible, boolean bestChoice) {

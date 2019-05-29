@@ -40,7 +40,6 @@ public class DiceOnTableScreen extends GridPane {
 				ArrayList<Dice> newValue) {
 			// TODO Auto-generated method stu
 			try {
-				System.out.println("changed");
 				getChildren().clear();
 				add(createNewDices, 2, 2, 5, 1);
 

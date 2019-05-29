@@ -48,6 +48,7 @@ public class SetupScreenController {
 		}else{
 			gameController.getGameModel().setGameID(cModel.getGameID());
 			gameController.getGameModel().createAllPlayerFrameFields(cModel.getGameID(), randomPatterns);
+			gameController.addWindowScreens();
 			gameController.getGameModel().selectwindowOptions();
 			gui.handleChooseScreen();
 		}
