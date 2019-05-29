@@ -71,5 +71,10 @@ public class DiceOnTableScreen extends GridPane {
 			}
 		}
 	}
+	
+	public void removeDicesScreen() {
+		getChildren().clear();
+		add(createNewDices, 2, 2, 5, 1);
+	}
 
 }
