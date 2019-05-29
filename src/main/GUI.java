@@ -1,14 +1,6 @@
 package main;
 
-import controller.AccountController;
-import controller.CardController;
-import controller.ChatController;
-import controller.DatabaseController;
-import controller.DiceController;
-import controller.GameController;
-import controller.RoundScreenController;
-import controller.SetupScreenController;
-import controller.WindowController;
+import controller.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
@@ -129,29 +121,19 @@ public class GUI extends Application {
 
 	// schakel van invite naar setup scherm
 	public void openSetupMenu() {
-		scene.setRoot(setupScreenController.getSetupScreen());
-		setupScreenController.getSetupScreen().clearJoinedList();
-		setupScreenController.addJoinedPlayers();
-    
-	public void switchToolcards() { scene.setRoot(cardController.showcards()); }
+        scene.setRoot(setupScreenController.getSetupScreen());
+        setupScreenController.getSetupScreen().clearJoinedList();
+        setupScreenController.addJoinedPlayers();
+    }
 
-	public void handleToGetInvite() { SetupController.toInviteGetScreen(); }
+	public void handleToGetInvite() { setupScreenController.toInviteGetScreen(); }
 
 	public void handleToPlayerList() {
-		// TODO kan ik nog niet, mis userlist.
-		
+            // TODO kan ik nog niet, mis userlist.
 	}
 
-	public void handleToCreateGame() { SetupController.toSetupScreen(); }
+	public void handleToCreateGame() { setupScreenController.toSetupScreen(); }
 
 	public void HandleExitGame() { System.exit(0); }
-
-	public void handleGoBackToGame() { scene.setRoot(gameController.getGameScreen()); }
-
-	public void handleGoToCards() { scene.setRoot(cardController.showcards()); }
-  
-	public void switchToolcards() { scene.setRoot(cardController.showcards()); }
-
-	public void handleUserList() { scene.setRoot(userListController.getUserListScreen()); }
 
 }
