@@ -2,7 +2,6 @@ package controller;
 
 import model.CalculateScoreModel;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class CalculateScore {
@@ -114,7 +113,7 @@ public class CalculateScore {
 
 	// sets van een van elke kleur, Kleurvarieteit
 	private int calculatePublic6(int playerID) {
-		int score = 0;
+		int score;
 		int cardpoints = 4;
 		int[] counter = new int[5];
 		ArrayList<ArrayList<Object>> result = scoreModel.getPlayerDiceColors(playerID);
@@ -183,11 +182,11 @@ public class CalculateScore {
 	private int getMinValue(int[] values) {
 		int minValue = values[0];
 
-		for (int i = 0; i < values.length; i++) {
-			if (values[i] < minValue) {
-				minValue = values[i];
-			}
-		}
+        for (int value : values) {
+            if (value < minValue) {
+                minValue = value;
+            }
+        }
 		return minValue;
 	}
 }
