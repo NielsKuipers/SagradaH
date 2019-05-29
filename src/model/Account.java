@@ -32,4 +32,5 @@ public class Account {
 	public ArrayList<ArrayList<Object>> getGames(Object sortV, String username){
 		return accountQuery.getGames(sortV, username);
 	} 
+	public boolean canNotBePLayed(int idGame) {return accountQuery.canNotBePlayed(idGame);}
 }

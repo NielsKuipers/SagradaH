@@ -56,4 +56,8 @@ public class GameListScreen extends VBox {
 		mygui.handlegamesort(V);
 	}
 	
+	public double getScrollWidth() {
+		System.out.println(scrollPane.getWidth());
+		return scrollPane.getWidth();
+	}
 }

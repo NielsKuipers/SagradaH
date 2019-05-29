@@ -151,7 +151,7 @@ public class GameController extends Scene {
 			@Override
 			public void doAction() {
 				gameModel.selectWholeGame();
-				System.out.println("timer");
+				//System.out.println("timer");
 				//has to do with toolcard 8
 				if(WC.skipSecondTurn() && gameModel.isSecondTurn() && gameModel.getPlayer(0).selectCurrentPlayer()) {
 					WC.setSkipSecondTurnFalse();

@@ -15,6 +15,7 @@ import model.Account;
 import view.GameListScreen;
 import view.HomePane;
 import view.StartPane;
+import view.UserListScreen;
 
 public class AccountController {
 	private Account myaccount;
@@ -25,13 +26,15 @@ public class AccountController {
 	private GameListScreen gameListScreen;
 	private String gameboolean = "";
 	private GameController gameController;
+	private UserListScreen userListScreen;
 	
-	public AccountController(GUI gui, DatabaseController DC, HomePane HP, StartPane SP, GameListScreen GLS, GameController gameController) {
+	public AccountController(GUI gui, DatabaseController DC, HomePane HP, StartPane SP, GameListScreen GLS, GameController gameController, UserListScreen ULS) {
 		this.myGUI = gui;
 		this.gameController = gameController;
 		this.homePane = HP;
 		this.startpane = SP;
 		this.gameListScreen = GLS;
+		this.userListScreen = ULS;
 		myaccount = new Account(DC);
 	}
 	
@@ -71,19 +74,22 @@ public class AccountController {
 				Button joinGame = new Button("Join game");
 				if(myaccount.checkIfInGame(newGameID,getAccount())) {
 					gameLine.setBackground(new Background(new BackgroundFill(Color.LIGHTGREEN,null,null)));
-					joinGame.setDisable(false);
-					joinGame.setOnMouseClicked(e -> handleJoinGame(newGameID));
-					
+					if(myaccount.canNotBePLayed(newGameID)) {
+						joinGame.setOnMouseClicked(e -> handleJoinGame(newGameID));
+						joinGame.setDisable(false);
+					} else {
+						joinGame.setDisable(true);
+					}
+					gameLine.getChildren().add(joinGame);
 				}
 				else {
 					gameLine.setBackground(new Background(new BackgroundFill(Color.GRAY,null,null)));
-					joinGame.setDisable(true);
 				}
 				for(Object game: row.subList(1, row.size()-1) ) {
 					stringBuilder.append(game).append(" ");
 				}
 				Label textforgame = new Label(stringBuilder.toString());
-				gameLine.getChildren().addAll(textforgame, joinGame);
+				gameLine.getChildren().add(textforgame);
 				hboxList.add(gameLine);
 				gameID = newGameID;
 				stringBuilder.setLength(0);
@@ -133,8 +139,12 @@ public class AccountController {
 	public void toHomeMenu() {
 		myGUI.changePane(homePane);
 	}
-	
+	 
 	public void setGameboolean(String S) {
 		gameboolean = S;
+	}
+	
+	public void goToUserList() {
+		myGUI.changePane(userListScreen);
 	}
 }

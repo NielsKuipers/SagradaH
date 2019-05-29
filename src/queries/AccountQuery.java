@@ -49,6 +49,13 @@ public class AccountQuery {
 		case "ID":return standardQuery.selectQuery("SELECT p.username, g.idgame, g.creationdate, p.playstatus_playstatus FROM game g INNER JOIN player p ON p.game_idgame = g.idgame", " WHERE p.username=? ORDER BY g.idgame ASC", username);
 		default: return null;
 		}
-		
+	}
+	
+	public boolean canNotBePlayed(int idGame) {
+		if(standardQuery.selectQuery("SELECT distinct playstatus_playstatus FROM player"," WHERE playstatus_playstatus=? AND game_idgame = ?", "uitdager"+"\0"+""+idGame+"").isEmpty() && standardQuery.selectQuery("SELECT distinct playstatus_playstatus FROM player"," WHERE playstatus_playstatus=? AND game_idgame = ?", "uitgedaagde"+"\0"+""+idGame+"").isEmpty()) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 }
