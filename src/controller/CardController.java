@@ -181,7 +181,8 @@ public class CardController extends Scene {
 		gameController.switchToGameScreen();
 
 	}
-
+	
+	
 
 	
 
@@ -1336,6 +1337,7 @@ public class CardController extends Scene {
 			break;
 
 		}
+		cardScreen.createView();
 	}
 	
 	//check with every button click if cardModel.getGameModel().getPlayer(0).selectCurrentPlayer(), main player is currentplayer
@@ -1355,8 +1357,8 @@ public class CardController extends Scene {
 		while (pubOBJ3 == pubOBJ1 || pubOBJ3 == pubOBJ2) {
 			pubOBJ2 = generateRandNR(10);
 		}
-		checkOBJCards(1, pubOBJ3, pubOBJ2, pubOBJ1);
-		cardScreen.createView();
+		checkOBJCards(privOBJ, pubOBJ3, pubOBJ2, pubOBJ1);
+		
 	}
 
 }
