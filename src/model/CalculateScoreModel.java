@@ -36,7 +36,15 @@ public class CalculateScoreModel {
 		return scoreQueries.getPlayerDiceColorsPos(playerID);
 	}
 
+	public ArrayList<ArrayList<Object>> getPlayerDiceColorsPosX(int playerID) {
+		return scoreQueries.getPlayerDiceColorsPosX(playerID);
+	}
+
 	public ArrayList<ArrayList<Object>> getPlayerDiceEyesPos(int playerID){
 		return scoreQueries.getPlayerDiceEyesPos(playerID);
+	}
+
+	public ArrayList<ArrayList<Object>> getPlayerDiceEyesPosX(int playerID){
+		return scoreQueries.getPlayerDiceEyesPosX(playerID);
 	}
 }

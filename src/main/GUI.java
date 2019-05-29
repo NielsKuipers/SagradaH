@@ -50,10 +50,13 @@ public class GUI extends Application {
 		// scoretests
 		System.out.println("public card 1: " + calcScore.getpoints(3, 1));
 		System.out.println("public card 2: " + calcScore.getpoints(3, 2));
+		System.out.println("public card 3: " + calcScore.getpoints(3, 3));
 		System.out.println("public card 4: " + calcScore.getpoints(3, 4));
 		System.out.println("public card 5: " + calcScore.getpoints(3, 5));
 		System.out.println("public card 6: " + calcScore.getpoints(3, 6));
+		System.out.println("public card 7: " + calcScore.getpoints(3, 7));
 		System.out.println("public card 9: " + calcScore.getpoints(3, 9));
+		System.out.println("public card 10: " + calcScore.getpoints(3, 10));
 		System.out.println("favor tokens: " + calcScore.calculateFavorTokens(3));
 		System.out.println("empty fields: " + calcScore.calculateEmptyFields(3));
 		calcScore.calculatePrivatePoints(3);
