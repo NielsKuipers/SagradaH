@@ -87,6 +87,7 @@ public class InviteHandleQueries {
 		int idMainPlayer = (int) standardQuerie.selectQuery("SELECT idplayer FROM player", " WHERE game_idgame=?", ""+gameID+"").get(0).get(0);
 		
 		standardQuerie.updateQuery("UPDATE game SET turn_idplayer=?", ""+idMainPlayer+"", " WHERE idgame=? ", ""+gameID+"");
+
 	}
 	
 	// invite speler

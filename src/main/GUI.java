@@ -1,11 +1,20 @@
 package main;
 
-import controller.*;
+import controller.AccountController;
+import controller.CardController;
+import controller.ChatController;
+import controller.DatabaseController;
+import controller.DiceController;
+import controller.GameController;
+import controller.RoundScreenController;
+import controller.SetupScreenController;
+import controller.WindowController;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import model.WindowPattern;
@@ -24,7 +33,7 @@ public class GUI extends Application {
 	private CardController cardController;
 	private CalculateScore calcScore;
 	private SetupScreenController setupScreenController;
-
+	//private EndScreenController EndController;
 
 	void startup(String[] args) {
 		launch(args);
@@ -35,11 +44,8 @@ public class GUI extends Application {
 		StartPane startPane = new StartPane(this);
 		HomePane homepane = new HomePane(this);
 		GameListScreen gameListScreen = new GameListScreen(this);
-		
 		DatabaseController databaseController = new DatabaseController();
 		WindowController windowController = new WindowController(this, databaseController);
-
-		
 
 		DiceController diceController = new DiceController(this, windowController);
 		chatController = new ChatController(this, databaseController);
@@ -57,6 +63,7 @@ public class GUI extends Application {
 		scene = new Scene(startPane);
 
 		stage.setScene(scene);
+
 	//	stage.setScene(gameController);
 		//stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH); might be nice for test day.
 
@@ -119,11 +126,32 @@ public class GUI extends Application {
 		setupScreenController.addPlayersToInviteList();
 		scene.setRoot(setupScreenController.getInviteScreen());
 	}
-	
+
 	// schakel van invite naar setup scherm
 	public void openSetupMenu() {
 		scene.setRoot(setupScreenController.getSetupScreen());
 		setupScreenController.getSetupScreen().clearJoinedList();
 		setupScreenController.addJoinedPlayers();
+    
+	public void switchToolcards() { scene.setRoot(cardController.showcards()); }
+
+	public void handleToGetInvite() { SetupController.toInviteGetScreen(); }
+
+	public void handleToPlayerList() {
+		// TODO kan ik nog niet, mis userlist.
+		
 	}
+
+	public void handleToCreateGame() { SetupController.toSetupScreen(); }
+
+	public void HandleExitGame() { System.exit(0); }
+
+	public void handleGoBackToGame() { scene.setRoot(gameController.getGameScreen()); }
+
+	public void handleGoToCards() { scene.setRoot(cardController.showcards()); }
+  
+	public void switchToolcards() { scene.setRoot(cardController.showcards()); }
+
+	public void handleUserList() { scene.setRoot(userListController.getUserListScreen()); }
+
 }

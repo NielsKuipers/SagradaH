@@ -17,6 +17,7 @@ public class DatabaseController {
     private WindowPatternQuerie windowPatternQuerie;
     private UserListQueries userListQueries;
     private InviteHandleQueries inviteHandleQueries;
+    private GameQueries gameQueries;
     private ScoreQueries scoreQueries;
 
     //establish connection with database

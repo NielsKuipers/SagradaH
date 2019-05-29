@@ -31,6 +31,9 @@ public class RoundScreenController {
 
 		addDice();
 		createTimer();
+	} // deze moet er uit.
+	
+	// aan de hand van rondenummers worden alle dobbelstenen op het rondebord opgevraagd uit de database, en in de view gezet.
 	}
 
 	// aan de hand van rondenummers worden alle dobbelstenen op het rondebord
