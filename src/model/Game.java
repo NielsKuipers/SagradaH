@@ -94,10 +94,11 @@ public class Game {
 			players.get(i).getWindowPatternPlayer().selectDifficulty();
 			players.get(i).getWindowPatternPlayer().setPlayerName("Kaart: " + (i + 1));
 			players.get(i).getWindowPatternPlayer().setPlayerScore("");
+			players.get(i).getWindowPatternPlayer().setBackground(Color.WHITE);
 		}
 		selectPlayerIds();
 	}
-	
+
 	public void makeGameEmpty() {
 		diceOnTableModel.removeAllDicesFromTable();
 		for (Player player : players) {
@@ -400,10 +401,10 @@ public class Game {
 		} else if (random) {
 			for (int i = 0; i < result.size(); i++) {
 				for (int j = 0; j < 4; j++) {
-					createNewRandomPatternCard((int)result.get(i).get(0));
+					createNewRandomPatternCard((int) result.get(i).get(0));
 				}
 			}
-			
+
 		}
 	}
 
@@ -570,13 +571,12 @@ public class Game {
 			round = Integer.valueOf(String.valueOf(result.get(0).get(0)));
 			round++;
 		}
-		
+
 		ArrayList<ArrayList<Object>> result2 = gameQuery.getAllDicesFromOneRound(gameId, round);
-		
-		
+
 		boolean canThrow = false;
-		
-		if(players.get(0).selectCurrentPlayer() && players.get(0).selectSqnr() == 1 && result2.isEmpty()) {
+
+		if (players.get(0).selectCurrentPlayer() && players.get(0).selectSqnr() == 1 && result2.isEmpty()) {
 			canThrow = true;
 		}
 		return canThrow;
@@ -663,12 +663,38 @@ public class Game {
 	public void addDiceToRoundTrack(int diceID, String colorText, int round) {
 		gameQuery.addDiceToRoundTrack(diceID, colorText, round, gameId);
 	}
-	
+
 	public void setGameID(int gameID) {
 		this.gameId = gameID;
 	}
-	
+
 	public void setAccountName(String accountName) {
 		this.accountName = accountName;
+	}
+
+	public boolean amITheGameCreator() {
+		players.get(0).getPlayerId();
+		ArrayList<ArrayList<Object>> result = gameQuery.getPlayerIdsAndNames(gameId);
+		if (players.get(0).getPlayerId() == (int) result.get(0).get(0)) {
+			return true;
+		}
+		return false;
+	}
+
+	public boolean doesEveryPlayerHasTheirFavorTokens() {
+		ArrayList<ArrayList<Object>> result = gameQuery.checkIfPlayersHaveFavorTokes(gameId);
+
+		if (result.isEmpty()) {
+			return false;
+		}
+		return true;
+	}
+	
+	public boolean didEveryoneChoose() {
+		ArrayList<ArrayList<Object>> result = gameQuery.didEveryoneChoose(gameId);
+		if(result.isEmpty()) {
+			return true;
+		}
+		return false;
 	}
 }

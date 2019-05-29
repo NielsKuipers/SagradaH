@@ -36,7 +36,7 @@ public class DiceController {
 
 
 
-	DiceOnTableScreen getDiceOnTableScreen(){
+	public DiceOnTableScreen getDiceOnTableScreen(){
 
 		return diceOnTableScreen;
 	}

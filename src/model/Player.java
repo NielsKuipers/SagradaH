@@ -35,7 +35,6 @@ public class Player {
 
 	// get all the information about a windowpattern and add it to the model
 	void selectWindow(int idGame) {
-		System.out.println(idPlayer);
 		ArrayList<ArrayList<Object>> result = playerQuery.getWindowId(idPlayer);
 		//System.out.println(result);
 		try {

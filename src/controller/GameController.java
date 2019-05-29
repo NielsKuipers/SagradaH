@@ -87,7 +87,6 @@ public class GameController extends Scene {
 
 	
 		createTimer();
-		//gameModel.giveAllThePlayersTheirFavorTokens(); 
 		//gameModel.selectwindowOptions();
 	}
 	
@@ -156,6 +155,11 @@ public class GameController extends Scene {
 				if(WC.skipSecondTurn() && gameModel.isSecondTurn() && gameModel.getPlayer(0).selectCurrentPlayer()) {
 					WC.setSkipSecondTurnFalse();
 					gameModel.giveTurnToNextPlayer();
+				}
+				
+				if (gameModel.amITheGameCreator() && !gameModel.doesEveryPlayerHasTheirFavorTokens() && gameModel.didEveryoneChoose()) {
+					gameModel.giveAllThePlayersTheirFavorTokens(); 
+					System.out.println("JAAAAA");
 				}
 				//roundtrack
 				//favor tokens

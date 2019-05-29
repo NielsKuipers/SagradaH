@@ -96,11 +96,15 @@ public class GameQuery {
 				" WHERE idgame=? AND roundtrack IS NOT NULL","" + idGame + "");
 	}
 	
+	public ArrayList<ArrayList<Object>> checkIfPlayersHaveFavorTokes(int idGame) {
+		return standardQueries.selectQuery("SELECT idfavortoken FROM gamefavortoken",
+				" WHERE idgame=? AND idplayer IS NOT NULL","" + idGame + "");
+	}
 	
-	
-	
-	
-	
+	public ArrayList<ArrayList<Object>> didEveryoneChoose(int idGame) {
+		return standardQueries.selectQuery("SELECT idplayer FROM player",
+				" WHERE game_idgame=? AND patterncard_idpatterncard IS NULL","" + idGame + "");
+	}
 	
 	
 	
