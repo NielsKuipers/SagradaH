@@ -8,7 +8,7 @@ import main.GUI;
 import model.Card;
 
 import model.FavorToken;
-import queries.CardQueries;
+
 import view.CardScreen;
 import view.FavorTokensScreen;
 import view.GameCardsScreen;
@@ -17,7 +17,7 @@ import view.ToolCardScreen;
 public class CardController extends Scene {
 	private GameCardsScreen cardScreen;
 	private GameController gameController;
-	private int amountOfFavorTokens;
+	
 
 	private WindowController windowController;
 	private DiceController diceController;
@@ -157,12 +157,16 @@ public class CardController extends Scene {
 		TC3FTS4 = new FavorTokensScreen(new FavorToken(0, Color.YELLOW));
 
 
-	 generateToolcards();
-	//	getDBcards();
+	generateToolcards();
+		
 		 generateObjectiveCards();
-		cardScreen.createView();
+		 
+		
 
-
+	}
+	
+	public Card getCardModel() {
+		return cardModel;
 	}
 
 	private int generateRandNR(int NR) {
@@ -239,58 +243,37 @@ public class CardController extends Scene {
 		}
 	}
 
-	public void checkAmountFTonTC(int tc, int playerID) {
-		if (tc == TC1) {
-			switch (playerID) {
-			case 1:
-				TC1FTS1.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnTC(tc,1));
-				break;
-			case 2:
-				TC1FTS2.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnTC(tc,2));
-				break;
-			case 3:
-				TC1FTS3.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnTC(tc,3));
-				break;
-			case 4:
-				TC1FTS4.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnTC(tc,4));
-				break;
+	public void SetAmountFTOnTC() {
+		
+				TC1FTS1.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnTC(TC1,1));
+				
+				TC1FTS2.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnTC(TC1,2));
+				
+				TC1FTS3.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnTC(TC1,3));
+				
+				TC1FTS4.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnTC(TC1,4));
+				
+		
+			
+				TC2FTS1.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnTC(TC2, 1));
+				
+				TC2FTS2.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnTC(TC2,2));
+				
+				TC2FTS3.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnTC(TC2,3));
+				
+				TC2FTS4.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnTC(TC2,4));
+				
+				TC3FTS1.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnTC(TC3,1));
+				
+				TC3FTS2.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnTC(TC3,2));
+				
+				TC3FTS3.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnTC(TC3,3));
+				
+				TC3FTS4.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnTC(TC3,4));
+				
 			}
 
-		}
-		if (tc == TC2) {
-			switch (playerID) {
-			case 1:
-				TC2FTS1.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnTC(tc, 1));
-				break;
-			case 2:
-				TC2FTS2.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnTC(tc,2));
-				break;
-			case 3:
-				TC2FTS3.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnTC(tc,3));
-				break;
-			case 4:
-				TC2FTS4.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnTC(tc,4));
-				break;
-			}
-		}
-		if (tc == TC3) {
-			switch (playerID) {
-			case 1:
-				TC3FTS1.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnTC(tc,1));
-				break;
-			case 2:
-				TC3FTS2.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnTC(tc,2));
-				break;
-			case 3:
-				TC3FTS3.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnTC(tc,3));
-				break;
-			case 4:
-				TC3FTS4.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnTC(tc,4));
-				break;
-			}
-		}
-
-	}
+	
 
 	public void buyToolcard1(CardScreen cardscreen) {
 		if (gameController.getAmountFT() != 0) {
@@ -320,7 +303,7 @@ public class CardController extends Scene {
 	}
 	}
 	public void buyTC1(CardScreen cardscreen) {
-		if (gameController.getAmountFT() != 0  && cardModel.getGameModel().getPlayer(0).selectCurrentPlayer()) {
+		if (gameController.getAmountFT() != 0 && cardModel.getGameModel().getPlayer(0).selectCurrentPlayer()) {
 			
 			if (cardscreen == toolCard2) {
 				checkBoughtTC(2);
@@ -335,7 +318,7 @@ public class CardController extends Scene {
 	}
 
 
-				}
+				
 				if (!boughtTC2) {
 					buyTCSetDB(1, false);
 					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 1));
@@ -518,7 +501,7 @@ public class CardController extends Scene {
 				}
 
 			}
-
+		}
 		}
 	
 
@@ -1051,13 +1034,13 @@ public class CardController extends Scene {
 
 	}
 
-	private void getDBcards() {
+	public void getDBcards() {
 		checkToolcards(cardModel.getToolCard1(), cardModel.getToolCard2(), cardModel.getToolCard3());
 		checkOBJCards(1, cardModel.getPubOBJcard1(), cardModel.getPubOBJcard2(), cardModel.getPubOBJcard3());
 
 	}
 
-	private void checkToolcards(int TC1, int TC2, int TC3) {
+	public void checkToolcards(int TC1, int TC2, int TC3) {
 		switch (TC1) {
 		case 1:
 			cardScreen.setTC1(toolCard1);
@@ -1213,6 +1196,8 @@ public class CardController extends Scene {
 			break;
 
 		}
+		
+		
 	}
 
 	private void generateToolcards() {
@@ -1226,7 +1211,8 @@ public class CardController extends Scene {
 		while (TC3 == TC1 || TC3 == TC2) {
 			TC3 = generateRandNR(12);
 		}
-		checkToolcards(1, 6, 10);
+			checkToolcards(TC1, TC2,TC3);
+			
 		//cardModel.setToolcards(TC1, TC2, TC3);
 
 	}
@@ -1370,7 +1356,7 @@ public class CardController extends Scene {
 			pubOBJ2 = generateRandNR(10);
 		}
 		checkOBJCards(1, pubOBJ3, pubOBJ2, pubOBJ1);
-
+		cardScreen.createView();
 	}
 
 }
