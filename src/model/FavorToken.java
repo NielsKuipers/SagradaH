@@ -6,7 +6,7 @@ import javafx.scene.paint.Color;
 
 public class FavorToken {
 	
-	private int amount;
+	
 	private Color color;
 	
 	
@@ -14,9 +14,9 @@ public class FavorToken {
 	
 	public FavorToken(int amount, Color color){
 		this.color = color;
-		this.amount = amount;
+		
 		amountProperty =  new SimpleStringProperty(this,"amountProperty");
-		amountProperty.set(String.valueOf(this.amount));
+		setAmount(amount);
 	}
 	
 	public Color getColor() {
@@ -24,11 +24,11 @@ public class FavorToken {
 	}
 	
 	public void setAmount(int amount) {
-		this.amount = amount;
+		amountProperty.set(Integer.toString(amount));
 	}
 	
 	public int getAmount() {
-		return amount;
+		return Integer.parseInt(amountProperty.get());
 	}
 	
 	

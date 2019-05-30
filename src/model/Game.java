@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.Random;
 
+import controller.CardController;
 import controller.WindowController;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -22,14 +23,23 @@ public class Game {
 	private GameQuery gameQuery;
 
 	private DiceOnTable diceOnTableModel;
+	private Card cardModel;
 
 	private WindowController windowController;
+	private CardController cardController;
 
-	public Game(GameQuery gameQuery, DiceOnTable diceOnTableModel, WindowController windowController) {
+	public Game(GameQuery gameQuery, DiceOnTable diceOnTableModel, WindowController windowController,CardController CC) {
 		this.gameQuery = gameQuery;
 		this.diceOnTableModel = diceOnTableModel;
 		this.windowController = windowController;
 		gameRound = new SimpleStringProperty(this, "round", "empty");
+		this.cardModel= cardModel;
+		cardController = CC;
+		
+	}
+	
+	public void showID() {
+		
 	}
 
 	private void setRound(String round) {
@@ -38,6 +48,9 @@ public class Game {
 
 	public final StringProperty gameRoundProperty() {
 		return gameRound;
+	}
+	public int getRound() {
+		return (int) gameQuery.getRound(gameId).get(0).get(0);
 	}
 
 	public void addPlayer(Player player) {
@@ -50,6 +63,9 @@ public class Game {
 
 	public int getGameID() {
 		return gameId;
+	}
+	public int getAmountOffplayers() {
+		return players.size();
 	}
 
 	// give all the players the right id
@@ -122,6 +138,7 @@ public class Game {
 		selectRound();
 		selectAllDicesOnTable();
 		checkWhoIsQurrentPlayer();
+		   
 	}
 
 	// get the dice with highest roundtrack and fill the round

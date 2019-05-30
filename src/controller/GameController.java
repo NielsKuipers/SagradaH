@@ -36,7 +36,7 @@ public class GameController extends Scene {
 		this.WC = WC;
 		this.DC = DC;
 
-		gameModel = new Game(databaseController.getGameQuery(), DC.getDiceOnTableModel(), WC);
+		gameModel = new Game(databaseController.getGameQuery(), DC.getDiceOnTableModel(), WC, CardController);
 		gameModel.addPlayer(new Player(databaseController.getPlayerQuery()));
 		gameModel.addPlayer(new Player(databaseController.getPlayerQuery()));
 		gameModel.addPlayer(new Player(databaseController.getPlayerQuery()));
@@ -109,6 +109,7 @@ public class GameController extends Scene {
 		windowChoooseScreen.add(WC.getWindow3(), 2, 1);
 		windowChoooseScreen.add(WC.getWindow4(), 3, 1);
 	}
+	
 
 	public void handleCheatGame(boolean allPossible, boolean bestChoice) {
 		WC.setCheatAllPossible(allPossible);

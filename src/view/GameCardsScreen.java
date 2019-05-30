@@ -54,16 +54,28 @@ private CardController cardController;
         this.gui = gui;
     }
     
+
+   
+    
+    
     public void setTC1(CardScreen toolcard) {
         gameTC1 = toolcard;
+       
+        
     }
     
     public void setTC2(CardScreen toolcard) {
         gameTC2 = toolcard;
+        
+        
+     
     }
     
     public void setTC3(CardScreen toolcard) {
         gameTC3 = toolcard;
+       
+       
+    
     }
     
     public void setPRIVOBJCard(CardScreen privateOjectiveCard) {
@@ -91,12 +103,12 @@ private CardController cardController;
         Button buyTC2 = new Button("buy toolcard");
         Button buyTC3 = new Button("buy toolcard");
     
+       
     
     
-    
-    buyTC1.setOnAction(e -> cardController.buyTC1(gameTC1));
-    buyTC2.setOnAction(e -> cardController.buyTC2(gameTC2));
-    buyTC3.setOnAction(e -> cardController.buyTC3(gameTC3));
+    buyTC1.setOnAction(e -> cardController.buyToolcard1(gameTC1));
+    buyTC2.setOnAction(e -> cardController.buyToolcard2(gameTC2));
+    buyTC3.setOnAction(e -> cardController.buyToolcard3(gameTC3));
     exit = new Button("Exit");
     exit.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE,null,null)));
     exit.setPrefSize(1600, 50);
@@ -126,7 +138,9 @@ private CardController cardController;
     objectiveCards = new HBox(30,privOBJCard,pubOBJCard1,pubOBJCard2,pubOBJCard3);
     objectiveCards.setPadding(new Insets(10,0,30,250));
     setCenterShape(true);
+    getChildren().clear();
     getChildren().addAll(labelTC,toolCards,prices,buttons,labelOBC,objectiveCards,exit);
+    
     
 }
 
