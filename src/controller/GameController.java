@@ -159,7 +159,7 @@ public class GameController extends Scene {
 					gameModel.giveAllThePlayersTheirFavorTokens(); 
 					System.out.println("JAAAAA");
 				}
-
+				
 				//roundtrack
 				//favor tokens
 				//card costs
@@ -177,6 +177,13 @@ public class GameController extends Scene {
 	}
 	
 	public void handleFinishTurn() {
+		if(gameModel.getPlayer(0).selectCurrentPlayer() && gameModel.isSecondTurn()) {
+			gameModel.placeDicesOnRoundTrack();
+			DC.getDiceOnTableScreen().removeDicesScreen();
+			gameModel.selectWholeGame();
+			
+		}
+		
 		if(gameModel.getPlayer(0).selectCurrentPlayer()) {
 			gameModel.giveTurnToNextPlayer();
 			WC.setMovedToFalse();
@@ -184,12 +191,15 @@ public class GameController extends Scene {
 			WC.setDiceCanBeMovedFalse();
 		}
 		
+		
+		
 	}
 	
 	public void handleRollDices() {
 		System.out.println(gameModel.checkIfMainPlayerCanThrowDices());
 		if(gameModel.checkIfMainPlayerCanThrowDices()) {
 			gameModel.rollTheDices();
+			gameModel.selectWholeGame();
 			//change if
 		}
 	}

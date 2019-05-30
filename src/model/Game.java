@@ -154,7 +154,7 @@ public class Game {
 		}
 	}
 
-	private ArrayList<ArrayList<Object>> getAllDicesOnTable() {
+	public ArrayList<ArrayList<Object>> getAllDicesOnTable() {
 		// check which round you are in
 		ArrayList<ArrayList<Object>> result = gameQuery.getRound(gameId);
 		int round = 0;
@@ -181,6 +181,23 @@ public class Game {
 		}
 
 		return diceOnTable;
+	}
+	
+	public void placeDicesOnRoundTrack() {
+		
+		ArrayList<ArrayList<Object>> result = gameQuery.getRound(gameId);
+		int round = 0;
+		if (result.isEmpty()) {
+			round = 1;
+		} else {
+			round = Integer.valueOf(String.valueOf(result.get(0).get(0)));
+			round++;
+		}
+		
+		ArrayList<ArrayList<Object>> diceOnTable = getAllDicesOnTable();
+		for (ArrayList<Object> dices : diceOnTable) {
+			gameQuery.addDiceToRoundTrack((int)dices.get(0), (String)dices.get(1), round, gameId);
+		}
 	}
 
 	public void throwAgainWithSameDicesOnTable() {
