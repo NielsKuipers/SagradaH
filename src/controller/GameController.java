@@ -25,6 +25,7 @@ public class GameController extends Scene {
 
 	private WindowController WC;
 	private DiceController DC;
+	private GUI gui;
 	
 	private boolean hasThrown = false;
 	
@@ -35,7 +36,8 @@ public class GameController extends Scene {
 		super(new Pane());
 		this.WC = WC;
 		this.DC = DC;
-
+		this.gui = gui;
+		
 		gameModel = new Game(databaseController.getGameQuery(), DC.getDiceOnTableModel(), WC);
 		gameModel.addPlayer(new Player(databaseController.getPlayerQuery()));
 		gameModel.addPlayer(new Player(databaseController.getPlayerQuery()));
@@ -156,6 +158,10 @@ public class GameController extends Scene {
 				if(WC.skipSecondTurn() && gameModel.isSecondTurn() && gameModel.getPlayer(0).selectCurrentPlayer()) {
 					WC.setSkipSecondTurnFalse();
 					gameModel.giveTurnToNextPlayer();
+				}
+				
+				if(gameModel.checkIfGameIsOver()) {
+					gui.handleToEndScreen();
 				}
 				//roundtrack
 				//favor tokens
