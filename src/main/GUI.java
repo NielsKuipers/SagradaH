@@ -50,6 +50,7 @@ public class GUI extends Application {
 		roundController = new RoundScreenController(stage, databaseController, this, windowController, gameController);
 		setupScreenController = new SetupScreenController(databaseController, this, gameController);
 //	  EndScreenController EndController = new EndScreenController(stage, databaseController, gameController);
+
 		calcScore = new CalculateScore(databaseController);
 		
 		scene = new Scene(startPane);
