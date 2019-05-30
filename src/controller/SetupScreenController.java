@@ -31,11 +31,20 @@ public class SetupScreenController {
 		cModel.setClientUsername(accountController.getAccount());
 	}
 	
+	// uitvoeren wanneer nieuwe game gemaakt moet worden
 	public void makeNewGame() {
 		setupScreen.makeNewGame();
 		randomPatterns = false;
-		cModel.refreshRandomColors();
 		cModel.setClientUsername(accountController.getAccount());
+	}
+	
+	// uitvoeren wanneer bestaande setup geladen moet worden
+	public void loadSetup(int gameid) {
+		cModel.setGameID(gameid);
+		setupScreen.loadSetup();
+		randomPatterns = false;
+		cModel.setClientUsername(accountController.getAccount());
+		addJoinedPlayers();
 	}
 	
 	public SetupScreen getSetupScreen() {
@@ -54,7 +63,6 @@ public class SetupScreenController {
 			setupScreen.declinedInviteWarning();
 		}else if(cModel.checkUnansweredInGame()) {
 			setupScreen.unAnsweredInviteWarning();
-
 		}else{
 			gameController.getGameModel().setGameID(cModel.getGameID());
 			gameController.getGameModel().createAllPlayerFrameFields(cModel.getGameID(), randomPatterns);

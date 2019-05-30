@@ -242,6 +242,14 @@ public class SetupScreen extends BorderPane {
 		refreshListButton.setDisable(true);
 		setPlayerAmountText();
 	}
+	
+	public void loadSetup() {
+		regularSet = true;
+		gameMade = true;
+		clearJoinedList();
+		refreshListButton.setDisable(false);
+		setPlayerAmountText();
+	}
 
 
 	public void declinedInviteWarning() {

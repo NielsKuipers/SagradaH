@@ -48,6 +48,10 @@ public class InviteHandleQueries {
 	private int getGameIDint() {
 			return (int) getGameID().get(0).get(0);
 		}
+	
+	public void setGameID(int gameid) {
+		gameID = gameid;
+	}
 		
 	
 	//////////////insert queries////////////////////////////
@@ -188,6 +192,11 @@ public class InviteHandleQueries {
 	public boolean checkUnasweredInGame() {
 		ArrayList<ArrayList<Object>> result = standardQuerie.selectQuery("SELECT COUNT(idplayer) FROM player", " WHERE game_idgame=? AND playstatus_playstatus=?", ""+gameID+"\0uitgedaagde");
 		return (long) result.get(0).get(0) > 0;
+	}
+	
+	// returnt alle geselecteerde private objective kleuren
+	public ArrayList<ArrayList<Object>> getPrivateColors(){
+		return standardQuerie.selectQuery("SELECT private_objectivecard_color FROM player", " WHERE game_idgame=?" , ""+gameID+"");
 	}
 
 }

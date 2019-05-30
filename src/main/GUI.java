@@ -121,6 +121,8 @@ public class GUI extends Application {
 	
 	public void handleToEndScreen() { scene.setRoot(endController.getEndScreen());}
 	
+	public void handleLoadSetup(int gameid) { scene.setRoot(setupScreenController.getSetupScreen()); setupScreenController.loadSetup(gameid);}
+	
 	// schakel van setup scherm naar invite scherm
 	public void openInviterMenu() {
 		setupScreenController.getInviteScreen().clearList();

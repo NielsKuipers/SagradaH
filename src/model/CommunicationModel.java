@@ -18,6 +18,11 @@ public class CommunicationModel {
 		inviteQueries.setClientUserName(username);
 	}
 	
+	// setGameID
+	public void setGameID(int gameid) {
+		inviteQueries.setGameID(gameid);
+	}
+	
 	// return invitelist
 	public ArrayList<ArrayList<Object>> getInviteablePlayers() {
 		return inviteQueries.getPlayers();
@@ -52,12 +57,6 @@ public class CommunicationModel {
 	public ArrayList<ArrayList<Object>> getInviter(int gameid){
 		return inviteQueries.getInviter(gameid);
 	}
-	
-	// vernieuwt kleur array wanneer je nieuwe games aanmaakt
-	public void refreshRandomColors() {
-		colors.clear();
-		addColors();
-	}
 
 	// voegt kleuren toe aan private objective card kleur arraylist
 	private void addColors() {
@@ -70,9 +69,20 @@ public class CommunicationModel {
 	
 	// returnt random private objectivekleur en haalt het uit de arrayList
 	public String getPrivateObjectiveColor() {
+		ArrayList<ArrayList<Object>> result = inviteQueries.getPrivateColors();
+		for(ArrayList<Object> objects: result) {
+			for(String color: colors) {
+				if(objects.get(0).equals(color)) {
+					colors.remove(color);
+					break;
+				}
+			}
+		}
+		
 		int random = (int)(Math.random() * colors.size());
 		String color = colors.get(random);
-		colors.remove(random);
+		colors.clear();
+		addColors();
 		return color;
 	}
 
