@@ -26,8 +26,6 @@ public class GameController extends Scene {
 	private WindowController WC;
 	private DiceController DC;
 	
-	private boolean hasThrown = false;
-	
 	private AnimationTimerEXT timer;
 
 	public GameController(GUI gui, DatabaseController databaseController, WindowController WC, DiceController DC,
@@ -161,6 +159,7 @@ public class GameController extends Scene {
 					gameModel.giveAllThePlayersTheirFavorTokens(); 
 					System.out.println("JAAAAA");
 				}
+
 				//roundtrack
 				//favor tokens
 				//card costs
@@ -181,7 +180,6 @@ public class GameController extends Scene {
 		if(gameModel.getPlayer(0).selectCurrentPlayer()) {
 			gameModel.giveTurnToNextPlayer();
 			WC.setMovedToFalse();
-			hasThrown = false;
 			WC.setCanOnlyMoveDiceWithSameColorAsDIceOnRoundTrackFalse();
 			WC.setDiceCanBeMovedFalse();
 		}

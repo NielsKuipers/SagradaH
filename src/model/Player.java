@@ -99,6 +99,12 @@ public class Player {
 	public void setDiceOnWindowPattern(int posX, int posY, int dienumber, String diecolor) {
 		playerQuery.updateDiceOnWindowPattern(idPlayer, posX, posY, dienumber, diecolor);
 	}
+	
+	// add a dice to playerframefield and give inFirstTurn
+		public void setDiceOnWindowPatternAndGiveFirstTurn(int posX, int posY, int dienumber, String diecolor, int inFirstTurn, int idGame) {
+			playerQuery.updateDiceOnWindowPattern(idPlayer, posX, posY, dienumber, diecolor);
+			playerQuery.updateFirstTurnDice(idGame, dienumber, diecolor, inFirstTurn);
+		}
 
 	// remove a dice from playerframefield
 	public void removeDiceOnWindowPattern(int dienumber, String diecolor) {

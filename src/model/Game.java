@@ -612,6 +612,13 @@ public class Game {
 		}
 		return false;
 	}
+	
+	public int getInFirstTurn() {
+		if(isSecondTurn()) {
+			return 0;
+		}
+		return 1;
+	}
 
 	public boolean checkIfSameColorDiceIsOnRoundTrack(Color dieColor) {
 		ArrayList<ArrayList<Object>> result = gameQuery.getAllTheDifferntColorsFromTheRoundTrack(gameId);
@@ -627,6 +634,27 @@ public class Game {
 	public boolean isRoundTrackEmpty() {
 		ArrayList<ArrayList<Object>> result = gameQuery.getAllTheDifferntColorsFromTheRoundTrack(gameId);
 		if (result.isEmpty()) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean canPlayerPlaceADiceInThisRoundFromTheTable() {
+		ArrayList<ArrayList<Object>> result = gameQuery.getRound(gameId);
+		int round = 0;
+		if (result.isEmpty()) {
+			round = 1;
+		} else {
+			round = Integer.valueOf(String.valueOf(result.get(0).get(0)));
+			round++;
+		}
+		
+		int inFirsTurn = getInFirstTurn();
+		
+		ArrayList<ArrayList<Object>> result2 = gameQuery.canPlayerPlaceADice(gameId, players.get(0).getPlayerId(), 
+				inFirsTurn, round);
+		
+		if(result2.isEmpty()) {
 			return true;
 		}
 		return false;

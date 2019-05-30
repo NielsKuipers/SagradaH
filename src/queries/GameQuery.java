@@ -106,6 +106,11 @@ public class GameQuery {
 				" WHERE game_idgame=? AND patterncard_idpatterncard IS NULL","" + idGame + "");
 	}
 	
+	public ArrayList<ArrayList<Object>> canPlayerPlaceADice(int idGame, int idPlayer, int infirstturn, int round) {
+		return standardQueries.selectQuery("SELECT * FROM playerframefield p inner join gamedie g on g.idgame = p.idgame AND g.dienumber = p.dienumber AND g.diecolor = p.diecolor",
+				" WHERE g.idgame=? AND player_idplayer=? AND inFirstTurn=? AND round=?",idGame + "\0" + idPlayer + "\0" + infirstturn + "\0" + round);
+	}
+	
 	
 	
 	///////////////////////////////////ENDSCREEN//////////////////////////////////////////////////////////////////

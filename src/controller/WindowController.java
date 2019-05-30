@@ -36,7 +36,7 @@ public class WindowController {
 	private GameController GC;
 	private DiceController DC;
 	private RoundScreenController RC;
-	
+
 	private GUI gui;
 
 	private ArrayList<Color> colorsField = new ArrayList<>();
@@ -292,7 +292,7 @@ public class WindowController {
 	// pick up a dice
 	public void dragButton(DiceScreen b) {
 		b.setOnDragDetected(e -> {
-			if (GC.getGameModel().getPlayer(0).selectCurrentPlayer() && getIsADiceMoved() == false) {
+			if (GC.getGameModel().getPlayer(0).selectCurrentPlayer()) {
 				Dragboard db = b.startDragAndDrop(TransferMode.MOVE);
 				db.setDragView(b.snapshot(null, null));
 				ClipboardContent cc = new ClipboardContent();
@@ -334,14 +334,17 @@ public class WindowController {
 					&& isDiceNextToAnotherDice(pane.getFieldModel(), draggingDice.getDiceModel())) {
 
 				if (DC.getDiceOnTableModel().isDiceOnTable(draggingDice.getDiceModel()) && !ignoreEyes
-						&& !ignoreColor) {
+						&& !ignoreColor && GC.getGameModel().canPlayerPlaceADiceInThisRoundFromTheTable()) {
+					
 					DC.getDiceOnTableModel().removeDiceFromTable(draggingDice.getDiceModel());
 					changedDiceBoard();
 					pane.getFieldModel().addDice(draggingDice.getDiceModel());
 
-					GC.getGameModel().getPlayer(0).setDiceOnWindowPattern((pane.getFieldModel().getColumn() + 1),
-							pane.getFieldModel().getRow(), draggingDice.getDiceModel().getDiceNumber(),
-							draggingDice.getDiceModel().getColorForQuerie());
+					GC.getGameModel().getPlayer(0).setDiceOnWindowPatternAndGiveFirstTurn(
+							(pane.getFieldModel().getColumn() + 1), pane.getFieldModel().getRow(),
+							draggingDice.getDiceModel().getDiceNumber(),
+							draggingDice.getDiceModel().getColorForQuerie(), GC.getGameModel().getInFirstTurn(),
+							GC.getGameModel().getGameID());
 
 					e.setDropCompleted(true);
 					if (!extraTurn) {
@@ -821,8 +824,9 @@ public class WindowController {
 					if (node2 instanceof DiceScreen) {
 						DiceScreen dice = (DiceScreen) node2;
 						dice.setGlowBorder();
-						dice.setOnMouseClicked(e -> switchDiceWithRoundTrack(dice, (result.getFieldModel().getColumn() + 1), result.getFieldModel().getRow()));
-						
+						dice.setOnMouseClicked(e -> switchDiceWithRoundTrack(dice,
+								(result.getFieldModel().getColumn() + 1), result.getFieldModel().getRow()));
+
 					}
 				}
 			}
@@ -842,7 +846,7 @@ public class WindowController {
 				}
 			}
 		}
-		
+
 	}
 
 	private void switchDiceWithRoundTrack(DiceScreen dice, int column, int row) {
@@ -853,9 +857,8 @@ public class WindowController {
 		int diceNumberWindow = dice.getDiceModel().getDiceNumber();
 		String diceColorWindow = dice.getDiceModel().getColorForQuerie();
 		RC.clickDiceOnRoundTrack(diceNumberWindow, diceColorWindow, column, row);
-		
-		//cant go back to gameScreen untill dice ont roundtrack clicked
-		
+
+		// cant go back to gameScreen untill dice ont roundtrack clicked
 
 	}
 
@@ -898,11 +901,11 @@ public class WindowController {
 	public void setDiceCanBeMovedFalse() {
 		diceCanBeMoved = false;
 	}
-	
+
 	public void setRoundController(RoundScreenController RC) {
 		this.RC = RC;
 	}
-	
+
 	public GameController getGameController() {
 		return GC;
 	}
