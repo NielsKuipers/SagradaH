@@ -164,10 +164,14 @@ public class FieldScreen extends StackPane {
 					getChildren().add(diceScreen);
 				} 
 				else {
-					getChildren().remove(getChildren().size() - 1);
+					for (Node node : getChildren()) {
+						if (node instanceof DiceScreen) {
+							getChildren().remove(node);
+						}
+					}
 				}
 			} catch (Exception e) {
-				e.printStackTrace();
+				
 			}
 		}
 	}

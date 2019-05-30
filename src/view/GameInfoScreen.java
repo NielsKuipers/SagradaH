@@ -43,7 +43,7 @@ public class GameInfoScreen extends VBox{
 		Button backToHomeScreen = new Button("Terug naar hoofdscherm");
 		backToHomeScreen.setStyle("-fx-background-color: linear-gradient(to right, lightblue 0%,white 50%, cornflowerblue 100%);-fx-background-radius: 50 50 50 50;");
 		backToHomeScreen.setBorder(new Border(new BorderStroke(Color.GRAY, BorderStrokeStyle.SOLID,new CornerRadii(50), new BorderWidths(2))));
-	
+		backToHomeScreen.setOnMouseClicked(e -> gui.handleHomeMenu());
 		
 		ToggleGroup cheatModus = new ToggleGroup();
 		

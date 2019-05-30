@@ -12,10 +12,10 @@ import queries.GameQuery;
 
 public class Game {
 
-	private int gameId = 1;
+	private int gameId = 0;
 	private ArrayList<Player> players = new ArrayList<>();
 
-	private String accountName = "Gijs";
+	private String accountName = "";
 	private StringProperty gameRound;
 
 	private Random r = new Random();
@@ -69,7 +69,7 @@ public class Game {
 	}
 
 	// give all the players the right id
-	private void selectPlayerIds() {
+	public void selectPlayerIds() {
 		ArrayList<ArrayList<Object>> result = gameQuery.getPlayerIdsAndNames(gameId);
 		int playerLocation = 0;
 		boolean accountPlaced = false;
@@ -113,6 +113,15 @@ public class Game {
 		}
 		selectPlayerIds();
 	}
+	
+	public void makeGameEmpty() {
+		diceOnTableModel.removeAllDicesFromTable();
+		for (Player player : players) {
+			player.setPlayerId(0);
+			player.getWindowPatternPlayer().setId(0);
+			player.getWindowPatternPlayer().makeWindowEmpty();
+		}
+	}
 
 	// get everything from the game
 	public void selectWholeGame() {
@@ -121,6 +130,7 @@ public class Game {
 		int amountOfPlayers = result.size();
 		for (Player player : players) {
 			player.getWindowPatternPlayer().setPlayerName("Naam: NIEMAND!!!");
+			player.getWindowPatternPlayer().setPlayerScore("Score: 0");
 		}
 		for (int i = 0; i < amountOfPlayers; i++) {
 			players.get(i).selectWindow(gameId);
@@ -185,6 +195,7 @@ public class Game {
 				diceOnTable.add(dicesFromRound);
 			}
 		}
+
 		return diceOnTable;
 	}
 
@@ -381,6 +392,38 @@ public class Game {
 		}
 	}
 
+	public void createAllPlayerFrameFields(int idGame, boolean random) {
+		ArrayList<ArrayList<Object>> result = gameQuery.getPlayerIdsAndNames(gameId);
+		for (int i = 0; i < result.size(); i++) {
+			createPlayerFrameField(Integer.valueOf(String.valueOf(result.get(i).get(0))), idGame);
+		}
+
+		if (!random) {
+			switch (result.size()) {
+			case 2:
+				givePlayerCardOption((int) result.get(0).get(0), (int) result.get(1).get(0), 0, 0);
+				break;
+			case 3:
+				givePlayerCardOption((int) result.get(0).get(0), (int) result.get(1).get(0), (int) result.get(2).get(0),
+						0);
+				break;
+			case 4:
+				givePlayerCardOption((int) result.get(0).get(0), (int) result.get(1).get(0), (int) result.get(2).get(0),
+						(int) result.get(3).get(0));
+				break;
+			default:
+				break;
+			}
+		} else if (random) {
+			for (int i = 0; i < result.size(); i++) {
+				for (int j = 0; j < 4; j++) {
+					createNewRandomPatternCard((int)result.get(i).get(0));
+				}
+			}
+			
+		}
+	}
+
 	// create ONE random windowpattern
 	public void createNewRandomPatternCard(int idPlayer) {
 		// create random windowpattern
@@ -502,8 +545,13 @@ public class Game {
 	public void rollTheDices() {
 		// get the round
 		ArrayList<ArrayList<Object>> result = gameQuery.getRound(gameId);
-		int round = Integer.valueOf(String.valueOf(result.get(0).get(0)));
-		round++;
+		int round = 0;
+		if (result.isEmpty()) {
+			round = 1;
+		} else {
+			round = Integer.valueOf(String.valueOf(result.get(0).get(0)));
+			round++;
+		}
 
 		// get the amount of players
 		ArrayList<ArrayList<Object>> result3 = gameQuery.getPlayerIdsAndNames(gameId);
@@ -525,13 +573,30 @@ public class Game {
 			String dieColor = String.valueOf(result2.get(indexDice).get(1));
 
 			// update the dice, the dice has been thrown
-			gameQuery.updateRollDice(dieNumber, dieColor, 30, randomEyes, round);
+			gameQuery.updateRollDice(dieNumber, dieColor, gameId, randomEyes, round);
 
 		}
 	}
 
 	public boolean checkIfMainPlayerCanThrowDices() {
-		return players.get(0).selectCurrentPlayer() && players.get(0).selectSqnr() == 1;
+		ArrayList<ArrayList<Object>> result = gameQuery.getRound(gameId);
+		int round = 0;
+		if (result.isEmpty()) {
+			round = 1;
+		} else {
+			round = Integer.valueOf(String.valueOf(result.get(0).get(0)));
+			round++;
+		}
+		
+		ArrayList<ArrayList<Object>> result2 = gameQuery.getAllDicesFromOneRound(gameId, round);
+		
+		
+		boolean canThrow = false;
+		
+		if(players.get(0).selectCurrentPlayer() && players.get(0).selectSqnr() == 1 && result2.isEmpty()) {
+			canThrow = true;
+		}
+		return canThrow;
 	}
 
 	public boolean checkIfGameIsOver() {
@@ -543,7 +608,7 @@ public class Game {
 		ArrayList<ArrayList<Object>> result3 = gameQuery.getPlayerIdsAndNames(gameId);
 		int amountOfPlayers = (result3.size());
 		int sqnrPlayer = players.get(0).selectSqnr();
-		
+
 		switch (amountOfPlayers) {
 		case 2:
 			if (sqnrPlayer > 2) {
@@ -564,25 +629,63 @@ public class Game {
 		}
 		return false;
 	}
-	
-	
+
 	public boolean checkIfSameColorDiceIsOnRoundTrack(Color dieColor) {
 		ArrayList<ArrayList<Object>> result = gameQuery.getAllTheDifferntColorsFromTheRoundTrack(gameId);
 		String stringColor = getColorForQuerie(dieColor);
 		for (int i = 0; i < result.size(); i++) {
-			if(result.get(i).get(0).toString().equals(stringColor)) {
+			if (result.get(i).get(0).toString().equals(stringColor)) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
 	public boolean isRoundTrackEmpty() {
 		ArrayList<ArrayList<Object>> result = gameQuery.getAllTheDifferntColorsFromTheRoundTrack(gameId);
 		if (result.isEmpty()) {
 			return true;
 		}
 		return false;
-		
+	}
+
+	//////////////////////////////////// ENDSCREEN////////////////////////////////////////////////////////////////////////////
+	public ArrayList<ArrayList<Object>> getPlayerScores() {
+		return gameQuery.getPlayerScores(gameId);
+	}
+
+	public void setPlayerStatusFinished() {
+		gameQuery.setPlayerStatusFinished(gameId);
+	}
+
+	//////////////////////////////////// RONDEBORD/////////////////////////////////////////////////////////////////////////////
+
+	// returnt rondebord dobbelstenen
+	public ArrayList<ArrayList<Object>> getDicesOnRoundBoard(int round) {
+		return gameQuery.getDicesOnRoundBoard(round, gameId);
+	}
+
+	// verwijdert dobbelsteen van rondebord
+	public void removeDice(int diceID, String colorText) {
+		gameQuery.removeDice(diceID, colorText, gameId);
+
+	}
+
+	public int getRoundTrackOfDice(int diceID, String colorText) {
+		ArrayList<ArrayList<Object>> result = gameQuery.getRoundTrackOfDice(diceID, colorText, gameId);
+		int round = Integer.valueOf(String.valueOf(result.get(0).get(0)));
+		return round;
+	}
+
+	public void addDiceToRoundTrack(int diceID, String colorText, int round) {
+		gameQuery.addDiceToRoundTrack(diceID, colorText, round, gameId);
+	}
+	
+	public void setGameID(int gameID) {
+		this.gameId = gameID;
+	}
+	
+	public void setAccountName(String accountName) {
+		this.accountName = accountName;
 	}
 }

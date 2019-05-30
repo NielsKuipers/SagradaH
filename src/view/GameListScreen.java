@@ -31,7 +31,7 @@ public class GameListScreen extends VBox {
 		gameBar.getSelectionModel().select(1);
 		scrollPane.setContent(listBox);
 		sortMenu.getChildren().addAll(sortLabel, gameBar, sortBar, toHomePane);
-		gameBar.setOnAction(e -> sendString(gameBar.getValue()));
+		gameBar.setOnAction(e -> changeGameKind(gameBar.getValue(), sortBar.getValue()));
 		sortBar.setOnAction(e -> handleSort(sortBar.getValue()));
 		setBackground(new Background(new BackgroundFill(Color.GAINSBORO, null, null)));
 		getChildren().addAll(sortMenu, scrollPane);
@@ -50,8 +50,10 @@ public class GameListScreen extends VBox {
 		listBox.getChildren().addAll(boxes);
 	}
 	
-	public void sendString(String S) {
+	public void changeGameKind(String S, Object V) {
 		mygui.sendString(S);
+		listBox.getChildren().clear();
+		mygui.handlegamesort(V);
 	}
 	
 }
