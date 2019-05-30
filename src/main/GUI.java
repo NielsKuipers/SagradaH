@@ -25,7 +25,7 @@ public class GUI extends Application {
 	private CardController cardController;
 	private CalculateScore calcScore;
 	private SetupScreenController setupScreenController;
-	//private EndScreenController EndController;
+	private EndScreenController endController;
 
 	void startup(String[] args) {
 		launch(args);
@@ -49,8 +49,9 @@ public class GUI extends Application {
 
 		roundController = new RoundScreenController(stage, databaseController, this, windowController, gameController);
 		setupScreenController = new SetupScreenController(databaseController, this, gameController, accountController);
-//	  EndScreenController EndController = new EndScreenController(stage, databaseController, gameController);
 		calcScore = new CalculateScore(databaseController);
+		endController = new EndScreenController(databaseController, gameController, calcScore, this);
+		
 		
 		scene = new Scene(startPane);
 
@@ -117,6 +118,8 @@ public class GUI extends Application {
 	public void handleUserList() { scene.setRoot(userListController.getUserListScreen()); }
 	
 	public void handleChooseScreen() { scene.setRoot(gameController.getChooseScreen()); }
+	
+	public void handleToEndScreen() { scene.setRoot(endController.getEndScreen());}
 	
 	// schakel van setup scherm naar invite scherm
 	public void openInviterMenu() {

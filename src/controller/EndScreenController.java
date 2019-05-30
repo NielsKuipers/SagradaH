@@ -2,6 +2,7 @@ package controller;
 
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import main.GUI;
 import model.Game;
 import view.EndScreen;
 
@@ -11,17 +12,40 @@ public class EndScreenController {
 	
 	private EndScreen endScreen;
 	private Game gameModel;
+	private CalculateScore calcScore; // nodig
 	
-	public EndScreenController(Stage stage, DatabaseController dataController, GameController gameController) {
-		endScreen = new EndScreen();
+	public EndScreenController(DatabaseController dataController, GameController gameController, CalculateScore calcScore, GUI gui) {
+		endScreen = new EndScreen(gui);
 		gameModel = gameController.getGameModel();
-		gameModel.setPlayerStatusFinished();
-		stage.setScene(new Scene(endScreen));
+		this.calcScore = calcScore;
 		putPlayersOnBoard();
 		makeEndScoreList();
-		
-	} // moet er uit.
+	} 
 	
+	public EndScreen getEndScreen() {
+		return endScreen;
+	}
+	
+	// berkent score en zet spelers op eindscherm
+	public void enterEndScreen() {
+		endScreen.clearPlayers();
+		gameModel.setPlayerStatusFinished();
+		calculateEndScores();
+		putPlayersOnBoard();
+		makeEndScoreList();
+	}
+	
+	// berekent eindscores en zet ze in de database
+	private void calculateEndScores() {
+		ArrayList<ArrayList<Object>> result = gameModel.getPlayerIds();
+		int points;
+		
+		for(ArrayList<Object> objects: result) {
+			points = 20; //calcScore.getpoints((int) objects.get(0), 1); // moet aangepast worden
+			gameModel.setPoints(points, (int) (objects.get(0)));
+		}
+	}
+
 	// zet speler pion op scorebord
 	private void putPlayersOnBoard() {
 		ArrayList<ArrayList<Object>> result = gameModel.getPlayerScores();
