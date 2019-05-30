@@ -25,12 +25,12 @@ public class AccountController {
 	private GameListScreen gameListScreen;
 	private String gameboolean = "";
 	private GameController gameController;
-	private DiceController diceControler;
+	private DiceController diceController;
 	
-	public AccountController(GUI gui, DatabaseController DC, HomePane HP, StartPane SP, GameListScreen GLS, GameController gameController, DiceController diceControler) {
+	public AccountController(GUI gui, DatabaseController DC, HomePane HP, StartPane SP, GameListScreen GLS, GameController gameController, DiceController diceController) {
 		this.myGUI = gui;
 		this.gameController = gameController;
-		this.diceControler = diceControler;
+		this.diceController = diceController;
 		this.homePane = HP;
 		this.startpane = SP;
 		this.gameListScreen = GLS;
@@ -95,6 +95,7 @@ public class AccountController {
 	}
 	
 	public void handleJoinGame(int newGameID) {
+
 		if(!myaccount.patternsCreated(getAccount(), newGameID) && myaccount.hostplayer(getAccount(), newGameID)) {
 			myGUI.handleLoadSetup(newGameID);
 		}else {

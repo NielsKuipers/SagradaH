@@ -7,6 +7,11 @@ public class ToolCardScreen extends CardScreen {
 	}
 	
 	public void addFTScreens(FavorTokensScreen FVS1,FavorTokensScreen FVS2,FavorTokensScreen FVS3,FavorTokensScreen FVS4) {
+		
+		
+		
+		
+		
 		FVS1.setLayoutX(10);
 		FVS1.setLayoutY(55);
 		

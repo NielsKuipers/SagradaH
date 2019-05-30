@@ -39,7 +39,7 @@ public class GUI extends Application {
 		DatabaseController databaseController = new DatabaseController();
 		WindowController windowController = new WindowController(this, databaseController);
 
-		DiceController diceController = new DiceController(this, windowController);
+		diceController = new DiceController(this, windowController);
 		chatController = new ChatController(this, databaseController);
         userListController = new UserListController(this, databaseController);
 		gameController = new GameController(this, databaseController, windowController, diceController, chatController);
@@ -49,6 +49,8 @@ public class GUI extends Application {
 
 		roundController = new RoundScreenController(stage, databaseController, this, windowController, gameController);
 		setupScreenController = new SetupScreenController(databaseController, this, gameController, accountController);
+//	  EndScreenController EndController = new EndScreenController(stage, databaseController, gameController);
+
 		calcScore = new CalculateScore(databaseController);
 		endController = new EndScreenController(databaseController, gameController, calcScore, this);
 		
@@ -68,6 +70,7 @@ public class GUI extends Application {
 		gameController.chooseWindow(windowModel);
 		gameController.addGameScreens();
 		gameController.getGameModel().makeGameEmpty();
+		diceController.getDiceOnTableScreen().removeDicesScreen();
 		gameController.getGameModel().selectPlayerIds();
 		gameController.getGameModel().selectWholeGame();
 		
@@ -97,7 +100,7 @@ public class GUI extends Application {
                                               
 	public void handlegamesort(Object sortV) { accountController.handleSort(sortV); }
 	
-	public void handleHomeMenu() { accountController.toHomeMenu(); }
+	public void handleHomeMenu() { accountController.toHomeMenu(); gameController.stopTimer();}
 	
 	public void sendString(String S) { accountController.setGameboolean(S); }
 

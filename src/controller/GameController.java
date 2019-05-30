@@ -27,8 +27,6 @@ public class GameController extends Scene {
 	private DiceController DC;
 	private GUI gui;
 	
-	private boolean hasThrown = false;
-	
 	private AnimationTimerEXT timer;
 
 	public GameController(GUI gui, DatabaseController databaseController, WindowController WC, DiceController DC,
@@ -37,8 +35,8 @@ public class GameController extends Scene {
 		this.WC = WC;
 		this.DC = DC;
 		this.gui = gui;
-		
-		gameModel = new Game(databaseController.getGameQuery(), DC.getDiceOnTableModel(), WC);
+
+		gameModel = new Game(databaseController.getGameQuery(), DC.getDiceOnTableModel(), WC, CardController);
 		gameModel.addPlayer(new Player(databaseController.getPlayerQuery()));
 		gameModel.addPlayer(new Player(databaseController.getPlayerQuery()));
 		gameModel.addPlayer(new Player(databaseController.getPlayerQuery()));
@@ -89,7 +87,6 @@ public class GameController extends Scene {
 
 	
 		createTimer();
-		//gameModel.giveAllThePlayersTheirFavorTokens(); 
 		//gameModel.selectwindowOptions();
 	}
 	
@@ -111,6 +108,7 @@ public class GameController extends Scene {
 		windowChoooseScreen.add(WC.getWindow3(), 2, 1);
 		windowChoooseScreen.add(WC.getWindow4(), 3, 1);
 	}
+	
 
 	public void handleCheatGame(boolean allPossible, boolean bestChoice) {
 		WC.setCheatAllPossible(allPossible);
@@ -160,9 +158,16 @@ public class GameController extends Scene {
 					gameModel.giveTurnToNextPlayer();
 				}
 				
+
 				if(gameModel.checkIfGameIsOver()) {
 					gui.handleToEndScreen();
 				}
+
+				if (gameModel.amITheGameCreator() && !gameModel.doesEveryPlayerHasTheirFavorTokens() && gameModel.didEveryoneChoose()) {
+					gameModel.giveAllThePlayersTheirFavorTokens(); 
+					System.out.println("JAAAAA");
+				}
+				
 				//roundtrack
 				//favor tokens
 				//card costs
@@ -180,13 +185,21 @@ public class GameController extends Scene {
 	}
 	
 	public void handleFinishTurn() {
-		if(gameModel.getPlayer(0).selectCurrentPlayer()) {
+		if(gameModel.getPlayer(0).selectCurrentPlayer() && gameModel.isSecondTurn()) {
+			gameModel.placeDicesOnRoundTrack();
+			DC.getDiceOnTableScreen().removeDicesScreen();
+			gameModel.selectWholeGame();
+			
+		}
+		
+		if(gameModel.getPlayer(0).selectCurrentPlayer() && !gameModel.checkIfMainPlayerCanThrowDices()) {
 			gameModel.giveTurnToNextPlayer();
 			WC.setMovedToFalse();
-			hasThrown = false;
 			WC.setCanOnlyMoveDiceWithSameColorAsDIceOnRoundTrackFalse();
 			WC.setDiceCanBeMovedFalse();
 		}
+		
+		
 		
 	}
 	
@@ -194,6 +207,7 @@ public class GameController extends Scene {
 		System.out.println(gameModel.checkIfMainPlayerCanThrowDices());
 		if(gameModel.checkIfMainPlayerCanThrowDices()) {
 			gameModel.rollTheDices();
+			gameModel.selectWholeGame();
 			//change if
 		}
 	}

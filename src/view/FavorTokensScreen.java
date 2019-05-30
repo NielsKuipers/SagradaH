@@ -19,12 +19,12 @@ public class FavorTokensScreen extends StackPane {
 		c.setOpacity(0.8);
 		c.setFill(FTmodel.getColor());
 		c.setStroke(Color.BLACK);
+
+		amount.textProperty().bind(FTmodel.getAmountProperty());
 		
 		getChildren().addAll(c, amount);
 		
 		
-		
-		amount.textProperty().bind(FTmodel.getAmountProperty());
 		
 
 	}
