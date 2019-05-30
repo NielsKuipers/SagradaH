@@ -1,14 +1,19 @@
 package view;
 
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
+import javafx.stage.Screen;
+import main.GUI;
 
 import java.util.ArrayList;
 
@@ -17,16 +22,20 @@ public class EndScreen extends BorderPane {
 	private GridPane gridpane;
 	private ArrayList <StackPane> stackpanes;
 	private ArrayList<PlayerLabel> playerLabels;
+	private GUI gui;
 
-	public EndScreen() {
+	public EndScreen(GUI gui) {
+		this.gui = gui;
 		gridpane = new GridPane();
 		stackpanes = new ArrayList<>();
 		playerLabels = new ArrayList<>();
 		makeGridPane();
-		makeTop();		
+		makeTop();	
 	}
 
-	// maakt  scorebord rondjes + getallen
+
+
+	// maakt scorebord rondjes + getallen
 	private void makeGridPane() {
 		int rowNumber = 0;
 		int columnNumber = 0;
@@ -64,12 +73,29 @@ public class EndScreen extends BorderPane {
 	
 	// maakt speler/score lijst
 	public void makeBottom() {
-		
+		HBox bottombar = new HBox();
+		Rectangle2D screen = Screen.getPrimary().getVisualBounds();
+
 		
 		VBox bottom = new VBox();
 		bottom.getChildren().addAll(playerLabels);
-		this.setBottom(bottom);
-		setAlignment(bottom, Pos.CENTER);
+		bottom.setAlignment(Pos.CENTER_LEFT);
+		
+		Button backButton = new Button("Terug naar hoofdmenu");
+		backButton.setOnAction(e-> gui.handleHomeMenu());
+		backButton.setAlignment(Pos.CENTER_RIGHT);
+		
+		bottombar.getChildren().addAll(bottom, backButton);
+		bottombar.setMinWidth(screen.getWidth());
+		this.setBottom(bottombar);
+
+	}
+	
+	// vernieuwt scherm
+	public void clearPlayers() {
+		playerLabels.clear();
+		stackpanes.clear();
+		makeGridPane();
 	}
 	
 	// voegt speler toe

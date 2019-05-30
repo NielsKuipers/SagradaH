@@ -102,8 +102,6 @@ public class AccountController {
 		gameController.getGameModel().selectWholeGame();
 		gameController.startTimer();
 		myGUI.handleGoBackToGame();
-		System.out.println(newGameID);
-		
 	}
 	
 	public void handleSort(Object sortV) {
@@ -129,7 +127,7 @@ public class AccountController {
 		this.accountname = AC;
 	}
 	
-	private String getAccount() {
+	public String getAccount() {
 		return accountname;
 	}
 	

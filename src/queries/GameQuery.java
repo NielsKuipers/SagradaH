@@ -116,6 +116,10 @@ public class GameQuery {
 		standardQueries.updateQuery("UPDATE player SET playstatus_playstatus=?", "uitgespeeld", " WHERE game_idgame=?", ""+gameID+"");
 	}
 	
+	// zet eindScores in database
+	public void setScores(int points, int playerID) {
+		standardQueries.updateQuery("UPDATE player SET score=?", ""+points+"", " WHERE idplayer=?", ""+playerID+"");
+	}
 	
 	
 	////////////////////////////////////RONDEBORD//////////////////////////////////////////////////////////////////

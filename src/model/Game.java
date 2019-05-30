@@ -653,9 +653,17 @@ public class Game {
 	public ArrayList<ArrayList<Object>> getPlayerScores() {
 		return gameQuery.getPlayerScores(gameId);
 	}
+	
+	public ArrayList<ArrayList<Object>> getPlayerIds() {
+		return gameQuery.getPlayerIdsAndNames(gameId);
+	}
 
 	public void setPlayerStatusFinished() {
 		gameQuery.setPlayerStatusFinished(gameId);
+	}
+	
+	public void setPoints(int points, int playerID) {
+		gameQuery.setScores(points, playerID);
 	}
 
 	//////////////////////////////////// RONDEBORD/////////////////////////////////////////////////////////////////////////////
