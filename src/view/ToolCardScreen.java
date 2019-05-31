@@ -23,7 +23,11 @@ public class ToolCardScreen extends CardScreen {
 		
 		FVS4.setLayoutX(160);
 		FVS4.setLayoutY(55);
-
+		super.getChildren().remove(FVS1);
+		super.getChildren().remove(FVS2);
+		super.getChildren().remove(FVS3);
+		super.getChildren().remove(FVS4);
+		
 		super.getChildren().addAll(FVS1,FVS2,FVS3,FVS4);
 	}
 

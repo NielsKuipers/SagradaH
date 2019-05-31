@@ -62,7 +62,8 @@ public class Game {
 	public int getAmountOffplayers() {
 		return players.size();
 	}
-
+	
+	
 	// give all the players the right id
 	public void selectPlayerIds() {
 		ArrayList<ArrayList<Object>> result = gameQuery.getPlayerIdsAndNames(gameId);

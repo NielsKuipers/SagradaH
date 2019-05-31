@@ -96,7 +96,7 @@ private CardController cardController;
 
     
     public void createView() {
-        
+        getChildren().clear();
         setBackground(new Background(new BackgroundFill(Color.SKYBLUE,null,null)));
 
         Button buyTC1 = new Button("buy toolcard");
@@ -138,7 +138,7 @@ private CardController cardController;
     objectiveCards = new HBox(30,privOBJCard,pubOBJCard1,pubOBJCard2,pubOBJCard3);
     objectiveCards.setPadding(new Insets(10,0,30,250));
     setCenterShape(true);
-    getChildren().clear();
+    
     getChildren().addAll(labelTC,toolCards,prices,buttons,labelOBC,objectiveCards,exit);
     
     

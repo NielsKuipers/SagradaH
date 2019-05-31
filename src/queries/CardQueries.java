@@ -23,6 +23,12 @@ public class CardQueries {
 		
 	}
 	
+	public ArrayList<ArrayList<Object>> getGameToolcardID(int idgame) {
+		return standardQuerie.selectQuery("Select gametoolcard from gametoolcard",
+				" where idGame=? ", "" + idgame + "");
+
+	}
+	
 
 	public void BuyTC(int tc, int FT, int GameID, int playerID,int round,int inFirstTurn) {
 			standardQuerie.updateQuery("update gamefavortoken Set gametoolcard=?, round=?, inFirstTurn=?", "" + tc + "\0" + round +"\0"+inFirstTurn+ "",
@@ -40,12 +46,13 @@ public class CardQueries {
 
 	public ArrayList<ArrayList<Object>> CheckAmountFTonTC(int tc, int playerID, int idgame) {
 		return standardQuerie.selectQuery("Select idfavortoken from gamefavortoken",
-				" where gametoolcard=? and idGame=? and idplayer=?", "" + tc + "\0" + idgame + "\0" + playerID + "");
+				" where gametoolcard=? and idgame=? and idplayer=?", "" + tc + "\0" + idgame + "\0" + playerID + "");
 
 		
 	}
 	
 	public ArrayList<ArrayList<Object>> getToolcard(int tc, int idgame) {
+		
 		return standardQuerie.selectQuery("Select idtoolcard from gametoolcard"," where gametoolcard=? and idGame=?", "" + tc + "\0" + idgame + "");
 		
 	}
@@ -55,7 +62,7 @@ public class CardQueries {
 		
 	}
 	
-	public void BuyTC(int eyes,int dienumber,int GameID) {
+	public void updateDiceOnTable(int eyes,int dienumber,int GameID) {
 		standardQuerie.updateQuery("update gamedie Set eyes=?", "" + eyes + "",
 			" where dienumber=?  and idgame=? and idplayer=?", "" + dienumber + "\0" + GameID + "");
 

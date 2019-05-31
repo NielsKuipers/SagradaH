@@ -241,72 +241,47 @@ public class CardController extends Scene {
 	}
 
 	public void SetAmountFTOnTC() {
-		
-				TC1FTS1.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnTC(TC1,1));
+				//System.out.println(cardModel.getAmountFTOnTC(TC1,1));
+				TC1FTS1.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnToolCard(TC1,1));
 				
-				TC1FTS2.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnTC(TC1,2));
+				TC1FTS2.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnToolCard(TC1,2));
 				
-				TC1FTS3.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnTC(TC1,3));
+				TC1FTS3.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnToolCard(TC1,3));
 				
-				TC1FTS4.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnTC(TC1,4));
+				TC1FTS4.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnToolCard(TC1,4));
 				
 		
 			
-				TC2FTS1.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnTC(TC2, 1));
+				TC2FTS1.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnToolCard(TC2, 1));
 				
-				TC2FTS2.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnTC(TC2,2));
+				TC2FTS2.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnToolCard(TC2,2));
 				
-				TC2FTS3.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnTC(TC2,3));
+				TC2FTS3.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnToolCard(TC2,3));
 				
-				TC2FTS4.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnTC(TC2,4));
+				TC2FTS4.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnToolCard(TC2,4));
 				
-				TC3FTS1.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnTC(TC3,1));
+				TC3FTS1.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnToolCard(TC3,1));
 				
-				TC3FTS2.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnTC(TC3,2));
+				TC3FTS2.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnToolCard(TC3,2));
 				
-				TC3FTS3.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnTC(TC3,3));
+				TC3FTS3.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnToolCard(TC3,3));
 				
-				TC3FTS4.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnTC(TC3,4));
+				TC3FTS4.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnToolCard(TC3,4));
 				
 			}
 
 	
 
+	
+	
 	public void buyToolcard1(CardScreen cardscreen) {
-		if (gameController.getAmountFT() != 0) {
-			
-			if (cardscreen == toolCard1) {
-
-				checkBoughtTC(1);
-				if (boughtTC1 && gameController.getAmountFT() > 1) {
-					buyTCSetDB(1, true);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 2));
-					buyTC1();
-					cardScreen.BoughtTC1();
-				}
-				if (!boughtTC1) {
-					buyTCSetDB(1, false);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 1));
-					boughtTC1 = true;
-					buyTC1();
-					cardScreen.BoughtTC1();
-
-				}
-
-		}
-		gui.handleGoBackToGame();
-
-		
-	}
-	}
-	public void buyTC1(CardScreen cardscreen) {
 		if (gameController.getAmountFT() != 0 && cardModel.getGameModel().getPlayer(0).selectCurrentPlayer()) {
 			
 			if (cardscreen == toolCard2) {
 				checkBoughtTC(2);
 				if (boughtTC2 && gameController.getAmountFT() > 1) {
 					buyTCSetDB(1, true);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 2));
+					
 					buyTC2();
 					cardScreen.BoughtTC1();
 
@@ -318,7 +293,7 @@ public class CardController extends Scene {
 				
 				if (!boughtTC2) {
 					buyTCSetDB(1, false);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 1));
+					
 					boughtTC2 = true;
 					buyTC2();
 					cardScreen.BoughtTC1();
@@ -328,13 +303,11 @@ public class CardController extends Scene {
 				checkBoughtTC(3);
 				if (boughtTC3 && gameController.getAmountFT() > 1) {
 					buyTCSetDB(1, true);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 2));
 					buyTC3();
 					cardScreen.BoughtTC1();
 				}
 				if (!boughtTC3) {
 					buyTCSetDB(1, false);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 1));
 					boughtTC3 = true;
 					buyTC3();
 					cardScreen.BoughtTC1();
@@ -344,14 +317,12 @@ public class CardController extends Scene {
 				checkBoughtTC(4);
 				if (boughtTC4 && gameController.getAmountFT() > 1) {
 					buyTCSetDB(1, true);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 2));
 					buyTC4();
 					cardScreen.BoughtTC1();
 
 				}
 				if (!boughtTC4) {
 					buyTCSetDB(1, false);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 1));
 					boughtTC4 = true;
 					buyTC4();
 					cardScreen.BoughtTC1();
@@ -362,14 +333,12 @@ public class CardController extends Scene {
 				checkBoughtTC(5);
 				if (boughtTC5 && gameController.getAmountFT() > 1) {
 					buyTCSetDB(1, true);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 2));
 					buyTC5();
 					cardScreen.BoughtTC1();
 
 				}
 				if (!boughtTC5) {
 					buyTCSetDB(1, false);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 1));
 					boughtTC5 = true;
 					buyTC5();
 					cardScreen.BoughtTC1();
@@ -381,13 +350,11 @@ public class CardController extends Scene {
 				checkBoughtTC(6);
 				if (boughtTC6 && gameController.getAmountFT() > 1) {
 					buyTCSetDB(1, true);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 2));
 					buyTC6();
 					cardScreen.BoughtTC1();
 				}
 				if (!boughtTC6) {
 					buyTCSetDB(1, false);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 1));
 					boughtTC6 = true;
 					buyTC6();
 					cardScreen.BoughtTC1();
@@ -398,14 +365,12 @@ public class CardController extends Scene {
 				checkBoughtTC(7);
 				if (boughtTC7 && gameController.getAmountFT() > 1) {
 					buyTCSetDB(1, true);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 2));
 					buyTC7();
 					cardScreen.BoughtTC1();
 
 				}
 				if (!boughtTC7) {
 					buyTCSetDB(1, false);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 1));
 					boughtTC7 = true;
 					buyTC7();
 					cardScreen.BoughtTC1();
@@ -416,14 +381,12 @@ public class CardController extends Scene {
 				checkBoughtTC(8);
 				if (boughtTC8 && gameController.getAmountFT() > 1) {
 					buyTCSetDB(1, true);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 2));
 					buyTC8();
 					cardScreen.BoughtTC1();
 
 				}
 				if (!boughtTC8) {
 					buyTCSetDB(1, false);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 1));
 					boughtTC8 = true;
 					buyTC8();
 					cardScreen.BoughtTC1();
@@ -433,13 +396,11 @@ public class CardController extends Scene {
 				checkBoughtTC(9);
 				if (boughtTC9 && gameController.getAmountFT() > 1) {
 					buyTCSetDB(1, true);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 2));
 					buyTC9();
 					cardScreen.BoughtTC1();
 				}
 				if (!boughtTC9) {
 					buyTCSetDB(1, false);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 1));
 					boughtTC9 = true;
 					buyTC9();
 					cardScreen.BoughtTC1();
@@ -449,13 +410,11 @@ public class CardController extends Scene {
 				checkBoughtTC(10);
 				if (boughtTC10 && gameController.getAmountFT() > 1) {
 					buyTCSetDB(1, true);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 2));
 					buyTC10();
 					cardScreen.BoughtTC1();
 				}
 				if (!boughtTC10) {
 					buyTCSetDB(1, false);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 1));
 					boughtTC10 = true;
 					buyTC10();
 					cardScreen.BoughtTC1();
@@ -466,13 +425,11 @@ public class CardController extends Scene {
 				checkBoughtTC(11);
 				if (boughtTC11 && gameController.getAmountFT() > 1) {
 					buyTCSetDB(1, true);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 2));
 					buyTC11();
 					cardScreen.BoughtTC1();
 				}
 				if (!boughtTC11) {
 					buyTCSetDB(1, false);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 1));
 					boughtTC11 = true;
 					buyTC11();
 					cardScreen.BoughtTC1();
@@ -483,14 +440,12 @@ public class CardController extends Scene {
 				checkBoughtTC(12);
 				if (boughtTC12 && gameController.getAmountFT() > 1) {
 					buyTCSetDB(1, true);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 2));
 					buyTC12();
 					cardScreen.BoughtTC1();
 
 				}
 				if (!boughtTC12) {
 					buyTCSetDB(1, false);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 1));
 					boughtTC12 = true;
 					buyTC12();
 					cardScreen.BoughtTC1();
@@ -509,13 +464,11 @@ public class CardController extends Scene {
 				checkBoughtTC(16);
 				if (boughtTC1 && gameController.getAmountFT() > 1) {
 					buyTCSetDB(2, true);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 2));
 					buyTC1();
 					cardScreen.BoughtTC2();
 				}
 				if (!boughtTC1) {
 					buyTCSetDB(2, false);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 1));
 					boughtTC1 = true;
 					buyTC1();
 					cardScreen.BoughtTC2();
@@ -526,14 +479,12 @@ public class CardController extends Scene {
 				checkBoughtTC(2);
 				if (boughtTC2 && gameController.getAmountFT() > 1) {
 					buyTCSetDB(2, true);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 2));
 					buyTC2();
 					cardScreen.BoughtTC2();
 
 				}
 				if (!boughtTC2) {
 					buyTCSetDB(2, false);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 1));
 					boughtTC2 = true;
 					buyTC2();
 					cardScreen.BoughtTC2();
@@ -543,14 +494,12 @@ public class CardController extends Scene {
 				checkBoughtTC(3);
 				if (boughtTC3 && gameController.getAmountFT() > 1) {
 					buyTCSetDB(2, true);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 2));
 					buyTC3();
 					cardScreen.BoughtTC2();
 
 				}
 				if (!boughtTC3) {
 					buyTCSetDB(2, false);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 1));
 					boughtTC3 = true;
 					buyTC3();
 					cardScreen.BoughtTC2();
@@ -560,14 +509,12 @@ public class CardController extends Scene {
 				checkBoughtTC(4);
 				if (boughtTC4 && gameController.getAmountFT() > 1) {
 					buyTCSetDB(2, true);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 2));
 					buyTC4();
 					cardScreen.BoughtTC2();
 
 				}
 				if (!boughtTC4) {
 					buyTCSetDB(2, false);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 1));
 					boughtTC4 = true;
 					buyTC4();
 					cardScreen.BoughtTC2();
@@ -578,14 +525,12 @@ public class CardController extends Scene {
 				checkBoughtTC(5);
 				if (boughtTC5 && gameController.getAmountFT() > 1) {
 					buyTCSetDB(2, true);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 2));
 					buyTC5();
 					cardScreen.BoughtTC2();
 
 				}
 				if (!boughtTC5) {
 					buyTCSetDB(2, false);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 1));
 					boughtTC5 = true;
 					buyTC5();
 					cardScreen.BoughtTC2();
@@ -597,13 +542,11 @@ public class CardController extends Scene {
 				checkBoughtTC(6);
 				if (boughtTC6 && gameController.getAmountFT() > 1) {
 					buyTCSetDB(2, true);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 2));
 					buyTC6();
 					cardScreen.BoughtTC2();
 				}
 				if (!boughtTC6) {
 					buyTCSetDB(2, false);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 1));
 					boughtTC6 = true;
 					buyTC6();
 					cardScreen.BoughtTC2();
@@ -614,14 +557,12 @@ public class CardController extends Scene {
 				checkBoughtTC(7);
 				if (boughtTC7 && gameController.getAmountFT() > 1) {
 					buyTCSetDB(2, true);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 2));
 					buyTC7();
 					cardScreen.BoughtTC2();
 
 				}
 				if (!boughtTC7) {
 					buyTCSetDB(7, false);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 1));
 					boughtTC7 = true;
 					buyTC7();
 					cardScreen.BoughtTC2();
@@ -632,14 +573,12 @@ public class CardController extends Scene {
 				checkBoughtTC(8);
 				if (boughtTC8 && gameController.getAmountFT() > 1) {
 					buyTCSetDB(2, true);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 2));
 					buyTC8();
 					cardScreen.BoughtTC2();
 
 				}
 				if (!boughtTC8) {
 					buyTCSetDB(2, false);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 1));
 					boughtTC8 = true;
 					buyTC8();
 					cardScreen.BoughtTC2();
@@ -649,13 +588,11 @@ public class CardController extends Scene {
 				checkBoughtTC(9);
 				if (boughtTC9 && gameController.getAmountFT() > 1) {
 					buyTCSetDB(2, true);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 2));
 					buyTC9();
 					cardScreen.BoughtTC2();
 				}
 				if (!boughtTC9) {
 					buyTCSetDB(2, false);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 1));
 					boughtTC9 = true;
 					buyTC9();
 					cardScreen.BoughtTC2();
@@ -665,13 +602,11 @@ public class CardController extends Scene {
 				checkBoughtTC(10);
 				if (boughtTC10 && gameController.getAmountFT() > 1) {
 					buyTCSetDB(2, true);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 2));
 					buyTC10();
 					cardScreen.BoughtTC2();
 				}
 				if (!boughtTC10) {
 					buyTCSetDB(2, false);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 1));
 					boughtTC10 = true;
 					buyTC10();
 					cardScreen.BoughtTC2();
@@ -682,13 +617,11 @@ public class CardController extends Scene {
 				checkBoughtTC(11);
 				if (boughtTC11 && gameController.getAmountFT() > 1) {
 					buyTCSetDB(2, true);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 2));
 					buyTC11();
 					cardScreen.BoughtTC2();
 				}
 				if (!boughtTC11) {
 					buyTCSetDB(2, false);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 1));
 					boughtTC11 = true;
 					buyTC11();
 					cardScreen.BoughtTC2();
@@ -699,14 +632,12 @@ public class CardController extends Scene {
 				checkBoughtTC(12);
 				if (boughtTC12 && gameController.getAmountFT() > 1) {
 					buyTCSetDB(2, true);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 2));
 					buyTC12();
 					cardScreen.BoughtTC2();
 
 				}
 				if (!boughtTC12) {
 					buyTCSetDB(2, false);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 1));
 					boughtTC12 = true;
 					buyTC12();
 					cardScreen.BoughtTC2();
@@ -726,13 +657,11 @@ public class CardController extends Scene {
 				checkBoughtTC(1);
 				if (boughtTC1 && gameController.getAmountFT() > 1) {
 					buyTCSetDB(3, true);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 2));
 					buyTC1();
 					cardScreen.BoughtTC3();
 				}
 				if (!boughtTC1) {
 					buyTCSetDB(3, false);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 1));
 					boughtTC1 = true;
 					buyTC1();
 					cardScreen.BoughtTC3();
@@ -743,14 +672,12 @@ public class CardController extends Scene {
 				checkBoughtTC(2);
 				if (boughtTC2 && gameController.getAmountFT() > 1) {
 					buyTCSetDB(3, true);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 2));
 					buyTC2();
 					cardScreen.BoughtTC3();
 
 				}
 				if (!boughtTC2) {
 					buyTCSetDB(3, false);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 1));
 					boughtTC2 = true;
 					buyTC2();
 					cardScreen.BoughtTC3();
@@ -760,14 +687,12 @@ public class CardController extends Scene {
 				checkBoughtTC(3);
 				if (boughtTC3 && gameController.getAmountFT() > 1) {
 					buyTCSetDB(3, true);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 2));
 					buyTC3();
 					cardScreen.BoughtTC3();
 
 				}
 				if (!boughtTC3) {
 					buyTCSetDB(3, false);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 1));
 					boughtTC3 = true;
 					buyTC3();
 					cardScreen.BoughtTC3();
@@ -777,14 +702,12 @@ public class CardController extends Scene {
 				checkBoughtTC(4);
 				if (boughtTC4 && gameController.getAmountFT() > 1) {
 					buyTCSetDB(3, true);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 2));
 					buyTC4();
 					cardScreen.BoughtTC3();
 
 				}
 				if (!boughtTC4) {
 					buyTCSetDB(3, false);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 1));
 					boughtTC4 = true;
 					buyTC4();
 					cardScreen.BoughtTC3();
@@ -795,14 +718,12 @@ public class CardController extends Scene {
 				checkBoughtTC(5);
 				if (boughtTC5 && gameController.getAmountFT() > 1) {
 					buyTCSetDB(3, true);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 2));
 					buyTC5();
 					cardScreen.BoughtTC3();
 
 				}
 				if (!boughtTC5) {
 					buyTCSetDB(3, false);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 1));
 					boughtTC5 = true;
 					buyTC5();
 					cardScreen.BoughtTC3();
@@ -814,13 +735,11 @@ public class CardController extends Scene {
 				checkBoughtTC(6);
 				if (boughtTC6 && gameController.getAmountFT() > 1) {
 					buyTCSetDB(3, true);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 2));
 					buyTC6();
 					cardScreen.BoughtTC3();
 				}
 				if (!boughtTC6) {
 					buyTCSetDB(3, false);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 1));
 					boughtTC6 = true;
 					buyTC6();
 					cardScreen.BoughtTC3();
@@ -831,14 +750,12 @@ public class CardController extends Scene {
 				checkBoughtTC(7);
 				if (boughtTC7 && gameController.getAmountFT() > 1) {
 					buyTCSetDB(3, true);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 2));
 					buyTC7();
 					cardScreen.BoughtTC3();
 
 				}
 				if (!boughtTC7) {
 					buyTCSetDB(3, false);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 1));
 					boughtTC7 = true;
 					buyTC7();
 					cardScreen.BoughtTC3();
@@ -849,14 +766,12 @@ public class CardController extends Scene {
 				checkBoughtTC(8);
 				if (boughtTC8 && gameController.getAmountFT() > 1) {
 					buyTCSetDB(3, true);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 2));
 					buyTC8();
 					cardScreen.BoughtTC3();
 
 				}
 				if (!boughtTC8) {
 					buyTCSetDB(3, false);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 1));
 					boughtTC8 = true;
 					buyTC8();
 					cardScreen.BoughtTC3();
@@ -866,13 +781,11 @@ public class CardController extends Scene {
 				checkBoughtTC(9);
 				if (boughtTC9 && gameController.getAmountFT() > 1) {
 					buyTCSetDB(3, true);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 2));
 					buyTC9();
 					cardScreen.BoughtTC3();
 				}
 				if (!boughtTC9) {
 					buyTCSetDB(3, false);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 1));
 					boughtTC9 = true;
 					buyTC9();
 					cardScreen.BoughtTC3();
@@ -882,13 +795,11 @@ public class CardController extends Scene {
 				checkBoughtTC(10);
 				if (boughtTC10 && gameController.getAmountFT() > 1) {
 					buyTCSetDB(3, true);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 2));
 					buyTC10();
 					cardScreen.BoughtTC3();
 				}
 				if (!boughtTC10) {
 					buyTCSetDB(3, false);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 1));
 					boughtTC10 = true;
 					buyTC10();
 					cardScreen.BoughtTC3();
@@ -899,13 +810,11 @@ public class CardController extends Scene {
 				checkBoughtTC(11);
 				if (boughtTC11 && gameController.getAmountFT() > 1) {
 					buyTCSetDB(3, true);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 2));
 					buyTC11();
 					cardScreen.BoughtTC3();
 				}
 				if (!boughtTC11) {
 					buyTCSetDB(3, false);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 1));
 					boughtTC11 = true;
 					buyTC11();
 					cardScreen.BoughtTC3();
@@ -916,14 +825,12 @@ public class CardController extends Scene {
 				checkBoughtTC(12);
 				if (boughtTC12 && gameController.getAmountFT() > 1) {
 					buyTCSetDB(3, true);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 2));
 					buyTC12();
 					cardScreen.BoughtTC3();
 
 				}
 				if (!boughtTC12) {
 					buyTCSetDB(3, false);
-					gameController.setAmountFT(Integer.toString(gameController.getAmountFT() - 1));
 					boughtTC12 = true;
 					buyTC12();
 					cardScreen.BoughtTC3();
@@ -1197,23 +1104,7 @@ public class CardController extends Scene {
 		
 	}
 
-	private void generateToolcards() {
-
-		TC1 = generateRandNR(12);
-		TC2 = generateRandNR(12);
-		while (TC1 == TC2) {
-			TC2 = generateRandNR(12);
-		}
-		TC3 = generateRandNR(12);
-		while (TC3 == TC1 || TC3 == TC2) {
-			TC3 = generateRandNR(12);
-		}
-			checkToolcards(TC1, TC2,TC3);
-			
-		//cardModel.setToolcards(TC1, TC2, TC3);
-
-	}
-
+	
 
 	private void checkOBJCards(int privOBJ, int pubOBJ3, int pubOBJ2, int pubOBJ1) {
 
@@ -1334,6 +1225,7 @@ public class CardController extends Scene {
 
 		}
 		cardScreen.createView();
+		
 	}
 	
 	//check with every button click if cardModel.getGameModel().getPlayer(0).selectCurrentPlayer(), main player is currentplayer

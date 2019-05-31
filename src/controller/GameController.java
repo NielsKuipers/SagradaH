@@ -21,7 +21,7 @@ public class GameController extends Scene {
 	private GameScreen gameScreen;
 	private CalculateScoreController calculateScoreController;
 	private WindowPatternChooseScreen windowChoooseScreen;
-	private CardController CardController;
+	private CardController cardController;
 
 	private Game gameModel;
 
@@ -39,7 +39,7 @@ public class GameController extends Scene {
 		this.DC = DC;
 		this.calculateScoreController = CSC;
 
-		gameModel = new Game(databaseController.getGameQuery(), DC.getDiceOnTableModel(), WC, CardController);
+		gameModel = new Game(databaseController.getGameQuery(), DC.getDiceOnTableModel(), WC, cardController);
 		gameModel.addPlayer(new Player(databaseController.getPlayerQuery()));
 		gameModel.addPlayer(new Player(databaseController.getPlayerQuery()));
 		gameModel.addPlayer(new Player(databaseController.getPlayerQuery()));
@@ -94,7 +94,7 @@ public class GameController extends Scene {
 	}
 	
 	void setCardController(CardController cc) {
-		this.CardController=cc;
+		this.cardController=cc;
 	}
 	
 	
@@ -123,14 +123,14 @@ public class GameController extends Scene {
 	}
 	
 	public void switchToolcards() {
-		setRoot(CardController.showcards());
+		setRoot(cardController.showcards());
 	}
 	
 	void switchToGameScreen() {
 		setRoot(gameScreen);
 	}
 
-    void setAmountFT(String tokens) {
+    void setAmountFT(int tokens) {
         kaarten.setAmountFT(tokens);
     }
     
@@ -169,8 +169,11 @@ public class GameController extends Scene {
 				}
 
 				//roundtrack
-				//favor tokens
-				//card costs
+				cardController.SetAmountFTOnTC();
+				
+				setAmountFT(cardController.getCardModel().getAmountFT());
+				//setAmountFT(2);
+				
 				//chat
 			}
 		};
