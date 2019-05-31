@@ -682,6 +682,14 @@ public class Game {
 
 		return result2.isEmpty();
 	}
+	
+	public boolean checkIfPlayerMainPlayerPickedWindow() {
+		ArrayList<ArrayList<Object>> result = gameQuery.didMainPlayerChooseWindow(gameId, players.get(0).getPlayerId());
+		if(result.isEmpty()) {
+			return false;
+		}
+		return true;
+	}
 
 	//////////////////////////////////// ENDSCREEN////////////////////////////////////////////////////////////////////////////
 	public ArrayList<ArrayList<Object>> getPlayerScores() {

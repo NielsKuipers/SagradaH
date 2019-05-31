@@ -111,6 +111,11 @@ public class GameQuery {
 				" WHERE g.idgame=? AND player_idplayer=? AND inFirstTurn=? AND round=?",idGame + "\0" + idPlayer + "\0" + infirstturn + "\0" + round);
 	}
 	
+	public ArrayList<ArrayList<Object>> didMainPlayerChooseWindow(int idGame, int idPlayer) {
+		return standardQueries.selectQuery("SELECT patterncard_idpatterncard FROM player",
+				" WHERE game_idgame=? AND idplayer=? AND patterncard_idpatterncard is not null",idGame + "\0" + idPlayer);
+	}
+	
 	
 	///////////////////////////////////ENDSCREEN//////////////////////////////////////////////////////////////////
 	
