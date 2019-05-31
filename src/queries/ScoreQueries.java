@@ -6,7 +6,7 @@ public class ScoreQueries {
 	private StandardQueries standardQueries;
 	private int gameID;
 
-	public ScoreQueries(StandardQueries standardQueries) { 
+	public ScoreQueries(StandardQueries standardQueries) {  
 		this.standardQueries = standardQueries;
 		gameID = 1;
 	}
