@@ -96,12 +96,20 @@ public class GameQuery {
 				" WHERE idgame=? AND roundtrack IS NOT NULL","" + idGame + "");
 	}
 	
+	public ArrayList<ArrayList<Object>> checkIfPlayersHaveFavorTokes(int idGame) {
+		return standardQueries.selectQuery("SELECT idfavortoken FROM gamefavortoken",
+				" WHERE idgame=? AND idplayer IS NOT NULL","" + idGame + "");
+	}
 	
+	public ArrayList<ArrayList<Object>> didEveryoneChoose(int idGame) {
+		return standardQueries.selectQuery("SELECT idplayer FROM player",
+				" WHERE game_idgame=? AND patterncard_idpatterncard IS NULL","" + idGame + "");
+	}
 	
-	
-	
-	
-	
+	public ArrayList<ArrayList<Object>> canPlayerPlaceADice(int idGame, int idPlayer, int infirstturn, int round) {
+		return standardQueries.selectQuery("SELECT * FROM playerframefield p inner join gamedie g on g.idgame = p.idgame AND g.dienumber = p.dienumber AND g.diecolor = p.diecolor",
+				" WHERE g.idgame=? AND player_idplayer=? AND inFirstTurn=? AND round=?",idGame + "\0" + idPlayer + "\0" + infirstturn + "\0" + round);
+	}
 	
 	
 	///////////////////////////////////ENDSCREEN//////////////////////////////////////////////////////////////////
@@ -116,6 +124,10 @@ public class GameQuery {
 		standardQueries.updateQuery("UPDATE player SET playstatus_playstatus=?", "uitgespeeld", " WHERE game_idgame=?", ""+gameID+"");
 	}
 	
+	// zet eindScores in database
+	public void setScores(int points, int playerID) {
+		standardQueries.updateQuery("UPDATE player SET score=?", ""+points+"", " WHERE idplayer=?", ""+playerID+"");
+	}
 	
 	
 	////////////////////////////////////RONDEBORD//////////////////////////////////////////////////////////////////

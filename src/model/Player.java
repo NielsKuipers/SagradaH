@@ -36,6 +36,10 @@ public class Player {
 	// get all the information about a windowpattern and add it to the model
 	void selectWindow(int idGame) {
 		ArrayList<ArrayList<Object>> result = playerQuery.getWindowId(idPlayer);
+		//System.out.println(result);
+		try {
+			
+		
 		if (!result.isEmpty()) {
 			windowPattern.setId(Integer.valueOf(String.valueOf(result.get(0).get(0))));
 			windowPattern.selectAllFields();
@@ -43,6 +47,9 @@ public class Player {
 			windowPattern.selectDifficulty();
 			selectPlayerName();
 			selectPlayerScore();
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
 	}
 
@@ -92,6 +99,12 @@ public class Player {
 	public void setDiceOnWindowPattern(int posX, int posY, int dienumber, String diecolor) {
 		playerQuery.updateDiceOnWindowPattern(idPlayer, posX, posY, dienumber, diecolor);
 	}
+	
+	// add a dice to playerframefield and give inFirstTurn
+		public void setDiceOnWindowPatternAndGiveFirstTurn(int posX, int posY, int dienumber, String diecolor, int inFirstTurn, int idGame) {
+			playerQuery.updateDiceOnWindowPattern(idPlayer, posX, posY, dienumber, diecolor);
+			playerQuery.updateFirstTurnDice(idGame, dienumber, diecolor, inFirstTurn);
+		}
 
 	// remove a dice from playerframefield
 	public void removeDiceOnWindowPattern(int dienumber, String diecolor) {

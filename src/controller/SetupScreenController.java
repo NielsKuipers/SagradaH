@@ -19,13 +19,32 @@ public class SetupScreenController {
 	private GUI gui;
 	private boolean randomPatterns = false;
 	private GameController gameController;
+	private AccountController accountController;
 	
-	public SetupScreenController(DatabaseController dataController, GUI gui, GameController gameController) {
+	public SetupScreenController(DatabaseController dataController, GUI gui, GameController gameController, AccountController accountController) {
 		this.gui = gui;
 		this.gameController = gameController;
+		this.accountController = accountController;
 		cModel = new CommunicationModel(dataController.getInviteQueries());
 		inviteScreen = new InviteScreen(this, gui);
 		setupScreen = new SetupScreen(this, gui);
+		cModel.setClientUsername(accountController.getAccount());
+	}
+	
+	// uitvoeren wanneer nieuwe game gemaakt moet worden
+	public void makeNewGame() {
+		setupScreen.makeNewGame();
+		randomPatterns = false;
+		cModel.setClientUsername(accountController.getAccount());
+	}
+	
+	// uitvoeren wanneer bestaande setup geladen moet worden
+	public void loadSetup(int gameid) {
+		cModel.setGameID(gameid);
+		setupScreen.loadSetup();
+		randomPatterns = false;
+		cModel.setClientUsername(accountController.getAccount());
+		addJoinedPlayers();
 	}
 	
 	public SetupScreen getSetupScreen() {
@@ -44,10 +63,10 @@ public class SetupScreenController {
 			setupScreen.declinedInviteWarning();
 		}else if(cModel.checkUnansweredInGame()) {
 			setupScreen.unAnsweredInviteWarning();
-
 		}else{
 			gameController.getGameModel().setGameID(cModel.getGameID());
 			gameController.getGameModel().createAllPlayerFrameFields(cModel.getGameID(), randomPatterns);
+			gameController.addWindowScreens();
 			gameController.getGameModel().selectwindowOptions();
 			gui.handleChooseScreen();
 		}
@@ -56,7 +75,6 @@ public class SetupScreenController {
 	// bepaalt random/standaard patterns
 	public void setRandomWindow(boolean random) {
 		randomPatterns = random;
-		openInviteGetScreen();
 	}
 
 	// schakel van setup scherm naar invite scherm

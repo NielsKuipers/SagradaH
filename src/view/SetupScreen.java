@@ -70,12 +70,12 @@ public class SetupScreen extends BorderPane {
 	private void makeButtons() {
 		
 		//////////////////top buttons////////////////////////
-		Button start = new Button("START");
-		start.setPrefSize(80, 60);
+		Button start = new Button("START ZOEKEN");
+		start.setPrefSize(120, 60);
 		start.setOnAction(e -> startSearch());
 
-		Button stop = new Button("STOP");
-		stop.setPrefSize(80, 60);
+		Button stop = new Button("STOP ZOEKEN");
+		stop.setPrefSize(120, 60);
 		stop.setOnAction(e -> stopSearch());
 
 		HBox topButtons = new HBox(start, stop);
@@ -90,7 +90,10 @@ public class SetupScreen extends BorderPane {
 		startGame = new Button("Start Spel");
 		startGame.setOnAction(e -> controller.startGame());
 		
-		HBox bottomButtons = new HBox(WindowFrameSetChooser, startGame);
+		Button returnButton = new Button("Terug");
+		returnButton.setOnAction(e-> gui.handleHomeMenu());
+		
+		HBox bottomButtons = new HBox(WindowFrameSetChooser, startGame, returnButton);
 		bottomButtons.setAlignment(Pos.CENTER);
 		bottomButtons.setSpacing(5);
 		
@@ -230,6 +233,22 @@ public class SetupScreen extends BorderPane {
 		if(searching) {
 			transition.play();
 		}
+	}
+	
+	public void makeNewGame() {
+		regularSet = true;
+		gameMade = false;
+		clearJoinedList();
+		refreshListButton.setDisable(true);
+		setPlayerAmountText();
+	}
+	
+	public void loadSetup() {
+		regularSet = true;
+		gameMade = true;
+		clearJoinedList();
+		refreshListButton.setDisable(false);
+		setPlayerAmountText();
 	}
 
 

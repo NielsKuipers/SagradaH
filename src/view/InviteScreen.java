@@ -8,15 +8,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.BorderWidths;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import main.GUI;
 
 public class InviteScreen extends BorderPane{
@@ -27,12 +22,24 @@ public class InviteScreen extends BorderPane{
 	public InviteScreen(SetupScreenController controller, GUI gui) {
 		this.gui = gui;
 		this.controller = controller;
+		makeLayout();
+	}
+	
+	// maakt layout
+	private void makeLayout() {
 		playerList = new VBox();
-		playerList.setPrefWidth(600);
+		playerList.setPrefWidth(790);
+		Label label = new Label("Invite lijst");
+		label.setFont(new Font(20));
+	
 		ScrollPane scroll = new ScrollPane(playerList);
-		
+		scroll.setMaxWidth(800);
+		playerList.setAlignment(Pos.CENTER);
 		addLowerButtons();
-		this.setCenter(scroll);	
+		
+		this.setCenter(scroll);		
+		this.setTop(label);
+		this.setAlignment(label, Pos.CENTER);
 	}
 	
 	// maakt knoppen aan onderkant
@@ -67,7 +74,7 @@ public class InviteScreen extends BorderPane{
 	// custom speler box
 	private class PlayerBox extends HBox{
 		private PlayerBox(String name) {
-			setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1))));
+		//	setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1))));
 			setPadding(new Insets(5));
 			setSpacing(20);
 			setAlignment(Pos.CENTER);
@@ -83,6 +90,7 @@ public class InviteScreen extends BorderPane{
 			setText("Invite");
 			setOnAction(e -> {
 				controller.invitePlayer(username);
+				setDisable(true);
 			});
 			
 		}

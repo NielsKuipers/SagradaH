@@ -23,7 +23,7 @@ public class GUI extends Application {
 	private RoundScreenController roundController;
 	private CardController cardController;
 	private SetupScreenController setupScreenController;
-	//private EndScreenController EndController;
+	private EndScreenController endController;
 
 	void startup(String[] args) {
 		launch(args);
@@ -38,17 +38,20 @@ public class GUI extends Application {
 		WindowController windowController = new WindowController(this, databaseController);
 		CalculateScoreController calcController = new CalculateScoreController(databaseController);
 
-		DiceController diceController = new DiceController(this, windowController);
+		diceController = new DiceController(this, windowController);
 		chatController = new ChatController(this, databaseController);
         userListController = new UserListController(this, databaseController);
 		gameController = new GameController(this, databaseController, windowController, diceController, chatController, calcController);
 
-		accountController = new AccountController(this, databaseController, homepane, startPane, gameListScreen, gameController);
+		accountController = new AccountController(this, databaseController, homepane, startPane, gameListScreen, gameController, diceController);
 		cardController = new CardController(windowController, diceController, gameController, databaseController, this);
 
 		roundController = new RoundScreenController(stage, databaseController, this, windowController, gameController);
-		setupScreenController = new SetupScreenController(databaseController, this, gameController);
+		setupScreenController = new SetupScreenController(databaseController, this, gameController, accountController);
 //	  EndScreenController EndController = new EndScreenController(stage, databaseController, gameController);
+
+		endController = new EndScreenController(databaseController, gameController, calcController, this);
+
 
 
 		scene = new Scene(startPane);
@@ -62,8 +65,15 @@ public class GUI extends Application {
 	}
 	
 	public void createGame(WindowPattern windowModel) {
-		//gameController.createGame(windowModel);
+		gameController.chooseWindow(windowModel);
+		gameController.addGameScreens();
+		gameController.getGameModel().makeGameEmpty();
+		diceController.getDiceOnTableScreen().removeDicesScreen();
+		gameController.getGameModel().selectPlayerIds();
+		gameController.getGameModel().selectWholeGame();
+		
 		scene.setRoot(gameController.getGameScreen());
+		gameController.startTimer();
 	}
 	
 	public void handleCheat(boolean allPossible, boolean bestChoice) {
@@ -88,7 +98,7 @@ public class GUI extends Application {
                                               
 	public void handlegamesort(Object sortV) { accountController.handleSort(sortV); }
 	
-	public void handleHomeMenu() { accountController.toHomeMenu(); }
+	public void handleHomeMenu() { accountController.toHomeMenu(); gameController.stopTimer();}
 	
 	public void sendString(String S) { accountController.setGameboolean(S); }
 
@@ -110,6 +120,10 @@ public class GUI extends Application {
 	
 	public void handleChooseScreen() { scene.setRoot(gameController.getChooseScreen()); }
 	
+	public void handleToEndScreen() { scene.setRoot(endController.getEndScreen());}
+	
+	public void handleLoadSetup(int gameid) { scene.setRoot(setupScreenController.getSetupScreen()); setupScreenController.loadSetup(gameid);}
+	
 	// schakel van setup scherm naar invite scherm
 	public void openInviterMenu() {
 		setupScreenController.getInviteScreen().clearList();
@@ -130,7 +144,7 @@ public class GUI extends Application {
             // TODO kan ik nog niet, mis userlist.
 	}
 
-	public void handleToCreateGame() { setupScreenController.toSetupScreen(); }
+	public void handleToCreateGame() { setupScreenController.toSetupScreen(); setupScreenController.makeNewGame(); }
 
 	public void HandleExitGame() { System.exit(0); }
 

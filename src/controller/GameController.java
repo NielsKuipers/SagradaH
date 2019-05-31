@@ -7,6 +7,7 @@ import javafx.scene.layout.Pane;
 import main.GUI;
 import model.Game;
 import model.Player;
+import model.WindowPattern;
 import timer.AnimationTimerEXT;
 import view.*;
 
@@ -38,7 +39,7 @@ public class GameController extends Scene {
 		this.DC = DC;
 		this.calculateScoreController = CSC;
 
-		gameModel = new Game(databaseController.getGameQuery(), DC.getDiceOnTableModel(), WC);
+		gameModel = new Game(databaseController.getGameQuery(), DC.getDiceOnTableModel(), WC, CardController);
 		gameModel.addPlayer(new Player(databaseController.getPlayerQuery()));
 		gameModel.addPlayer(new Player(databaseController.getPlayerQuery()));
 		gameModel.addPlayer(new Player(databaseController.getPlayerQuery()));
@@ -62,37 +63,22 @@ public class GameController extends Scene {
 
 		windowChoooseScreen = new WindowPatternChooseScreen(gui, WC);
 
-		windowChoooseScreen.add(WC.getWindow1(), 0, 1);
-		windowChoooseScreen.add(WC.getWindow2(), 1, 1);
-		windowChoooseScreen.add(WC.getWindow3(), 2, 1);
-		windowChoooseScreen.add(WC.getWindow4(), 3, 1);
-
 		WC.setGameController(this);
 		WC.setDiceController(DC);
-		createGame();
-	
-		//gameModel.selectwindowOptions();
-	}
-	
-	void setCardController(CardController cc) {
-		this.CardController=cc;
-	}
-	
-	public void createGame() {
 
+		
 		gameScreen.add(gameInfo, 0, 0, 2, 1);
 		gameScreen.add(DC.getDiceOnTableScreen(), 2, 0, 2, 1);
 		gameScreen.add(chat, 0, 2, 2, 1);
 		gameScreen.add(kaarten, 2, 2, 2, 1);
+		
+		addGameScreens();
 
-		WC.makeWindowsGray(WC.getWindow2().getWindowPatternModel());
-		WC.makeWindowsGray(WC.getWindow3().getWindowPatternModel());
-		WC.makeWindowsGray(WC.getWindow4().getWindowPatternModel());
+//		WC.makeWindowsGray(WC.getWindow2().getWindowPatternModel());
+//		WC.makeWindowsGray(WC.getWindow3().getWindowPatternModel());
+//		WC.makeWindowsGray(WC.getWindow4().getWindowPatternModel());
 
-		gameScreen.add(WC.getWindow1(), 0, 1);
-		gameScreen.add(WC.getWindow2(), 1, 1);
-		gameScreen.add(WC.getWindow3(), 2, 1);
-		gameScreen.add(WC.getWindow4(), 3, 1);
+		
 
 
 		//setAmountFT(WC.getDifficulty());
@@ -100,13 +86,32 @@ public class GameController extends Scene {
 		GridPane.setMargin(WC.getWindow1(), new Insets(0, 0, 0, 80));
 		GridPane.setMargin(WC.getWindow4(), new Insets(0, 80, 0, 0));
 
-		//gameModel.getPlayer(0).updateWindowId(windowModel.getId());
+		
 
 	
 		createTimer();
-		//gameModel.giveAllThePlayersTheirFavorTokens(); 
-		
+		//gameModel.selectwindowOptions();
 	}
+	
+	void setCardController(CardController cc) {
+		this.CardController=cc;
+	}
+	
+	
+	public void addGameScreens() {
+		gameScreen.add(WC.getWindow1(), 0, 1);
+		gameScreen.add(WC.getWindow2(), 1, 1);
+		gameScreen.add(WC.getWindow3(), 2, 1);
+		gameScreen.add(WC.getWindow4(), 3, 1);
+	}
+	
+	public void addWindowScreens() {
+		windowChoooseScreen.add(WC.getWindow1(), 0, 1);
+		windowChoooseScreen.add(WC.getWindow2(), 1, 1);
+		windowChoooseScreen.add(WC.getWindow3(), 2, 1);
+		windowChoooseScreen.add(WC.getWindow4(), 3, 1);
+	}
+	
 
 	public void handleCheatGame(boolean allPossible, boolean bestChoice) {
 		WC.setCheatAllPossible(allPossible);
@@ -158,32 +163,41 @@ public class GameController extends Scene {
 					getClientScore();
 					getOtherScore();
 				}
+				
+				if (gameModel.amITheGameCreator() && !gameModel.doesEveryPlayerHasTheirFavorTokens() && gameModel.didEveryoneChoose()) {
+					gameModel.giveAllThePlayersTheirFavorTokens();
+				}
+
 				//roundtrack
 				//favor tokens
 				//card costs
 				//chat
 			}
 		};
-		timer.start();
 	}
 	
-	void stopTimer() {
+	public void stopTimer() {
 		timer.stop();
 	}
 	
-	void startTimer() {
+	public void startTimer() {
 		timer.start();
 	}
 	
 	public void handleFinishTurn() {
-		if(gameModel.getPlayer(0).selectCurrentPlayer()) {
+		if(gameModel.getPlayer(0).selectCurrentPlayer() && gameModel.isSecondTurn()) {
+			gameModel.placeDicesOnRoundTrack();
+			DC.getDiceOnTableScreen().removeDicesScreen();
+			gameModel.selectWholeGame();
+			
+		}
+		
+		if(gameModel.getPlayer(0).selectCurrentPlayer() && !gameModel.checkIfMainPlayerCanThrowDices()) {
 			gameModel.giveTurnToNextPlayer();
 			WC.setMovedToFalse();
-			boolean hasThrown = false;
 			WC.setCanOnlyMoveDiceWithSameColorAsDIceOnRoundTrackFalse();
 			WC.setDiceCanBeMovedFalse();
 		}
-		
 	}
 
 	private void getClientScore(){
@@ -202,8 +216,13 @@ public class GameController extends Scene {
 		System.out.println(gameModel.checkIfMainPlayerCanThrowDices());
 		if(gameModel.checkIfMainPlayerCanThrowDices()) {
 			gameModel.rollTheDices();
+			gameModel.selectWholeGame();
 			//change if
 		}
+	}
+	
+	public void chooseWindow(WindowPattern windowModel) {
+		gameModel.getPlayer(0).updateWindowId(windowModel.getId());
 	}
 	
 	//creating game

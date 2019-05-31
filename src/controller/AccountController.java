@@ -25,10 +25,12 @@ public class AccountController {
 	private GameListScreen gameListScreen;
 	private String gameboolean = "";
 	private GameController gameController;
+	private DiceController diceController;
 	
-	public AccountController(GUI gui, DatabaseController DC, HomePane HP, StartPane SP, GameListScreen GLS, GameController gameController) {
+	public AccountController(GUI gui, DatabaseController DC, HomePane HP, StartPane SP, GameListScreen GLS, GameController gameController, DiceController diceController) {
 		this.myGUI = gui;
 		this.gameController = gameController;
+		this.diceController = diceController;
 		this.homePane = HP;
 		this.startpane = SP;
 		this.gameListScreen = GLS;
@@ -94,13 +96,12 @@ public class AccountController {
 	
 	public void handleJoinGame(int newGameID) {
 		gameController.getGameModel().makeGameEmpty();
+		diceController.getDiceOnTableScreen().removeDicesScreen();
 		gameController.getGameModel().setGameID(newGameID);
 		gameController.getGameModel().selectPlayerIds();
 		gameController.getGameModel().selectWholeGame();
 		gameController.startTimer();
 		myGUI.handleGoBackToGame();
-		System.out.println(newGameID);
-		
 	}
 	
 	public void handleSort(Object sortV) {
@@ -126,7 +127,7 @@ public class AccountController {
 		this.accountname = AC;
 	}
 	
-	private String getAccount() {
+	public String getAccount() {
 		return accountname;
 	}
 	

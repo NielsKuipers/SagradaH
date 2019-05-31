@@ -31,6 +31,7 @@ public class RoundScreenController {
 
 		addDice();
 		createTimer();
+		
 	}
 
 	// aan de hand van rondenummers worden alle dobbelstenen op het rondebord
@@ -58,6 +59,8 @@ public class RoundScreenController {
 		String colorText = getColorTranslation(color);
 		gameModel.removeDice(diceID, colorText);
 	}
+	
+
 
 	// vertaald hexadecimale kleur naar nederlandse woorden
 	private String getColorTranslation(Color color) {
