@@ -82,6 +82,9 @@ public void setToolcards(int TC1,int TC2,int TC3) {
         return (int) cardQuerie.getOBJCard(gameModel.getGameID()).get(2).get(0);
     }
     
+    public void updateDiceOnTable(int eyes,int dieNumber) {
+		cardQuerie.updateDiceOnTableEyes(eyes, dieNumber, gameModel.getGameID());
+	}
     
     
 }

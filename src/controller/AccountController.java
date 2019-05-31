@@ -26,12 +26,14 @@ public class AccountController {
 	private String gameboolean = "";
 	private GameController gameController;
 	private DiceController diceController;
+	private CardController cardController;
 
 	public AccountController(GUI gui, DatabaseController DC, HomePane HP, StartPane SP, GameListScreen GLS,
-			GameController gameController, DiceController diceController) {
+			GameController gameController, DiceController diceController, CardController cardController) {
 		this.myGUI = gui;
 		this.gameController = gameController;
 		this.diceController = diceController;
+		this.cardController=cardController;
 		this.homePane = HP;
 		this.startpane = SP;
 		this.gameListScreen = GLS;
@@ -111,6 +113,7 @@ public class AccountController {
 			gameController.getGameModel().setGameID(newGameID);
 			gameController.getGameModel().selectPlayerIds();
 			gameController.getGameModel().selectWholeGame();
+			cardController.getDBcards();
 			gameController.startTimer();
 			myGUI.handleGoBackToGame();
 		}

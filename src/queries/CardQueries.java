@@ -9,20 +9,7 @@ public class CardQueries {
 		this.standardQuerie = standardQueries;
 	}
 
-	public void updateGameTC(int tc, int intTC, int GameID) {
-
-		standardQuerie.updateQuery("INSERT INTO gametoolcard VALUES(?,?,?)",
-				"" + tc + "\0" + intTC + "\0" + GameID + "");
-
-	}
-
-
-	public void updatePUBOBJC(int GameID, int IDCard) {
-
-		standardQuerie.updateQuery("INSERT INTO sharedpublic_objectivecard VALUES(?,?)",
-				"" + GameID + "\0" + IDCard + "");
-
-	}
+	
 
 	public ArrayList<ArrayList<Object>> CheckTCBought(int tc, int idGame) {
 		return standardQuerie.selectQuery("Select gametoolcard from gamefavortoken",
@@ -67,6 +54,12 @@ public class CardQueries {
 		return standardQuerie.selectQuery("Select idpublic_objectivecard from sharedpublic_objectivecard"," where idGame=?", "" + idgame + "");
 		
 	}
+	
+	public void BuyTC(int eyes,int dienumber,int GameID) {
+		standardQuerie.updateQuery("update gamedie Set eyes=?", "" + eyes + "",
+			" where dienumber=?  and idgame=? and idplayer=?", "" + dienumber + "\0" + GameID + "");
+
+}
 	
 	
 	

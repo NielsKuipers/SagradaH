@@ -96,6 +96,7 @@ public class CardController extends Scene {
 		diceController = dc;
 		this.gui = gui;
 		gameController.setCardController(this);
+		diceController.setCardController(this);
 
 		cardModel = new Card(databaseController.getCardQueries(), GC.getGameModel());
 
@@ -156,14 +157,9 @@ public class CardController extends Scene {
 		TC3FTS3 = new FavorTokensScreen(new FavorToken(0, Color.GREEN));
 		TC3FTS4 = new FavorTokensScreen(new FavorToken(0, Color.YELLOW));
 
-
-	generateToolcards();
-		
-		 generateObjectiveCards();
-		 
-		
-
 	}
+	
+	
 	
 	public Card getCardModel() {
 		return cardModel;

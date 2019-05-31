@@ -43,9 +43,9 @@ public class GUI extends Application {
         userListController = new UserListController(this, databaseController);
 		gameController = new GameController(this, databaseController, windowController, diceController, chatController, calcController);
 
-		accountController = new AccountController(this, databaseController, homepane, startPane, gameListScreen, gameController, diceController);
+		
 		cardController = new CardController(windowController, diceController, gameController, databaseController, this);
-
+		accountController = new AccountController(this, databaseController, homepane, startPane, gameListScreen, gameController, diceController,cardController);
 		roundController = new RoundScreenController(stage, databaseController, this, windowController, gameController);
 		setupScreenController = new SetupScreenController(databaseController, this, gameController, accountController);
 //	  EndScreenController EndController = new EndScreenController(stage, databaseController, gameController);
