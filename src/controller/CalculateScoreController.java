@@ -148,8 +148,7 @@ public class CalculateScoreController {
 	}
 
 	private int calculatePublic8(int playerID){
-		ArrayList<ArrayList<Object>> colors = scoreModel.getPlayerDiceColorsPosDiag(playerID);
-		return checkDiagonal(convertToGrid(colors));
+		return checkDiagonal(convertToGrid(scoreModel.getPlayerDiceColorsPosDiag(playerID)));
 	}
 
 	private int calculatePublic10(int playerID) {

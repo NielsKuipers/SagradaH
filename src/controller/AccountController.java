@@ -100,7 +100,7 @@ public class AccountController {
 			myGUI.handleLoadSetup(newGameID);
 		}else {
 			gameController.getGameModel().makeGameEmpty();
-			diceControler.getDiceOnTableScreen().removeDicesScreen();
+			diceController.getDiceOnTableScreen().removeDicesScreen();
 			gameController.getGameModel().setGameID(newGameID);
 			gameController.getGameModel().selectPlayerIds();
 			gameController.getGameModel().selectWholeGame();
