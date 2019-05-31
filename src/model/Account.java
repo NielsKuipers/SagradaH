@@ -32,4 +32,22 @@ public class Account {
 	public ArrayList<ArrayList<Object>> getGames(Object sortV, String username){
 		return accountQuery.getGames(sortV, username);
 	} 
+	
+	public boolean patternsCreated(String username, int gameid) {
+		try {
+			if(accountQuery.patternsCreated(username, gameid).get(0).get(0) == null) {
+				return false;
+			}
+		}catch(Exception e){
+			return false;
+		}
+		return true;
+	}
+
+	public boolean hostplayer(String username, int gameid) {
+		if(accountQuery.isHost(username, gameid).get(0).get(0).equals("uitdager")) {
+			return true;
+		}
+		return false;
+	}
 }

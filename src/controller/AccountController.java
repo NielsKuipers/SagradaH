@@ -95,13 +95,18 @@ public class AccountController {
 	}
 	
 	public void handleJoinGame(int newGameID) {
-		gameController.getGameModel().makeGameEmpty();
-		diceController.getDiceOnTableScreen().removeDicesScreen();
-		gameController.getGameModel().setGameID(newGameID);
-		gameController.getGameModel().selectPlayerIds();
-		gameController.getGameModel().selectWholeGame();
-		gameController.startTimer();
-		myGUI.handleGoBackToGame();
+
+		if(!myaccount.patternsCreated(getAccount(), newGameID) && myaccount.hostplayer(getAccount(), newGameID)) {
+			myGUI.handleLoadSetup(newGameID);
+		}else {
+			gameController.getGameModel().makeGameEmpty();
+			diceControler.getDiceOnTableScreen().removeDicesScreen();
+			gameController.getGameModel().setGameID(newGameID);
+			gameController.getGameModel().selectPlayerIds();
+			gameController.getGameModel().selectWholeGame();
+			gameController.startTimer();
+			myGUI.handleGoBackToGame();
+		}
 	}
 	
 	public void handleSort(Object sortV) {

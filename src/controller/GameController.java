@@ -229,7 +229,6 @@ public class GameController extends Scene {
 	//createNewRandomPatternCard(147); create random window for one player and give it to him
 	//givePlayerCardOption(119, 120, 121, 122); give all the players standard window choise
 	//createPlayerFrameField(); create a player frame field
-
 	
 	public WindowPatternChooseScreen getChooseScreen() {
 		return windowChoooseScreen;
