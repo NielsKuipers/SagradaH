@@ -25,6 +25,7 @@ public class GameController extends Scene {
 
 	private WindowController WC;
 	private DiceController DC;
+	private GUI gui;
 	
 	private AnimationTimerEXT timer;
 
@@ -33,6 +34,7 @@ public class GameController extends Scene {
 		super(new Pane());
 		this.WC = WC;
 		this.DC = DC;
+		this.gui = gui;
 
 		gameModel = new Game(databaseController.getGameQuery(), DC.getDiceOnTableModel(), WC, CardController);
 		gameModel.addPlayer(new Player(databaseController.getPlayerQuery()));
@@ -156,6 +158,11 @@ public class GameController extends Scene {
 					gameModel.giveTurnToNextPlayer();
 				}
 				
+
+				if(gameModel.checkIfGameIsOver()) {
+					gui.handleToEndScreen();
+				}
+
 				if (gameModel.amITheGameCreator() && !gameModel.doesEveryPlayerHasTheirFavorTokens() && gameModel.didEveryoneChoose()) {
 					gameModel.giveAllThePlayersTheirFavorTokens(); 
 					System.out.println("JAAAAA");

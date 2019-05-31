@@ -23,6 +23,7 @@ public class EndScreenController {
 	} 
 	
 	public EndScreen getEndScreen() {
+		enterEndScreen();
 		return endScreen;
 	}
 	
