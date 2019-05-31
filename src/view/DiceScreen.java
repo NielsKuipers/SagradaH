@@ -61,12 +61,14 @@ public class DiceScreen extends StackPane {
 
 	public void setBlackBorder() {
 		setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, new BorderWidths(2))));
-		
 	}
 	
 	
+	/**
+	 * @param value = how many eyes do you want to draw
+	 * draw all the eyes on the dice
+	 */
 	private void checkNumber(int value) {
-
 		getChildren().clear();
 		switch (value) {
 		case 1:
@@ -162,15 +164,10 @@ public class DiceScreen extends StackPane {
 	}
 	
 	public void clicked() {
-	
 		setBorder(new Border(new BorderStroke(Color.BLUE, BorderStrokeStyle.SOLID,null, new BorderWidths(2))));
 	}
 	
-
-
-
 	public void makeBorderWhite() {
-
 		setBorder(new Border(new BorderStroke(Color.WHITE, BorderStrokeStyle.SOLID, null, new BorderWidths(3))));
 	}
 
@@ -179,12 +176,12 @@ public class DiceScreen extends StackPane {
 		return diceModel;
 	}
 
+	/**
+	 *check if eyes have changed, when changed draw eyes
+	 */
 	private class MyEyesListener implements ChangeListener<Number> {
-
 		@Override
 		public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-			
-			
 			checkNumber((int) newValue);
 		}
 	}
