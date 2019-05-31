@@ -45,7 +45,10 @@ public class RoundScreen extends GridPane {
 		this.add(round, 0, 0);
 	}
 
-	// lijst van stackpanes wordt gemaakt om dobbelstenen in te plaatsen
+	
+	/**
+	 * create stackpane list to add dice into
+	 */
 	private void makePane() {
 		int counter =0;
 		
@@ -59,14 +62,21 @@ public class RoundScreen extends GridPane {
 		}
 	}
 	
-	//methode om board te clearen
+	// clears board
 	public void clearBoard() {
 		for (CustomStackPane stackPane : stackPanes) {
 			stackPane.getChildren().clear();
 		}
 	}
 	
-	// methode om dice toe te voegen
+	
+	/** adds dice to roundscreen
+	 * @param round
+	 * @param number
+	 * @param color
+	 * @param row
+	 * @param diceID
+	 */
 	public void addDice(int round, int number, String color, int row,int diceID) {
 		round--;
 		Color diceColor = getColorTranslation(color);
@@ -75,7 +85,12 @@ public class RoundScreen extends GridPane {
 		node.getChildren().add(new DiceScreen(number, diceColor, diceID, controller));
 	}
 	
-	// geeft de node in de gridpane waar een dobbelsteen in moet komen
+	
+	/**returns node in gridpane where a dice will be placed 
+	 * @param column
+	 * @param row
+	 * @return stackpane node
+	 */
 	private Node getNode(int column, int row) {
 		Node stackpaneNode = null;
 		ObservableList<Node> gridChildren = this.getChildren();
@@ -90,7 +105,7 @@ public class RoundScreen extends GridPane {
 		return stackpaneNode;
 	}
 	
-	// voeg rondenummers toe
+	// add roundnumbers
 	private void addRoundNumbers() {
 		Label [] labels = new Label[10];
 		for(int i =0; i<labels.length; i++) {

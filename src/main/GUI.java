@@ -24,6 +24,7 @@ public class GUI extends Application {
 	private CardController cardController;
 	private SetupScreenController setupScreenController;
 	private EndScreenController endController;
+	private CalculateScoreController calcController;
 
 	void startup(String[] args) {
 		launch(args);
@@ -36,8 +37,8 @@ public class GUI extends Application {
 		GameListScreen gameListScreen = new GameListScreen(this);
 		DatabaseController databaseController = new DatabaseController();
 		WindowController windowController = new WindowController(this, databaseController);
-		CalculateScoreController calcController = new CalculateScoreController(databaseController);
 
+		calcController = new CalculateScoreController(databaseController);
 		diceController = new DiceController(this, windowController);
 		chatController = new ChatController(this, databaseController);
         userListController = new UserListController(this, databaseController);
@@ -48,7 +49,6 @@ public class GUI extends Application {
 
 		roundController = new RoundScreenController(stage, databaseController, this, windowController, gameController);
 		setupScreenController = new SetupScreenController(databaseController, this, gameController, accountController);
-//	  EndScreenController EndController = new EndScreenController(stage, databaseController, gameController);
 
 		endController = new EndScreenController(databaseController, gameController, calcController, this);
 
@@ -149,6 +149,8 @@ public class GUI extends Application {
 	}
 
 	public void handleToCreateGame() { setupScreenController.toSetupScreen(); setupScreenController.makeNewGame(); }
+	
+	public void setGameIDforScoreCalc(int gameID) {calcController.setGameID(gameID);  }
 
 	public void HandleExitGame() { System.exit(0); }
 

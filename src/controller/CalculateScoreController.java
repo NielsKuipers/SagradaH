@@ -55,7 +55,7 @@ public class CalculateScoreController {
 				}
 			}
 		} catch (Exception e) {
-			System.out.println("no points");
+			//e.printStackTrace();
 		}
 		return score;
 	}
@@ -174,6 +174,10 @@ public class CalculateScoreController {
 		}
 		return result;
 	}
+	
+	public void setGameID(int gameID) {
+		scoreModel.setGameID(gameID);
+	}
 
 	private int calculateRow(ArrayList<ArrayList<Object>> die, char dir, int scoreAdd) {
 		ArrayList<Object> rowDie = new ArrayList<>();
@@ -216,6 +220,7 @@ public class CalculateScoreController {
 	}
 
 	private int getScore(int playerID){
+		
 		ArrayList<ArrayList<Object>> result = scoreModel.getPublicCards();
 		int points = 0;
 		for(ArrayList cards : result){

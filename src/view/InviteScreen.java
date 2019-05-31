@@ -25,7 +25,7 @@ public class InviteScreen extends BorderPane{
 		makeLayout();
 	}
 	
-	// maakt layout
+	// make layout
 	private void makeLayout() {
 		playerList = new VBox();
 		playerList.setPrefWidth(790);
@@ -42,7 +42,6 @@ public class InviteScreen extends BorderPane{
 		this.setAlignment(label, Pos.CENTER);
 	}
 	
-	// maakt knoppen aan onderkant
 	private void addLowerButtons() {
 		Button returnButton = new Button("terug");
 		returnButton.setOnAction(e -> gui.openSetupMenu());
@@ -55,18 +54,18 @@ public class InviteScreen extends BorderPane{
 		this.setBottom(buttonBox);
 	}
 	
-	// voegt nieuwe speler to aan invitelijst
+	// add player to invitelist
 	public void addPlayer(String name) {
 		playerList.getChildren().add(new PlayerBox(name));
 	}
 	
-	// verniewt invitelijst
+	// refresh invitelist
 	private void refreshList() {
 		clearList();
 		controller.addPlayersToInviteList();
 	}
 	
-	// leegt invitelijst
+	// empty invitelist
 	public void clearList() {
 		playerList.getChildren().clear();
 	}
@@ -97,28 +96,31 @@ public class InviteScreen extends BorderPane{
 	}
 	
 	
-	public void maxInvitedWarning() {
-		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle("Maximaal aantal spelers bereikt!!");
-		alert.setHeaderText("WAARSCHUWING");
-		alert.setContentText("Je hebt al drie spelers uitgenodigd!!");
-		alert.showAndWait();
-	}
+	/** opens warning box depending on warning code
+	 * @param warningCode
+	 */
+	public void warning(int warningCode) {
+		switch (warningCode) {
+		case 1:
+			alert("Maximaal aantal spelers bereikt!!", "Je hebt al drie spelers uitgenodigd!!");
+			break;
+		case 2:
+			alert("Je hebt deze speler al uitgenodigd!!", "Deze speler heeft al een openstaande uitnodiging!!");
+			break;
+		case 3:
+			alert("Je hebt deze speler al uitgenodigd!!", "Deze speler heeft je uitnodiging al geaccepteerd/geweigerd!!");
+			break;
 
-	public void inviteNotAllowedWarning() {
-		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle("Je hebt deze speler al uitgenodigd!!");
-		alert.setHeaderText("WAARSCHUWING");
-		alert.setContentText("deze speler heeft al een openstaande uitnodiging!!");
-		alert.showAndWait();
+		default:
+			break;
+		}
 	}
-
-	public void alreadyAcceptedWarning() {
+	
+	private void alert(String a, String b) {
 		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle("Je hebt deze speler al uitgenodigd!!");
+		alert.setTitle(a);
 		alert.setHeaderText("WAARSCHUWING");
-		alert.setContentText("Deze speler heeft je uitnodiging al geaccepteerd/geweigerd!!");
+		alert.setContentText(b);
 		alert.showAndWait();
-		
 	}
 }

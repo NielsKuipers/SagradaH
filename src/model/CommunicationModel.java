@@ -18,47 +18,39 @@ public class CommunicationModel {
 		inviteQueries.setClientUserName(username);
 	}
 	
-	// setGameID
 	public void setGameID(int gameid) {
 		inviteQueries.setGameID(gameid);
 	}
 	
-	// return invitelist
 	public ArrayList<ArrayList<Object>> getInviteablePlayers() {
 		return inviteQueries.getPlayers();
 	}
 	
-	// return gejoinde spelers
 	public ArrayList<ArrayList<Object>> getJoinedPlayers() {
 		return inviteQueries.getJoinedPlayers();
 	}
 	
-	// invite speler
 	public void invitePlayer(String username, String color) {
 		inviteQueries.invitePlayer(username, color);
 	}
 	
-	// maak game setup
 	public void makeGame() {
 		inviteQueries.setupGame(getPrivateObjectiveColor());
 	}
 	
-	// return aantal spelers in game
 	public ArrayList<ArrayList<Object>> getInvitedPlayerCount() {
 		return inviteQueries.getInvitedPlayerCount();
 	}
 
-	// return invite accepteer/weiger lijst
 	public ArrayList<ArrayList<Object>> getInviteGetList() {
 		return inviteQueries.getInviteGetList();
 	}
 	
-	// return naam van inviter
 	public ArrayList<ArrayList<Object>> getInviter(int gameid){
 		return inviteQueries.getInviter(gameid);
 	}
 
-	// voegt kleuren toe aan private objective card kleur arraylist
+	//add colors to arraylist, representing the private objective colors
 	private void addColors() {
 		colors.add("rood");
 		colors.add("groen"); 
@@ -67,7 +59,10 @@ public class CommunicationModel {
 		colors.add("geel");
 	}
 	
-	// returnt random private objectivekleur en haalt het uit de arrayList
+	
+	/** return random private objectivecolor and remove it from the arrayList
+	 * @return random color
+	 */
 	public String getPrivateObjectiveColor() {
 		ArrayList<ArrayList<Object>> result = inviteQueries.getPrivateColors();
 		for(ArrayList<Object> objects: result) {
@@ -94,22 +89,18 @@ public class CommunicationModel {
 		inviteQueries.declineInvite(gameid);
 	}
 
-	// controlleerd of er nog onbeantwoorde invites zijn aan deze speler van de client
 	public boolean checkInviteAllowed(String username) {
 		return inviteQueries.unAnsweredChallenges(username);
 	}
 	
-	// controlleerd of er niet al geaccepteerd of geweigerd is
 	public boolean notAlreadyAccepted(String username) {
 		return inviteQueries.alreadyAcceptedInvite(username);
 	}
 
-	// controlleerd of iemand een uitnodiging geweigerd heeft
 	public boolean checkDeclined() {
 		return inviteQueries.checkDeclined();
 	}
 	
-	// controlleerd of er nog onbeantwoorde uitnodigingen zijn
 	public boolean checkUnansweredInGame() {
 		return inviteQueries.checkUnasweredInGame();
 	}

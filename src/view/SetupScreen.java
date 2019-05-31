@@ -25,6 +25,10 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 import main.GUI;
 
+/**
+ * @author pasa
+ *
+ */
 public class SetupScreen extends BorderPane {
 	
 	// buttons
@@ -66,7 +70,10 @@ public class SetupScreen extends BorderPane {
 	}
 
 	
-	// maakt alle knoppen aan en plaatst ze in de correcte plekken
+	
+	/**
+	 * create and place all buttons
+	 */
 	private void makeButtons() {
 		
 		//////////////////top buttons////////////////////////
@@ -122,7 +129,7 @@ public class SetupScreen extends BorderPane {
 	}
 
 	
-	// zet spelersaantal in rondje
+	// enter playercount in circle
 	private void setPlayerAmountText() {
 		int playerCount = playerList.getChildren().size();
 		playerCountText = new Text("speleraantal: \r         " + (playerCount));
@@ -130,7 +137,12 @@ public class SetupScreen extends BorderPane {
 	}
 
 	
-	// start spelerzoeken, speler invitescherm wordt ingeschakeld en startgame knop stop met werken, game wordt aangemaakt in de database
+	
+	/**
+	 * start playersearch,
+	 * turn on and off correct buttons,
+	 * create game in database
+	 */
 	private void startSearch() {
 		if(!gameMade) {
 			gameMade = true;
@@ -150,7 +162,11 @@ public class SetupScreen extends BorderPane {
 		refreshPlayerList();
 	}
 
-	// stopt spelerzoeken, speler invitescherm wordt uitgeschakeld en startgame knop werkt
+	
+	/**
+	 * stop playersearch,
+	 * correct buttons turn on and off
+	 */
 	private void stopSearch() {
 		if (searching) {
 			System.out.println("stopped search");
@@ -164,7 +180,7 @@ public class SetupScreen extends BorderPane {
 		}
 	}
 	
-	// maakt zoek animatie 
+	// create search animation
 	private void makeSearchAnimation() {
 		transition = new FillTransition();
 		transition.setDuration(new Duration(650));
@@ -174,7 +190,7 @@ public class SetupScreen extends BorderPane {
 		transition.setShape(animation);
 	}
 
-	// zorgt voor random of standaard pattern keuze
+	// switches random or standard patterns
 	private void clickPatternButton() {
 		if (regularSet) {
 			WindowFrameSetChooser.setText("Random windowpatterns");
@@ -186,7 +202,7 @@ public class SetupScreen extends BorderPane {
 		regularSet = !regularSet;
 	}
 
-	// teken rondje en spelersaantal
+	// draw circle and place player count inside
 	private void currentPlayerAmount() {
 		StackPane stackpane = new StackPane();
 		Circle playerCount = new Circle(0, 0, 80, Color.RED);
@@ -199,7 +215,7 @@ public class SetupScreen extends BorderPane {
 		setupPane.setCenter(stackpane);
 	}
 	
-	// maakt inviteBar
+	// create invitebar
 	private void makeInviteBar() {
 			
 		inviteBar = new BorderPane();
@@ -213,7 +229,7 @@ public class SetupScreen extends BorderPane {
 		inviteBar.setCenter(playerList);
 	}
 	
-	// voegt spelers toe aan spelerlijst
+	// add joined players to playerlist
 	public void addJoinedPlayer(String username) {
 		Label name = new Label(username);
 		name.setFont(new Font(20));
@@ -225,7 +241,7 @@ public class SetupScreen extends BorderPane {
 		playerList.getChildren().clear();
 	}
 	
-	// vernieuwt spelerlijst + speleraantal
+	// refresh playerlist + playercount
 	private void refreshPlayerList() {
 		clearJoinedList();
 		controller.addJoinedPlayers();
@@ -235,6 +251,10 @@ public class SetupScreen extends BorderPane {
 		}
 	}
 	
+	
+	/**
+	 * setup for creating new game
+	 */
 	public void makeNewGame() {
 		regularSet = true;
 		gameMade = false;
@@ -243,6 +263,9 @@ public class SetupScreen extends BorderPane {
 		setPlayerAmountText();
 	}
 	
+	/**
+	 *  setup for loading existing game
+	 */
 	public void loadSetup() {
 		regularSet = true;
 		gameMade = true;
@@ -250,36 +273,36 @@ public class SetupScreen extends BorderPane {
 		refreshListButton.setDisable(false);
 		setPlayerAmountText();
 	}
+	
+	/** opens warning box depending on warning code
+	 * @param warningCode
+	 */
+	
+	public void warning(int warningCode) {
+		switch (warningCode) {
+		case 1:
+			alert("Iemand heeft je uitnodiging geweigerd!!", "Spel kan niet meer gespeeld worden!!");
+			break;
+		case 2:
+			alert("Je hebt nog onbeantwoorde uitnodigingen!!", "Het spel kan niet starten voordat iedereen accepteerd!!");
+			break;
+		case 3:
+			alert("Je kan niet alleen spelen!!", "Het spel kan gespeeld worden met 2-4 mensen!!");
+			break;
 
-
-	public void declinedInviteWarning() {
-		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle("Iemand heeft je uitnodiging geweigerd!!");
-		alert.setHeaderText("WAARSCHUWING");
-		alert.setContentText("Spel kan niet meer gespeeld worden!!");
-		alert.showAndWait();
+		default:
+			break;
+		}
 	}
-
-
-	public void unAnsweredInviteWarning() {
-		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle("Je hebt nog onbeantwoorde uitnodigingen!!");
-		alert.setHeaderText("WAARSCHUWING");
-		alert.setContentText("Het spel kan niet starten voordat iedereen accepteerd!!");
-		alert.showAndWait();
-	}
-
-
-	public void onlyOnePlayerWarning() {
-		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle("Je kan niet alleen spelen!!");
-		alert.setHeaderText("WAARSCHUWING");
-		alert.setContentText("Het spel kan gespeeld worden met 2-4 mensen!!");
-		alert.showAndWait();
-	}
-
-
 	
 	
+	// make alert box
+	private void alert(String a, String b) {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle(a);
+		alert.setHeaderText("WAARSCHUWING");
+		alert.setContentText(b);
+		alert.showAndWait();
+	}	
 }
 
