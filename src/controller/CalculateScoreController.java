@@ -2,8 +2,6 @@ package controller;
 
 
 import model.CalculateScoreModel;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class CalculateScoreController {
@@ -13,7 +11,12 @@ public class CalculateScoreController {
 		scoreModel = new CalculateScoreModel(dataC.getScoreQueries());
 	}
 
-	// kiest correcte public objectivecard id en returnt punten;
+	/**
+	 * method for calculating points per public objective cards
+	 * @param playerID = ID of current player
+	 * @param publicCardID = ID of the card the player is using
+	 * @return total points of public objective card based on player's windowpatterncard
+	 */
 	private int getpoints(int playerID, int publicCardID) {
 		switch (publicCardID) {
 		case 1:
@@ -41,7 +44,11 @@ public class CalculateScoreController {
 		}
 	}
 
-	// berekent private objective kaart punten
+	/**
+	 * calculates private objective card points per player
+	 * @param playerID = ID of player
+	 * @return private objective card points based on player's windowpatterncard
+	 */
 	private int calculatePrivatePoints(int playerID) {
 		ArrayList<ArrayList<Object>> result = scoreModel.getAllColorsEyes(playerID);
 		int score = 0;
@@ -59,18 +66,30 @@ public class CalculateScoreController {
 		}
 		return score;
 	}
-	
-	// return aantal favortokens van speler
+
+	/**
+	 * gets a player's favor tokens
+	 * @param playerID = ID of player
+	 * @return amount of favor tokens belonging to player
+	 */
 	private int calculateFavorTokens(int playerID) {
 		return (int) (long) scoreModel.getPlayerFavortokens(playerID).get(0).get(0);
 	}
-	
-	// return aantal leegstaande velden
+
+	/**
+	 * gets amount of empty spaces on a player's windowpatterncard
+	 * @param playerID = ID of player
+	 * @return  amount of empty spaces on a player's windowpatterncard
+	 */
 	private int calculateEmptyFields(int playerID) {
 		return (int) (long) scoreModel.getEmptyFields(playerID).get(0).get(0);
 	}
 
-	// sets van een van elke waarde, Tintvarieteit
+	/**
+	 * calculates points for sets of 1 of each shade
+	 * @param playerID = ID of player
+	 * @return calculated score based on player's windowpatterncard
+	 */
 	private int calculatePublic1(int playerID) {
 		int score;
 		int cardpoints = 5;
@@ -85,7 +104,13 @@ public class CalculateScoreController {
 		return score;
 	}
 
-	// sets van van 2 waarden
+	/**
+	 * calculate points for sets of 2 of each shade
+	 * @param playerID = ID of player
+	 * @param value1 = number of eyes for die 1
+	 * @param value2 = number of eyes for die 2
+	 * @return calculated score based on player's windowpatterncard
+	 */
 	private int calculatePublic2(int playerID, int value1, int value2) {
 		int score;
 		int cardpoints = 2;
@@ -104,15 +129,29 @@ public class CalculateScoreController {
 		return score;
 	}
 
+	/**
+	 * calculates points for die in a column without duplicate eyes
+	 * @param playerID = ID of player
+	 * @return calculated score based on player's windowpatterncard
+	 */
 	private int calculatePublic3(int playerID) {
 		return calculateRow(scoreModel.getPlayerDiceEyesPos(playerID), 'y', 4);
 	}
 
+	/**
+	 * calculates points for die in a column without duplicate colors
+	 * @param playerID = ID of player
+	 * @return calculated score based on player's windowpatterncard
+	 */
 	private int calculatePublic4(int playerID) {
 		return calculateRow(scoreModel.getPlayerDiceColorsPos(playerID), 'y', 5);
 	}
 
-	// sets van een van elke kleur, Kleurvarieteit
+	/**
+	 * calculates points for sets of one of every color
+	 * @param playerID = ID of player
+	 * @return calculated score based on player's windowpatterncard
+	 */
 	private int calculatePublic6(int playerID) {
 		int score;
 		int cardpoints = 4;
@@ -143,18 +182,38 @@ public class CalculateScoreController {
 		return score;
 	}
 
+	/**
+	 * calculates points for die in a row without duplicate colors
+	 * @param playerID = ID of player
+	 * @return calculated score based on player's windowpatterncard
+	 */
 	private int calculatePublic7(int playerID) {
 		return calculateRow(scoreModel.getPlayerDiceColorsPosX(playerID), 'x', 6);
 	}
 
+	/**
+	 * calculates points for die in a diagonal without duplicate colors
+	 * @param playerID = ID of player
+	 * @return calculated score based on player's windowpatterncard
+	 */
 	private int calculatePublic8(int playerID){
 		return checkDiagonal(convertToGrid(scoreModel.getPlayerDiceColorsPosDiag(playerID)));
 	}
 
+	/**
+	 * calculates points for die in a column without duplicate eyes
+	 * @param playerID = ID of player
+	 * @return calculated score based on player's windowpatterncard
+	 */
 	private int calculatePublic10(int playerID) {
 		return calculateRow(scoreModel.getPlayerDiceEyesPosX(playerID), 'x', 5);
 	}
 
+	/**
+	 * convert query result into a grid type arraylist for calculating diagonals
+	 * @param list = query to convert
+	 * @return ArrayList with colors based on a 5x4 grid
+	 */
 	private ArrayList<ArrayList<String>> convertToGrid(ArrayList<ArrayList<Object>> list){
 		int i = 0;
 		int j = 1;
@@ -179,6 +238,13 @@ public class CalculateScoreController {
 		scoreModel.setGameID(gameID);
 	}
 
+	/**
+	 * figure out if die in a row (eyes or color) are unique and calculate score based on player's windowpatterncard
+	 * @param die = die color or die eyes on player's windowpatterncard
+	 * @param dir = direction the method should calculate in being X or Y
+	 * @param scoreAdd = amount of score to add based on objective card
+	 * @return calculated points based on player's windowpatterncard
+	 */
 	private int calculateRow(ArrayList<ArrayList<Object>> die, char dir, int scoreAdd) {
 		ArrayList<Object> rowDie = new ArrayList<>();
 		int score = 0;
@@ -207,7 +273,11 @@ public class CalculateScoreController {
 		return score;
 	}
 
-	// returnt laagste getal uit array
+	/**
+	 * returns lowest value in array
+	 * @param values = array of values
+	 * @return lowest value
+	 */
 	private int getMinValue(int[] values) {
 		int minValue = values[0];
 
@@ -219,6 +289,11 @@ public class CalculateScoreController {
 		return minValue;
 	}
 
+	/**
+	 * gets the total amount of points based on player's cards
+	 * @param playerID = ID of player
+	 * @return total amount of points acquired being: public card, private card, favor tokens left, and empty fields
+	 */
 	private int getScore(int playerID){
 		
 		ArrayList<ArrayList<Object>> result = scoreModel.getPublicCards();
@@ -234,6 +309,11 @@ public class CalculateScoreController {
 		return points;
 	}
 
+	/**
+	 * method that calculates points based on diecolors in a diagonal row on a player's windowpatterncard
+	 * @param grid = arraylist to itterate over
+	 * @return amount of points
+	 */
 	private int checkDiagonal(ArrayList<ArrayList<String>> grid){
 
 		String curColor = null;
@@ -279,13 +359,10 @@ public class CalculateScoreController {
 			y = i;
 			x = h;
 		}
-		System.out.println(score);
 		return score;
 	}
 
-	int getClientScore(int playerID){
-		return getScore(playerID) + calculatePrivatePoints(playerID);
-	}
+	int getClientScore(int playerID){ return getScore(playerID) + calculatePrivatePoints(playerID); }
 
 	int getOtherScore(int playerID){ return getScore(playerID); }
 }
