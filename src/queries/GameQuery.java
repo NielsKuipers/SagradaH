@@ -156,6 +156,10 @@ public class GameQuery {
 	public ArrayList<ArrayList<Object>> getRoundTrackOfDice(int diceID, String colorText, int gameID) {
 		return standardQueries.selectQuery("SELECT roundtrack FROM gamedie", " WHERE idgame=? AND dienumber=? AND diecolor=?",""+gameID+"\0"+diceID+"\0"+colorText+"");
 	}
-	
-	
+
+	public boolean gameStarted(int gameID) {
+		return standardQueries.selectQuery("SELECT patterncard_idpatterncard FROM player WHERE game_idgame = 1 AND patterncard_idpatterncard IS NULL").isEmpty();
+	}
+
+
 }

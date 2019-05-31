@@ -6,7 +6,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import model.WindowPattern;
@@ -23,7 +22,6 @@ public class GUI extends Application {
 	private UserListController userListController;
 	private RoundScreenController roundController;
 	private CardController cardController;
-	private CalculateScore calcScore;
 	private SetupScreenController setupScreenController;
 	private EndScreenController endController;
 
@@ -38,11 +36,12 @@ public class GUI extends Application {
 		GameListScreen gameListScreen = new GameListScreen(this);
 		DatabaseController databaseController = new DatabaseController();
 		WindowController windowController = new WindowController(this, databaseController);
+		CalculateScoreController calcController = new CalculateScoreController(databaseController);
 
 		diceController = new DiceController(this, windowController);
 		chatController = new ChatController(this, databaseController);
         userListController = new UserListController(this, databaseController);
-		gameController = new GameController(this, databaseController, windowController, diceController, chatController);
+		gameController = new GameController(this, databaseController, windowController, diceController, chatController, calcController);
 
 		accountController = new AccountController(this, databaseController, homepane, startPane, gameListScreen, gameController, diceController);
 		cardController = new CardController(windowController, diceController, gameController, databaseController, this);
@@ -51,12 +50,11 @@ public class GUI extends Application {
 		setupScreenController = new SetupScreenController(databaseController, this, gameController, accountController);
 //	  EndScreenController EndController = new EndScreenController(stage, databaseController, gameController);
 
-		calcScore = new CalculateScore(databaseController);
-		endController = new EndScreenController(databaseController, gameController, calcScore, this);
-		
-		
-		scene = new Scene(startPane);
+		endController = new EndScreenController(databaseController, gameController, calcController, this);
 
+
+
+		scene = new Scene(startPane);
 		stage.setScene(scene);
 
 	//	stage.setScene(gameController);

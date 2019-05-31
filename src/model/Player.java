@@ -17,7 +17,7 @@ public class Player {
 		this.playerQuery = playerQuery;
 	}
 
-	WindowPattern getWindowPatternPlayer() {
+	public WindowPattern getWindowPatternPlayer() {
 		return windowPattern;
 	}
 
@@ -29,7 +29,7 @@ public class Player {
 		idPlayer = id;
 	}
 
-	int getPlayerId() {
+	public int getPlayerId() {
 		return idPlayer;
 	}
 
