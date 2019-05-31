@@ -46,7 +46,7 @@ public class InviteHandleQueries {
 	
 	// gameID ophalen en int returnen
 	private int getGameIDint() {
-			return (int) getGameID().get(0).get(0);
+			return (int) getNewGameID().get(0).get(0);
 		}
 	
 	public void setGameID(int gameid) {
@@ -163,8 +163,12 @@ public class InviteHandleQueries {
 	}
 	
 	// nieuwe GameID ophalen
-	public ArrayList<ArrayList<Object>> getGameID() {
+	private ArrayList<ArrayList<Object>> getNewGameID() {
 		return standardQuerie.selectQuery("SELECT idgame FROM game", " WHERE creationdate=?", ""+currentDate+"");
+	}
+	
+	public int getGameID() {
+		return gameID;
 	}
 	
 	// speler aantal ophalen

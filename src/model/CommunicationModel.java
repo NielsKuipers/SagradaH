@@ -116,7 +116,7 @@ public class CommunicationModel {
 	
 	
 	public int getGameID() {
-		return (int) inviteQueries.getGameID().get(0).get(0);
+		return inviteQueries.getGameID();
 	}
 	
 }

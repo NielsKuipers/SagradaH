@@ -42,7 +42,7 @@ public class EndScreenController {
 		int points;
 		
 		for(ArrayList<Object> objects: result) {
-			points = 20; //calcScore.getpoints((int) objects.get(0), 1); // moet aangepast worden
+			points = calcScore.getClientScore((int) objects.get(0)); 
 			gameModel.setPoints(points, (int) (objects.get(0)));
 		}
 	}
