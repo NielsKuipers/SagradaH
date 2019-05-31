@@ -12,9 +12,9 @@ public class EndScreenController {
 	
 	private EndScreen endScreen;
 	private Game gameModel;
-	private CalculateScore calcScore; // nodig
+	private CalculateScoreController calcScore; // nodig
 	
-	public EndScreenController(DatabaseController dataController, GameController gameController, CalculateScore calcScore, GUI gui) {
+	public EndScreenController(DatabaseController dataController, GameController gameController, CalculateScoreController calcScore, GUI gui) {
 		endScreen = new EndScreen(gui);
 		gameModel = gameController.getGameModel();
 		this.calcScore = calcScore;

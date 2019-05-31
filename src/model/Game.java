@@ -2,7 +2,6 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Random;
-
 import controller.CardController;
 import controller.WindowController;
 import javafx.beans.property.SimpleStringProperty;
@@ -12,7 +11,7 @@ import queries.GameQuery;
 
 public class Game {
 
-	private int gameId = 0;
+	private int gameId = 1;
 	private ArrayList<Player> players = new ArrayList<>();
 
 	private String accountName = "";
@@ -26,16 +25,12 @@ public class Game {
 	private Card cardModel;
 
 	private WindowController windowController;
-	private CardController cardController;
 
 	public Game(GameQuery gameQuery, DiceOnTable diceOnTableModel, WindowController windowController,CardController CC) {
 		this.gameQuery = gameQuery;
 		this.diceOnTableModel = diceOnTableModel;
 		this.windowController = windowController;
 		gameRound = new SimpleStringProperty(this, "round", "empty");
-		this.cardModel= cardModel;
-		cardController = CC;
-		
 	}
 	
 	public void showID() {
@@ -259,8 +254,8 @@ public class Game {
 	// check which player is the qurrentplayer
 	private void checkWhoIsQurrentPlayer() {
 		ArrayList<ArrayList<Object>> result = gameQuery.getPlayerIdsAndNames(gameId);
-		for (int j = 0; j < players.size(); j++) {
-			players.get(j).getWindowPatternPlayer().setBackground(Color.WHITE);
+		for (Player player : players) {
+			player.getWindowPatternPlayer().setBackground(Color.WHITE);
 		}
 		for (int i = 0; i < result.size(); i++) {
 			switch (i) {
@@ -402,7 +397,7 @@ public class Game {
 	}
 
 	// create a player frame field
-	public void createPlayerFrameField(int idPlayer, int idGame) {
+	private void createPlayerFrameField(int idPlayer, int idGame) {
 		for (int x = 1; x < 6; x++) {
 			for (int y = 1; y < 5; y++) {
 				gameQuery.insertOneLineForPlayerFrameField(idPlayer, x, y, idGame);
@@ -412,8 +407,8 @@ public class Game {
 
 	public void createAllPlayerFrameFields(int idGame, boolean random) {
 		ArrayList<ArrayList<Object>> result = gameQuery.getPlayerIdsAndNames(gameId);
-		for (int i = 0; i < result.size(); i++) {
-			createPlayerFrameField(Integer.valueOf(String.valueOf(result.get(i).get(0))), idGame);
+		for (ArrayList<Object> objectArrayList : result) {
+			createPlayerFrameField(Integer.valueOf(String.valueOf(objectArrayList.get(0))), idGame);
 		}
 
 		if (!random) {
@@ -432,10 +427,10 @@ public class Game {
 			default:
 				break;
 			}
-		} else if (random) {
-			for (int i = 0; i < result.size(); i++) {
+		} else {
+			for (ArrayList<Object> objects : result) {
 				for (int j = 0; j < 4; j++) {
-					createNewRandomPatternCard((int) result.get(i).get(0));
+					createNewRandomPatternCard((int) objects.get(0));
 				}
 			}
 
@@ -443,7 +438,7 @@ public class Game {
 	}
 
 	// create ONE random windowpattern
-	public void createNewRandomPatternCard(int idPlayer) {
+	private void createNewRandomPatternCard(int idPlayer) {
 		// create random windowpattern
 		WindowPattern windowModel = windowController.createRandomWindow();
 		// add new patterncard to db and set difficulty
@@ -459,7 +454,7 @@ public class Game {
 	}
 
 	// give ALL the players 4 windowpattern options
-	public void givePlayerCardOption(int idPlayer1, int idPlayer2, int idPlayer3, int idPlayer4) {
+	private void givePlayerCardOption(int idPlayer1, int idPlayer2, int idPlayer3, int idPlayer4) {
 		ArrayList<Integer> windowIds = new ArrayList<>();
 		// fill the arraylist with all possible windowIDs
 		for (int i = 1; i < 25; i++) {
@@ -667,10 +662,7 @@ public class Game {
 
 	public boolean isRoundTrackEmpty() {
 		ArrayList<ArrayList<Object>> result = gameQuery.getAllTheDifferntColorsFromTheRoundTrack(gameId);
-		if (result.isEmpty()) {
-			return true;
-		}
-		return false;
+		return result.isEmpty();
 	}
 	
 	public boolean canPlayerPlaceADiceInThisRoundFromTheTable() {
@@ -687,11 +679,8 @@ public class Game {
 		
 		ArrayList<ArrayList<Object>> result2 = gameQuery.canPlayerPlaceADice(gameId, players.get(0).getPlayerId(), 
 				inFirsTurn, round);
-		
-		if(result2.isEmpty()) {
-			return true;
-		}
-		return false;
+
+		return result2.isEmpty();
 	}
 
 	//////////////////////////////////// ENDSCREEN////////////////////////////////////////////////////////////////////////////
@@ -721,13 +710,11 @@ public class Game {
 	// verwijdert dobbelsteen van rondebord
 	public void removeDice(int diceID, String colorText) {
 		gameQuery.removeDice(diceID, colorText, gameId);
-
 	}
 
 	public int getRoundTrackOfDice(int diceID, String colorText) {
 		ArrayList<ArrayList<Object>> result = gameQuery.getRoundTrackOfDice(diceID, colorText, gameId);
-		int round = Integer.valueOf(String.valueOf(result.get(0).get(0)));
-		return round;
+		return Integer.valueOf(String.valueOf(result.get(0).get(0)));
 	}
 
 	public void addDiceToRoundTrack(int diceID, String colorText, int round) {
@@ -742,29 +729,27 @@ public class Game {
 		this.accountName = accountName;
 	}
 
+	public Player getClientPlayer(){ return players.get(0); }
+
+	public ArrayList getAllPlayers(){
+		return players;
+	}
+
+	public boolean gameStarted(){ return gameQuery.gameStarted(gameId); }
+
 	public boolean amITheGameCreator() {
 		players.get(0).getPlayerId();
 		ArrayList<ArrayList<Object>> result = gameQuery.getPlayerIdsAndNames(gameId);
-		if (players.get(0).getPlayerId() == (int) result.get(0).get(0)) {
-			return true;
-		}
-		return false;
+		return players.get(0).getPlayerId() == (int) result.get(0).get(0);
 	}
 
 	public boolean doesEveryPlayerHasTheirFavorTokens() {
 		ArrayList<ArrayList<Object>> result = gameQuery.checkIfPlayersHaveFavorTokes(gameId);
-
-		if (result.isEmpty()) {
-			return false;
-		}
-		return true;
+		return !result.isEmpty();
 	}
 	
 	public boolean didEveryoneChoose() {
 		ArrayList<ArrayList<Object>> result = gameQuery.didEveryoneChoose(gameId);
-		if(result.isEmpty()) {
-			return true;
-		}
-		return false;
+		return result.isEmpty();
 	}
 }

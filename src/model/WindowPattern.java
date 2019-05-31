@@ -54,7 +54,7 @@ public class WindowPattern {
 		return playerName;
 	}
 	
-	void setPlayerScore(String s) {
+	public void setPlayerScore(String s) {
 		playerScore.set(String.valueOf(s));
 	}
 

@@ -11,13 +11,15 @@ import model.WindowPattern;
 import timer.AnimationTimerEXT;
 import view.*;
 
+import java.util.ArrayList;
+
 public class GameController extends Scene {
 	private GameInfoScreen gameInfo;
 
 	private ChatScreen chat;
 	private CardsInfoScreen kaarten;
-
 	private GameScreen gameScreen;
+	private CalculateScoreController calculateScoreController;
 	private WindowPatternChooseScreen windowChoooseScreen;
 	private CardController CardController;
 
@@ -25,16 +27,17 @@ public class GameController extends Scene {
 
 	private WindowController WC;
 	private DiceController DC;
-	private GUI gui;
-	
+
 	private AnimationTimerEXT timer;
 
+	private boolean gameStarted = false;
+
 	public GameController(GUI gui, DatabaseController databaseController, WindowController WC, DiceController DC,
-			ChatController CC) {
+						  ChatController CC, CalculateScoreController CSC) {
 		super(new Pane());
 		this.WC = WC;
 		this.DC = DC;
-		this.gui = gui;
+		this.calculateScoreController = CSC;
 
 		gameModel = new Game(databaseController.getGameQuery(), DC.getDiceOnTableModel(), WC, CardController);
 		gameModel.addPlayer(new Player(databaseController.getPlayerQuery()));
@@ -126,9 +129,7 @@ public class GameController extends Scene {
 	void switchToGameScreen() {
 		setRoot(gameScreen);
 	}
-	
-	
-    
+
     void setAmountFT(String tokens) {
         kaarten.setAmountFT(tokens);
     }
@@ -136,8 +137,6 @@ public class GameController extends Scene {
     int getAmountFT() {
         return Integer.parseInt(kaarten.getAmountFT());
     }
-
-
 
 	public Game getGameModel() {
 		return gameModel;
@@ -151,23 +150,24 @@ public class GameController extends Scene {
 			@Override
 			public void doAction() {
 				gameModel.selectWholeGame();
-				System.out.println("timer");
 				//has to do with toolcard 8
 				if(WC.skipSecondTurn() && gameModel.isSecondTurn() && gameModel.getPlayer(0).selectCurrentPlayer()) {
 					WC.setSkipSecondTurnFalse();
 					gameModel.giveTurnToNextPlayer();
 				}
-				
 
-				if(gameModel.checkIfGameIsOver()) {
-					gui.handleToEndScreen();
+				if(!gameStarted){
+					if(gameModel.gameStarted()){ gameStarted = true; }
 				}
-
+				else{
+					getClientScore();
+					getOtherScore();
+				}
+				
 				if (gameModel.amITheGameCreator() && !gameModel.doesEveryPlayerHasTheirFavorTokens() && gameModel.didEveryoneChoose()) {
-					gameModel.giveAllThePlayersTheirFavorTokens(); 
-					System.out.println("JAAAAA");
+					gameModel.giveAllThePlayersTheirFavorTokens();
 				}
-				
+
 				//roundtrack
 				//favor tokens
 				//card costs
@@ -198,9 +198,18 @@ public class GameController extends Scene {
 			WC.setCanOnlyMoveDiceWithSameColorAsDIceOnRoundTrackFalse();
 			WC.setDiceCanBeMovedFalse();
 		}
-		
-		
-		
+	}
+
+	private void getClientScore(){
+		int playerID = gameModel.getClientPlayer().getPlayerId();
+		gameModel.getClientPlayer().getWindowPatternPlayer().setPlayerScore(Integer.toString(calculateScoreController.getClientScore(playerID)));
+	}
+
+	private void getOtherScore(){
+		ArrayList<Player> players = gameModel.getAllPlayers();
+		for(Player player : players.subList(1, players.size())){
+			player.getWindowPatternPlayer().setPlayerScore(Integer.toString(calculateScoreController.getOtherScore(player.getPlayerId())));
+		}
 	}
 	
 	public void handleRollDices() {
@@ -220,7 +229,6 @@ public class GameController extends Scene {
 	//createNewRandomPatternCard(147); create random window for one player and give it to him
 	//givePlayerCardOption(119, 120, 121, 122); give all the players standard window choise
 	//createPlayerFrameField(); create a player frame field
-
 	
 	public WindowPatternChooseScreen getChooseScreen() {
 		return windowChoooseScreen;
