@@ -27,7 +27,7 @@ public class GameController extends Scene {
 
 	private WindowController WC;
 	private DiceController DC;
-
+	private GUI gui;
 	private AnimationTimerEXT timer;
 
 	private boolean gameStarted = false;
@@ -38,6 +38,7 @@ public class GameController extends Scene {
 		this.WC = WC;
 		this.DC = DC;
 		this.calculateScoreController = CSC;
+		this.gui = gui;
 
 		gameModel = new Game(databaseController.getGameQuery(), DC.getDiceOnTableModel(), WC, CardController);
 		gameModel.addPlayer(new Player(databaseController.getPlayerQuery()));
@@ -166,6 +167,11 @@ public class GameController extends Scene {
 				
 				if (gameModel.amITheGameCreator() && !gameModel.doesEveryPlayerHasTheirFavorTokens() && gameModel.didEveryoneChoose()) {
 					gameModel.giveAllThePlayersTheirFavorTokens();
+				}
+				
+				if(gameModel.checkIfGameIsOver()) {
+					gui.handleToEndScreen();
+					stopTimer();
 				}
 
 				//roundtrack

@@ -11,21 +11,21 @@ public class ScoreQueries {
 		gameID = 1;
 	}
 
-	// returnt alle dobbelsteen waarden voor 1 speler
+	// return all dice values for 1 player
 	public ArrayList<ArrayList<Object>> getPlayerDiceNumbers(int playerID) {
 		return standardQueries.selectQuery("SELECT eyes FROM gamedie g" + 
 				" INNER JOIN playerframefield p ON g.idgame = p.idgame AND g.dienumber = p.dienumber AND g.diecolor = p.diecolor",
 				" WHERE g.idgame=? AND player_idplayer=?", ""+gameID+"\0"+playerID+"");
 	}
 	
-	// returnt alle dobbelsteen kleuren voor 1 speler
+	// return all dice colors for 1 player
 	public ArrayList<ArrayList<Object>> getPlayerDiceColors(int playerID) {
 		return standardQueries.selectQuery("SELECT g.diecolor FROM gamedie g" + 
 				" INNER JOIN playerframefield p ON g.idgame = p.idgame AND g.dienumber = p.dienumber AND g.diecolor = p.diecolor", 
 				" WHERE g.idgame=? AND player_idplayer=?", ""+gameID+"\0"+playerID+"");
 	}
 	
-	// returnt dobbelstenen waarden+kleuren voor 1 speler EN return private objectivekaartkleur
+	// return dice values+olors for 1 speler AND return private objectiveColor
 	public ArrayList<ArrayList<Object>> getAllColorsEyes(int playerID) {
 		return standardQueries.selectQuery("SELECT g.eyes, g.diecolor, pr.private_objectivecard_color FROM gamedie g" + 
 				" INNER JOIN playerframefield pl ON g.idgame = pl.idgame AND g.dienumber = pl.dienumber AND g.diecolor = pl.diecolor" + 
@@ -33,12 +33,12 @@ public class ScoreQueries {
 				" WHERE g.idgame=? AND pl.player_idplayer=?", ""+gameID+"\0"+playerID+"");
 	}
 	
-	// returnt aantal favortokens voor 1 speler
+	// return favortoken amount
 	public ArrayList<ArrayList<Object>> getPlayerFavortokens(int playerID) {
 		return standardQueries.selectQuery("SELECT COUNT(idfavortoken) FROM gamefavortoken", " WHERE idgame=? AND idplayer=? AND gametoolcard IS NULL AND round IS NULL", ""+gameID+"\0"+playerID+"");
 	}
 	
-	// return openstaande velden op patroonkaart voor 1 speler
+	// return empty field amount
 	public ArrayList<ArrayList<Object>> getEmptyFields(int playerID) {
 		return standardQueries.selectQuery("SELECT COUNT(player_idplayer) FROM playerframefield", " WHERE idgame=? AND player_idplayer=? AND dienumber IS NULL", ""+gameID+"\0"+playerID+"");
 	}

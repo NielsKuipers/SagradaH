@@ -4,7 +4,14 @@ import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -73,9 +80,9 @@ public class EndScreen extends BorderPane {
 	
 	// maakt speler/score lijst
 	public void makeBottom() {
-		HBox bottombar = new HBox();
+		BorderPane bottombar = new BorderPane();
 		Rectangle2D screen = Screen.getPrimary().getVisualBounds();
-
+		bottombar.setBackground(new Background(new BackgroundFill(Color.WHITE	, null, null)));
 		
 		VBox bottom = new VBox();
 		bottom.getChildren().addAll(playerLabels);
@@ -83,9 +90,10 @@ public class EndScreen extends BorderPane {
 		
 		Button backButton = new Button("Terug naar hoofdmenu");
 		backButton.setOnAction(e-> gui.handleHomeMenu());
-		backButton.setAlignment(Pos.CENTER_RIGHT);
+		backButton.setAlignment(Pos.BOTTOM_RIGHT);
 		
-		bottombar.getChildren().addAll(bottom, backButton);
+		bottombar.setLeft(bottom);
+		bottombar.setRight(backButton);
 		bottombar.setMinWidth(screen.getWidth());
 		this.setBottom(bottombar);
 
@@ -131,8 +139,8 @@ public class EndScreen extends BorderPane {
 	private class CustomCircle extends Circle{
 		private CustomCircle() {
 			setRadius(35);
-			String[] colors = {"GREENYELLOW", "YELLOW",
-					"SADDLEBROWN", "DEEPSKYBLUE", "LAVENDER", "BISQUE", "FORESTGREEN"};
+			String[] colors = {"CYAN", "GOLD", "GREENYELLOW", "HOTPINK"};
+			
 			int random = (int)(Math.random() * colors.length);
 			setFill(Color.valueOf(colors[random]));
 			
@@ -154,7 +162,6 @@ public class EndScreen extends BorderPane {
 			setText(name + " heeft " + points + " punten!!!");
 			setTextFill(getColorTranslation(stringColor));
 			setFont(new Font(22));
-			
 		}
 	}
 }
