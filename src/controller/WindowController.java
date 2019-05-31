@@ -92,6 +92,9 @@ public class WindowController {
 
 	}
 
+	/**
+	 * add all the possible colors
+	 */
 	private void addColorsField() {
 		colorsField.removeAll(colorsField);
 		colorsField.add(Color.CORNFLOWERBLUE);
@@ -110,6 +113,9 @@ public class WindowController {
 
 	}
 
+	/**
+	 * add all the possible numbers
+	 */
 	private void addNumbersField() {
 		numbers.removeAll(numbers);
 		numbers.add(1);
@@ -174,6 +180,10 @@ public class WindowController {
 		}
 	}
 
+	/**
+	 * create a random window
+	 * @return a random window
+	 */
 	public WindowPattern createRandomWindow() {
 		// all rows
 		for (int row = 1; row < 5; row++) {
@@ -289,7 +299,11 @@ public class WindowController {
 		return windowModel;
 	}
 
-	// pick up a dice
+	
+	/**
+	 * @param b = the dice you picked up
+	 * pick up a dice and store it
+	 */
 	public void dragButton(DiceScreen b) {
 		b.setOnDragDetected(e -> {
 			if (GC.getGameModel().getPlayer(0).selectCurrentPlayer()) {
@@ -305,6 +319,10 @@ public class WindowController {
 
 	}
 
+	/**
+	 * @param pane = the field you are hovering on
+	 * check if you can place the dice on the right field
+	 */
 	private void addDropHandling(FieldScreen pane) {
 		pane.setOnDragOver(e -> {
 			Dragboard db = e.getDragboard();
@@ -393,8 +411,13 @@ public class WindowController {
 
 	}
 
+	/**
+	 * @param field = the field you want to place a die on
+	 * @param dice = the dice you are holding
+	 * @return true when dice can be placed next to another dice
+	 * checks if a dice can be placed next to another dice
+	 */
 	private boolean meetsNextToDiceRequirements(Field field, Dice dice) {
-		// check if dice can be placed next to a other dice
 		int column = getColumnAndRowOfField(field)[0];
 		int row = getColumnAndRowOfField(field)[1];
 		boolean accept = true;
@@ -468,6 +491,10 @@ public class WindowController {
 		return accept;
 	}
 
+	/**
+	 * calculate the score
+	 * @return the score
+	 */
 	private int calculatePoints() {
 		int points = 0;
 		for (int j = 1; j < 5; j++) {
@@ -481,6 +508,12 @@ public class WindowController {
 
 	}
 
+	/**
+	 * @param field = the field you want to place a die on
+	 * @param dice = the dice you are holding
+	 * @return true when dice is next to another dice
+	 * checks if dice is next to another dice
+	 */
 	private boolean isDiceNextToAnotherDice(Field field, Dice dice) {
 		// Checks if dice is diagonally, vertically or horizontally next to another dice
 		boolean isNextToAnotherDice = false;
@@ -590,8 +623,11 @@ public class WindowController {
 		return window4;
 	}
 
+	/**
+	 * @param windowModel = window that needs to be gray
+	 * make the fields of a window gray
+	 */
 	public void makeWindowsGray(WindowPattern windowModel) {
-
 		for (int row = 1; row < 5; row++) {
 			for (int column = 0; column < 5; column++) {
 				windowModel.getFieldOfWindow(column, row).setColorAndEyes(Color.LIGHTGRAY, 0);
@@ -600,6 +636,11 @@ public class WindowController {
 		}
 	}
 
+	/**
+	 * @param dice = dice you are holding
+	 * @param fields = all the fields on a window
+	 * checks where the dice can be placed
+	 */
 	private void whichPlacementIsPossible(Dice dice, ArrayList<Field> fields) {
 		for (int row = 1; row < 5; row++) {
 			for (int column = 0; column < 5; column++) {
@@ -632,6 +673,10 @@ public class WindowController {
 
 	}
 
+	/**
+	 * @param dice = dice you are holding
+	 * checks the best possible place/places that a dice can be placed
+	 */
 	private void bestPossiblePlace(Dice dice) {
 		ArrayList<Field> allFields = new ArrayList<>();
 		int highestPoints = 0;
@@ -725,6 +770,9 @@ public class WindowController {
 		}
 	}
 
+	/**
+	 * make every border black
+	 */
 	private void makeEveryBorderBlack() {
 		for (int row = 1; row < 5; row++) {
 			for (int column = 0; column < 5; column++) {
@@ -746,6 +794,11 @@ public class WindowController {
 		this.GC = GC;
 	}
 
+	/**
+	 * @param windowPatternModel = window model
+	 * @return the difficulty of a window
+	 * calculates the difficulty of a window
+	 */
 	public int calculateDifficulty(WindowPattern windowPatternModel) {
 		int difficulty = 0;
 		for (int row = 1; row < 5; row++) {
@@ -788,6 +841,12 @@ public class WindowController {
 		return Integer.toString(windowPattern1Model.getDifficulty());
 	}
 
+	/**
+	 * @param id = window id
+	 * @param windowScreen = window screen
+	 * @param windowModel = window model
+	 * make all the fields for a window and give the screen the right model and calculate the difficulty
+	 */
 	private void createGrayWindowPattern(int id, WindowPatternScreen windowScreen, WindowPattern windowModel) {
 		for (int row = 1; row < 5; row++) {
 			for (int column = 0; column < 5; column++) {
@@ -803,18 +862,25 @@ public class WindowController {
 		calculateDifficulty(windowModel);
 	}
 
+	/**
+	 * @param field = field on window model 1
+	 * @return the column and row of a field on window model 1
+	 * check what the row and column of a field are
+	 */
 	private int[] getColumnAndRowOfField(Field field) {
 		for (int row = 1; row < 5; row++) {
 			for (int column = 0; column < 5; column++) {
 				if (field.equals(windowPattern1Model.getFieldOfWindow(column, row))) {
 					return new int[] { column, row };
 				}
-
 			}
 		}
 		return null;
 	}
 
+	/**
+	 * select a dice on the window, used for switching dice with dice on roundtrack
+	 */
 	public void selectDiceOnWindow() {
 		GC.stopTimer();
 		for (Node node : window1.getChildren()) {
@@ -833,6 +899,9 @@ public class WindowController {
 		}
 	}
 
+	/**
+	 * give all the dices on window 1 a white border 
+	 */
 	private void setDiceWhiteBorder() {
 		for (Node node : window1.getChildren()) {
 			if (node instanceof FieldScreen) {
@@ -849,6 +918,12 @@ public class WindowController {
 
 	}
 
+	/**
+	 * @param dice = the dice you clicked on
+	 * @param column = the dice column location
+	 * @param row = the dice row location
+	 * handles switching dice on window with dice on roundtrack
+	 */
 	private void switchDiceWithRoundTrack(DiceScreen dice, int column, int row) {
 		GC.stopTimer();
 		setDiceWhiteBorder();

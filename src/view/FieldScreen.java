@@ -36,6 +36,10 @@ public class FieldScreen extends StackPane {
 		this.fieldModel.diceProperty().addListener(dicelistener);
 	}
 
+	/**
+	 * @param value = how many eyes do you want to draw
+	 * draw all the eyes on the field
+	 */
 	private void checkNumber(int value) {
 		getChildren().clear();
 		switch (value) {
@@ -141,6 +145,9 @@ public class FieldScreen extends StackPane {
 		return fieldModel;
 	}
 
+	/**
+	 *check if eyes have changed, when changed draw eyes
+	 */
 	private class MyEyesListener implements ChangeListener<Number> {
 		@Override
 		public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
@@ -148,6 +155,9 @@ public class FieldScreen extends StackPane {
 		}
 	}
 
+	/**
+	 *check if dice on field has changed, when changed draw dice
+	 */
 	private class MyDiceListener implements ChangeListener<Dice> {
 		@Override
 		public void changed(ObservableValue<? extends Dice> observable, Dice oldValue, Dice newValue) {

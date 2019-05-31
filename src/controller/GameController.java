@@ -65,7 +65,6 @@ public class GameController extends Scene {
 
 		WC.setGameController(this);
 		WC.setDiceController(DC);
-
 		
 		gameScreen.add(gameInfo, 0, 0, 2, 1);
 		gameScreen.add(DC.getDiceOnTableScreen(), 2, 0, 2, 1);
@@ -74,23 +73,10 @@ public class GameController extends Scene {
 		
 		addGameScreens();
 
-//		WC.makeWindowsGray(WC.getWindow2().getWindowPatternModel());
-//		WC.makeWindowsGray(WC.getWindow3().getWindowPatternModel());
-//		WC.makeWindowsGray(WC.getWindow4().getWindowPatternModel());
-
-		
-
-
-		//setAmountFT(WC.getDifficulty());
-
 		GridPane.setMargin(WC.getWindow1(), new Insets(0, 0, 0, 80));
 		GridPane.setMargin(WC.getWindow4(), new Insets(0, 80, 0, 0));
-
-		
-
 	
 		createTimer();
-		//gameModel.selectwindowOptions();
 	}
 	
 	void setCardController(CardController cc) {
@@ -98,6 +84,9 @@ public class GameController extends Scene {
 	}
 	
 	
+	/**
+	 * make the game windows visible
+	 */
 	public void addGameScreens() {
 		gameScreen.add(WC.getWindow1(), 0, 1);
 		gameScreen.add(WC.getWindow2(), 1, 1);
@@ -105,6 +94,9 @@ public class GameController extends Scene {
 		gameScreen.add(WC.getWindow4(), 3, 1);
 	}
 	
+	/**
+	 * make the choose windows visible
+	 */
 	public void addWindowScreens() {
 		windowChoooseScreen.add(WC.getWindow1(), 0, 1);
 		windowChoooseScreen.add(WC.getWindow2(), 1, 1);
@@ -113,6 +105,11 @@ public class GameController extends Scene {
 	}
 	
 
+	/**
+	 * @param allPossible = show all the possible placements
+	 * @param bestChoice = show the best placements
+	 * handle cheat function
+	 */
 	public void handleCheatGame(boolean allPossible, boolean bestChoice) {
 		WC.setCheatAllPossible(allPossible);
 		WC.setCheatBestChoice(bestChoice);
@@ -142,10 +139,10 @@ public class GameController extends Scene {
 		return gameModel;
 	}
 
+	/**
+	 * create the timer
+	 */
 	private void createTimer() {
-		//favor tokens
-		//card costs
-		//chat
 		timer = new AnimationTimerEXT(5000) {
 			@Override
 			public void doAction() {
@@ -184,12 +181,14 @@ public class GameController extends Scene {
 		timer.start();
 	}
 	
+	/**
+	 * handle everything when you finish your turn
+	 */
 	public void handleFinishTurn() {
 		if(gameModel.getPlayer(0).selectCurrentPlayer() && gameModel.isSecondTurn()) {
 			gameModel.placeDicesOnRoundTrack();
 			DC.getDiceOnTableScreen().removeDicesScreen();
 			gameModel.selectWholeGame();
-			
 		}
 		
 		if(gameModel.getPlayer(0).selectCurrentPlayer() && !gameModel.checkIfMainPlayerCanThrowDices()) {
@@ -212,23 +211,23 @@ public class GameController extends Scene {
 		}
 	}
 	
+	/**
+	 * check if you can roll the dice and then roll the dice
+	 */
 	public void handleRollDices() {
-		System.out.println(gameModel.checkIfMainPlayerCanThrowDices());
 		if(gameModel.checkIfMainPlayerCanThrowDices()) {
 			gameModel.rollTheDices();
 			gameModel.selectWholeGame();
-			//change if
 		}
 	}
 	
+	/**
+	 * @param windowModel = the window you have chosen
+	 * check wich window you have chosen and update it in the database
+	 */
 	public void chooseWindow(WindowPattern windowModel) {
 		gameModel.getPlayer(0).updateWindowId(windowModel.getId());
 	}
-	
-	//creating game
-	//createNewRandomPatternCard(147); create random window for one player and give it to him
-	//givePlayerCardOption(119, 120, 121, 122); give all the players standard window choise
-	//createPlayerFrameField(); create a player frame field
 	
 	public WindowPatternChooseScreen getChooseScreen() {
 		return windowChoooseScreen;

@@ -64,6 +64,10 @@ public class GUI extends Application {
 		stage.show();
 	}
 	
+	/**
+	 * @param windowModel = the window you have chosen
+	 * handle go to game, when you are on the window choose screen
+	 */
 	public void createGame(WindowPattern windowModel) {
 		gameController.chooseWindow(windowModel);
 		gameController.addGameScreens();
