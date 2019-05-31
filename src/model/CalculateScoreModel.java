@@ -40,6 +40,10 @@ public class CalculateScoreModel {
 		return scoreQueries.getPlayerDiceColorsPosX(playerID);
 	}
 
+	public ArrayList<ArrayList<Object>> getPlayerDiceColorsPosDiag(int playerID) {
+		return scoreQueries.getPlayerDiceColorsPosDiag(playerID);
+	}
+
 	public ArrayList<ArrayList<Object>> getPlayerDiceEyesPos(int playerID){
 		return scoreQueries.getPlayerDiceEyesPos(playerID);
 	}

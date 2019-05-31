@@ -1,7 +1,9 @@
 package controller;
 
+import com.sun.org.apache.bcel.internal.generic.ARRAYLENGTH;
 import model.CalculateScoreModel;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class CalculateScoreController {
@@ -12,7 +14,7 @@ public class CalculateScoreController {
 	}
 
 	// kiest correcte public objectivecard id en returnt punten;
-	private int getpoints(int playerID, int publicCardID) {
+	public int getpoints(int playerID, int publicCardID) {
 		switch (publicCardID) {
 		case 1:
 			return calculatePublic1(playerID);
@@ -29,7 +31,7 @@ public class CalculateScoreController {
 		case 7:
 			return calculatePublic7(playerID);
 		case 8:
-			return 10;
+			return calculatePublic8(playerID);
 		case 9:
 			return calculatePublic2(playerID, 1, 2);
 		case 10:
@@ -145,8 +147,33 @@ public class CalculateScoreController {
 		return calculateRow(scoreModel.getPlayerDiceColorsPosX(playerID), 'x', 6);
 	}
 
+	private int calculatePublic8(int playerID){
+		ArrayList<ArrayList<Object>> colors = scoreModel.getPlayerDiceColorsPosDiag(playerID);
+		return checkDiagonal(convertToGrid(colors));
+	}
+
 	private int calculatePublic10(int playerID) {
 		return calculateRow(scoreModel.getPlayerDiceEyesPosX(playerID), 'x', 5);
+	}
+
+	private ArrayList<ArrayList<String>> convertToGrid(ArrayList<ArrayList<Object>> list){
+		int i = 0;
+		int j = 1;
+		ArrayList<ArrayList<String>> result = new ArrayList<>();
+
+		result.add(new ArrayList<>());
+
+		for (ArrayList<Object> val : list) {
+			if (j == (int) val.get(0)) {
+				result.get(i).add(val.get(2).toString());
+			} else {
+				i++;
+				j++;
+				result.add(new ArrayList<>());
+				result.get(i).add(val.get(2).toString());
+			}
+		}
+		return result;
 	}
 
 	private int calculateRow(ArrayList<ArrayList<Object>> die, char dir, int scoreAdd) {
@@ -201,6 +228,55 @@ public class CalculateScoreController {
 		points -= calculateEmptyFields(playerID);
 
 		return points;
+	}
+
+	private int checkDiagonal(ArrayList<ArrayList<String>> grid){
+
+		String curColor = null;
+		int score = 0;
+		int z = 2;
+		int x = 2;
+		int h = 2;
+		int y = 0;
+		int i = 0;
+
+		for(int j = 0; j<6; j++){
+			for(; y<z; y++, x++){
+				if(grid.get(x).get(y).equals(curColor) && !grid.get(x).get(y).equals("0")){
+					score += 1;
+				}
+				curColor = grid.get(x).get(y);
+			}
+			curColor = null;
+			if(j > 2){i++;}
+			else if (j == 2){i++; z++;}
+			else{h--; z++;}
+			y = i;
+			x = h;
+		}
+
+		z = 2;
+		x = 1;
+		h = 1;
+		y = 0;
+		i = 0;
+
+		for(int j = 0; j<6; j++){
+			for(; y<z; y++, x--){
+				if(grid.get(x).get(y).equals(curColor) && !grid.get(x).get(y).equals("0")){
+					score += 1;
+				}
+				curColor = grid.get(x).get(y);
+			}
+			curColor = null;
+			if(j > 2){i++;}
+			else if (j == 2){i++; z++;}
+			else{h++; z++;}
+			y = i;
+			x = h;
+		}
+		System.out.println(score);
+		return score;
 	}
 
 	int getClientScore(int playerID){

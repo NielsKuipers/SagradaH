@@ -5,15 +5,12 @@ import java.util.ArrayList;
 public class ScoreQueries {
 	private StandardQueries standardQueries;
 	private int gameID;
-	
 
 	public ScoreQueries(StandardQueries standardQueries) {
 		this.standardQueries = standardQueries;
 		gameID = 1;
 	}
 
-
-	
 	// returnt alle dobbelsteen waarden voor 1 speler
 	public ArrayList<ArrayList<Object>> getPlayerDiceNumbers(int playerID) {
 		return standardQueries.selectQuery("SELECT eyes FROM gamedie g" + 
@@ -51,7 +48,11 @@ public class ScoreQueries {
 	}
 
 	public ArrayList<ArrayList<Object>> getPlayerDiceColorsPosX(int playerID) {
-		return standardQueries.selectQuery("SELECT position_y, position_x, diecolor FROM playerframefield", " WHERE idgame=? AND player_idplayer=? AND diecolor IS NOT NULL ORDER BY position_y", ""+gameID+"\0"+playerID);
+		return standardQueries.selectQuery("SELECT position_y, position_x, diecolor FROM playerframefield", " WHERE idgame=? AND player_idplayer=? AND diecolor IS NOT NULL ORDER BY position_y, position_x", ""+gameID+"\0"+playerID);
+	}
+
+	public ArrayList<ArrayList<Object>> getPlayerDiceColorsPosDiag(int playerID) {
+		return standardQueries.selectQuery("SELECT position_y, position_x, COALESCE(diecolor, 0) FROM playerframefield", " WHERE idgame=? AND player_idplayer=? ORDER BY position_y, position_x", ""+gameID+"\0"+playerID);
 	}
 
 	public ArrayList<ArrayList<Object>> getPlayerDiceEyesPos(int playerID) {
