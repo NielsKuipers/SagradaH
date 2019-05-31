@@ -98,6 +98,7 @@ public class AccountController {
 
 		gameController.getGameModel().setGameID(newGameID);
 		gameController.getGameModel().selectPlayerIds();
+		myGUI.setGameIDforScoreCalc(newGameID);
 
 		if (!myaccount.patternsCreated(getAccount(), newGameID) && myaccount.hostplayer(getAccount(), newGameID)) {
 			myGUI.handleLoadSetup(newGameID);

@@ -204,6 +204,9 @@ public class GameController extends Scene {
 			WC.setCanOnlyMoveDiceWithSameColorAsDIceOnRoundTrackFalse();
 			WC.setDiceCanBeMovedFalse();
 		}
+		
+		getClientScore();
+		getOtherScore();
 	}
 
 	private void getClientScore(){

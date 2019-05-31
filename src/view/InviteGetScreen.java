@@ -32,7 +32,7 @@ public class InviteGetScreen extends BorderPane {
 		makeLayout();
 	}
 
-	// maak layout
+	// make layout
 	public void makeLayout() {
 		inviteList = new VBox();
 		inviteList.setPrefWidth(600);
@@ -49,18 +49,18 @@ public class InviteGetScreen extends BorderPane {
 		this.setAlignment(label, Pos.CENTER);
 	}
 
-	// voegt nieuwe speler to aan invitelijst
+	// add player to invitelist
 	public void addPlayer(String name, int gameid) {
 		inviteList.getChildren().add(new PlayerBox(name, gameid));
 	}
 
-	// verniewt invitelijst
+	// refresh invitelist
 	private void refreshList() {
 		clearList();
 		controller.addPlayersToInviteGetList();
 	}
 
-	// leegt invitelijst
+	// empty invitelijst
 	private void clearList() {
 		inviteList.getChildren().clear();
 	}
@@ -77,7 +77,7 @@ public class InviteGetScreen extends BorderPane {
 		this.setBottom(buttonBox);
 	}
 
-	// custom speler box
+	// custom player box
 	private class PlayerBox extends HBox {
 		private PlayerBox(String name, int gameid) {
 			setBorder(new Border(

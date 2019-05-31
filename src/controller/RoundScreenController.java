@@ -15,6 +15,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import main.GUI;
 
+
 public class RoundScreenController {
 
 	private RoundScreen roundScreen;
@@ -27,15 +28,16 @@ public class RoundScreenController {
 		roundScreen = new RoundScreen(this, gui);
 		gameModel = gameController.getGameModel();
 		windowController.setRoundController(this);
-		// stage.setScene(new Scene(roundScreen));
 
 		addDice();
 		createTimer();
 		
 	}
 
-	// aan de hand van rondenummers worden alle dobbelstenen op het rondebord
-	// opgevraagd uit de database, en in de view gezet.
+	
+	/**
+	 * put dices on roundboard 
+	 */
 	private void addDice() {
 		for (int round = 1; round < 11; round++) {
 			int row = 2;
@@ -48,13 +50,20 @@ public class RoundScreenController {
 		}
 	}
 
-	// verwijdert dice en voegt opnieuw toe
+	
+	/**
+	 * Delete and reput dices
+	 */
 	public void refreshDice() {
 		roundScreen.clearBoard();
 		addDice();
 	}
 
-	// verwijdert dice uit model
+	
+	/** remove dice from roundboard
+	 * @param diceID
+	 * @param color
+	 */
 	public void removeDice(int diceID, Color color) {
 		String colorText = getColorTranslation(color);
 		gameModel.removeDice(diceID, colorText);
@@ -62,7 +71,11 @@ public class RoundScreenController {
 	
 
 
-	// vertaald hexadecimale kleur naar nederlandse woorden
+	
+	/** translates hexadecimal color into dutch colors
+	 * @param color
+	 * @return translated color
+	 */
 	private String getColorTranslation(Color color) {
 		String colortext = color.toString();
 
@@ -82,7 +95,7 @@ public class RoundScreenController {
 		}
 	}
 
-
+	
 	private void createTimer() {
 		AnimationTimerEXT timer = new AnimationTimerEXT(10000) {
 			@Override
@@ -97,7 +110,13 @@ public class RoundScreenController {
 		return roundScreen;
 	}
 
-	//gebruikt voor toolcard 12
+	
+	/** handles toolcard 12 actions
+	 * @param diceNumberWindow
+	 * @param diceColorWindow
+	 * @param column
+	 * @param row
+	 */
 	public void clickDiceOnRoundTrack(int diceNumberWindow, String diceColorWindow, int column, int row) {
 		for (Node node : roundScreen.getChildren()) {
 			if (node instanceof CustomStackPane) {
@@ -115,7 +134,15 @@ public class RoundScreenController {
 
 	}
 
-	//verwissel dobbelsteen window met dobbelsteen rondebord
+	
+	/** switch dice on window with dice on roundboard
+	 * @param diceNumberWindow
+	 * @param diceColorWindow
+	 * @param diceNumberRoundTrack
+	 * @param diceColorRoundTrack
+	 * @param column
+	 * @param row
+	 */
 	public void handleClickedOnDiceOnRoundTrack(int diceNumberWindow, String diceColorWindow, int diceNumberRoundTrack,
 			Color diceColorRoundTrack, int column, int row) {
 		for (Node node : roundScreen.getChildren()) {

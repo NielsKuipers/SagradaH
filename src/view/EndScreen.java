@@ -42,7 +42,10 @@ public class EndScreen extends BorderPane {
 
 
 
-	// maakt scorebord rondjes + getallen
+	
+	/**
+	 *  create scoreboard circles + numbers
+	 */
 	private void makeGridPane() {
 		int rowNumber = 0;
 		int columnNumber = 0;
@@ -64,7 +67,7 @@ public class EndScreen extends BorderPane {
 		setAlignment(gridpane, Pos.CENTER);
 	}
 	
-	// maakt titel
+	// create title
 	private void makeTop() {
 		Label text = new Label("Eindscherm scorebord");
 		text.setFont(new Font("Arial", 30));
@@ -72,13 +75,13 @@ public class EndScreen extends BorderPane {
 		setAlignment(text, Pos.CENTER);
 	}
 	
-	// voegt speler label toe
+
 	public void addPlayerLabels(String name, int points, String color) {
 		String point = Integer.toString(points);
 		playerLabels.add(new PlayerLabel(name, point, color));
 	}
 	
-	// maakt speler/score lijst
+	// make player scorelist
 	public void makeBottom() {
 		BorderPane bottombar = new BorderPane();
 		Rectangle2D screen = Screen.getPrimary().getVisualBounds();
@@ -99,14 +102,13 @@ public class EndScreen extends BorderPane {
 
 	}
 	
-	// vernieuwt scherm
+	// refresh screen
 	public void clearPlayers() {
 		playerLabels.clear();
 		stackpanes.clear();
 		makeGridPane();
 	}
 	
-	// voegt speler toe
 	public void addPlayer(int score, String stringColor) {
 		Color color = getColorTranslation(stringColor);
 		
@@ -117,7 +119,7 @@ public class EndScreen extends BorderPane {
 		}
 	}
 
-	// verandert kleur uit database naar javakleur
+	// translate color from dutch to java
 	static Color getColorTranslation(String color) {
 		switch(color) {
 		  case "blauw":

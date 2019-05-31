@@ -12,6 +12,11 @@ public class CalculateScoreModel {
 		this.scoreQueries = scoreQueries;
 	}
 	
+	public void setGameID(int gameID) {
+		scoreQueries.setGameID(gameID);
+	}
+	
+	
 	public ArrayList<ArrayList<Object>> getPlayerDiceNumbers(int playerID) {
 		return scoreQueries.getPlayerDiceNumbers(playerID);
 	}

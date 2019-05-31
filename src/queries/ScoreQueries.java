@@ -10,6 +10,10 @@ public class ScoreQueries {
 		this.standardQueries = standardQueries;
 		gameID = 1;
 	}
+	
+	public void setGameID(int gameID) {
+		this.gameID = gameID;
+	}
 
 	// return all dice values for 1 player
 	public ArrayList<ArrayList<Object>> getPlayerDiceNumbers(int playerID) {

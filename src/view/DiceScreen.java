@@ -42,7 +42,7 @@ public class DiceScreen extends StackPane {
 
 	}
 	
-	// constructor voor roundscreen dice
+	// constructor for roundscreen dice
 	DiceScreen(int number, Color color, int diceID, RoundScreenController controller) {
 		this.setBackground(new Background(new BackgroundFill(color, null, null)));
 		this.setMaxSize(50, 50);

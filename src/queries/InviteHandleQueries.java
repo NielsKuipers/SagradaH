@@ -138,7 +138,7 @@ public class InviteHandleQueries {
 					return false;
 				}
 			} catch (Exception e) {
-				System.out.println("geen invites gevonden");
+				// e.printStackTrace();
 			}
 		}
 		return true;
@@ -155,7 +155,7 @@ public class InviteHandleQueries {
 				return false;
 			}
 		}catch(Exception e) {
-			System.out.println("geen invites gevonden");
+			// e.printStackTrace();
 		}
 		return true;
 	}
