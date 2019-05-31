@@ -1,6 +1,6 @@
 package controller;
 
-import com.sun.org.apache.bcel.internal.generic.ARRAYLENGTH;
+
 import model.CalculateScoreModel;
 
 import java.lang.reflect.Array;
@@ -14,7 +14,7 @@ public class CalculateScoreController {
 	}
 
 	// kiest correcte public objectivecard id en returnt punten;
-	public int getpoints(int playerID, int publicCardID) {
+	private int getpoints(int playerID, int publicCardID) {
 		switch (publicCardID) {
 		case 1:
 			return calculatePublic1(playerID);
