@@ -80,7 +80,7 @@ public class Game {
 				players.get(playerLocation).setPlayerId(Integer.valueOf(String.valueOf(objects.get(0))));
 				playerLocation++;
 			}
-			if (String.valueOf(objects.get(1)).equals(accountName)) {
+			if (String.valueOf(objects.get(1)).toLowerCase().equals(accountName.toLowerCase())) {
 				players.get(playerLocation).setPlayerId(Integer.valueOf(String.valueOf(objects.get(0))));
 				playerLocation++;
 				accountPlaced = true;
@@ -88,7 +88,7 @@ public class Game {
 		}
 
 		for (ArrayList<Object> objects : result) {
-			if (!String.valueOf(objects.get(1)).equals(accountName) && !stop) {
+			if (!String.valueOf(objects.get(1)).toLowerCase().equals(accountName.toLowerCase()) && !stop) {
 				players.get(playerLocation).setPlayerId(Integer.valueOf(String.valueOf(objects.get(0))));
 				playerLocation++;
 			} else {
