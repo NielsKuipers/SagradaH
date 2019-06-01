@@ -501,11 +501,9 @@ public class WindowController {
 			for (int i = 0; i < 5; i++) {
 				if (windowPattern1Model.getFieldOfWindow(i, j).hasDice())
 					points = points + windowPattern1Model.getFieldOfWindow(i, j).getDice().getEyes();
-				GC.setPoints(points);
 			}
 		}
 		return points;
-
 	}
 
 	/**

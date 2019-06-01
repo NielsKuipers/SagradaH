@@ -116,10 +116,6 @@ public class GameController extends Scene {
 		WC.setCheatBestChoice(bestChoice);
 	}
 
-	void setPoints(int value) {
-		gameInfo.setPoints(value);
-	}
-	
 	public void switchToolcards() {
 		setRoot(CardController.showcards());
 	}
@@ -147,6 +143,7 @@ public class GameController extends Scene {
 		timer = new AnimationTimerEXT(5000) {
 			@Override
 			public void doAction() {
+				DC.getDiceOnTableScreen().removeDicesScreen();
 				gameModel.selectWholeGame();
 				//has to do with toolcard 8
 				if(WC.skipSecondTurn() && gameModel.isSecondTurn() && gameModel.getPlayer(0).selectCurrentPlayer()) {
@@ -161,6 +158,7 @@ public class GameController extends Scene {
 					getClientScore();
 					getOtherScore();
 				}
+				
 				
 				if (gameModel.amITheGameCreator() && !gameModel.doesEveryPlayerHasTheirFavorTokens() && gameModel.didEveryoneChoose()) {
 					gameModel.giveAllThePlayersTheirFavorTokens();
@@ -191,7 +189,7 @@ public class GameController extends Scene {
 	 * handle everything when you finish your turn
 	 */
 	public void handleFinishTurn() {
-		if(gameModel.getPlayer(0).selectCurrentPlayer() && gameModel.isSecondTurn()) {
+		if(gameModel.getPlayer(0).selectCurrentPlayer() && gameModel.isSecondTurn() && gameModel.isMainPlayerTheLastTurnOfTheRound()) {
 			gameModel.placeDicesOnRoundTrack();
 			DC.getDiceOnTableScreen().removeDicesScreen();
 			gameModel.selectWholeGame();
