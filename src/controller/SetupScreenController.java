@@ -170,18 +170,7 @@ public class SetupScreenController {
 
 	
 	//////////////////////// inviteGetScreen ///////////////////////////////	
-	
-	/**
-	 *  open inviteGetscreen
-	 */
-	private void openInviteGetScreen() {
-		inviteGetScreen = new InviteGetScreen(this, gui);
-		addPlayersToInviteGetList();
-//		scene.setRoot(inviteGetScreen);
-		toInviteGetScreen();
-	}
-
-	
+		
 	/**
 	 * add players to invites list  
 	 */
@@ -207,7 +196,9 @@ public class SetupScreenController {
 	}
 	
 	public void toInviteGetScreen() {
+		cModel.setClientUsername(accountController.getAccount());
 		gui.changePane(this.inviteGetScreen);
+		inviteGetScreen.refreshList();
 	}
 
 	

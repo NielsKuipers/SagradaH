@@ -65,11 +65,7 @@ this.diceController = diceController;
 		}
 	}
 	
-	private ArrayList<HBox> getGames(ArrayList<ArrayList<Object>> games) {
-		StringBuilder stringBuilder = new StringBuilder();
-		ArrayList<HBox> hboxList = new ArrayList<>();
-		int gameID = 0;
-		
+
 			
 	private ArrayList<HBox> getGames(ArrayList<ArrayList<Object>> games) {
 		StringBuilder stringBuilder = new StringBuilder();
@@ -164,7 +160,7 @@ this.diceController = diceController;
 		this.accountname = AC;
 	}
 	
-	private String getAccount() {
+	String getAccount() {
 		return accountname;
 	}
 	
