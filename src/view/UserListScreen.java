@@ -23,7 +23,7 @@ public class UserListScreen extends BorderPane {
 
         HBox sortBox = new HBox();
         Label sortLabel = new Label("Sorteren op:");
-        ChoiceBox sort = new ChoiceBox();
+        ChoiceBox<String> sort = new ChoiceBox<String>();
         sort.getItems().addAll("Gewonnen potjes", "Alfabetisch");
         sortBox.getChildren().addAll(sortLabel, sort);
         sortBox.setPadding(new Insets(5,5,0,5));
@@ -43,7 +43,7 @@ public class UserListScreen extends BorderPane {
     public void displayUsers(ArrayList<ArrayList<Object>> users, ArrayList<ArrayList<Object>> stats){
         String name;
         int i = 0;
-        for (ArrayList row : users) {
+        for (ArrayList<?> row : users) {
             name = row.get(0).toString();
 
             Label username = new Label(name);
@@ -74,7 +74,7 @@ public class UserListScreen extends BorderPane {
         String statLine = "";
         VBox playerStats = new VBox();
         int i=0;
-        for(ArrayList row : stats){
+        for(ArrayList<?> row : stats){
             if(i==statText.length){i=0;}
             if(row.contains(name)) {
                 for (Object stat : row.subList(1, row.size())) {
