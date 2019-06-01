@@ -64,8 +64,6 @@ this.diceController = diceController;
 			startpane.getReg().setRedBorder(username, password);
 		}
 	}
-	
-
 			
 	private ArrayList<HBox> getGames(ArrayList<ArrayList<Object>> games) {
 		StringBuilder stringBuilder = new StringBuilder();
@@ -134,7 +132,7 @@ this.diceController = diceController;
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("Game is nog niet ready");
 		alert.setHeaderText("WAARSCHUWING");
-		alert.setContentText("Windowpattern keuzes zijn nog niet gemaakt,\n wij vragen u vriendelijk om nog héél eventjes te wachten ;D");
+		alert.setContentText("Windowpattern keuzes zijn nog niet gemaakt,\n wij vragen u vriendelijk om nog heel eventjes te wachten ;D");
 		alert.showAndWait();
 	}	
 	public void handleSort(Object sortV) {
