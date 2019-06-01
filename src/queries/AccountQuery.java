@@ -66,4 +66,15 @@ public class AccountQuery {
 			return false;
 		}
 	}
+	
+	public ArrayList<ArrayList<Object>> patternsCreated(String username, int gameid){
+		
+		return standardQuery.selectQuery("SELECT p.patterncard_idpatterncard FROM patterncardoption p" + 
+				" INNER JOIN player pl ON pl.idplayer = p.player_idplayer",
+				" WHERE username=? AND game_idgame=?", username+"\0"+gameid);
+	}
+	
+	public ArrayList<ArrayList<Object>> isHost(String username, int gameid){
+		return standardQuery.selectQuery("SELECT playstatus_playstatus FROM player", " WHERE username=? AND game_idgame=?", username+"\0"+gameid);
+	}
 }

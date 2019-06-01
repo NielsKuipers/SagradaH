@@ -14,7 +14,14 @@ public class CommunicationModel {
 		addColors();
 	}
 	
-	// return invitelist
+	public void setClientUsername(String username) {
+		inviteQueries.setClientUserName(username);
+	}
+	
+	public void setGameID(int gameid) {
+		inviteQueries.setGameID(gameid);
+	}
+	
 	public ArrayList<ArrayList<Object>> getInviteablePlayers() {
 		return inviteQueries.getPlayers();
 	}
@@ -42,7 +49,8 @@ public class CommunicationModel {
 	public ArrayList<ArrayList<Object>> getInviter(int gameid){
 		return inviteQueries.getInviter(gameid);
 	}
-	
+
+	//add colors to arraylist, representing the private objective colors
 	private void addColors() {
 		colors.add("rood");
 		colors.add("groen"); 
@@ -51,10 +59,25 @@ public class CommunicationModel {
 		colors.add("geel");
 	}
 	
+	
+	/** return random private objectivecolor and remove it from the arrayList
+	 * @return random color
+	 */
 	public String getPrivateObjectiveColor() {
+		ArrayList<ArrayList<Object>> result = inviteQueries.getPrivateColors();
+		for(ArrayList<Object> objects: result) {
+			for(String color: colors) {
+				if(objects.get(0).equals(color)) {
+					colors.remove(color);
+					break;
+				}
+			}
+		}
+		
 		int random = (int)(Math.random() * colors.size());
 		String color = colors.get(random);
-		colors.remove(random);
+		colors.clear();
+		addColors();
 		return color;
 	}
 
@@ -82,8 +105,9 @@ public class CommunicationModel {
 		return inviteQueries.checkUnasweredInGame();
 	}
 	
+	
 	public int getGameID() {
-		return (int) inviteQueries.getGameID().get(0).get(0);
+		return inviteQueries.getGameID();
 	}
 	
 }

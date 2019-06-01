@@ -96,49 +96,72 @@ public class GameQuery {
 				" WHERE idgame=? AND roundtrack IS NOT NULL","" + idGame + "");
 	}
 	
+	public ArrayList<ArrayList<Object>> checkIfPlayersHaveFavorTokes(int idGame) {
+		return standardQueries.selectQuery("SELECT idfavortoken FROM gamefavortoken",
+				" WHERE idgame=? AND idplayer IS NOT NULL","" + idGame + "");
+	}
 	
+	public ArrayList<ArrayList<Object>> didEveryoneChoose(int idGame) {
+		return standardQueries.selectQuery("SELECT idplayer FROM player",
+				" WHERE game_idgame=? AND patterncard_idpatterncard IS NULL","" + idGame + "");
+	}
 	
+	public ArrayList<ArrayList<Object>> canPlayerPlaceADice(int idGame, int idPlayer, int infirstturn, int round) {
+		return standardQueries.selectQuery("SELECT * FROM playerframefield p inner join gamedie g on g.idgame = p.idgame AND g.dienumber = p.dienumber AND g.diecolor = p.diecolor",
+				" WHERE g.idgame=? AND player_idplayer=? AND inFirstTurn=? AND round=?",idGame + "\0" + idPlayer + "\0" + infirstturn + "\0" + round);
+	}
 	
-	
-	
-	
+	public ArrayList<ArrayList<Object>> didMainPlayerChooseWindow(int idGame, int idPlayer) {
+		return standardQueries.selectQuery("SELECT patterncard_idpatterncard FROM player",
+				" WHERE game_idgame=? AND idplayer=? AND patterncard_idpatterncard is not null",idGame + "\0" + idPlayer);
+	}
 	
 	
 	///////////////////////////////////ENDSCREEN//////////////////////////////////////////////////////////////////
 	
-	// geeft spelersnamen, kleur en punten
+	// return player name, color and points
 	public ArrayList<ArrayList<Object>> getPlayerScores(int gameID) {
 		return standardQueries.selectQuery("SELECT username, private_objectivecard_color, score FROM player", " WHERE game_idgame=?", ""+gameID+"", " ORDER BY score DESC");
 	}
 	
-	// zet alle spelerstatusen op uitgespeeld
+	// put all players on "uitgespeeld"
 	public void setPlayerStatusFinished(int gameID) {
 		standardQueries.updateQuery("UPDATE player SET playstatus_playstatus=?", "uitgespeeld", " WHERE game_idgame=?", ""+gameID+"");
 	}
 	
+	// put final scores in database
+	public void setScores(int points, int playerID) {
+		standardQueries.updateQuery("UPDATE player SET score=?", ""+points+"", " WHERE idplayer=?", ""+playerID+"");
+	}
 	
 	
 	////////////////////////////////////RONDEBORD//////////////////////////////////////////////////////////////////
 	
 	
-	// geeft dobbelstenen op rondebord terug voor een gekozen ronde
+	// return dice per round for a game
 	public ArrayList<ArrayList<Object>> getDicesOnRoundBoard(int round, int gameID) {
 		return standardQueries.selectQuery("SELECT diecolor, eyes, dienumber FROM gamedie", " WHERE idgame=? AND roundtrack=?",""+gameID+"\0"+round+"");
 	}
 
 	
-	// zet dobbelstenen roundtrack waarde op null
+	// set dice value to null
 	public void removeDice(int diceID, String colorText, int gameID) {
 		standardQueries.updateQuery("UPDATE gamedie SET roundtrack=?", ""+null+"", " WHERE idgame=? AND dienumber=? AND diecolor=?", ""+gameID+"\0"+diceID+"\0"+colorText+"");
 	}
 	
+	// add dices to roundtrack
 	public void addDiceToRoundTrack(int diceID, String colorText, int round, int gameID) {
 		standardQueries.updateQuery("UPDATE gamedie SET roundtrack=?", ""+round+"", " WHERE idgame=? AND dienumber=? AND diecolor=?", ""+gameID+"\0"+diceID+"\0"+colorText+"");
 	}
-	
+	// get round of a dice
 	public ArrayList<ArrayList<Object>> getRoundTrackOfDice(int diceID, String colorText, int gameID) {
 		return standardQueries.selectQuery("SELECT roundtrack FROM gamedie", " WHERE idgame=? AND dienumber=? AND diecolor=?",""+gameID+"\0"+diceID+"\0"+colorText+"");
 	}
-	
-	
+
+	// check if game is started
+	public boolean gameStarted(int gameID) {
+		return standardQueries.selectQuery("SELECT patterncard_idpatterncard FROM player WHERE game_idgame = 1 AND patterncard_idpatterncard IS NULL").isEmpty();
+	}
+
+
 }

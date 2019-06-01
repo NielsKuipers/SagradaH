@@ -51,6 +51,11 @@ public class PlayerQuery {
 				" WHERE player_idplayer=? AND position_x=? AND position_y=?", idPlayer + "\0" + posX + "\0" + posY);
 	}
 	
+	public void updateFirstTurnDice(int idGame, int dieNumber, String diecolor, int inFirstTurn) {
+		standardQueries.updateQuery("UPDATE gamedie set inFirstTurn=? ", ""+inFirstTurn+"", 
+				" WHERE idgame=? AND dienumber=? AND diecolor=?", idGame + "\0" + dieNumber + "\0" + diecolor);
+	}
+	
 	public void removeDiceOnWindowPattern(int idPlayer, int dienumber, String diecolor) {
 		standardQueries.updateQuery("UPDATE playerframefield set dienumber=?, diecolor=? ", "null" + "\0" + "null", 
 				" WHERE player_idplayer=? AND dienumber=? AND diecolor=?", idPlayer + "\0" + dienumber + "\0" + diecolor);

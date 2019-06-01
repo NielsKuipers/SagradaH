@@ -30,15 +30,19 @@ public class WindowPattern {
 		fields.add(field);
 	}
 
+	/**
+	 * @param column = column of a field
+	 * @param row = row of a field
+	 * @return a field model
+	 * get a field
+	 */
 	public Field getFieldOfWindow(int column, int row) {
 		Field result = null;
 		for (Field field : fields) {
 			if (field.getColumn() == column && field.getRow() == row) {
 				result = field;
 			}
-
 		}
-
 		return result;
 	}
 
@@ -54,7 +58,7 @@ public class WindowPattern {
 		return playerName;
 	}
 	
-	void setPlayerScore(String s) {
+	public void setPlayerScore(String s) {
 		playerScore.set(String.valueOf(s));
 	}
 
@@ -70,6 +74,10 @@ public class WindowPattern {
 		backgroundProperty.setValue(color);
 	}
 
+	/**
+	 * @param dice = dice model
+	 * remove a dice from a field
+	 */
 	public void removeDiceFromWindowPattern(Dice dice) {
 		for (Field field : fields) {
 			if (field.getDice() == dice) {
@@ -78,6 +86,11 @@ public class WindowPattern {
 		}
 	}
 
+	/**
+	 * @param dice = dice model
+	 * @return true or false
+	 * checks if a specific dice is on a field
+	 */
 	public boolean diceOnWindow(Dice dice) {
 		for (Field field : fields) {
 			if (field.getDice() == dice) {
@@ -88,7 +101,10 @@ public class WindowPattern {
 	}
 
 	
-	//get all the fields and add it to the right model
+	
+	/**
+	 * give all the fields the right values
+	 */
 	void selectAllFields() {
 		for (Field field : fields) {
 			field.deleteDice();
@@ -112,7 +128,11 @@ public class WindowPattern {
 		
 	}
 	
-	//get all the dices on all fields
+	/**
+	 * @param idPlayer = id of a player
+	 * @param idGame = id of the game
+	 * place all the dices on the fields
+	 */
 	void selectAllDicesOnField(int idPlayer, int idGame) {
 		ArrayList<ArrayList<Object>> result = windowPatternQuerie.getAllDicesOnField(idPlayer, idGame);
 		for (int row = 1; row < 5; row++) {
@@ -145,6 +165,11 @@ public class WindowPattern {
 		difficulty.set("Moeilijkheidsgraad: " + result.get(0).get(0));
 	}
 
+	/**
+	 * @param c = Object/String color
+	 * @return a java color
+	 * make a java color from Object/String
+	 */
 	private Color makeColorFromQuerie(Object c) {
 		String color = String.valueOf(c);
 		if (color.equals("geel")) {
@@ -164,7 +189,6 @@ public class WindowPattern {
 	}
 	
 	private int makeEyeFromQuerie(Object eye) {
-		
 		if (eye == null) {
 			return 0;
 		}
@@ -179,6 +203,9 @@ public class WindowPattern {
 		return idWindow;
 	}
 	
+	/**
+	 * make all the windows gray and delete all the dices
+	 */
 	public void makeWindowEmpty() {
 		for (Field field : fields) {
 			field.setColorAndEyes(Color.LIGHTGRAY, 0);

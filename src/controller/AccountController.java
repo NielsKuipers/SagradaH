@@ -1,3 +1,4 @@
+<<<<<<< Master-Michelle
 package controller;
 
 import java.util.ArrayList;
@@ -27,14 +28,17 @@ public class AccountController {
 	private String gameboolean = "";
 	private GameController gameController;
 	private UserListScreen userListScreen;
+private DiceController diceController;
+
 	
-	public AccountController(GUI gui, DatabaseController DC, HomePane HP, StartPane SP, GameListScreen GLS, GameController gameController, UserListScreen ULS) {
+	public AccountController(GUI gui, DatabaseController DC, HomePane HP, StartPane SP, GameListScreen GLS, GameController gameController, UserListScreen ULS, DiceController diceController) {
 		this.myGUI = gui;
 		this.gameController = gameController;
 		this.homePane = HP;
 		this.startpane = SP;
 		this.gameListScreen = GLS;
 		this.userListScreen = ULS;
+this.diceController = diceController;
 		myaccount = new Account(DC);
 	}
 	
@@ -64,36 +68,33 @@ public class AccountController {
 		ArrayList<HBox> hboxList = new ArrayList<>();
 		int gameID = 0;
 		
-		
-		for(ArrayList<Object> row : games ) {
+			
+	private ArrayList<HBox> getGames(ArrayList<ArrayList<Object>> games) {
+		StringBuilder stringBuilder = new StringBuilder();
+		ArrayList<HBox> hboxList = new ArrayList<>();
+		int gameID = 0;
+
+		for (ArrayList<Object> row : games) {
 			int newGameID;
 			newGameID = (int) row.get(1);
-			
-			if(newGameID != gameID) {
+
+			if (newGameID != gameID) {
 				HBox gameLine = new HBox();
 				Button joinGame = new Button("Join game");
-				if(myaccount.checkIfInGame(newGameID,getAccount())) {
-					gameLine.setBackground(new Background(new BackgroundFill(Color.LIGHTGREEN,null,null)));
-					if(!myaccount.canNotBePLayed(newGameID)) {
-						if(!myaccount.hasNotChosenWindowPattern(newGameID, getAccount())) {
-						joinGame.setOnMouseClicked(e -> handleJoinGame(newGameID));
-						} else {
-							joinGame.setOnMouseClicked(e -> myGUI.handleChooseScreen());
-						}
-						joinGame.setDisable(false);
-					} else {
-						joinGame.setDisable(true);
-					}
-					gameLine.getChildren().add(joinGame);
+				if (myaccount.checkIfInGame(newGameID, getAccount())) {
+					gameLine.setBackground(new Background(new BackgroundFill(Color.LIGHTGREEN, null, null)));
+					joinGame.setDisable(false);
+					joinGame.setOnMouseClicked(e -> handleJoinGame(newGameID));
+
+				} else {
+					gameLine.setBackground(new Background(new BackgroundFill(Color.GRAY, null, null)));
+					joinGame.setDisable(true);
 				}
-				else {
-					gameLine.setBackground(new Background(new BackgroundFill(Color.GRAY,null,null)));
-				}
-				for(Object game: row.subList(1, row.size()-1) ) {
+				for (Object game : row.subList(1, row.size() - 1)) {
 					stringBuilder.append(game).append(" ");
 				}
 				Label textforgame = new Label(stringBuilder.toString());
-				gameLine.getChildren().add(textforgame);
+				gameLine.getChildren().addAll(textforgame, joinGame);
 				hboxList.add(gameLine);
 				gameID = newGameID;
 				stringBuilder.setLength(0);
@@ -101,18 +102,29 @@ public class AccountController {
 		}
 		return hboxList;
 	}
-	
 	public void handleJoinGame(int newGameID) {
-		gameController.getGameModel().makeGameEmpty();
+
 		gameController.getGameModel().setGameID(newGameID);
 		gameController.getGameModel().selectPlayerIds();
-		gameController.getGameModel().selectWholeGame();
-		gameController.startTimer();
-		myGUI.handleGoBackToGame();
-		System.out.println(newGameID);
-		
+		myGUI.setGameIDforScoreCalc(newGameID);
+
+		if (!myaccount.patternsCreated(getAccount(), newGameID) && myaccount.hostplayer(getAccount(), newGameID)) {
+			myGUI.handleLoadSetup(newGameID);
+		} else if (!gameController.getGameModel().checkIfPlayerMainPlayerPickedWindow()) {
+			gameController.addWindowScreens();
+			gameController.getGameModel().selectwindowOptions();
+			myGUI.handleChooseScreen();
+		}else {
+			gameController.getGameModel().makeGameEmpty();
+			diceController.getDiceOnTableScreen().removeDicesScreen();
+			gameController.getGameModel().setGameID(newGameID);
+			gameController.getGameModel().selectPlayerIds();
+			gameController.getGameModel().selectWholeGame();
+			gameController.startTimer();
+			myGUI.handleGoBackToGame();
+		}
 	}
-	
+		
 	public void handleSort(Object sortV) {
 		if(gameboolean.equals("Alle spellen")) {
 			gameListScreen.showGames(getGames(myaccount.getGames(sortV)));

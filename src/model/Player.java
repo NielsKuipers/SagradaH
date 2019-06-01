@@ -17,7 +17,7 @@ public class Player {
 		this.playerQuery = playerQuery;
 	}
 
-	WindowPattern getWindowPatternPlayer() {
+	public WindowPattern getWindowPatternPlayer() {
 		return windowPattern;
 	}
 
@@ -29,71 +29,89 @@ public class Player {
 		idPlayer = id;
 	}
 
-	int getPlayerId() {
+	public int getPlayerId() {
 		return idPlayer;
 	}
 
-	// get all the information about a windowpattern and add it to the model
+	/**
+	 * @param idGame = id of the game get all the information about a windowpattern
+	 *               and add it to the model
+	 */
 	void selectWindow(int idGame) {
 		ArrayList<ArrayList<Object>> result = playerQuery.getWindowId(idPlayer);
-		if (!result.isEmpty()) {
-			windowPattern.setId(Integer.valueOf(String.valueOf(result.get(0).get(0))));
-			windowPattern.selectAllFields();
-			windowPattern.selectAllDicesOnField(idPlayer, idGame);
-			windowPattern.selectDifficulty();
-			selectPlayerName();
-			selectPlayerScore();
+		try {
+			if (!result.isEmpty()) {
+				windowPattern.setId(Integer.valueOf(String.valueOf(result.get(0).get(0))));
+				windowPattern.selectAllFields();
+				windowPattern.selectAllDicesOnField(idPlayer, idGame);
+				windowPattern.selectDifficulty();
+				selectPlayerName();
+				selectPlayerScore();
+			}
+		} catch (Exception e) {
+			//e.printStackTrace();
 		}
 	}
 
-	// get player name
 	private void selectPlayerName() {
 		ArrayList<ArrayList<Object>> result = playerQuery.getPlayerName(idPlayer);
 		windowPattern.setPlayerName("Naam: " + result.get(0).get(0));
 	}
 
-	// get player score
 	private void selectPlayerScore() {
 		ArrayList<ArrayList<Object>> result = playerQuery.getPlayerScore(idPlayer);
 		windowPattern.setPlayerScore("Score: " + result.get(0).get(0));
 	}
 
-	// give the window of the player the right id
 	public void updateWindowId(int windowId) {
 		playerQuery.updateWindowID(idPlayer, windowId);
 	}
 
-	// check if player has turn
+	/**
+	 * check if this player is has turn
+	 * @return true or false
+	 */
 	public boolean selectCurrentPlayer() {
 		ArrayList<ArrayList<Object>> result = playerQuery.getIsCurrentPlayer(idPlayer);
 		int currentPlayer = 0;
-		if(!result.isEmpty()) {
-		currentPlayer = Integer.valueOf(String.valueOf(result.get(0).get(0)));}
+		if (!result.isEmpty()) {
+			currentPlayer = Integer.valueOf(String.valueOf(result.get(0).get(0)));
+		}
 		return currentPlayer == 1;
 	}
 
-	// get seqnr of player
 	int selectSqnr() {
 		ArrayList<ArrayList<Object>> result = playerQuery.getSqnrPlayer(idPlayer);
 		return Integer.valueOf(String.valueOf(result.get(0).get(0)));
 	}
 
-	// update seqnr
 	void updateSqnr(int sqnr) {
 		playerQuery.updateSqnrPlayer(idPlayer, sqnr);
 	}
 
-	// update currentplayer in game table
 	void updateQurrentPlayer(int isQurrent) {
 		playerQuery.updateIsCurrentPlayer(idPlayer, isQurrent);
 	}
 
-	// add a dice to playerframefield
 	public void setDiceOnWindowPattern(int posX, int posY, int dienumber, String diecolor) {
 		playerQuery.updateDiceOnWindowPattern(idPlayer, posX, posY, dienumber, diecolor);
 	}
 
-	// remove a dice from playerframefield
+	/**
+	 * @param posX = position x of field
+	 * @param posY = position y of field
+	 * @param dienumber = die number
+	 * @param diecolor = diecolor
+	 * @param inFirstTurn = 1: firsturn  0: secondturn
+	 * @param idGame = id of game
+	 * add a dice to playerframefield and give inFirstTurn
+	 */
+	public void setDiceOnWindowPatternAndGiveFirstTurn(int posX, int posY, int dienumber, String diecolor,
+			int inFirstTurn, int idGame) {
+		playerQuery.updateDiceOnWindowPattern(idPlayer, posX, posY, dienumber, diecolor);
+		playerQuery.updateFirstTurnDice(idGame, dienumber, diecolor, inFirstTurn);
+	}
+
 	public void removeDiceOnWindowPattern(int dienumber, String diecolor) {
 		playerQuery.removeDiceOnWindowPattern(idPlayer, dienumber, diecolor);
 	}

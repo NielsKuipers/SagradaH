@@ -8,15 +8,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.BorderWidths;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import main.GUI;
 
 public class InviteScreen extends BorderPane{
@@ -27,15 +22,26 @@ public class InviteScreen extends BorderPane{
 	public InviteScreen(SetupScreenController controller, GUI gui) {
 		this.gui = gui;
 		this.controller = controller;
-		playerList = new VBox();
-		playerList.setPrefWidth(600);
-		ScrollPane scroll = new ScrollPane(playerList);
-		
-		addLowerButtons();
-		this.setCenter(scroll);	
+		makeLayout();
 	}
 	
-	// maakt knoppen aan onderkant
+	// make layout
+	private void makeLayout() {
+		playerList = new VBox();
+		playerList.setPrefWidth(790);
+		Label label = new Label("Invite lijst");
+		label.setFont(new Font(20));
+	
+		ScrollPane scroll = new ScrollPane(playerList);
+		scroll.setMaxWidth(800);
+		playerList.setAlignment(Pos.CENTER);
+		addLowerButtons();
+		
+		this.setCenter(scroll);		
+		this.setTop(label);
+		this.setAlignment(label, Pos.CENTER);
+	}
+	
 	private void addLowerButtons() {
 		Button returnButton = new Button("terug");
 		returnButton.setOnAction(e -> gui.openSetupMenu());
@@ -48,18 +54,18 @@ public class InviteScreen extends BorderPane{
 		this.setBottom(buttonBox);
 	}
 	
-	// voegt nieuwe speler to aan invitelijst
+	// add player to invitelist
 	public void addPlayer(String name) {
 		playerList.getChildren().add(new PlayerBox(name));
 	}
 	
-	// verniewt invitelijst
+	// refresh invitelist
 	private void refreshList() {
 		clearList();
 		controller.addPlayersToInviteList();
 	}
 	
-	// leegt invitelijst
+	// empty invitelist
 	public void clearList() {
 		playerList.getChildren().clear();
 	}
@@ -67,7 +73,7 @@ public class InviteScreen extends BorderPane{
 	// custom speler box
 	private class PlayerBox extends HBox{
 		private PlayerBox(String name) {
-			setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1))));
+		//	setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1))));
 			setPadding(new Insets(5));
 			setSpacing(20);
 			setAlignment(Pos.CENTER);
@@ -83,34 +89,38 @@ public class InviteScreen extends BorderPane{
 			setText("Invite");
 			setOnAction(e -> {
 				controller.invitePlayer(username);
+				setDisable(true);
 			});
 			
 		}
 	}
 	
 	
-	public void maxInvitedWarning() {
-		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle("Maximaal aantal spelers bereikt!!");
-		alert.setHeaderText("WAARSCHUWING");
-		alert.setContentText("Je hebt al drie spelers uitgenodigd!!");
-		alert.showAndWait();
-	}
+	/** opens warning box depending on warning code
+	 * @param warningCode
+	 */
+	public void warning(int warningCode) {
+		switch (warningCode) {
+		case 1:
+			alert("Maximaal aantal spelers bereikt!!", "Je hebt al drie spelers uitgenodigd!!");
+			break;
+		case 2:
+			alert("Je hebt deze speler al uitgenodigd!!", "Deze speler heeft al een openstaande uitnodiging!!");
+			break;
+		case 3:
+			alert("Je hebt deze speler al uitgenodigd!!", "Deze speler heeft je uitnodiging al geaccepteerd/geweigerd!!");
+			break;
 
-	public void inviteNotAllowedWarning() {
-		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle("Je hebt deze speler al uitgenodigd!!");
-		alert.setHeaderText("WAARSCHUWING");
-		alert.setContentText("deze speler heeft al een openstaande uitnodiging!!");
-		alert.showAndWait();
+		default:
+			break;
+		}
 	}
-
-	public void alreadyAcceptedWarning() {
+	
+	private void alert(String a, String b) {
 		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle("Je hebt deze speler al uitgenodigd!!");
+		alert.setTitle(a);
 		alert.setHeaderText("WAARSCHUWING");
-		alert.setContentText("Deze speler heeft je uitnodiging al geaccepteerd/geweigerd!!");
+		alert.setContentText(b);
 		alert.showAndWait();
-		
 	}
 }

@@ -33,13 +33,15 @@ public class DiceOnTable {
 	}
 	
 	void removeAllDicesFromTable() {
-		allDice.clear();
-		diceOnTableProperty.setValue(allDice);
+			
+			allDice.clear();
+			//System.out.println(allDice);
+			diceOnTableProperty.setValue(new ArrayList<>());
+			diceOnTableProperty.setValue(allDice);
 	}
 
 
 	public boolean isDiceOnTable(Dice dice) {
-
 		for (Dice die : allDice) {
 			if (die.equals(dice)) {
 				return true;

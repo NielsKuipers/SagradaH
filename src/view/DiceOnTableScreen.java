@@ -33,6 +33,9 @@ public class DiceOnTableScreen extends GridPane {
 		diceOnTableModel.diceOnTableProperty().addListener(new MyDiceOnTableListener());
 	}
 
+	/**
+	 * checks if arraylist has changed and draws all dices
+	 */
 	private class MyDiceOnTableListener implements ChangeListener<ArrayList<Dice>> {
 
 		@Override
@@ -70,6 +73,14 @@ public class DiceOnTableScreen extends GridPane {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	/**
+	 * clear all dices on table
+	 */
+	public void removeDicesScreen() {
+		getChildren().clear();
+		add(createNewDices, 2, 2, 5, 1);
 	}
 
 }

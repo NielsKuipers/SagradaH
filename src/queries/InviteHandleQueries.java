@@ -6,20 +6,23 @@ import java.util.ArrayList;
 import java.util.Date;
 
 
+
 public class InviteHandleQueries {
 	private StandardQueries standardQuerie;
 	private String currentDate;
-	private String hostUsername;
-	private String username;
+	private String clientUsername;
 	private int gameID;
 
 	public InviteHandleQueries(StandardQueries standardQuerie) {
 		this.standardQuerie = standardQuerie;
-		hostUsername = "Lucas";
-		username = "Gijs";
 	}
 	
-	// returnt array met verschillende random getallen
+	// set username as logged in username
+	public void setClientUserName(String username) {
+		clientUsername = username;
+	}
+	
+	// return array with different random numbers 
 	private int[] getRandomNums(int minVal, int maxVal, int resultAmount) {
 		int[] randoms = new int[resultAmount];
 		int counter = 0;
@@ -42,47 +45,51 @@ public class InviteHandleQueries {
 		return randoms;
 	}
 	
-	// gameID ophalen en int returnen
+	// get gameID and return it as int
 	private int getGameIDint() {
-			return (int) getGameID().get(0).get(0);
+			return (int) getNewGameID().get(0).get(0);
 		}
+	
+	public void setGameID(int gameid) {
+		gameID = gameid;
+	}
 		
 	
 	//////////////insert queries////////////////////////////
 	
-	// maakt setup voor nieuwe game.  heeft username nodig (uit inlog klasse?)
+	// make setup for a new game
 	public void setupGame(String color) {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		Date date = new Date();
 		currentDate = dateFormat.format(date);
 		
-		// nieuwe gameID aanmaken en gameid opslaan
-	//	standardQuerie.selectQuery("START TRANSACTION; INSERT INTO game (creationdate) VALUES (NOW()); SELECT LAST_INSERT_ID();commit;");
+		// create new gameID and set it as the current gameID
+		// gameID = (int) standardQuerie.selectQuery("START TRANSACTION; INSERT INTO game (creationdate) VALUES (NOW()); SELECT LAST_INSERT_ID();commit;").get(0).get(0);
 		standardQuerie.updateQuery("INSERT INTO game(creationdate) VALUES(?)",""+currentDate+"");
 		gameID = getGameIDint();
 		
-		// 90 gamedie toevoegen
+		// add 90 gamedie
 		standardQuerie.updateQuery("INSERT INTO gamedie(idgame, dienumber, diecolor) SELECT ?, number, color FROM die", ""+gameID+"");
 		
-		// 3 random toolcards toevoegen
+		// add 3 random toolcards
 		int[] randomToolcards = getRandomNums(1, 13, 3);
 		for(int i = 0; i < 3; i++) {
 			standardQuerie.updateQuery("INSERT INTO gametoolcard(idtoolcard, idgame) VALUES(?,?)", ""+randomToolcards[i]+"\0"+gameID+"");
 		}
 		
-		// 3 random public objectivecards toevoegen
+		// add 3 random public objectivecards
 		int[] randomObjectiveCards = getRandomNums(1, 11, 3);
 		for(int i = 0; i < 3; i++) {
 			standardQuerie.updateQuery("INSERT INTO sharedpublic_objectivecard(idpublic_objectivecard, idgame) VALUES(?,?)", ""+randomObjectiveCards[i]+"\0"+gameID+"");
 		}
 		
-		// 24 random betaalstenen toevoegen
+		// add 24 favortokens
 		for(int i = 1; i < 25; i++) {
 			standardQuerie.updateQuery("INSERT INTO gamefavortoken(idgame, idfavortoken) VALUES(?,?)", ""+gameID+"\0"+i+"");
 		}
 		
-		// HOST player aanmaken
-		standardQuerie.updateQuery("INSERT INTO player(username, game_idgame, playstatus_playstatus, seqnr, isCurrentPlayer, private_objectivecard_color) VALUES (?,?,?,?,?,?)", ""+hostUsername+"\0"+gameID+"\0uitdager\0"+1+"\0 1\0"+color+"");
+		// Add HOST player to game
+		standardQuerie.updateQuery("INSERT INTO player(username, game_idgame, playstatus_playstatus, seqnr, isCurrentPlayer, private_objectivecard_color) VALUES (?,?,?,?,?,?)", ""+clientUsername+"\0"+gameID+"\0uitdager\0"+1+"\0 1\0"+color+"");
 		
 		int idMainPlayer = (int) standardQuerie.selectQuery("SELECT idplayer FROM player", " WHERE game_idgame=?", ""+gameID+"").get(0).get(0);
 		
@@ -90,33 +97,38 @@ public class InviteHandleQueries {
 
 	}
 	
-	// invite speler
+	// invite player
 	public void invitePlayer(String username, String color) {
 		standardQuerie.updateQuery("INSERT INTO player(username, game_idgame, playstatus_playstatus, seqnr, isCurrentPlayer, private_objectivecard_color) VALUES (?,?,?,?,?,?)", ""+username+"\0"+gameID+"\0uitgedaagde\0"+getSeqnr()+"\0 0\0"+color+"");
 		
 	}
 	
-	// invite accepteren
+	// accept invte
 	public void acceptInvite(int gameid) {
-		standardQuerie.updateQuery("UPDATE player SET playstatus_playstatus=?", "geaccepteerd", " WHERE username=? AND game_idgame=?", ""+username+"\0"+gameid+"");
+		standardQuerie.updateQuery("UPDATE player SET playstatus_playstatus=?", "geaccepteerd", " WHERE username=? AND game_idgame=?", ""+clientUsername+"\0"+gameid+"");
 	}
 	
-	// invite weigeren
+	// decline invite
 	public void declineInvite(int gameid) {
-		standardQuerie.updateQuery("UPDATE player SET playstatus_playstatus=?", "geweigerd", " WHERE username=? AND game_idgame=?", ""+username+"\0"+gameid+"");
+		standardQuerie.updateQuery("UPDATE player SET playstatus_playstatus=?", "geweigerd", " WHERE username=? AND game_idgame=?", ""+clientUsername+"\0"+gameid+"");
 	}
 
 	///////////////select queries/////////////////////////////	
-	
-	// geeft spelerlijst uit alle accounts behalve hostaccount
+
+	/**
+	 * @return all accounts except host
+	 */
 	public ArrayList<ArrayList<Object>> getPlayers() {
-		return standardQuerie.selectQuery("SELECT username FROM account", " WHERE username!=?", ""+hostUsername+"");
+		return standardQuerie.selectQuery("SELECT username FROM account", " WHERE username!=?", ""+clientUsername+"");
 	}
 	
-	// controlleer of speler al een openstaande uitdaging heeft van de host
+	/**
+	 * @param invitedUsername
+	 * @return check if there are unanswered challenges for a player
+	 */
 	public boolean unAnsweredChallenges(String invitedUsername) {
 		
-		ArrayList<ArrayList<Object>> hostGameIDs = standardQuerie.selectQuery("SELECT game_idgame FROM player", " WHERE username=? AND playstatus_playstatus=?", ""+hostUsername+"\0uitdager");
+		ArrayList<ArrayList<Object>> hostGameIDs = standardQuerie.selectQuery("SELECT game_idgame FROM player", " WHERE username=? AND playstatus_playstatus=?", ""+clientUsername+"\0uitdager");
 
 		for (ArrayList<Object> hostGameID : hostGameIDs) {
 			int id = (int) hostGameID.get(0);
@@ -126,13 +138,16 @@ public class InviteHandleQueries {
 					return false;
 				}
 			} catch (Exception e) {
-				System.out.println("geen invites gevonden");
+				// e.printStackTrace();
 			}
 		}
 		return true;
 	}
 	
-	// controlleer of de speler al de uitdaging geaccepteerd heeft
+	/**
+	 * @param username
+	 * @return check if player has already accepted invite
+	 */
 	public boolean alreadyAcceptedInvite(String username) {
 		ArrayList<ArrayList<Object>> playercheck = standardQuerie.selectQuery("SELECT game_idgame FROM player", " WHERE username=? AND game_idgame=? AND (playstatus_playstatus=? OR playstatus_playstatus=?)", ""+username+"\0"+gameID+"\0geaccepteerd\0geweigerd");	
 		try {
@@ -140,52 +155,89 @@ public class InviteHandleQueries {
 				return false;
 			}
 		}catch(Exception e) {
-			System.out.println("geen invites gevonden");
+			// e.printStackTrace();
 		}
 		return true;
 	}
 		
-	// return next playerseqnr
+	/**
+	 * @return next seqnr
+	 */
 	private int getSeqnr() {
 		return (int) standardQuerie.selectQuery("SELECT MAX(seqnr) FROM player", " WHERE game_idgame=?", ""+gameID+"").get(0).get(0) + 1;
 		
 	}
 	
-	// geeft gejoinde spelerlijst
+	
+	/**
+	 * @return joined players
+	 */
 	public ArrayList<ArrayList<Object>> getJoinedPlayers() {
 		return standardQuerie.selectQuery("SELECT username FROM player", " WHERE game_idgame=? AND (playstatus_playstatus=? OR playstatus_playstatus=?)", ""+gameID+"\0geaccepteerd\0uitdager");
 	}
 	
-	// nieuwe GameID ophalen
-	public ArrayList<ArrayList<Object>> getGameID() {
+	
+	/**
+	 * @return newly created gameID
+	 */
+	private ArrayList<ArrayList<Object>> getNewGameID() {
 		return standardQuerie.selectQuery("SELECT idgame FROM game", " WHERE creationdate=?", ""+currentDate+"");
 	}
 	
-	// speler aantal ophalen
+	public int getGameID() {
+		return gameID;
+	}
+	
+	
+	/**
+	 * @return player count
+	 */
 	public ArrayList<ArrayList<Object>> getInvitedPlayerCount() {
 		return standardQuerie.selectQuery("SELECT COUNT(idplayer) FROM player", " WHERE game_idgame=?", ""+gameID+"");
 	}
 	
-	// inviteGetLijst ophalen
+	
+	
+	/**
+	 * @return returns inviteGetList
+	 */
 	public ArrayList<ArrayList<Object>> getInviteGetList(){
-		return standardQuerie.selectQuery("SELECT game_idgame FROM player", " WHERE username=? AND playstatus_playstatus=?", ""+username+"\0uitgedaagde");
+		return standardQuerie.selectQuery("SELECT game_idgame FROM player", " WHERE username=? AND playstatus_playstatus=?", ""+clientUsername+"\0uitgedaagde");
 	}
 	
-	// haalt uitdager naam op om toe te voegen aan invitegetlist screen
+	/**
+	 * @param gameid
+	 * @return returns the host username for a game
+	 */
 	public ArrayList<ArrayList<Object>> getInviter(int gameid){
 		return standardQuerie.selectQuery("SELECT username, game_idgame FROM player", " WHERE game_idgame=? AND playstatus_playstatus=?", ""+gameid+"\0uitdager");
 	}
 
-	// controlleert of er geweigerde uitnodigingen zijn
+	
+	/**
+	 *  checks if there any rejected invites
+	 */
 	public boolean checkDeclined() {
 		ArrayList<ArrayList<Object>> result = standardQuerie.selectQuery("SELECT COUNT(idplayer) FROM player", " WHERE game_idgame=? AND playstatus_playstatus=?", ""+gameID+"\0geweigerd");
 		return (long) result.get(0).get(0) > 0;
 	}
 	
-	// controlleert of er geweigerde uitnodigingen zijn in de game
+	
+	/**
+	 * checks if there are any unanswered invites in a game 
+	 */
 	public boolean checkUnasweredInGame() {
 		ArrayList<ArrayList<Object>> result = standardQuerie.selectQuery("SELECT COUNT(idplayer) FROM player", " WHERE game_idgame=? AND playstatus_playstatus=?", ""+gameID+"\0uitgedaagde");
 		return (long) result.get(0).get(0) > 0;
+	}
+	
+	
+	
+	/**
+	 * returns all selected private objective colors
+	 */
+	public ArrayList<ArrayList<Object>> getPrivateColors(){
+		return standardQuerie.selectQuery("SELECT private_objectivecard_color FROM player", " WHERE game_idgame=?" , ""+gameID+"");
 	}
 
 }

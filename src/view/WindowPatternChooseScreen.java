@@ -15,9 +15,8 @@ import main.GUI;
 public class WindowPatternChooseScreen extends GridPane {
 
 	public WindowPatternChooseScreen(GUI gui, WindowController WC) {
-
-		setHgap(50); // horizontal gap in pixels => that's what you are asking for
-		setVgap(40); // vertical gap in pixels
+		setHgap(50);
+		setVgap(40);
 		setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, null, null)));
 		setAlignment(Pos.CENTER);
 		setMinHeight(750);
@@ -46,7 +45,6 @@ public class WindowPatternChooseScreen extends GridPane {
 		setHalignment(window2Button, HPos.CENTER);
 		setHalignment(window3Button, HPos.CENTER);
 		setHalignment(window4Button, HPos.CENTER);
-
 
 		Label text = new Label(" WindowPatternChooseScreen ");
 		text.setStyle("-fx-background-radius: 300 300 300 300;-fx-background-color:DEEPSKYBLUE");
