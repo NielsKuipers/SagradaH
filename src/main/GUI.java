@@ -1,11 +1,12 @@
 package main;
 
 import controller.AccountController;
-import controller.CalculateScore;
+import controller.CalculateScoreController;
 import controller.CardController;
 import controller.ChatController;
 import controller.DatabaseController;
 import controller.DiceController;
+import controller.EndScreenController;
 import controller.GameController;
 import controller.RoundScreenController;
 import controller.SetupScreenController;
