@@ -119,8 +119,6 @@ public class GUI extends Application {
 	public void handleGoToCards() { scene.setRoot(cardController.showcards()); }
   
 	public void switchToolcards() { scene.setRoot(cardController.showcards()); }
-
-	public void handleUserList() { scene.setRoot(userListController.getUserListScreen()); }
 	
 	public void handleChooseScreen() { scene.setRoot(gameController.getChooseScreen()); }
 	
@@ -144,9 +142,7 @@ public class GUI extends Application {
 
 	public void handleToGetInvite() { setupScreenController.toInviteGetScreen(); }
 
-	public void handleToPlayerList() {
-            // TODO kan ik nog niet, mis userlist.
-	}
+	public void handleToPlayerList() { userListController.getUsers(); userListController.toUserListScreen(); }
 
 	public void handleToCreateGame() { setupScreenController.toSetupScreen(); setupScreenController.makeNewGame(); }
 	

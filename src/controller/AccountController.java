@@ -94,7 +94,7 @@ public class AccountController {
 		return hboxList;
 	}
 
-	public void handleJoinGame(int newGameID) {
+	private void handleJoinGame(int newGameID) {
 
 		gameController.getGameModel().setGameID(newGameID);
 		gameController.getGameModel().selectPlayerIds();
@@ -140,7 +140,7 @@ public class AccountController {
 		this.accountname = AC;
 	}
 
-	public String getAccount() {
+	String getAccount() {
 		return accountname;
 	}
 
