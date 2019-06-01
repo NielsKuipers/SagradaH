@@ -54,7 +54,7 @@ public class GUI extends Application {
 		calcController = new CalculateScoreController(databaseController);
 		diceController = new DiceController(this, windowController);
 		chatController = new ChatController(this, databaseController);
-    userListController = new UserListController(this, databaseController);
+		userListController = new UserListController(this, databaseController);
 		gameController = new GameController(this, databaseController, windowController, diceController, chatController, calcController);
 		accountController = new AccountController(this, databaseController, homepane, startPane, gameListScreen, gameController, userlist, diceController);
 		cardController = new CardController(windowController, diceController, gameController, databaseController, this);
