@@ -1,12 +1,14 @@
-<<<<<<< Master-Michelle
+
 package controller;
 
 import java.util.ArrayList;
 
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
@@ -103,28 +105,42 @@ this.diceController = diceController;
 		return hboxList;
 	}
 	public void handleJoinGame(int newGameID) {
-
-		gameController.getGameModel().setGameID(newGameID);
-		gameController.getGameModel().selectPlayerIds();
-		myGUI.setGameIDforScoreCalc(newGameID);
-
-		if (!myaccount.patternsCreated(getAccount(), newGameID) && myaccount.hostplayer(getAccount(), newGameID)) {
-			myGUI.handleLoadSetup(newGameID);
-		} else if (!gameController.getGameModel().checkIfPlayerMainPlayerPickedWindow()) {
-			gameController.addWindowScreens();
-			gameController.getGameModel().selectwindowOptions();
-			myGUI.handleChooseScreen();
-		}else {
-			gameController.getGameModel().makeGameEmpty();
-			diceController.getDiceOnTableScreen().removeDicesScreen();
+		if (myaccount.hostplayer(getAccount(), newGameID) || (!myaccount.hostplayer(getAccount(), newGameID) && myaccount.patternsCreated(getAccount(), newGameID))) {
 			gameController.getGameModel().setGameID(newGameID);
 			gameController.getGameModel().selectPlayerIds();
-			gameController.getGameModel().selectWholeGame();
-			gameController.startTimer();
-			myGUI.handleGoBackToGame();
+			myGUI.setGameIDforScoreCalc(newGameID);
+
+			if (!myaccount.patternsCreated(getAccount(), newGameID) && myaccount.hostplayer(getAccount(), newGameID)) {
+				myGUI.handleLoadSetup(newGameID);
+			} else if (!gameController.getGameModel().checkIfPlayerMainPlayerPickedWindow()) {
+				gameController.addWindowScreens();
+				gameController.getGameModel().selectwindowOptions();
+				myGUI.handleChooseScreen();
+			} else {
+				gameController.getGameModel().makeGameEmpty();
+				diceController.getDiceOnTableScreen().removeDicesScreen();
+				gameController.getGameModel().setGameID(newGameID);
+				gameController.getGameModel().selectPlayerIds();
+				gameController.getGameModel().selectWholeGame();
+				gameController.startTimer();
+				myGUI.handleGoBackToGame();
+			}
+		}else {
+			alert();
+			
 		}
 	}
-		
+	
+	/**
+	 * show a alert
+	 */
+	private void alert() {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Game is nog niet ready");
+		alert.setHeaderText("WAARSCHUWING");
+		alert.setContentText("Windowpattern keuzes zijn nog niet gemaakt,\n wij vragen u vriendelijk om nog héél eventjes te wachten ;D");
+		alert.showAndWait();
+	}	
 	public void handleSort(Object sortV) {
 		if(gameboolean.equals("Alle spellen")) {
 			gameListScreen.showGames(getGames(myaccount.getGames(sortV)));

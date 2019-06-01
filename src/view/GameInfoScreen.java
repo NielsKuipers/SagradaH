@@ -78,10 +78,6 @@ public class GameInfoScreen extends VBox{
 	private void handleGoToRoundTrack() {
 		gui.handleGoToRoundTrack();
 	}
-
-	public void setPoints(int value) {
-		l.setText(Integer.toString(value));
-	}
 	
 
 	private void handleCheat(boolean allPossible, boolean bestChoice) {
