@@ -52,10 +52,18 @@ public class AccountQuery {
 	}
 	
 	public boolean canNotBePlayed(int idGame) {
-		if(standardQuery.selectQuery("SELECT distinct playstatus_playstatus FROM player"," WHERE playstatus_playstatus=? AND game_idgame = ?", "uitdager"+"\0"+""+idGame+"").isEmpty() && standardQuery.selectQuery("SELECT distinct playstatus_playstatus FROM player"," WHERE playstatus_playstatus=? AND game_idgame = ?", "uitgedaagde"+"\0"+""+idGame+"").isEmpty()) {
-			return false;
-		} else {
+		if(standardQuery.selectQuery("SELECT distinct playstatus_playstatus FROM player"," WHERE playstatus_playstatus=? AND game_idgame = ?", "afgebroken"+"\0"+""+idGame+"").isEmpty() && standardQuery.selectQuery("SELECT distinct playstatus_playstatus FROM player"," WHERE playstatus_playstatus=? AND game_idgame = ?", "uitgespeeld"+"\0"+""+idGame+"").isEmpty()) {
 			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public boolean hasNotChosenWindowPattern(int idGame, String username) {
+		if(standardQuery.selectQuery("SELECT patterncard_idpatterncard FROM player"," WHERE username=? AND game_idGame=?",""+ ""+ idGame+""+"\0"+ username).isEmpty()) {
+			return true;
+		} else {
+			return false;
 		}
 	}
 }

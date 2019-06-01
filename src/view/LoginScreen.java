@@ -3,6 +3,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
@@ -34,6 +35,12 @@ public class LoginScreen extends VBox {
 		password = new PasswordField();
 		password.setPromptText("Password");
 		getChildren().addAll(username,password);
+		username.setOnKeyReleased(e -> {if(e.getCode() == KeyCode.ENTER) {
+			handleClick();
+		}});
+		password.setOnKeyReleased(e -> {if(e.getCode() == KeyCode.ENTER) {
+			handleClick();
+		}});
 	}
 	
 	public void badFields(TextField username, PasswordField password) {

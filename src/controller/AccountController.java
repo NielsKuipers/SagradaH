@@ -74,8 +74,12 @@ public class AccountController {
 				Button joinGame = new Button("Join game");
 				if(myaccount.checkIfInGame(newGameID,getAccount())) {
 					gameLine.setBackground(new Background(new BackgroundFill(Color.LIGHTGREEN,null,null)));
-					if(myaccount.canNotBePLayed(newGameID)) {
+					if(!myaccount.canNotBePLayed(newGameID)) {
+						if(!myaccount.hasNotChosenWindowPattern(newGameID, getAccount())) {
 						joinGame.setOnMouseClicked(e -> handleJoinGame(newGameID));
+						} else {
+							joinGame.setOnMouseClicked(e -> myGUI.handleChooseScreen());
+						}
 						joinGame.setDisable(false);
 					} else {
 						joinGame.setDisable(true);
