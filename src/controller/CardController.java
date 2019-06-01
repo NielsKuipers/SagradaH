@@ -17,7 +17,6 @@ import view.ToolCardScreen;
 public class CardController extends Scene {
 	private GameCardsScreen cardScreen;
 	private GameController gameController;
-	
 
 	private WindowController windowController;
 	private DiceController diceController;
@@ -53,18 +52,18 @@ public class CardController extends Scene {
 	private CardScreen objectiveCard9;
 	private CardScreen objectiveCard10;
 
-	private Boolean boughtTC1 = false;
-	private Boolean boughtTC2 = false;
-	private Boolean boughtTC3 = false;
-	private Boolean boughtTC4 = false;
-	private Boolean boughtTC5 = false;
-	private Boolean boughtTC6 = false;
-	private Boolean boughtTC7 = false;
-	private Boolean boughtTC8 = false;
-	private Boolean boughtTC9 = false;
-	private Boolean boughtTC10 = false;
-	private Boolean boughtTC11 = false;
-	private Boolean boughtTC12 = false;
+//	private Boolean boughtTC1 = false;
+//	private Boolean boughtTC2 = false;
+//	private Boolean boughtTC3 = false;
+//	private Boolean boughtTC4 = false;
+//	private Boolean boughtTC5 = false;
+//	private Boolean boughtTC6 = false;
+//	private Boolean boughtTC7 = false;
+//	private Boolean boughtTC8 = false;
+//	private Boolean boughtTC9 = false;
+//	private Boolean boughtTC10 = false;
+//	private Boolean boughtTC11 = false;
+//	private Boolean boughtTC12 = false;
 
 	private int TC1;
 	private int TC2;
@@ -158,9 +157,7 @@ public class CardController extends Scene {
 		TC3FTS4 = new FavorTokensScreen(new FavorToken(0, Color.YELLOW));
 
 	}
-	
-	
-	
+
 	public Card getCardModel() {
 		return cardModel;
 	}
@@ -177,57 +174,49 @@ public class CardController extends Scene {
 		gameController.switchToGameScreen();
 
 	}
-	
-	
 
-	
-
-	private void checkBoughtTC(int TC) {
-		if (!cardModel.checkboughtTC(TC)) {
-			switch (TC) {
-			case 1:
-				boughtTC1 = true;
-				break;
-			case 2:
-				boughtTC2 = true;
-				break;
-			case 3:
-				boughtTC3 = true;
-				break;
-			case 4:
-				boughtTC4 = true;
-				break;
-			case 5:
-				boughtTC5 = true;
-				break;
-			case 6:
-				boughtTC6 = true;
-				break;
-			case 7:
-				boughtTC7 = true;
-				break;
-			case 8:
-				boughtTC8 = true;
-				break;
-			case 9:
-				boughtTC9 = true;
-				break;
-			case 10:
-				boughtTC10 = true;
-				break;
-			case 11:
-				boughtTC11 = true;
-				break;
-			case 12:
-				boughtTC12 = true;
-				break;
-			}
-		}
-	}
-
-
-
-
+//	private void checkBoughtTC(int TC) {
+//		if (!cardModel.checkboughtTC(TC)) {
+//			switch (TC) {
+//			case 1:
+//				boughtTC1 = true;
+//				break;
+//			case 2:
+//				boughtTC2 = true;
+//				break;
+//			case 3:
+//				boughtTC3 = true;
+//				break;
+//			case 4:
+//				boughtTC4 = true;
+//				break;
+//			case 5:
+//				boughtTC5 = true;
+//				break;
+//			case 6:
+//				boughtTC6 = true;
+//				break;
+//			case 7:
+//				boughtTC7 = true;
+//				break;
+//			case 8:
+//				boughtTC8 = true;
+//				break;
+//			case 9:
+//				boughtTC9 = true;
+//				break;
+//			case 10:
+//				boughtTC10 = true;
+//				break;
+//			case 11:
+//				boughtTC11 = true;
+//				break;
+//			case 12:
+//				boughtTC12 = true;
+//				break;
+//			}
+//		}
+//	}
 
 	private void buyTCSetDB(int GameTC, Boolean bought) {
 		if (!bought) {
@@ -241,45 +230,56 @@ public class CardController extends Scene {
 	}
 
 	public void SetAmountFTOnTC() {
-				//System.out.println(cardModel.getAmountFTOnTC(TC1,1));
-				TC1FTS1.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnToolCard(TC1,1));
-				
-				TC1FTS2.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnToolCard(TC1,2));
-				
-				TC1FTS3.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnToolCard(TC1,3));
-				
-				TC1FTS4.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnToolCard(TC1,4));
-				
-		
-			
-				TC2FTS1.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnToolCard(TC2, 1));
-				
-				TC2FTS2.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnToolCard(TC2,2));
-				
-				TC2FTS3.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnToolCard(TC2,3));
-				
-				TC2FTS4.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnToolCard(TC2,4));
-				
-				TC3FTS1.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnToolCard(TC3,1));
-				
-				TC3FTS2.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnToolCard(TC3,2));
-				
-				TC3FTS3.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnToolCard(TC3,3));
-				
-				TC3FTS4.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnToolCard(TC3,4));
-				
-			}
+		// System.out.println(cardModel.getAmountFTOnTC(TC1,1));
+		TC1FTS1.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnToolCard(TC1, 1));
 
-	
+		TC1FTS2.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnToolCard(TC1, 2));
 
-	
-	
+		TC1FTS3.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnToolCard(TC1, 3));
+
+		TC1FTS4.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnToolCard(TC1, 4));
+
+		TC2FTS1.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnToolCard(TC2, 1));
+
+		TC2FTS2.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnToolCard(TC2, 2));
+
+		TC2FTS3.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnToolCard(TC2, 3));
+
+		TC2FTS4.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnToolCard(TC2, 4));
+
+		TC3FTS1.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnToolCard(TC3, 1));
+
+		TC3FTS2.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnToolCard(TC3, 2));
+
+		TC3FTS3.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnToolCard(TC3, 3));
+
+		TC3FTS4.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnToolCard(TC3, 4));
+
+	}
+
 	public void buyToolcard1(CardScreen cardscreen) {
 		if (gameController.getAmountFT() != 0 && cardModel.getGameModel().getPlayer(0).selectCurrentPlayer()) {
 			
+			
+			
+			if (cardscreen == toolCard1) {
+
+				
+				if (cardModel.checkboughtTC(1) && gameController.getAmountFT() > 1) {
+					buyTCSetDB(2, true);
+					buyTC1();
+					cardScreen.BoughtTC2();
+				}
+				if (!cardModel.checkboughtTC(1)) {
+					buyTCSetDB(2, false);
+					buyTC1();
+					cardScreen.BoughtTC2();
+
+				}
+				
 			if (cardscreen == toolCard2) {
-				checkBoughtTC(2);
-				if (boughtTC2 && gameController.getAmountFT() > 1) {
+				
+				if (cardModel.checkboughtTC(2) && gameController.getAmountFT() > 1) {
 					buyTCSetDB(1, true);
 					
 					buyTC2();
@@ -291,55 +291,55 @@ public class CardController extends Scene {
 
 
 				
-				if (!boughtTC2) {
+				if (!cardModel.checkboughtTC(2)) {
 					buyTCSetDB(1, false);
 					
-					boughtTC2 = true;
+					
 					buyTC2();
 					cardScreen.BoughtTC1();
 				}
 			
 			if (cardscreen == toolCard3) {
-				checkBoughtTC(3);
-				if (boughtTC3 && gameController.getAmountFT() > 1) {
+			
+				if (cardModel.checkboughtTC(3) && gameController.getAmountFT() > 1) {
 					buyTCSetDB(1, true);
 					buyTC3();
 					cardScreen.BoughtTC1();
 				}
-				if (!boughtTC3) {
+				if (!cardModel.checkboughtTC(3)) {
 					buyTCSetDB(1, false);
-					boughtTC3 = true;
+					
 					buyTC3();
 					cardScreen.BoughtTC1();
 				}
 			}
 			if (cardscreen == toolCard4) {
-				checkBoughtTC(4);
-				if (boughtTC4 && gameController.getAmountFT() > 1) {
+				
+				if (cardModel.checkboughtTC(4) && gameController.getAmountFT() > 1) {
 					buyTCSetDB(1, true);
 					buyTC4();
 					cardScreen.BoughtTC1();
 
 				}
-				if (!boughtTC4) {
+				if (!cardModel.checkboughtTC(4)) {
 					buyTCSetDB(1, false);
-					boughtTC4 = true;
+					
 					buyTC4();
 					cardScreen.BoughtTC1();
 
 				}
 			}
 			if (cardscreen == toolCard5) {
-				checkBoughtTC(5);
-				if (boughtTC5 && gameController.getAmountFT() > 1) {
+				
+				if (cardModel.checkboughtTC(5)&& gameController.getAmountFT() > 1) {
 					buyTCSetDB(1, true);
 					buyTC5();
 					cardScreen.BoughtTC1();
 
 				}
-				if (!boughtTC5) {
+				if (!cardModel.checkboughtTC(5)) {
 					buyTCSetDB(1, false);
-					boughtTC5 = true;
+					
 					buyTC5();
 					cardScreen.BoughtTC1();
 
@@ -347,191 +347,193 @@ public class CardController extends Scene {
 
 			}
 			if (cardscreen == toolCard6) {
-				checkBoughtTC(6);
-				if (boughtTC6 && gameController.getAmountFT() > 1) {
+				
+				if (cardModel.checkboughtTC(6)&& gameController.getAmountFT() > 1) {
 					buyTCSetDB(1, true);
 					buyTC6();
 					cardScreen.BoughtTC1();
 				}
-				if (!boughtTC6) {
+				if (!cardModel.checkboughtTC(6)) {
 					buyTCSetDB(1, false);
-					boughtTC6 = true;
+					
 					buyTC6();
 					cardScreen.BoughtTC1();
 				}
 
 			}
 			if (cardscreen == toolCard7) {
-				checkBoughtTC(7);
-				if (boughtTC7 && gameController.getAmountFT() > 1) {
+				
+				if (cardModel.checkboughtTC(7) && gameController.getAmountFT() > 1) {
 					buyTCSetDB(1, true);
 					buyTC7();
 					cardScreen.BoughtTC1();
 
 				}
-				if (!boughtTC7) {
+				if (!cardModel.checkboughtTC(7)) {
 					buyTCSetDB(1, false);
-					boughtTC7 = true;
+					
 					buyTC7();
 					cardScreen.BoughtTC1();
 
 				}
 			}
 			if (cardscreen == toolCard8) {
-				checkBoughtTC(8);
-				if (boughtTC8 && gameController.getAmountFT() > 1) {
+				
+				if (cardModel.checkboughtTC(8) && gameController.getAmountFT() > 1) {
 					buyTCSetDB(1, true);
 					buyTC8();
 					cardScreen.BoughtTC1();
 
 				}
-				if (!boughtTC8) {
+				if (!cardModel.checkboughtTC(8)) {
 					buyTCSetDB(1, false);
-					boughtTC8 = true;
+					
 					buyTC8();
 					cardScreen.BoughtTC1();
 				}
 			}
 			if (cardscreen == toolCard9) {
-				checkBoughtTC(9);
-				if (boughtTC9 && gameController.getAmountFT() > 1) {
+				
+				if (cardModel.checkboughtTC(9) && gameController.getAmountFT() > 1) {
 					buyTCSetDB(1, true);
 					buyTC9();
 					cardScreen.BoughtTC1();
 				}
-				if (!boughtTC9) {
+				if (!cardModel.checkboughtTC(9)) {
 					buyTCSetDB(1, false);
-					boughtTC9 = true;
+					
 					buyTC9();
 					cardScreen.BoughtTC1();
 				}
 			}
 			if (cardscreen == toolCard10) {
-				checkBoughtTC(10);
-				if (boughtTC10 && gameController.getAmountFT() > 1) {
+			
+				if (cardModel.checkboughtTC(10) && gameController.getAmountFT() > 1) {
 					buyTCSetDB(1, true);
 					buyTC10();
 					cardScreen.BoughtTC1();
 				}
-				if (!boughtTC10) {
+				if (!cardModel.checkboughtTC(10)) {
 					buyTCSetDB(1, false);
-					boughtTC10 = true;
+					
 					buyTC10();
 					cardScreen.BoughtTC1();
 
 				}
 			}
 			if (cardscreen == toolCard11) {
-				checkBoughtTC(11);
-				if (boughtTC11 && gameController.getAmountFT() > 1) {
+				
+				if (cardModel.checkboughtTC(11) && gameController.getAmountFT() > 1) {
 					buyTCSetDB(1, true);
 					buyTC11();
 					cardScreen.BoughtTC1();
 				}
-				if (!boughtTC11) {
+				if (!cardModel.checkboughtTC(11)) {
 					buyTCSetDB(1, false);
-					boughtTC11 = true;
+					
 					buyTC11();
 					cardScreen.BoughtTC1();
 				}
 
 			}
 			if (cardscreen == toolCard12) {
-				checkBoughtTC(12);
-				if (boughtTC12 && gameController.getAmountFT() > 1) {
+				
+				if (cardModel.checkboughtTC(12) && gameController.getAmountFT() > 1) {
 					buyTCSetDB(1, true);
 					buyTC12();
 					cardScreen.BoughtTC1();
 
 				}
-				if (!boughtTC12) {
+				if (!cardModel.checkboughtTC(12)) {
 					buyTCSetDB(1, false);
-					boughtTC12 = true;
+					
 					buyTC12();
 					cardScreen.BoughtTC1();
 
 				}
 
 			}
+			}
+			}
+		
 		}
-		}
-	
 
 	public void buyToolcard2(CardScreen cardscreen) {
 		if (gameController.getAmountFT() != 0 && cardModel.getGameModel().getPlayer(0).selectCurrentPlayer()) {
-			if (cardscreen == toolCard1) {
+if (cardscreen == toolCard1) {
 
-				checkBoughtTC(16);
-				if (boughtTC1 && gameController.getAmountFT() > 1) {
+				
+				if (cardModel.checkboughtTC(1) && gameController.getAmountFT() > 1) {
 					buyTCSetDB(2, true);
 					buyTC1();
 					cardScreen.BoughtTC2();
 				}
-				if (!boughtTC1) {
+				if (!cardModel.checkboughtTC(1)) {
 					buyTCSetDB(2, false);
-					boughtTC1 = true;
 					buyTC1();
 					cardScreen.BoughtTC2();
 
 				}
-			}
+				
 			if (cardscreen == toolCard2) {
-				checkBoughtTC(2);
-				if (boughtTC2 && gameController.getAmountFT() > 1) {
+				
+				if (cardModel.checkboughtTC(2) && gameController.getAmountFT() > 1) {
 					buyTCSetDB(2, true);
+					
 					buyTC2();
 					cardScreen.BoughtTC2();
+					}
 
 				}
-				if (!boughtTC2) {
+				if (!cardModel.checkboughtTC(2)) {
 					buyTCSetDB(2, false);
-					boughtTC2 = true;
+					
+					
 					buyTC2();
 					cardScreen.BoughtTC2();
 				}
-			}
+			
 			if (cardscreen == toolCard3) {
-				checkBoughtTC(3);
-				if (boughtTC3 && gameController.getAmountFT() > 1) {
+			
+				if (cardModel.checkboughtTC(3) && gameController.getAmountFT() > 1) {
 					buyTCSetDB(2, true);
 					buyTC3();
 					cardScreen.BoughtTC2();
-
 				}
-				if (!boughtTC3) {
+				if (!cardModel.checkboughtTC(3)) {
 					buyTCSetDB(2, false);
-					boughtTC3 = true;
+					
 					buyTC3();
 					cardScreen.BoughtTC2();
 				}
 			}
 			if (cardscreen == toolCard4) {
-				checkBoughtTC(4);
-				if (boughtTC4 && gameController.getAmountFT() > 1) {
+				
+				if (cardModel.checkboughtTC(4) && gameController.getAmountFT() > 1) {
 					buyTCSetDB(2, true);
 					buyTC4();
 					cardScreen.BoughtTC2();
 
 				}
-				if (!boughtTC4) {
+				if (!cardModel.checkboughtTC(4)) {
 					buyTCSetDB(2, false);
-					boughtTC4 = true;
+					
 					buyTC4();
 					cardScreen.BoughtTC2();
 
 				}
 			}
 			if (cardscreen == toolCard5) {
-				checkBoughtTC(5);
-				if (boughtTC5 && gameController.getAmountFT() > 1) {
+				
+				if (cardModel.checkboughtTC(5)&& gameController.getAmountFT() > 1) {
 					buyTCSetDB(2, true);
 					buyTC5();
 					cardScreen.BoughtTC2();
 
 				}
-				if (!boughtTC5) {
+				if (!cardModel.checkboughtTC(5)) {
 					buyTCSetDB(2, false);
-					boughtTC5 = true;
+					
 					buyTC5();
 					cardScreen.BoughtTC2();
 
@@ -539,192 +541,199 @@ public class CardController extends Scene {
 
 			}
 			if (cardscreen == toolCard6) {
-				checkBoughtTC(6);
-				if (boughtTC6 && gameController.getAmountFT() > 1) {
+				
+				if (cardModel.checkboughtTC(6)&& gameController.getAmountFT() > 1) {
 					buyTCSetDB(2, true);
 					buyTC6();
 					cardScreen.BoughtTC2();
 				}
-				if (!boughtTC6) {
+				if (!cardModel.checkboughtTC(6)) {
 					buyTCSetDB(2, false);
-					boughtTC6 = true;
+					
 					buyTC6();
 					cardScreen.BoughtTC2();
 				}
 
 			}
 			if (cardscreen == toolCard7) {
-				checkBoughtTC(7);
-				if (boughtTC7 && gameController.getAmountFT() > 1) {
+				
+				if (cardModel.checkboughtTC(7) && gameController.getAmountFT() > 1) {
 					buyTCSetDB(2, true);
 					buyTC7();
 					cardScreen.BoughtTC2();
 
 				}
-				if (!boughtTC7) {
-					buyTCSetDB(7, false);
-					boughtTC7 = true;
+				if (!cardModel.checkboughtTC(7)) {
+					buyTCSetDB(2, false);
+					
 					buyTC7();
 					cardScreen.BoughtTC2();
 
 				}
 			}
 			if (cardscreen == toolCard8) {
-				checkBoughtTC(8);
-				if (boughtTC8 && gameController.getAmountFT() > 1) {
+				
+				if (cardModel.checkboughtTC(8) && gameController.getAmountFT() > 1) {
 					buyTCSetDB(2, true);
 					buyTC8();
 					cardScreen.BoughtTC2();
 
 				}
-				if (!boughtTC8) {
+				if (!cardModel.checkboughtTC(8)) {
 					buyTCSetDB(2, false);
-					boughtTC8 = true;
+					
 					buyTC8();
 					cardScreen.BoughtTC2();
 				}
 			}
 			if (cardscreen == toolCard9) {
-				checkBoughtTC(9);
-				if (boughtTC9 && gameController.getAmountFT() > 1) {
+				
+				if (cardModel.checkboughtTC(9) && gameController.getAmountFT() > 1) {
 					buyTCSetDB(2, true);
 					buyTC9();
 					cardScreen.BoughtTC2();
 				}
-				if (!boughtTC9) {
+				if (!cardModel.checkboughtTC(9)) {
 					buyTCSetDB(2, false);
-					boughtTC9 = true;
+					
 					buyTC9();
 					cardScreen.BoughtTC2();
 				}
 			}
 			if (cardscreen == toolCard10) {
-				checkBoughtTC(10);
-				if (boughtTC10 && gameController.getAmountFT() > 1) {
+			
+				if (cardModel.checkboughtTC(10) && gameController.getAmountFT() > 1) {
 					buyTCSetDB(2, true);
 					buyTC10();
 					cardScreen.BoughtTC2();
 				}
-				if (!boughtTC10) {
+				if (!cardModel.checkboughtTC(10)) {
 					buyTCSetDB(2, false);
-					boughtTC10 = true;
+					
 					buyTC10();
 					cardScreen.BoughtTC2();
 
 				}
 			}
 			if (cardscreen == toolCard11) {
-				checkBoughtTC(11);
-				if (boughtTC11 && gameController.getAmountFT() > 1) {
+				
+				if (cardModel.checkboughtTC(11) && gameController.getAmountFT() > 1) {
 					buyTCSetDB(2, true);
 					buyTC11();
 					cardScreen.BoughtTC2();
 				}
-				if (!boughtTC11) {
+				if (!cardModel.checkboughtTC(11)) {
 					buyTCSetDB(2, false);
-					boughtTC11 = true;
+					
 					buyTC11();
 					cardScreen.BoughtTC2();
 				}
 
 			}
 			if (cardscreen == toolCard12) {
-				checkBoughtTC(12);
-				if (boughtTC12 && gameController.getAmountFT() > 1) {
+				
+				if (cardModel.checkboughtTC(12) && gameController.getAmountFT() > 1) {
 					buyTCSetDB(2, true);
 					buyTC12();
 					cardScreen.BoughtTC2();
 
 				}
-				if (!boughtTC12) {
+				if (!cardModel.checkboughtTC(12)) {
 					buyTCSetDB(2, false);
-					boughtTC12 = true;
+					
 					buyTC12();
 					cardScreen.BoughtTC2();
 
+					}
+
 				}
-
+	
 			}
-
 		}
+		
 	}
 
 	public void buyToolcard3(CardScreen cardscreen) {
 		if (gameController.getAmountFT() != 0 && cardModel.getGameModel().getPlayer(0).selectCurrentPlayer()) {
-			
-			if (cardscreen == toolCard1) {
 
-				checkBoughtTC(1);
-				if (boughtTC1 && gameController.getAmountFT() > 1) {
+if (cardscreen == toolCard1) {
+
+				
+				if (cardModel.checkboughtTC(1) && gameController.getAmountFT() > 1) {
 					buyTCSetDB(3, true);
 					buyTC1();
 					cardScreen.BoughtTC3();
 				}
-				if (!boughtTC1) {
+				if (!cardModel.checkboughtTC(1)) {
 					buyTCSetDB(3, false);
-					boughtTC1 = true;
 					buyTC1();
 					cardScreen.BoughtTC3();
 
 				}
-			}
+				
 			if (cardscreen == toolCard2) {
-				checkBoughtTC(2);
-				if (boughtTC2 && gameController.getAmountFT() > 1) {
+				
+				if (cardModel.checkboughtTC(2) && gameController.getAmountFT() > 1) {
 					buyTCSetDB(3, true);
+					
 					buyTC2();
 					cardScreen.BoughtTC3();
 
-				}
-				if (!boughtTC2) {
+		}
+
+	}
+
+
+				
+				if (!cardModel.checkboughtTC(2)) {
 					buyTCSetDB(3, false);
-					boughtTC2 = true;
+					
+					
 					buyTC2();
 					cardScreen.BoughtTC3();
 				}
-			}
+			
 			if (cardscreen == toolCard3) {
-				checkBoughtTC(3);
-				if (boughtTC3 && gameController.getAmountFT() > 1) {
+			
+				if (cardModel.checkboughtTC(3) && gameController.getAmountFT() > 1) {
 					buyTCSetDB(3, true);
 					buyTC3();
 					cardScreen.BoughtTC3();
-
 				}
-				if (!boughtTC3) {
+				if (!cardModel.checkboughtTC(3)) {
 					buyTCSetDB(3, false);
-					boughtTC3 = true;
+					
 					buyTC3();
 					cardScreen.BoughtTC3();
 				}
 			}
 			if (cardscreen == toolCard4) {
-				checkBoughtTC(4);
-				if (boughtTC4 && gameController.getAmountFT() > 1) {
+				
+				if (cardModel.checkboughtTC(4) && gameController.getAmountFT() > 1) {
 					buyTCSetDB(3, true);
 					buyTC4();
 					cardScreen.BoughtTC3();
 
 				}
-				if (!boughtTC4) {
+				if (!cardModel.checkboughtTC(4)) {
 					buyTCSetDB(3, false);
-					boughtTC4 = true;
+					
 					buyTC4();
 					cardScreen.BoughtTC3();
 
 				}
 			}
 			if (cardscreen == toolCard5) {
-				checkBoughtTC(5);
-				if (boughtTC5 && gameController.getAmountFT() > 1) {
+				
+				if (cardModel.checkboughtTC(5)&& gameController.getAmountFT() > 1) {
 					buyTCSetDB(3, true);
 					buyTC5();
 					cardScreen.BoughtTC3();
 
 				}
-				if (!boughtTC5) {
+				if (!cardModel.checkboughtTC(5)) {
 					buyTCSetDB(3, false);
-					boughtTC5 = true;
+					
 					buyTC5();
 					cardScreen.BoughtTC3();
 
@@ -732,110 +741,112 @@ public class CardController extends Scene {
 
 			}
 			if (cardscreen == toolCard6) {
-				checkBoughtTC(6);
-				if (boughtTC6 && gameController.getAmountFT() > 1) {
+				
+				if (cardModel.checkboughtTC(6)&& gameController.getAmountFT() > 1) {
 					buyTCSetDB(3, true);
 					buyTC6();
 					cardScreen.BoughtTC3();
 				}
-				if (!boughtTC6) {
+				if (!cardModel.checkboughtTC(6)) {
 					buyTCSetDB(3, false);
-					boughtTC6 = true;
+					
 					buyTC6();
 					cardScreen.BoughtTC3();
 				}
 
 			}
 			if (cardscreen == toolCard7) {
-				checkBoughtTC(7);
-				if (boughtTC7 && gameController.getAmountFT() > 1) {
+				
+				if (cardModel.checkboughtTC(7) && gameController.getAmountFT() > 1) {
 					buyTCSetDB(3, true);
 					buyTC7();
 					cardScreen.BoughtTC3();
 
 				}
-				if (!boughtTC7) {
+				if (!cardModel.checkboughtTC(7)) {
 					buyTCSetDB(3, false);
-					boughtTC7 = true;
+					
 					buyTC7();
 					cardScreen.BoughtTC3();
 
 				}
 			}
 			if (cardscreen == toolCard8) {
-				checkBoughtTC(8);
-				if (boughtTC8 && gameController.getAmountFT() > 1) {
+				
+				if (cardModel.checkboughtTC(8) && gameController.getAmountFT() > 1) {
 					buyTCSetDB(3, true);
 					buyTC8();
 					cardScreen.BoughtTC3();
 
 				}
-				if (!boughtTC8) {
+				if (!cardModel.checkboughtTC(8)) {
 					buyTCSetDB(3, false);
-					boughtTC8 = true;
-					buyTC8();
 					cardScreen.BoughtTC3();
+					buyTC8();
+					
 				}
 			}
 			if (cardscreen == toolCard9) {
-				checkBoughtTC(9);
-				if (boughtTC9 && gameController.getAmountFT() > 1) {
+				
+				if (cardModel.checkboughtTC(9) && gameController.getAmountFT() > 1) {
 					buyTCSetDB(3, true);
 					buyTC9();
 					cardScreen.BoughtTC3();
 				}
-				if (!boughtTC9) {
+				if (!cardModel.checkboughtTC(9)) {
 					buyTCSetDB(3, false);
-					boughtTC9 = true;
+					
 					buyTC9();
 					cardScreen.BoughtTC3();
 				}
 			}
 			if (cardscreen == toolCard10) {
-				checkBoughtTC(10);
-				if (boughtTC10 && gameController.getAmountFT() > 1) {
+			
+				if (cardModel.checkboughtTC(10) && gameController.getAmountFT() > 1) {
 					buyTCSetDB(3, true);
 					buyTC10();
 					cardScreen.BoughtTC3();
 				}
-				if (!boughtTC10) {
+				if (!cardModel.checkboughtTC(10)) {
 					buyTCSetDB(3, false);
-					boughtTC10 = true;
+					
 					buyTC10();
 					cardScreen.BoughtTC3();
 
 				}
 			}
 			if (cardscreen == toolCard11) {
-				checkBoughtTC(11);
-				if (boughtTC11 && gameController.getAmountFT() > 1) {
+				
+				if (cardModel.checkboughtTC(11) && gameController.getAmountFT() > 1) {
 					buyTCSetDB(3, true);
 					buyTC11();
 					cardScreen.BoughtTC3();
 				}
-				if (!boughtTC11) {
+				if (!cardModel.checkboughtTC(11)) {
 					buyTCSetDB(3, false);
-					boughtTC11 = true;
-					buyTC11();
 					cardScreen.BoughtTC3();
+					buyTC11();
+				
 				}
 
 			}
 			if (cardscreen == toolCard12) {
-				checkBoughtTC(12);
-				if (boughtTC12 && gameController.getAmountFT() > 1) {
+				
+				if (cardModel.checkboughtTC(12) && gameController.getAmountFT() > 1) {
 					buyTCSetDB(3, true);
 					buyTC12();
 					cardScreen.BoughtTC3();
 
 				}
-				if (!boughtTC12) {
+				if (!cardModel.checkboughtTC(12)) {
 					buyTCSetDB(3, false);
-					boughtTC12 = true;
-					buyTC12();
 					cardScreen.BoughtTC3();
+					buyTC12();
+					
 
 				}
+
+			}
 
 			}
 
@@ -872,12 +883,10 @@ public class CardController extends Scene {
 		gui.handleGoBackToGame();
 		;
 
-		if (!cardModel.getGameModel().isRoundTrackEmpty()
-				&& cardModel.getGameModel().getPlayer(0).selectCurrentPlayer()) {
+		if (!cardModel.getGameModel().isRoundTrackEmpty()) {
 			windowController.selectDiceOnWindow();
 			gui.handleGoBackToGame();
 		}
-
 
 	}
 
@@ -890,20 +899,17 @@ public class CardController extends Scene {
 
 		gui.handleGoBackToGame();
 
-	
-
 		if (cardModel.getGameModel().isSecondTurn()) {
 			cardModel.getGameModel().throwAgainWithSameDicesOnTable();
 		}
-		
+
 	}
 
 	private void buyTC8() {
 
 		gui.handleGoBackToGame();
 
-
-		if (!cardModel.getGameModel().isSecondTurn() && cardModel.getGameModel().getPlayer(0).selectCurrentPlayer()) {
+		if (!cardModel.getGameModel().isSecondTurn() ) {
 			windowController.setExtraTurnTrue();
 		}
 		// you cant go to homescreen
@@ -929,12 +935,11 @@ public class CardController extends Scene {
 
 		gui.handleGoBackToGame();
 
-
-		if (cardModel.getGameModel().getPlayer(0).selectCurrentPlayer()) {
+		
 			windowController.setExtraTurnSameColorRoundtrackTrue();
 			windowController.setCanOnlyMoveDiceWithSameColorAsDIceOnRoundTrackTrue();
 			windowController.setDiceCanBeMovedTrue();
-		}
+		
 
 	}
 
@@ -1100,11 +1105,8 @@ public class CardController extends Scene {
 			break;
 
 		}
-		
-		
-	}
 
-	
+	}
 
 	private void checkOBJCards(int privOBJ, int pubOBJ3, int pubOBJ2, int pubOBJ1) {
 
@@ -1225,28 +1227,19 @@ public class CardController extends Scene {
 
 		}
 		cardScreen.createView();
-		
-	}
-	
-	//check with every button click if cardModel.getGameModel().getPlayer(0).selectCurrentPlayer(), main player is currentplayer
-	//favortokens not always -1 or -2 when clicked, only when main player is qurrentplayer and when other if statements in methods are true
-	//fix that when card has been bought you cant go to home screen, you can back to home screen when you click ronde beëindigen.
-	//with some cards you can cant go back untill there is a new round, for example the card where you can do two turns in one.
 
-	private void generateObjectiveCards() {
-
-		int privOBJ = generateRandNR(5);
-		int pubOBJ1 = generateRandNR(10);
-		int pubOBJ2 = generateRandNR(10);
-		while (pubOBJ1 == pubOBJ2) {
-			pubOBJ2 = generateRandNR(10);
-		}
-		int pubOBJ3 = generateRandNR(10);
-		while (pubOBJ3 == pubOBJ1 || pubOBJ3 == pubOBJ2) {
-			pubOBJ2 = generateRandNR(10);
-		}
-		checkOBJCards(privOBJ, pubOBJ3, pubOBJ2, pubOBJ1);
-		
 	}
+
+	// check with every button click if
+	// cardModel.getGameModel().getPlayer(0).selectCurrentPlayer(), main player is
+	// currentplayer
+	// favortokens not always -1 or -2 when clicked, only when main player is
+	// qurrentplayer and when other if statements in methods are true
+	// fix that when card has been bought you cant go to home screen, you can back
+	// to home screen when you click ronde beëindigen.
+	// with some cards you can cant go back untill there is a new round, for example
+	// the card where you can do two turns in one.
+
+
 
 }

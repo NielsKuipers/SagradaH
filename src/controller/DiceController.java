@@ -57,6 +57,7 @@ public class DiceController {
 				DiceScreen result = (DiceScreen) node;
 				result.setGlowBorder();
 				result.setOnMouseClicked(e -> selectDice(result, nummer));
+				System.out.println("toolcard werkt");
 					
 			}
 

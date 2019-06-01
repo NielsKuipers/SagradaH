@@ -20,7 +20,7 @@ public class Card {
 
     public boolean checkboughtTC(int tc) {
         if(cardQuerie.CheckTCBought(tc, gameModel.getGameID()).isEmpty()) {
-            System.out.println("test123");
+            
             return false;
         }else {
             return true;

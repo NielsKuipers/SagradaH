@@ -64,7 +64,7 @@ public class CardQueries {
 	
 	public void updateDiceOnTable(int eyes,int dienumber,int GameID) {
 		standardQuerie.updateQuery("update gamedie Set eyes=?", "" + eyes + "",
-			" where dienumber=?  and idgame=? and idplayer=?", "" + dienumber + "\0" + GameID + "");
+			" where dienumber=?  and idgame=?", "" + dienumber + "\0" + GameID + "");
 
 }
 	

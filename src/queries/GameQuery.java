@@ -35,7 +35,7 @@ public class GameQuery {
 	}
 	
 	public ArrayList<ArrayList<Object>> getAllDicesFromOneRound(int idGame, int round) {
-		return standardQueries.selectQuery("SELECT dienumber, dieco	l	or FROM gamedie",
+		return standardQueries.selectQuery("SELECT dienumber, diecolor FROM gamedie",
 				" WHERE idgame=? AND round=? AND roundtrack IS NULL", idGame + "\0" + round);
 	}
 	

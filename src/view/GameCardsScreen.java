@@ -33,6 +33,10 @@ private CardController cardController;
 
     private Button exit;
     
+    Label priceTC1;
+    Label priceTC2;
+    Label priceTC3;
+    
     private Label labelTC;
     private Label labelOBC;
 
@@ -40,9 +44,7 @@ private CardController cardController;
     private HBox objectiveCards;
     private HBox buttons;
     private HBox prices;
-    private Label priceTC1= new Label("Price = 1");
-    private Label priceTC2= new Label("Price = 1");
-    private Label priceTC3= new Label("Price = 1");
+    
 
     private GUI gui;
 
@@ -122,7 +124,10 @@ private CardController cardController;
     labelOBC = new Label("Objective Cards");
     labelOBC.setFont(new Font("Consolas", 24));
     labelOBC.setPadding(new Insets(25,0,0,610));
-    
+   
+     priceTC1= new Label("Price = 1");
+     priceTC2= new Label("Price = 1");
+     priceTC3= new Label("Price = 1");
     
     //creates and positions buttons
     buttons = new HBox(150, buyTC1, buyTC2, buyTC3);
