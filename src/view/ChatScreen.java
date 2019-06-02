@@ -1,15 +1,11 @@
 package view;
 
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import main.GUI;
-
 import java.util.ArrayList;
 
 public class ChatScreen extends BorderPane {
@@ -21,13 +17,13 @@ public class ChatScreen extends BorderPane {
 
     public ChatScreen(GUI gui){
         this.gui = gui;
-        Button send = new Button("Versturen");
         input = new TextField();
         HBox chatInput = new HBox();
         ScrollPane sp = new ScrollPane();
 
         setMinSize(200, 200);
         setPrefSize(fullSize, fullSize);
+        Button send = new Button("Versturen");
         send.setPrefSize(150, 20);
         send.setMinWidth(150);
         input.setPrefWidth(fullSize - 200);
@@ -68,6 +64,14 @@ public class ChatScreen extends BorderPane {
             chat.getChildren().add(text);
             message.setLength(0);
         }
+    }
+
+    public static void spamError(){
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Rustig aan");
+        alert.setHeaderText("Rustig aan!");
+        alert.setContentText("Je verstuurt veel berichten in een korte tijd, rustig aan AUB!");
+        alert.show();
     }
 
     public void clearChat(){
