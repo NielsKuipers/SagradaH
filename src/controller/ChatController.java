@@ -2,9 +2,7 @@ package controller;
 
 import main.GUI;
 import model.ChatModel;
-import timer.AnimationTimerEXT;
 import view.ChatScreen;
-
 import java.util.ArrayList;
 
 public class ChatController {
@@ -16,22 +14,20 @@ public class ChatController {
     public ChatController(GUI gui, DatabaseController databaseController){
         chatModel = new ChatModel(databaseController);
         chatScreen = new ChatScreen(gui);
-       // getMessages();
-       // createTimer();
     }
 
-    public void sendMessage(String input){chatModel.sendMessage(input);}
+    public void sendMessage(String input, int playerID){chatModel.sendMessage(input, playerID);}
 
     // get all the messages beloning to the current gameID
-    public void getMessages(){
-        int gameID = 2;
+    public void getMessages(int gameID){
+        chatScreen.clearChat();
         this.messages = chatModel.getMessages(gameID);
         chatScreen.displayMessages(messages);
     }
 
     // get all messages that got inserted after the latest one and display them
-    private void getNewMessages(){
-        this.messages = chatModel.getNewMessages(getLatestTime());
+    void getNewMessages(int gameID){
+        this.messages = chatModel.getNewMessages(getLatestTime(), gameID);
         chatScreen.displayMessages(messages);
     }
 
@@ -48,16 +44,5 @@ public class ChatController {
 
     ChatScreen getChatScreen(){
         return this.chatScreen;
-    }
-
-    // create timer to check for new messages
-    public void createTimer(){
-        AnimationTimerEXT timer = new AnimationTimerEXT(5000) {
-            @Override
-            public void doAction() {
-                getNewMessages();
-            }
-        };
-        timer.start();
     }
 }

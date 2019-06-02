@@ -75,7 +75,8 @@ public class GUI extends Application {
 		diceController.getDiceOnTableScreen().removeDicesScreen();
 		gameController.getGameModel().selectPlayerIds();
 		gameController.getGameModel().selectWholeGame();
-		
+		chatController.getMessages(gameController.getGameModel().getGameID());
+
 		scene.setRoot(gameController.getGameScreen());
 		gameController.startTimer();
 	}
@@ -106,7 +107,7 @@ public class GUI extends Application {
 	
 	public void sendString(String S) { accountController.setGameboolean(S); }
 
-	public void sendMessage(String input){chatController.sendMessage(input);}
+	public void sendMessage(String input){chatController.sendMessage(input, gameController.getGameModel().getClientPlayer().getPlayerId());}
 
 	public void handleSort(Object val){ userListController.handleSort(val); }
 	
@@ -142,7 +143,7 @@ public class GUI extends Application {
 
 	public void handleToGetInvite() { setupScreenController.toInviteGetScreen(); }
 
-	public void handleToPlayerList() { userListController.getUsers(); userListController.toUserListScreen(); }
+	public void handleToPlayerList() { userListController.toUserListScreen(); }
 
 	public void handleToCreateGame() { setupScreenController.toSetupScreen(); setupScreenController.makeNewGame(); }
 	

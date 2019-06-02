@@ -315,51 +315,54 @@ public class CalculateScoreController {
 	 * @return amount of points
 	 */
 	private int checkDiagonal(ArrayList<ArrayList<String>> grid){
+		try {
+			String curColor = null;
+			int score = 0;
+			int z = 2;
+			int x = 2;
+			int h = 2;
+			int y = 0;
+			int i = 0;
 
-		String curColor = null;
-		int score = 0;
-		int z = 2;
-		int x = 2;
-		int h = 2;
-		int y = 0;
-		int i = 0;
-
-		for(int j = 0; j<6; j++){
-			for(; y<z; y++, x++){
-				if(grid.get(x).get(y).equals(curColor) && !grid.get(x).get(y).equals("0")){
-					score += 1;
+			for(int j = 0; j<6; j++){
+				for(; y<z; y++, x++){
+					if(grid.get(x).get(y).equals(curColor) && !grid.get(x).get(y).equals("0")){
+						score += 1;
+					}
+					curColor = grid.get(x).get(y);
 				}
-				curColor = grid.get(x).get(y);
+				curColor = null;
+				if(j > 2){i++;}
+				else if (j == 2){i++; z++;}
+				else{h--; z++;}
+				y = i;
+				x = h;
 			}
-			curColor = null;
-			if(j > 2){i++;}
-			else if (j == 2){i++; z++;}
-			else{h--; z++;}
-			y = i;
-			x = h;
-		}
 
-		z = 2;
-		x = 1;
-		h = 1;
-		y = 0;
-		i = 0;
+			z = 2;
+			x = 1;
+			h = 1;
+			y = 0;
+			i = 0;
 
-		for(int j = 0; j<6; j++){
-			for(; y<z; y++, x--){
-				if(grid.get(x).get(y).equals(curColor) && !grid.get(x).get(y).equals("0")){
-					score += 1;
+			for(int j = 0; j<6; j++){
+				for(; y<z; y++, x--){
+					if(grid.get(x).get(y).equals(curColor) && !grid.get(x).get(y).equals("0")){
+						score += 1;
+					}
+					curColor = grid.get(x).get(y);
 				}
-				curColor = grid.get(x).get(y);
+				curColor = null;
+				if(j > 2){i++;}
+				else if (j == 2){i++; z++;}
+				else{h++; z++;}
+				y = i;
+				x = h;
 			}
-			curColor = null;
-			if(j > 2){i++;}
-			else if (j == 2){i++; z++;}
-			else{h++; z++;}
-			y = i;
-			x = h;
+			return score;
+		}catch(Exception e){
+			return 0;
 		}
-		return score;
 	}
 
 	int getClientScore(int playerID){ return getScore(playerID) + calculatePrivatePoints(playerID); }

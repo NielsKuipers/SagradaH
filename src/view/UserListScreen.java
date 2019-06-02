@@ -21,6 +21,7 @@ public class UserListScreen extends VBox {
 
         setStyle("-fx-background-color: DEEPSKYBLUE;");
 
+        Button backButton = new Button("terug");
         HBox sortBox = new HBox();
         Label sortLabel = new Label("Sorteren op:");
         ChoiceBox<String> sort = new ChoiceBox<String>();
@@ -28,13 +29,14 @@ public class UserListScreen extends VBox {
         sortBox.getChildren().addAll(sortLabel, sort);
         sortBox.setPadding(new Insets(5,5,0,5));
 
-        userList.getChildren().addAll(sortBox);
+        userList.getChildren().addAll(backButton, sortBox);
 
         ScrollPane userScroll = new ScrollPane();
         userScroll.setFitToHeight(true);
         userScroll.setContent(userList);
 
         sort.setOnAction(e-> handleSort(sort.getValue()));
+        backButton.setOnAction(e-> gui.handleHomeMenu());
 
         getChildren().setAll(userScroll);
     }

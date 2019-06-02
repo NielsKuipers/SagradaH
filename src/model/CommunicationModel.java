@@ -105,7 +105,6 @@ public class CommunicationModel {
 		return inviteQueries.checkUnasweredInGame();
 	}
 	
-	
 	public int getGameID() {
 		return inviteQueries.getGameID();
 	}
