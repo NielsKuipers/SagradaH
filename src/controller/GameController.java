@@ -1,3 +1,4 @@
+
 package controller;
 
 import javafx.geometry.Insets;
@@ -126,13 +127,9 @@ public class GameController extends Scene {
 		setRoot(gameScreen);
 	}
 
-    void setAmountFT(String tokens) {
-        kaarten.setAmountFT(tokens);
-    }
+   
     
-    int getAmountFT() {
-        return Integer.parseInt(kaarten.getAmountFT());
-    }
+    
 
 	public Game getGameModel() {
 		return gameModel;
@@ -172,7 +169,8 @@ public class GameController extends Scene {
 
 				CC.getNewMessages(gameModel.getGameID());
 
-				//roundtrack
+				CardController.SetAmountFTOnTC();
+				kaarten.setAmountFT(CardController.getCardModel().getAmountFT());
 				//favor tokens
 				//card costs
 			}
@@ -247,4 +245,5 @@ public class GameController extends Scene {
 	public GameScreen getGameScreen() {
 		return gameScreen;
 	}
+
 }

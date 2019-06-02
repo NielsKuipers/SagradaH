@@ -25,6 +25,7 @@ public class GameQuery {
 	}
 	
 	public ArrayList<ArrayList<Object>> getRound(int idGame) {
+		
 		return standardQueries.selectQuery("SELECT roundtrack FROM gamedie",
 				" WHERE idgame=? AND roundtrack IS NOT NULL ORDER BY roundtrack DESC", "" + idGame + "");
 	}

@@ -20,7 +20,7 @@ public class UserListController{
     public UserListScreen getUserListScreen(){ return userListScreen; }
 
     private void getUsers(){
-        userListScreen.displayUsers(userListModel.getUsers(), userListModel.getUserStats());
+      // userListScreen.displayUsers(userListModel.getUsers(), userListModel.getUserStats());
     }
 
     public void handleSort(Object val){

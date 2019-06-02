@@ -23,12 +23,24 @@ public class AccountController {
 	private GameListScreen gameListScreen;
 	private String gameboolean = "";
 	private GameController gameController;
-    private DiceController diceController;
+
+	private DiceController diceController;
+	private CardController cardController;
+
+  
+
+
+
 
 	
-	public AccountController(GUI gui, DatabaseController DC, HomePane HP, StartPane SP, GameListScreen GLS, GameController gameController, DiceController diceController) {
+	public AccountController(GUI gui, DatabaseController DC, HomePane HP, StartPane SP, GameListScreen GLS, GameController gameController, DiceController diceController, CardController cardController) {
+
 		this.myGUI = gui;
 		this.gameController = gameController;
+
+		this.diceController = diceController;
+		this.cardController=cardController;
+
 		this.homePane = HP;
 		this.startpane = SP;
 		this.gameListScreen = GLS;
@@ -112,6 +124,12 @@ public class AccountController {
 		if (myaccount.hostplayer(getAccount(), newGameID) || (!myaccount.hostplayer(getAccount(), newGameID) && myaccount.patternsCreated(getAccount(), newGameID))) {
 			gameController.getGameModel().setGameID(newGameID);
 			gameController.getGameModel().selectPlayerIds();
+
+			gameController.getGameModel().selectWholeGame();
+			cardController.getDBcards();
+			gameController.startTimer();
+			myGUI.handleGoBackToGame();
+
 			myGUI.setGameIDforScoreCalc(newGameID);
 
 			if (!myaccount.patternsCreated(getAccount(), newGameID) && myaccount.hostplayer(getAccount(), newGameID)) {
@@ -133,6 +151,7 @@ public class AccountController {
 		}else {
 			alert();
 			
+
 		}
 	}
 	

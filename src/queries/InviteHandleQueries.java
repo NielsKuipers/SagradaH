@@ -185,7 +185,9 @@ public class InviteHandleQueries {
 	}
 	
 	public int getGameID() {
+		
 		return gameID;
+		
 	}
 	
 	

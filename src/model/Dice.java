@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -50,10 +52,13 @@ public class Dice {
 	}
 	
 	
+	
 
 	public int getDiceNumber() {
 		return dieNumber;
 	}
+	
+
 	
 	public String getColorForQuerie() {
 		if(color == Color.RED) {

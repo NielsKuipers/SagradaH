@@ -14,12 +14,14 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import main.GUI;
+import model.FavorToken;
 
 public class CardsInfoScreen extends BorderPane{
 	private Button btnCard;
-	private Label favorTokens;
+	private FavorTokensScreen favorTokens;
 	private VBox layout;
-	private String tokens;
+	private Label tokens;
+	private HBox hbox;
 	
 	public CardsInfoScreen(GUI gui, String info, GameController GC) {
 		Label l = new Label(info);
@@ -28,31 +30,30 @@ public class CardsInfoScreen extends BorderPane{
 		setRight(l);
 		setMinSize(100, 200);
 		setPrefSize(100, 200);
-
+		 tokens = new Label("amount of favor tokens:");
+	        tokens.setFont(new Font("Consolas", 16));
 		btnCard = new Button("Show cards");
 
 		btnCard.setOnAction(e -> gui.handleGoToCards());
 
 
-		favorTokens = new Label("amount of favor tokens:"+ tokens);
-		favorTokens.setFont(new Font("Consolas", 16));
-
-		layout = new VBox(50, btnCard,favorTokens);
+		favorTokens = new FavorTokensScreen(new FavorToken(0, Color.BLUE));;
+		hbox = new HBox(5,tokens,favorTokens);
+		layout = new VBox(50, btnCard,hbox);
 		layout.setPadding(new Insets(100,0,0,150));
-		setCenter(layout);
+		 
+		
+		
+	        setCenter(layout);
+		
 	}
 	
-    public void setAmountFT(String tokens) {
-        this.tokens = tokens;
-        favorTokens = new Label("amount of favor tokens:"+ tokens);
-        favorTokens.setFont(new Font("Consolas", 16));
+    public void setAmountFT(int amount) {
+       
+       favorTokens.getModel().setAmount(amount);
         
         
-        layout = new VBox(50, btnCard,favorTokens);
-        layout.setPadding(new Insets(100,0,0,150));
-        setCenter(layout);
+       
     }
-    public String getAmountFT() {
-        return tokens;
-    }
+    
 }

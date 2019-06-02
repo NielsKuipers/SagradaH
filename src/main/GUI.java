@@ -24,7 +24,11 @@ public class GUI extends Application {
 	private CardController cardController;
 	private SetupScreenController setupScreenController;
 	private EndScreenController endController;
+
+	WindowController windowController;
+
 	private CalculateScoreController calcController;
+
 
 	void startup(String[] args) {
 		launch(args);
@@ -36,7 +40,11 @@ public class GUI extends Application {
 		HomePane homepane = new HomePane(this);
 		GameListScreen gameListScreen = new GameListScreen(this);
 		DatabaseController databaseController = new DatabaseController();
-		WindowController windowController = new WindowController(this, databaseController);
+
+		 windowController = new WindowController(this, databaseController);
+		CalculateScoreController calcController = new CalculateScoreController(databaseController);
+
+		
 
 		calcController = new CalculateScoreController(databaseController);
 		diceController = new DiceController(this, windowController);
@@ -44,11 +52,11 @@ public class GUI extends Application {
         userListController = new UserListController(this, databaseController);
 		gameController = new GameController(this, databaseController, windowController, diceController, chatController, calcController);
 
-		accountController = new AccountController(this, databaseController, homepane, startPane, gameListScreen, gameController, diceController);
+		
 		cardController = new CardController(windowController, diceController, gameController, databaseController, this);
-
+		accountController = new AccountController(this, databaseController, homepane, startPane, gameListScreen, gameController, diceController,cardController);
 		roundController = new RoundScreenController(stage, databaseController, this, windowController, gameController);
-		setupScreenController = new SetupScreenController(databaseController, this, gameController, accountController);
+		setupScreenController = new SetupScreenController(databaseController, this, gameController, accountController, cardController);
 
 		endController = new EndScreenController(databaseController, gameController, calcController, this);
 
@@ -97,6 +105,18 @@ public class GUI extends Application {
 		accountController.register(username, password);
 	}
 	
+	
+	
+	public void startTimer() {
+		gameController.startTimer();
+	}
+	
+	public void stopTimer() {
+		gameController.stopTimer();
+	}
+	
+	
+	
 	public void handleUitloggen() { accountController.uitloggen(); }
 	
 	public void handleToGameList() { accountController.showGames(); }
@@ -111,7 +131,7 @@ public class GUI extends Application {
 
 	public void handleSort(Object val){ userListController.handleSort(val); }
 	
-	public void handleFinishTurn() { gameController.handleFinishTurn(); }
+	public void handleFinishTurn() { gameController.handleFinishTurn(); windowController.changedDiceBoard(false);startTimer();}
 	
 	public void handleGoToRoundTrack() { scene.setRoot(roundController.getRoundScreen()); }
 	
@@ -151,4 +171,11 @@ public class GUI extends Application {
 
 	public void HandleExitGame() { System.exit(0); }
 
+
+	
+
+
+
+
 }
+
