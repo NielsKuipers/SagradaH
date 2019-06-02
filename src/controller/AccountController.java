@@ -62,24 +62,44 @@ public class AccountController {
 		for (ArrayList<Object> row : games) {
 			int newGameID;
 			newGameID = (int) row.get(1);
+			String status = "";
 
 			if (newGameID != gameID) {
 				HBox gameLine = new HBox();
-				Button joinGame = new Button("Join game");
 				if (myaccount.checkIfInGame(newGameID, getAccount())) {
-					gameLine.setBackground(new Background(new BackgroundFill(Color.LIGHTGREEN, null, null)));
-					joinGame.setDisable(false);
+					Button joinGame = new Button("Join game");
+					if(myaccount.hasBeenCanceld(newGameID)) {
+						gameLine.setBackground(new Background(new BackgroundFill(Color.CRIMSON, null, null)));
+						joinGame.setDisable(true);
+							status = "status: afgebroken";
+					} else if(myaccount.hasEnded(newGameID)) {
+						gameLine.setBackground(new Background(new BackgroundFill(Color.ROYALBLUE, null, null)));
+						status = "status: uitgespeeld";
+					} else if(myaccount.somebodyHasNotChosenWindowPattern(newGameID)) {
+						gameLine.setBackground(new Background(new BackgroundFill(Color.GOLD, null, null)));
+						if(myaccount.iHaveNotChosenWindowPattern(newGameID, getAccount())) {
+							status ="status: kies patroonkaart";
+						} else {
+							status ="status: patroonkaart gekozen, wachten op andere spelers";
+						}
+						
+					} else {
+						gameLine.setBackground(new Background(new BackgroundFill(Color.LIGHTGREEN, null, null)));
+							status ="status: bezig";
+					}
 					joinGame.setOnMouseClicked(e -> handleJoinGame(newGameID));
+					gameLine.getChildren().add(joinGame);
 
 				} else {
 					gameLine.setBackground(new Background(new BackgroundFill(Color.GRAY, null, null)));
-					joinGame.setDisable(true);
+					status = "status: niet een deelnemer";
 				}
 				for (Object game : row.subList(1, row.size() - 1)) {
 					stringBuilder.append(game).append(" ");
 				}
-				Label textforgame = new Label(stringBuilder.toString());
-				gameLine.getChildren().addAll(textforgame, joinGame);
+				Label textforgame = new Label(stringBuilder.toString() + status);
+				gameLine.getChildren().add(textforgame);
+				gameLine.setSpacing(10.0);
 				hboxList.add(gameLine);
 				gameID = newGameID;
 				stringBuilder.setLength(0);

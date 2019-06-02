@@ -1,6 +1,11 @@
 package view;
 
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.geometry.Insets;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -30,19 +35,19 @@ public class ChatScreen extends BorderPane {
         chatInput.setPrefSize(fullSize, 20);
 
         chatInput.getChildren().addAll(input, send);
-
+        
         sp.setPrefHeight(fullSize - 685);
         sp.vvalueProperty().bind(chat.heightProperty());
         sp.setContent(chat);
-
-        this.setTop(sp);
-        this.setBottom(chatInput);
-
+        
         //fire event if send button is clicked or enter pressed
         send.setOnMouseClicked(e -> handleMessage());
         input.setOnKeyReleased(e ->{
             if(e.getCode() == KeyCode.ENTER){handleMessage();}
         });
+        
+        VBox wholeChat = new VBox(sp, chatInput); 
+        this.setBottom(wholeChat);
     }
 
     //if input isn't empty send the message
