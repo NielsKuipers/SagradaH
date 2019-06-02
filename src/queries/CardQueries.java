@@ -75,6 +75,10 @@ public class CardQueries {
 
 }
 	
+	public ArrayList<ArrayList<Object>> getPrivateOBJCard(int gameID, int playerID){
+		return standardQuerie.selectQuery("Select private_objectivecard_color from player"," where game_idgame=? and idplayer=?", "" + gameID+ "\0"+ playerID + "");
+	}
+	
 	
 	
 	}

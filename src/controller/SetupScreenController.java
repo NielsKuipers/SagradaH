@@ -19,11 +19,13 @@ public class SetupScreenController {
 	private boolean randomPatterns = false;
 	private GameController gameController;
 	private AccountController accountController;
+	private CardController cardController;
 	
-	public SetupScreenController(DatabaseController dataController, GUI gui, GameController gameController, AccountController accountController) {
+	public SetupScreenController(DatabaseController dataController, GUI gui, GameController gameController, AccountController accountController, CardController cardController) {
 		this.gui = gui;
 		this.gameController = gameController;
 		this.accountController = accountController;
+		this.cardController= cardController;
 		cModel = new CommunicationModel(dataController.getInviteQueries());
 		inviteScreen = new InviteScreen(this, gui);
 		setupScreen = new SetupScreen(this, gui);
@@ -79,6 +81,7 @@ public class SetupScreenController {
 			gameController.getGameModel().createAllPlayerFrameFields(cModel.getGameID(), randomPatterns);
 			gameController.addWindowScreens();
 			gameController.getGameModel().selectwindowOptions();
+			cardController.getDBcards();
 			gui.handleChooseScreen();
 		}
 	}

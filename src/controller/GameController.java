@@ -169,7 +169,8 @@ public class GameController extends Scene {
 
 				CC.getNewMessages(gameModel.getGameID());
 
-				//roundtrack
+				CardController.SetAmountFTOnTC();
+				kaarten.setAmountFT(CardController.getCardModel().getAmountFT());
 				//favor tokens
 				//card costs
 			}

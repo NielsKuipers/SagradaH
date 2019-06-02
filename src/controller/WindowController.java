@@ -65,6 +65,7 @@ public class WindowController {
 	private int dicesChangedByTC = 0;
 
 	private int dicesChangedPlace = 0;
+	private boolean TwoCanbeMoved;
 
 	public WindowController(GUI gui, DatabaseController databaseController) {
 		this.gui = gui;
@@ -143,6 +144,7 @@ public class WindowController {
 
 	public void buyTC4() {
 		diceCanBeMoved = true;
+		TwoCanbeMoved = true;
 	}
 
 	public void buyTC3() {
@@ -158,11 +160,19 @@ public class WindowController {
 	public void buyTC9() {
 		ignoreNextToDice = true;
 	}
+	
+	public void ChangedDiceBoardTC() {
+			dicesChangedPlace++;
+			if (dicesChangedPlace > 1) {
+				diceCanBeMoved = false;
+				dicesChangedPlace = 0;
+			}
+		}
 
-	public void changedDiceBoard() {
+	public void changedDiceBoard(boolean TwoCanBeMoved) {
 		dicesChangedByTC++;
 
-		if (dicesChangedByTC > 0) {
+		if (dicesChangedByTC > 0 && !TwoCanBeMoved ||dicesChangedByTC > 1 && TwoCanBeMoved ) {
 			diceCanBeMoved = false;
 			ignoreEyes = false;
 			ignoreColor = false;
@@ -346,9 +356,9 @@ public class WindowController {
 
 				if (DC.getDiceOnTableModel().isDiceOnTable(draggingDice.getDiceModel()) && !ignoreEyes
 						&& !ignoreColor && GC.getGameModel().canPlayerPlaceADiceInThisRoundFromTheTable()) {
-					
+					changedDiceBoard(TwoCanbeMoved);
 					DC.getDiceOnTableModel().removeDiceFromTable(draggingDice.getDiceModel());
-					changedDiceBoard();
+					
 					pane.getFieldModel().addDice(draggingDice.getDiceModel());
 
 					GC.getGameModel().getPlayer(0).setDiceOnWindowPatternAndGiveFirstTurn(
@@ -376,7 +386,7 @@ public class WindowController {
 						windowPattern1Model.removeDiceFromWindowPattern(draggingDice.getDiceModel());
 						
 						pane.getFieldModel().addDice(draggingDice.getDiceModel());
-						 changedDiceBoard();
+						 changedDiceBoard(TwoCanbeMoved);
 
 						GC.getGameModel().getPlayer(0).removeDiceOnWindowPattern(
 								draggingDice.getDiceModel().getDiceNumber(),

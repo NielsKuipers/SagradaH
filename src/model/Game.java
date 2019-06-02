@@ -47,8 +47,13 @@ public class Game {
 	}
 
 	public int getRound() {
+		if(gameQuery.getRound(gameId).isEmpty()) {
+			return 1;
+		}else {
+			
 		
-		return (int) gameQuery.getRound(gameId).get(0).get(0);
+		return (int) gameQuery.getRound(gameId).get(0).get(0)+1;
+		}
 	}
 
 	public void addPlayer(Player player) {
@@ -67,18 +72,22 @@ public class Game {
 		return players.size();
 	}
 	
-	public void getRandomDiceColor() {
-		// get all the empty dices of a game
-		ArrayList<ArrayList<Object>> result2 = gameQuery.getAllEmptyDices(gameId);
-		
-		int amountOfDicesInGame = result2.size();
-
+	public void pickNewDice() {
+		ArrayList<ArrayList<Object>> result = gameQuery.getAllEmptyDices(gameId);
+		int amountOfDicesInGame = result.size();
 
 		// choose a random dice
 		int indexDice = r.nextInt(amountOfDicesInGame);
 
+		// get random eyes
 		
+		int dieNumber = Integer.valueOf(String.valueOf(result.get(indexDice).get(0)));
+		String dieColor = String.valueOf(result.get(indexDice).get(1));
+		
+		gameQuery.updateRollDice(dieNumber, dieColor, gameId, 1, getRound());
 	}
+	
+
 	
 	
 	// give all the players the right id

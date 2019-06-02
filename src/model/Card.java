@@ -29,10 +29,13 @@ public class Card {
     		return true;
     	}
     }
+    
+    public String getPRIVOBJCard() {
+    return 	(String) cardQuerie.getPrivateOBJCard(gameModel.getGameID(), gameModel.getPlayer(0).getPlayerId()).get(0).get(0);
+    }
 
     public boolean checkboughtTC(int tc) {
-    	//System.out.println(cardQuerie.CheckTCBought(tc, gameModel.getGameID()));
-    	System.out.println(cardQuerie.CheckTCBought(tc, gameModel.getGameID()).size());
+    	
         if(cardQuerie.CheckTCBought(tc, gameModel.getGameID()).size()>0) {
             
             return true;

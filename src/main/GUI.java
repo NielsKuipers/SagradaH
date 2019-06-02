@@ -56,7 +56,7 @@ public class GUI extends Application {
 		cardController = new CardController(windowController, diceController, gameController, databaseController, this);
 		accountController = new AccountController(this, databaseController, homepane, startPane, gameListScreen, gameController, diceController,cardController);
 		roundController = new RoundScreenController(stage, databaseController, this, windowController, gameController);
-		setupScreenController = new SetupScreenController(databaseController, this, gameController, accountController);
+		setupScreenController = new SetupScreenController(databaseController, this, gameController, accountController, cardController);
 
 		endController = new EndScreenController(databaseController, gameController, calcController, this);
 
@@ -131,7 +131,7 @@ public class GUI extends Application {
 
 	public void handleSort(Object val){ userListController.handleSort(val); }
 	
-	public void handleFinishTurn() { gameController.handleFinishTurn(); windowController.changedDiceBoard();}
+	public void handleFinishTurn() { gameController.handleFinishTurn(); windowController.changedDiceBoard(false);startTimer();}
 	
 	public void handleGoToRoundTrack() { scene.setRoot(roundController.getRoundScreen()); }
 	

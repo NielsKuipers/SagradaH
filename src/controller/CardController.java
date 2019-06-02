@@ -175,37 +175,37 @@ public class CardController extends Scene {
 	public void SetAmountFTOnTC() {
 		 
 		
-		TC1FTS1.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnToolCard(TC1, 1));
+		TC1FTS1.getModel().setAmount( cardModel.getAmountFTOnToolCard(1, 1));
 
-		TC1FTS2.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnToolCard(TC1, 2));
+		TC1FTS2.getModel().setAmount(cardModel.getAmountFTOnToolCard(1, 2));
 
-		TC1FTS3.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnToolCard(TC1, 3));
+		TC1FTS3.getModel().setAmount(cardModel.getAmountFTOnToolCard(1, 3));
 
-		TC1FTS4.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnToolCard(TC1, 4));
+		TC1FTS4.getModel().setAmount(cardModel.getAmountFTOnToolCard(1, 4));
 
-		TC2FTS1.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnToolCard(TC2, 1));
+		TC2FTS1.getModel().setAmount(cardModel.getAmountFTOnToolCard(2, 1));
 
-		TC2FTS2.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnToolCard(TC2, 2));
+		TC2FTS2.getModel().setAmount(cardModel.getAmountFTOnToolCard(2, 2));
 
-		TC2FTS3.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnToolCard(TC2, 3));
+		TC2FTS3.getModel().setAmount(cardModel.getAmountFTOnToolCard(2, 3));
 
-		TC2FTS4.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnToolCard(TC2, 4));
+		TC2FTS4.getModel().setAmount(cardModel.getAmountFTOnToolCard(2, 4));
 
-		TC3FTS1.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnToolCard(TC3, 1));
+		TC3FTS1.getModel().setAmount(cardModel.getAmountFTOnToolCard(3, 1));
 
-		TC3FTS2.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnToolCard(TC3, 2));
+		TC3FTS2.getModel().setAmount(cardModel.getAmountFTOnToolCard(3, 2));
 
-		TC3FTS3.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnToolCard(TC3, 3));
+		TC3FTS3.getModel().setAmount(cardModel.getAmountFTOnToolCard(3, 3));
 
-		TC3FTS4.getModel().setAmount(TC1FTS1.getModel().getAmount() + cardModel.getAmountFTOnToolCard(TC3, 4));
+		TC3FTS4.getModel().setAmount(cardModel.getAmountFTOnToolCard(3, 4));
 
 	}
 
 	public void buyToolcard1(CardScreen cardscreen) {
-		if (cardModel.getAmountFT() != 0 && cardModel.getGameModel().getPlayer(0).selectCurrentPlayer()) {
+		if (cardModel.getAmountFT() != 0 && cardModel.getGameModel().getPlayer(0).selectCurrentPlayer()&& !cardModel.checkboughtTCForRound()) {
 			
 			
-			
+		
 			
 			
 			if (cardscreen == toolCard1) {
@@ -408,7 +408,7 @@ public class CardController extends Scene {
 	}
 
 	public void buyToolcard2(CardScreen cardscreen) {
-		if (cardModel.getAmountFT() != 0 && cardModel.getGameModel().getPlayer(0).selectCurrentPlayer()) {
+		if (cardModel.getAmountFT() != 0 && cardModel.getGameModel().getPlayer(0).selectCurrentPlayer()&& !cardModel.checkboughtTCForRound()) {
 
 			if (cardscreen == toolCard1) {
 
@@ -673,6 +673,7 @@ public class CardController extends Scene {
 					buyTCSetDB(3, true);
 					buyTC5();
 					cardScreen.BoughtTC3();
+					
 
 				}
 				if (!cardModel.checkboughtTC(3)) {
@@ -685,15 +686,16 @@ public class CardController extends Scene {
 
 			}
 			if (cardscreen == toolCard6) {
-
+					System.out.println("buy TC");
 				if (cardModel.checkboughtTC(3) && cardModel.getAmountFT() > 1) {
 					buyTCSetDB(3, true);
 					buyTC6();
+					System.out.println("price = 2");
 					cardScreen.BoughtTC3();
 				}
 				if (!cardModel.checkboughtTC(3)) {
 					buyTCSetDB(3, false);
-
+					System.out.println("price = 1");
 					buyTC6();
 					cardScreen.BoughtTC3();
 				}
@@ -879,7 +881,7 @@ public class CardController extends Scene {
 	}
 
 	private void buyTC11() {
-		
+		gui.stopTimer();
 		diceController.setDiceGlowBorder(11);
 		gui.handleGoBackToGame();
 	}
@@ -896,7 +898,7 @@ public class CardController extends Scene {
 
 	public void getDBcards() {
 		checkToolcards(cardModel.getToolCard1(), cardModel.getToolCard2(), cardModel.getToolCard3());
-		checkOBJCards(1, cardModel.getPubOBJcard1(), cardModel.getPubOBJcard2(), cardModel.getPubOBJcard3());
+		checkOBJCards(cardModel.getPRIVOBJCard(), cardModel.getPubOBJcard1(), cardModel.getPubOBJcard2(), cardModel.getPubOBJcard3());
 
 	}
 
@@ -1059,7 +1061,7 @@ public class CardController extends Scene {
 
 	}
 
-	private void checkOBJCards(int privOBJ, int pubOBJ3, int pubOBJ2, int pubOBJ1) {
+	private void checkOBJCards(String privOBJC, int pubOBJ3, int pubOBJ2, int pubOBJ1) {
 
 		switch (pubOBJ1) {
 		case 1:
@@ -1159,20 +1161,20 @@ public class CardController extends Scene {
 
 		}
 
-		switch (privOBJ) {
-		case 1:
+		switch (privOBJC) {
+		case "blauw":
 			cardScreen.setPRIVOBJCard(blueObjectiveCard);
 			break;
-		case 2:
+		case "paars":
 			cardScreen.setPRIVOBJCard(purpleObjectiveCard);
 			break;
-		case 3:
+		case "geel":
 			cardScreen.setPRIVOBJCard(yellowObjectiveCard);
 			break;
-		case 4:
+		case "groen":
 			cardScreen.setPRIVOBJCard(greenObjectiveCard);
 			break;
-		case 5:
+		case "rood":
 			cardScreen.setPRIVOBJCard(redObjectiveCard);
 			break;
 
