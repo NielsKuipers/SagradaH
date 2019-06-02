@@ -1,11 +1,9 @@
 package queries;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
+
+import static view.ChatScreen.spamError;
 
 public class StandardQueries {
 	private Connection mConn;
@@ -81,6 +79,10 @@ public class StandardQueries {
             }
             if(!where.isEmpty()){ handleVals(whereVal, stmt, i); }
             stmt.executeUpdate();
+        }
+        catch(SQLIntegrityConstraintViolationException e2){
+            if(query.contains("chatline")){ spamError(); }
+            else{e2.printStackTrace();}
         }
         catch(SQLException e){
             e.printStackTrace();
