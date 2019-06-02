@@ -55,7 +55,5 @@ public class CardsInfoScreen extends BorderPane{
         
        
     }
-    public String getAmountFT() {
-        return "1";
-    }
+    
 }

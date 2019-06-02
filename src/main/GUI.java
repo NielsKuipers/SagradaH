@@ -93,6 +93,10 @@ public class GUI extends Application {
 		accountController.register(username, password);
 	}
 	
+	public void waitTimer() {
+		gameController.waitTimer();
+	}
+	
 	public void startTimer() {
 		gameController.startTimer();
 	}

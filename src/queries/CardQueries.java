@@ -10,6 +10,7 @@ public class CardQueries {
 	}
 	
 	public ArrayList<ArrayList<Object>> checkBoughtTCForRound(int idgame, int playerID, int round, int infirstturn) {
+		
 		return standardQuerie.selectQuery("Select gametoolcard from gamefavortoken",
 				" where idgame=? and idplayer=? and round=? and inFirstTurn=? ", "" +idgame +"\0"+ playerID +"\0"+ round+ "\0"+infirstturn + "");
 
@@ -38,13 +39,13 @@ public class CardQueries {
 
 	public void BuyTC(int tc, int FT, int GameID, int playerID,int round,int inFirstTurn) {
 			standardQuerie.updateQuery("update gamefavortoken Set gametoolcard=?, round=?, inFirstTurn=?", "" + tc + "\0" + round +"\0"+inFirstTurn+ "",
-				" where idfavortoken=?  and idgame=? and idplayer=?", "" + FT + "\0" + GameID + "\0" + playerID + "");
+					" where idfavortoken=?  and idgame=? and idplayer=?", "" + FT + "\0" + GameID + "\0" + playerID + "");
 
 	}
 
 	public void BuyTCPrice2(int tc, int FT, int FT2, int GameID, int playerID,int round,int inFirstTurn) {
 
-		standardQuerie.updateQuery("update gamefavortoken Set gametoolcard=?, round=?", "" + tc + "\0" + round +"\0"+inFirstTurn+ "",
+		standardQuerie.updateQuery("update gamefavortoken Set gametoolcard=?, round=?, inFirstTurn=?", "" + tc + "\0" + round +"\0"+inFirstTurn+ "",
 				" where idfavortoken=? or idfavortoken=?  and idgame=? and idplayer=?",
 				"" + FT + "\0" + FT2 + "\0" + GameID + "\0" + playerID + "");
 

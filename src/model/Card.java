@@ -20,7 +20,9 @@ public class Card {
     
     
     public boolean checkboughtTCForRound() {
-    	if(cardQuerie.checkBoughtTCForRound(gameModel.getGameID(), gameModel.getPlayer(0).getPlayerId(),gameModel.getRound(), gameModel.getInFirstTurn()).isEmpty()) {
+    	
+    	
+    	if(cardQuerie.checkBoughtTCForRound(gameModel.getGameID(), gameModel.getPlayer(0).getPlayerId(),gameModel.getRound(), 1).isEmpty()) {
     		
     		return false;
     	}else {
@@ -29,12 +31,13 @@ public class Card {
     }
 
     public boolean checkboughtTC(int tc) {
-    	System.out.println(cardQuerie.CheckTCBought(tc, gameModel.getGameID()));
-        if(cardQuerie.CheckTCBought(tc, gameModel.getGameID()).isEmpty()) {
+    	//System.out.println(cardQuerie.CheckTCBought(tc, gameModel.getGameID()));
+    	System.out.println(cardQuerie.CheckTCBought(tc, gameModel.getGameID()).size());
+        if(cardQuerie.CheckTCBought(tc, gameModel.getGameID()).size()>0) {
             
-            return false;
-        }else {
             return true;
+        }else {
+            return false;
             
         }
     }
@@ -69,7 +72,7 @@ public class Card {
         }
    
        
-        cardQuerie.BuyTC(tc,(int)cardQuerie.CheckIDFT(gameModel.getPlayer(0).getPlayerId(), gameModel.getGameID()).get(0).get(0), gameModel.getGameID(), gameModel.getPlayer(0).getPlayerId(),1,infirstTurn);
+        cardQuerie.BuyTC(tc,(int)cardQuerie.CheckIDFT(gameModel.getPlayer(0).getPlayerId(), gameModel.getGameID()).get(0).get(0), gameModel.getGameID(), gameModel.getPlayer(0).getPlayerId(),gameModel.getRound(),infirstTurn);
       
         
     }

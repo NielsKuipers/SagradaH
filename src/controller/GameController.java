@@ -29,6 +29,7 @@ public class GameController extends Scene {
 	private DiceController DC;
 
 	private AnimationTimerEXT timer;
+	private GUI gui;
 
 	private boolean gameStarted = false;
 
@@ -38,6 +39,7 @@ public class GameController extends Scene {
 		this.WC = WC;
 		this.DC = DC;
 		this.calculateScoreController = CSC;
+		this.gui=gui;
 		DC.setGameController(this);
 
 		gameModel = new Game(databaseController.getGameQuery(), DC.getDiceOnTableModel(), WC, cardController);
@@ -135,9 +137,7 @@ public class GameController extends Scene {
         kaarten.setAmountFT(tokens);
     }
     
-    int getAmountFT() {
-        return Integer.parseInt(kaarten.getAmountFT());
-    }
+   
 
 	public Game getGameModel() {
 		return gameModel;
@@ -189,6 +189,15 @@ public class GameController extends Scene {
 		
 	}
 	
+	public void waitTimer() {
+		try {
+			timer.wait(10000);
+		} catch (InterruptedException e) {
+			
+			//e.printStackTrace();
+		}
+	}
+	
 	
 	
 	public void handleFinishTurn() {
@@ -196,6 +205,7 @@ public class GameController extends Scene {
 			gameModel.placeDicesOnRoundTrack();
 			DC.getDiceOnTableScreen().removeDicesScreen();
 			gameModel.selectWholeGame();
+			gui.startTimer();
 			
 		}
 		
@@ -220,7 +230,7 @@ public class GameController extends Scene {
 	}
 	
 	public void handleRollDices() {
-		System.out.println(gameModel.checkIfMainPlayerCanThrowDices());
+		
 		if(gameModel.checkIfMainPlayerCanThrowDices()) {
 			gameModel.rollTheDices();
 			gameModel.selectWholeGame();

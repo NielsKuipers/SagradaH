@@ -89,6 +89,7 @@ public class DiceController {
 		dice.setGlowBorder();
 		
 		
+		
 		switch(nummer) {
 		case 1:
 			dice.setOnMouseClicked(e -> DicesPlus1(dice, false));
@@ -112,9 +113,10 @@ public class DiceController {
 	
 	private void throwDiceOnes(DiceScreen dice) {
 		dice.setOnMouseClicked(null);
+		
 		int i = r.nextInt((6 - 1) + 1) + 1;
 		dice.getDiceModel().setEyes(i);
-		CC.getCardModel().updateDiceOnTable(1, dice.getDiceModel().getDiceNumber());
+		CC.getCardModel().updateDiceOnTable(i, dice.getDiceModel().getDiceNumber());
 		
 		
 		
@@ -147,6 +149,8 @@ public class DiceController {
 		
 		
 		}
+		
+		
 		
 		
 	}
@@ -212,6 +216,7 @@ public class DiceController {
 			CC.getCardModel().updateDiceOnTable(dice.getDiceModel().getEyes() + 2, dice.getDiceModel().getDiceNumber());
 		}
 		dice.setOnMouseClicked(e -> dicesMinus2(dice));
+		
 		
 		
 	}
