@@ -16,7 +16,10 @@ public class Account {
 	public ArrayList<ArrayList<Object>> getGames(){return accountQuery.getGames();}
 	public ArrayList<ArrayList<Object>> getGames(Object sortV){return accountQuery.getGames(sortV);} 
 	public ArrayList<ArrayList<Object>> getGames(Object sortV, String username){return accountQuery.getGames(sortV, username);} 
-	public boolean canNotBePLayed(int idGame) {return accountQuery.canNotBePlayed(idGame);}
+	public boolean hasBeenCanceld(int idGame) {return accountQuery.hasBeenCanceld(idGame);}
+	public boolean iHaveNotChosenWindowPattern(int idGame, String username) {return accountQuery.iHaveNotChosenWindowPattern(idGame, username);}
+	public boolean somebodyHasNotChosenWindowPattern(int idGame) {return accountQuery.somebodyHasNotChosenWindowPattern(idGame);}
+	public boolean hasEnded(int idGame) {return accountQuery.hasEnded(idGame);}
 	public boolean patternsCreated(String username, int gameid) {
 		try {
 			if(accountQuery.patternsCreated(username, gameid).get(0).get(0) == null) {

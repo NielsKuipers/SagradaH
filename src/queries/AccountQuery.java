@@ -51,16 +51,33 @@ public class AccountQuery {
 		}
 	}
 	
-	public boolean canNotBePlayed(int idGame) {
-		if(standardQuery.selectQuery("SELECT distinct playstatus_playstatus FROM player"," WHERE playstatus_playstatus=? AND game_idgame = ?", "afgebroken"+"\0"+""+idGame+"").isEmpty() && standardQuery.selectQuery("SELECT distinct playstatus_playstatus FROM player"," WHERE playstatus_playstatus=? AND game_idgame = ?", "uitgespeeld"+"\0"+""+idGame+"").isEmpty()) {
+	public boolean hasBeenCanceld(int idGame) {
+		if(standardQuery.selectQuery("SELECT distinct playstatus_playstatus FROM player"," WHERE playstatus_playstatus=? AND game_idgame = ?", "afgebroken"+"\0"+""+idGame+"").isEmpty()) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	public boolean hasEnded(int idGame) {
+		if(standardQuery.selectQuery("SELECT distinct playstatus_playstatus FROM player"," WHERE playstatus_playstatus=? AND game_idgame=?","uitgespeeld"+"\0"+""+idGame+"").isEmpty()) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	
+	public boolean iHaveNotChosenWindowPattern(int idGame, String username) {
+		if(standardQuery.selectQuery("SELECT patterncard_idpatterncard FROM player"," WHERE username=? AND game_idGame=?",""+ ""+ idGame+""+"\0"+ username).isEmpty()) {
 			return true;
 		} else {
 			return false;
 		}
 	}
 	
-	public boolean hasNotChosenWindowPattern(int idGame, String username) {
-		if(standardQuery.selectQuery("SELECT patterncard_idpatterncard FROM player"," WHERE username=? AND game_idGame=?",""+ ""+ idGame+""+"\0"+ username).isEmpty()) {
+	public boolean somebodyHasNotChosenWindowPattern(int idGame) {
+		if(standardQuery.selectQuery("SELECT username FROM player"," WHERE game_idGame =?",""+idGame+"").size() > standardQuery.selectQuery("SELECT p.patterncard_idpatterncard FROM patterncardoption p" + " INNER JOIN player pl ON pl.idplayer = p.player_idplayer"," WHERE game_idgame=?",""+ ""+ idGame+"").size()) {
 			return true;
 		} else {
 			return false;
