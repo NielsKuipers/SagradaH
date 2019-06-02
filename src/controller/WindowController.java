@@ -351,8 +351,8 @@ public class WindowController {
 							|| pane.getFieldModel().getColor() == Color.LIGHTGRAY || ignoreColor)
 					&& (DC.getDiceOnTableModel().isDiceOnTable(draggingDice.getDiceModel()) || diceCanBeMoved)
 					&& !pane.getFieldModel().hasDice()
-					&& meetsNextToDiceRequirements(pane.getFieldModel(), draggingDice.getDiceModel()) || ignoreNextToDice
-					&& isDiceNextToAnotherDice(pane.getFieldModel(), draggingDice.getDiceModel()) || ignoreNextToDice) {
+					&& (meetsNextToDiceRequirements(pane.getFieldModel(), draggingDice.getDiceModel()) || ignoreNextToDice)
+					&& (isDiceNextToAnotherDice(pane.getFieldModel(), draggingDice.getDiceModel()) || ignoreNextToDice)) {
 
 				if (DC.getDiceOnTableModel().isDiceOnTable(draggingDice.getDiceModel()) && !ignoreEyes
 						&& !ignoreColor && GC.getGameModel().canPlayerPlaceADiceInThisRoundFromTheTable()) {

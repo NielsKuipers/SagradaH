@@ -41,8 +41,8 @@ public class GUI extends Application {
 		GameListScreen gameListScreen = new GameListScreen(this);
 		DatabaseController databaseController = new DatabaseController();
 
-		 windowController = new WindowController(this, databaseController);
-		CalculateScoreController calcController = new CalculateScoreController(databaseController);
+		windowController = new WindowController(this, databaseController);
+		calcController = new CalculateScoreController(databaseController);
 
 		
 
