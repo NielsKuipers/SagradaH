@@ -14,11 +14,12 @@ public class UserListController{
         this.userListModel = new UserListModel(databaseController);
         this.userListScreen = new UserListScreen(gui);
         this.gui=gui;
+        getUsers();
     }
 
     public UserListScreen getUserListScreen(){ return userListScreen; }
 
-    public void getUsers(){
+    private void getUsers(){
         userListScreen.displayUsers(userListModel.getUsers(), userListModel.getUserStats());
     }
 

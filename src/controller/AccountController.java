@@ -1,13 +1,7 @@
 
 package controller;
 
-import java.util.ArrayList;
-
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -18,7 +12,7 @@ import model.Account;
 import view.GameListScreen;
 import view.HomePane;
 import view.StartPane;
-import view.UserListScreen;
+import java.util.ArrayList;
 
 public class AccountController {
 	private Account myaccount;
@@ -29,18 +23,16 @@ public class AccountController {
 	private GameListScreen gameListScreen;
 	private String gameboolean = "";
 	private GameController gameController;
-	private UserListScreen userListScreen;
-private DiceController diceController;
+    private DiceController diceController;
 
 	
-	public AccountController(GUI gui, DatabaseController DC, HomePane HP, StartPane SP, GameListScreen GLS, GameController gameController, UserListScreen ULS, DiceController diceController) {
+	public AccountController(GUI gui, DatabaseController DC, HomePane HP, StartPane SP, GameListScreen GLS, GameController gameController, DiceController diceController) {
 		this.myGUI = gui;
 		this.gameController = gameController;
 		this.homePane = HP;
 		this.startpane = SP;
 		this.gameListScreen = GLS;
-		this.userListScreen = ULS;
-this.diceController = diceController;
+        this.diceController = diceController;
 		myaccount = new Account(DC);
 	}
 	
@@ -96,7 +88,7 @@ this.diceController = diceController;
 		return hboxList;
 	}
   
-	public void handleJoinGame(int newGameID) {
+	private void handleJoinGame(int newGameID) {
 		if (myaccount.hostplayer(getAccount(), newGameID) || (!myaccount.hostplayer(getAccount(), newGameID) && myaccount.patternsCreated(getAccount(), newGameID))) {
 			gameController.getGameModel().setGameID(newGameID);
 			gameController.getGameModel().selectPlayerIds();
@@ -114,6 +106,7 @@ this.diceController = diceController;
 				gameController.getGameModel().setGameID(newGameID);
 				gameController.getGameModel().selectPlayerIds();
 				gameController.getGameModel().selectWholeGame();
+				gameController.getCC().getMessages(gameController.getGameModel().getGameID());
 				gameController.startTimer();
 				myGUI.handleGoBackToGame();
 			}
@@ -166,9 +159,5 @@ this.diceController = diceController;
 	 
 	public void setGameboolean(String S) {
 		gameboolean = S;
-	}
-	
-	public void goToUserList() {
-		myGUI.changePane(userListScreen);
 	}
 }

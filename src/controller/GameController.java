@@ -17,6 +17,7 @@ public class GameController extends Scene {
 	private GameInfoScreen gameInfo;
 
 	private ChatScreen chat;
+	private ChatController CC;
 	private CardsInfoScreen kaarten;
 	private GameScreen gameScreen;
 	private CalculateScoreController calculateScoreController;
@@ -39,6 +40,7 @@ public class GameController extends Scene {
 		this.DC = DC;
 		this.calculateScoreController = CSC;
 		this.gui = gui;
+		this.CC = CC;
 
 		gameModel = new Game(databaseController.getGameQuery(), DC.getDiceOnTableModel(), WC, CardController);
 		gameModel.addPlayer(new Player(databaseController.getPlayerQuery()));
@@ -159,7 +161,6 @@ public class GameController extends Scene {
 					getOtherScore();
 				}
 				
-				
 				if (gameModel.amITheGameCreator() && !gameModel.doesEveryPlayerHasTheirFavorTokens() && gameModel.didEveryoneChoose()) {
 					gameModel.giveAllThePlayersTheirFavorTokens();
 				}
@@ -169,10 +170,11 @@ public class GameController extends Scene {
 					stopTimer();
 				}
 
+				CC.getNewMessages(gameModel.getGameID());
+
 				//roundtrack
 				//favor tokens
 				//card costs
-				//chat
 			}
 		};
 	}
@@ -239,7 +241,9 @@ public class GameController extends Scene {
 	public WindowPatternChooseScreen getChooseScreen() {
 		return windowChoooseScreen;
 	}
-	
+
+	ChatController getCC() { return CC; }
+
 	public GameScreen getGameScreen() {
 		return gameScreen;
 	}

@@ -16,11 +16,11 @@ public class ChatModel {
         return queries.getMessages(gameID);
     }
 
-    public ArrayList<ArrayList<Object>> getNewMessages(String time){
-        return queries.getNewMessages(time);
+    public ArrayList<ArrayList<Object>> getNewMessages(String time, int gameID){
+        return queries.getNewMessages(time, gameID);
     }
 
-    public void sendMessage(String input){
-        queries.sendMessage(input);
+    public void sendMessage(String input, int playerID){
+        queries.sendMessage(input, playerID);
     }
 }
