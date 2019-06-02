@@ -23,7 +23,7 @@ public class UserListScreen extends VBox {
 
         HBox sortBox = new HBox();
         Label sortLabel = new Label("Sorteren op:");
-        ChoiceBox sort = new ChoiceBox();
+        ChoiceBox<String> sort = new ChoiceBox<String>();
         sort.getItems().addAll("Gewonnen potjes", "Alfabetisch");
         sortBox.getChildren().addAll(sortLabel, sort);
         sortBox.setPadding(new Insets(5,5,0,5));
@@ -43,7 +43,7 @@ public class UserListScreen extends VBox {
         String name;
         ArrayList<Object> relevantStats = new ArrayList<>();
         int i = 0;
-        for (ArrayList row : users) {
+        for (ArrayList<?> row : users) {
             name = row.get(0).toString();
 
             Label username = new Label(name);

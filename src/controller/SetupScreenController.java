@@ -2,8 +2,6 @@ package controller;
 
 import java.util.ArrayList;
 
-import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
 import main.GUI;
 import model.CommunicationModel;
 import view.InviteGetScreen;
@@ -29,6 +27,7 @@ public class SetupScreenController {
 		cModel = new CommunicationModel(dataController.getInviteQueries());
 		inviteScreen = new InviteScreen(this, gui);
 		setupScreen = new SetupScreen(this, gui);
+		inviteGetScreen = new InviteGetScreen(this, gui);
 		cModel.setClientUsername(accountController.getAccount());
 	}
 	
@@ -52,6 +51,7 @@ public class SetupScreenController {
 		randomPatterns = false;
 		cModel.setClientUsername(accountController.getAccount());
 		addJoinedPlayers();
+
 	}
 	
 	public SetupScreen getSetupScreen() {
@@ -170,18 +170,7 @@ public class SetupScreenController {
 
 	
 	//////////////////////// inviteGetScreen ///////////////////////////////	
-	
-	/**
-	 *  open inviteGetscreen
-	 */
-	private void openInviteGetScreen() {
-		inviteGetScreen = new InviteGetScreen(this, gui);
-		addPlayersToInviteGetList();
-//		scene.setRoot(inviteGetScreen);
-		toInviteGetScreen();
-	}
-
-	
+		
 	/**
 	 * add players to invites list  
 	 */
@@ -207,7 +196,9 @@ public class SetupScreenController {
 	}
 	
 	public void toInviteGetScreen() {
-		gui.changePane(inviteGetScreen);
+		cModel.setClientUsername(accountController.getAccount());
+		gui.changePane(this.inviteGetScreen);
+		inviteGetScreen.refreshList();
 	}
 
 	

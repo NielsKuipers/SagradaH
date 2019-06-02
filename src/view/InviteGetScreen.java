@@ -55,7 +55,7 @@ public class InviteGetScreen extends BorderPane {
 	}
 
 	// refresh invitelist
-	private void refreshList() {
+	public void refreshList() {
 		clearList();
 		controller.addPlayersToInviteGetList();
 	}
@@ -80,8 +80,6 @@ public class InviteGetScreen extends BorderPane {
 	// custom player box
 	private class PlayerBox extends HBox {
 		private PlayerBox(String name, int gameid) {
-			setBorder(new Border(
-					new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1))));
 			setPadding(new Insets(5));
 			setSpacing(20);
 			setAlignment(Pos.CENTER);
