@@ -27,15 +27,13 @@ public class AccountController {
 	private DiceController diceController;
 	private CardController cardController;
 
-    private DiceController diceController;
+  
 
 
 
-	public AccountController(GUI gui, DatabaseController DC, HomePane HP, StartPane SP, GameListScreen GLS,
-			GameController gameController, DiceController diceController, CardController cardController) {
 
 	
-	public AccountController(GUI gui, DatabaseController DC, HomePane HP, StartPane SP, GameListScreen GLS, GameController gameController, DiceController diceController) {
+	public AccountController(GUI gui, DatabaseController DC, HomePane HP, StartPane SP, GameListScreen GLS, GameController gameController, DiceController diceController, CardController cardController2) {
 
 		this.myGUI = gui;
 		this.gameController = gameController;
