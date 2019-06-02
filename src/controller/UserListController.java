@@ -1,24 +1,20 @@
 package controller;
 
-import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
 import main.GUI;
 import model.UserListModel;
 import view.UserListScreen;
 
-public class UserListController extends Scene {
+public class UserListController{
 
     private UserListModel userListModel;
     private UserListScreen userListScreen;
+    private GUI gui;
 
     public UserListController(GUI gui, DatabaseController databaseController){
-        super(new Pane());
         this.userListModel = new UserListModel(databaseController);
         this.userListScreen = new UserListScreen(gui);
-
+        this.gui=gui;
         getUsers();
-
-        setRoot(userListScreen);
     }
 
     public UserListScreen getUserListScreen(){ return userListScreen; }
@@ -30,4 +26,6 @@ public class UserListController extends Scene {
     public void handleSort(Object val){
         userListScreen.displayUsers(userListModel.getUsers(val), userListModel.getUserStats());
     }
+
+    public void toUserListScreen(){ gui.changePane(userListScreen); }
 }

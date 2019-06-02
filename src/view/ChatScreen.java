@@ -33,7 +33,6 @@ public class ChatScreen extends BorderPane {
         input.setPrefWidth(fullSize - 200);
         chatInput.setPrefSize(fullSize, 20);
 
-
         chatInput.getChildren().addAll(input, send);
 
         sp.setPrefHeight(fullSize - 685);
@@ -69,5 +68,9 @@ public class ChatScreen extends BorderPane {
             chat.getChildren().add(text);
             message.setLength(0);
         }
+    }
+
+    public void clearChat(){
+        chat.getChildren().clear();
     }
 }

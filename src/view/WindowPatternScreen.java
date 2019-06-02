@@ -16,33 +16,37 @@ public class WindowPatternScreen extends GridPane{
 
 	public WindowPatternScreen(String name, WindowPattern windowPatternModel, String color) {
 		this.windowPatternModel = windowPatternModel;
+		
 		Label name1 = new Label(name);
 		Label difficulty = new Label();
 		Label score = new Label();
-		this.add(name1, 0, 0, 5, 1);
+		
 		Font font = new Font("Consolas", 18);
 		name1.setFont(font);
-		setStyle("-fx-background-color: linear-gradient(to bottom, "+color+" 0%,#cccccc 100%);-fx-background-radius: 20 20 20 20;");
-		this.add(difficulty, 0, 5, 5, 1);
-		this.add(score, 0, 6, 5, 1);
 		difficulty.setFont(font);
 		score.setFont(font);
+		
+		setStyle("-fx-background-color: linear-gradient(to bottom, "+color+" 0%,#cccccc 100%);-fx-background-radius: 20 20 20 20;");
+		
+		this.add(name1, 0, 0, 5, 1);
+		this.add(difficulty, 0, 5, 5, 1);
+		this.add(score, 0, 6, 5, 1);
+		
 		setHalignment(score, HPos.CENTER);
 		setHalignment(difficulty, HPos.CENTER);
 		setHalignment(name1, HPos.CENTER);
+		
 		score.textProperty().bind(windowPatternModel.playerScoreProperty());
 		difficulty.textProperty().bind(windowPatternModel.difficultyProperty());
 		name1.textProperty().bind(windowPatternModel.playerNameProperty());
 		this.windowPatternModel.backgroundPropery().addListener(new MyBackgroundListener());
 		
-		setHgap(2); // horizontal gap in pixels
-		setVgap(2); // vertical gap in pixels
+		setHgap(2); 
+		setVgap(2);
 
 		setPadding(new Insets(20, 20, 20, 20));
 	}
 	
-	// Get a field of the grid/window pattern
-
 	
 	public WindowPattern getWindowPatternModel() {
 		return windowPatternModel;
@@ -50,6 +54,11 @@ public class WindowPatternScreen extends GridPane{
 	
 	
 	
+	/**
+	 * @param column = field on which column
+	 * @param row =  field on which row
+	 * make border of field glow
+	 */
 	public void setCheat(int column, int row) {
 		FieldScreen result;
 		for (Node node : this.getChildren()) {
@@ -60,6 +69,11 @@ public class WindowPatternScreen extends GridPane{
 		}
 	}
 	
+	/**
+	 * @param column = field on which column
+	 * @param row =  field on which row
+	 * make border of field normal
+	 */
 	public void setNormal(int column, int row) {
 		FieldScreen result;
 		for (Node node : this.getChildren()) {
@@ -70,6 +84,9 @@ public class WindowPatternScreen extends GridPane{
 		}
 	}
 	
+	/**
+	 *check if background has changed, when changed change window background
+	 */
 	private class MyBackgroundListener implements ChangeListener<Color> {
 		@Override
 		public void changed(ObservableValue<? extends Color> observable, Color oldValue, Color newValue) {

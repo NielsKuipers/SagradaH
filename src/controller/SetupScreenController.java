@@ -2,13 +2,12 @@ package controller;
 
 import java.util.ArrayList;
 
-import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
 import main.GUI;
 import model.CommunicationModel;
 import view.InviteGetScreen;
 import view.InviteScreen;
 import view.SetupScreen;
+
 
 public class SetupScreenController {
 	
@@ -28,23 +27,31 @@ public class SetupScreenController {
 		cModel = new CommunicationModel(dataController.getInviteQueries());
 		inviteScreen = new InviteScreen(this, gui);
 		setupScreen = new SetupScreen(this, gui);
+		inviteGetScreen = new InviteGetScreen(this, gui);
 		cModel.setClientUsername(accountController.getAccount());
 	}
 	
-	// uitvoeren wanneer nieuwe game gemaakt moet worden
+	
+	/**
+	 * setup when a new game needs to be made
+	 */
 	public void makeNewGame() {
 		setupScreen.makeNewGame();
 		randomPatterns = false;
 		cModel.setClientUsername(accountController.getAccount());
 	}
 	
-	// uitvoeren wanneer bestaande setup geladen moet worden
+	
+	/** setup when existing game needs to be loaded
+	 * @param gameid
+	 */
 	public void loadSetup(int gameid) {
 		cModel.setGameID(gameid);
 		setupScreen.loadSetup();
 		randomPatterns = false;
 		cModel.setClientUsername(accountController.getAccount());
 		addJoinedPlayers();
+
 	}
 	
 	public SetupScreen getSetupScreen() {
@@ -55,15 +62,19 @@ public class SetupScreenController {
 		return inviteScreen;
 	}
 
-	// spel wordt gestart als alle uitgenodigden geaccepteerd hebben. schakel van setup scherm naar window kies scherm 
+	
+	/**
+	 * game starts when all invited player have accepted. switches from setupscreen to windowchoosescreen
+	 */
 	public void startGame() {
 		if((long) cModel.getInvitedPlayerCount().get(0).get(0) < 2) {
-			setupScreen.onlyOnePlayerWarning();
+			setupScreen.warning(3);
 		}else if(cModel.checkDeclined()) {
-			setupScreen.declinedInviteWarning();
+			setupScreen.warning(1);
 		}else if(cModel.checkUnansweredInGame()) {
-			setupScreen.unAnsweredInviteWarning();
+			setupScreen.warning(2);
 		}else{
+			gui.setGameIDforScoreCalc(cModel.getGameID());
 			gameController.getGameModel().setGameID(cModel.getGameID());
 			gameController.getGameModel().createAllPlayerFrameFields(cModel.getGameID(), randomPatterns);
 			gameController.addWindowScreens();
@@ -72,26 +83,36 @@ public class SetupScreenController {
 		}
 	}
 
-	// bepaalt random/standaard patterns
+	
 	public void setRandomWindow(boolean random) {
 		randomPatterns = random;
 	}
 
-	// schakel van setup scherm naar invite scherm
+	
+	/**
+	 * switch from setupscreen to invitescreen
+	 */
 	public void openInviterMenu() {
 		gui.changePane(inviteScreen);
 		inviteScreen.clearList();
 		addPlayersToInviteList();
 	}
 	
-	// schakel van invite naar setup scherm
+	
+	
+	/**
+	 * switch from invitescreen to setup screen
+	 */
 	public void openSetupMenu() {
 		gui.changePane(setupScreen);
 		setupScreen.clearJoinedList();
 		addJoinedPlayers();
 	}
 	
-	// voeg spelers to aan de invite lijst
+	
+	/**
+	 * add players to invitelist
+	 */
 	public void addPlayersToInviteList() {
 		ArrayList<ArrayList <Object>> result = cModel.getInviteablePlayers();
 
@@ -100,7 +121,10 @@ public class SetupScreenController {
 		}
 	}
 		
-	// voeg toegevoegde spelers aan speler lijst
+	
+	/**
+	 * add joined players to setupscreen
+	 */
 	public void addJoinedPlayers() {
 		ArrayList<ArrayList <Object>> result = cModel.getJoinedPlayers();
 
@@ -115,7 +139,10 @@ public class SetupScreenController {
 		cModel.makeGame();
 	}
 	
-	// controlleer aantal spelers in database en voeg nieuwe toe als het mag.
+	
+	/** invite player if allowed, otherwise put up warning screen
+	 * @param username
+	 */
 	public void invitePlayer(String username) {
 		long invitedPlayerCount = (long) cModel.getInvitedPlayerCount().get(0).get(0);
 		String color;
@@ -126,13 +153,13 @@ public class SetupScreenController {
 					color = cModel.getPrivateObjectiveColor();
 					cModel.invitePlayer(username, color);	
 				}else {
-					inviteScreen.inviteNotAllowedWarning();
+					inviteScreen.warning(3);
 				}
 			}else {
-				inviteScreen.alreadyAcceptedWarning();
+				inviteScreen.warning(2);
 			}
 		}else{
-			inviteScreen.maxInvitedWarning();
+			inviteScreen.warning(1);
 		}
 	}
 	
@@ -140,16 +167,13 @@ public class SetupScreenController {
 		gui.changePane(setupScreen);
 	}
 	
-//////////////////////// inviteGetScreen ///////////////////////////////	
-	// schakel van setup scherm naar patternkeuze scherm
-	private void openInviteGetScreen() {
-		inviteGetScreen = new InviteGetScreen(this, gui);
-		addPlayersToInviteGetList();
-//		scene.setRoot(inviteGetScreen);
-		toInviteGetScreen();
-	}
 
-	// voegt uitnodigingen en inviternaam toe aan de invite getlist
+	
+	//////////////////////// inviteGetScreen ///////////////////////////////	
+		
+	/**
+	 * add players to invites list  
+	 */
 	public void addPlayersToInviteGetList() {
 		ArrayList<ArrayList <Object>> result = cModel.getInviteGetList();
 
@@ -161,18 +185,20 @@ public class SetupScreenController {
 		}
 	}
 	
-	// verandert spelerstatus naar geaccepteerd
+	// switch playstatus to accepted
 	public void acceptInvite(int gameid) {
 		cModel.acceptInvite(gameid);
 	}
 	
-	// verandert spelerstatus naar geweigerd
+	// switch playstatus to declined
 	public void declineInvite(int gameid) {
 		cModel.declineInvite(gameid);
 	}
 	
 	public void toInviteGetScreen() {
-		gui.changePane(inviteGetScreen);
+		cModel.setClientUsername(accountController.getAccount());
+		gui.changePane(this.inviteGetScreen);
+		inviteGetScreen.refreshList();
 	}
 
 	

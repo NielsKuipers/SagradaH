@@ -24,7 +24,11 @@ public class GUI extends Application {
 	private CardController cardController;
 	private SetupScreenController setupScreenController;
 	private EndScreenController endController;
+
 	WindowController windowController;
+
+	private CalculateScoreController calcController;
+
 
 	void startup(String[] args) {
 		launch(args);
@@ -36,9 +40,13 @@ public class GUI extends Application {
 		HomePane homepane = new HomePane(this);
 		GameListScreen gameListScreen = new GameListScreen(this);
 		DatabaseController databaseController = new DatabaseController();
+
 		 windowController = new WindowController(this, databaseController);
 		CalculateScoreController calcController = new CalculateScoreController(databaseController);
 
+		
+
+		calcController = new CalculateScoreController(databaseController);
 		diceController = new DiceController(this, windowController);
 		chatController = new ChatController(this, databaseController);
         userListController = new UserListController(this, databaseController);
@@ -49,7 +57,6 @@ public class GUI extends Application {
 		accountController = new AccountController(this, databaseController, homepane, startPane, gameListScreen, gameController, diceController,cardController);
 		roundController = new RoundScreenController(stage, databaseController, this, windowController, gameController);
 		setupScreenController = new SetupScreenController(databaseController, this, gameController, accountController);
-//	  EndScreenController EndController = new EndScreenController(stage, databaseController, gameController);
 
 		endController = new EndScreenController(databaseController, gameController, calcController, this);
 
@@ -65,6 +72,10 @@ public class GUI extends Application {
 		stage.show();
 	}
 	
+	/**
+	 * @param windowModel = the window you have chosen
+	 * handle go to game, when you are on the window choose screen
+	 */
 	public void createGame(WindowPattern windowModel) {
 		gameController.chooseWindow(windowModel);
 		gameController.addGameScreens();
@@ -72,7 +83,8 @@ public class GUI extends Application {
 		diceController.getDiceOnTableScreen().removeDicesScreen();
 		gameController.getGameModel().selectPlayerIds();
 		gameController.getGameModel().selectWholeGame();
-		
+		chatController.getMessages(gameController.getGameModel().getGameID());
+
 		scene.setRoot(gameController.getGameScreen());
 		gameController.startTimer();
 	}
@@ -117,7 +129,7 @@ public class GUI extends Application {
 	
 	public void sendString(String S) { accountController.setGameboolean(S); }
 
-	public void sendMessage(String input){chatController.sendMessage(input);}
+	public void sendMessage(String input){chatController.sendMessage(input, gameController.getGameModel().getClientPlayer().getPlayerId());}
 
 	public void handleSort(Object val){ userListController.handleSort(val); }
 	
@@ -130,8 +142,6 @@ public class GUI extends Application {
 	public void handleGoToCards() { scene.setRoot(cardController.showcards()); }
   
 	public void switchToolcards() { scene.setRoot(cardController.showcards()); }
-
-	public void handleUserList() { scene.setRoot(userListController.getUserListScreen()); }
 	
 	public void handleChooseScreen() { scene.setRoot(gameController.getChooseScreen()); }
 	
@@ -155,15 +165,19 @@ public class GUI extends Application {
 
 	public void handleToGetInvite() { setupScreenController.toInviteGetScreen(); }
 
-	public void handleToPlayerList() {
-            // TODO kan ik nog niet, mis userlist.
-	}
+	public void handleToPlayerList() { userListController.toUserListScreen(); }
 
 	public void handleToCreateGame() { setupScreenController.toSetupScreen(); setupScreenController.makeNewGame(); }
+	
+	public void setGameIDforScoreCalc(int gameID) {calcController.setGameID(gameID);  }
 
 	public void HandleExitGame() { System.exit(0); }
+
 
 	
 
 
+
+
 }
+

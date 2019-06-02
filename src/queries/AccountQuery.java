@@ -49,7 +49,22 @@ public class AccountQuery {
 		case "ID":return standardQuery.selectQuery("SELECT p.username, g.idgame, g.creationdate, p.playstatus_playstatus FROM game g INNER JOIN player p ON p.game_idgame = g.idgame", " WHERE p.username=? ORDER BY g.idgame ASC", username);
 		default: return null;
 		}
-		
+	}
+	
+	public boolean canNotBePlayed(int idGame) {
+		if(standardQuery.selectQuery("SELECT distinct playstatus_playstatus FROM player"," WHERE playstatus_playstatus=? AND game_idgame = ?", "afgebroken"+"\0"+""+idGame+"").isEmpty() && standardQuery.selectQuery("SELECT distinct playstatus_playstatus FROM player"," WHERE playstatus_playstatus=? AND game_idgame = ?", "uitgespeeld"+"\0"+""+idGame+"").isEmpty()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public boolean hasNotChosenWindowPattern(int idGame, String username) {
+		if(standardQuery.selectQuery("SELECT patterncard_idpatterncard FROM player"," WHERE username=? AND game_idGame=?",""+ ""+ idGame+""+"\0"+ username).isEmpty()) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	public ArrayList<ArrayList<Object>> patternsCreated(String username, int gameid){

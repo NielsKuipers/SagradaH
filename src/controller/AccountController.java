@@ -1,11 +1,8 @@
+
 package controller;
 
-import java.util.ArrayList;
-
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
@@ -15,6 +12,7 @@ import model.Account;
 import view.GameListScreen;
 import view.HomePane;
 import view.StartPane;
+import java.util.ArrayList;
 
 public class AccountController {
 	private Account myaccount;
@@ -25,43 +23,51 @@ public class AccountController {
 	private GameListScreen gameListScreen;
 	private String gameboolean = "";
 	private GameController gameController;
+
 	private DiceController diceController;
 	private CardController cardController;
 
+    private DiceController diceController;
+
+
+
 	public AccountController(GUI gui, DatabaseController DC, HomePane HP, StartPane SP, GameListScreen GLS,
 			GameController gameController, DiceController diceController, CardController cardController) {
+
+	
+	public AccountController(GUI gui, DatabaseController DC, HomePane HP, StartPane SP, GameListScreen GLS, GameController gameController, DiceController diceController) {
+
 		this.myGUI = gui;
 		this.gameController = gameController;
+
 		this.diceController = diceController;
 		this.cardController=cardController;
+
 		this.homePane = HP;
 		this.startpane = SP;
 		this.gameListScreen = GLS;
+        this.diceController = diceController;
 		myaccount = new Account(DC);
 	}
-
+	
 	public void login(TextField username, PasswordField password) {
-		if (myaccount.login(username.getText(), password.getText())) {
-			// System.out.println(username+""+password);
+		if(myaccount.login(username.getText(), password.getText())) {
 			myGUI.changePane(homePane);
 			setAccount(username.getText());
 			gameController.getGameModel().setAccountName(username.getText());
 			startpane.getLog().emptyFields();
-			// System.out.println("passed if in login");
 		} else {
-			// System.out.println("passed else in login");
 			startpane.getLog().badFields(username, password);
 		}
 	}
-
 	public void register(TextField username, PasswordField password) {
-		if (myaccount.register(username.getText(), password.getText())) {
+		if(myaccount.register(username.getText(), password.getText())) {
 			startpane.getReg().setGreenBorder(username, password);
 		} else {
 			startpane.getReg().setRedBorder(username, password);
 		}
 	}
-
+			
 	private ArrayList<HBox> getGames(ArrayList<ArrayList<Object>> games) {
 		StringBuilder stringBuilder = new StringBuilder();
 		ArrayList<HBox> hboxList = new ArrayList<>();
@@ -95,61 +101,83 @@ public class AccountController {
 		}
 		return hboxList;
 	}
-
-	public void handleJoinGame(int newGameID) {
-
-		gameController.getGameModel().setGameID(newGameID);
-		gameController.getGameModel().selectPlayerIds();
-
-		if (!myaccount.patternsCreated(getAccount(), newGameID) && myaccount.hostplayer(getAccount(), newGameID)) {
-			myGUI.handleLoadSetup(newGameID);
-		} else if (!gameController.getGameModel().checkIfPlayerMainPlayerPickedWindow()) {
-			gameController.addWindowScreens();
-			gameController.getGameModel().selectwindowOptions();
-			myGUI.handleChooseScreen();
-		}else {
-			gameController.getGameModel().makeGameEmpty();
-			diceController.getDiceOnTableScreen().removeDicesScreen();
+  
+	private void handleJoinGame(int newGameID) {
+		if (myaccount.hostplayer(getAccount(), newGameID) || (!myaccount.hostplayer(getAccount(), newGameID) && myaccount.patternsCreated(getAccount(), newGameID))) {
 			gameController.getGameModel().setGameID(newGameID);
 			gameController.getGameModel().selectPlayerIds();
+
 			gameController.getGameModel().selectWholeGame();
 			cardController.getDBcards();
 			gameController.startTimer();
 			myGUI.handleGoBackToGame();
+
+			myGUI.setGameIDforScoreCalc(newGameID);
+
+			if (!myaccount.patternsCreated(getAccount(), newGameID) && myaccount.hostplayer(getAccount(), newGameID)) {
+				myGUI.handleLoadSetup(newGameID);
+			} else if (!gameController.getGameModel().checkIfPlayerMainPlayerPickedWindow()) {
+				gameController.addWindowScreens();
+				gameController.getGameModel().selectwindowOptions();
+				myGUI.handleChooseScreen();
+			} else {
+				gameController.getGameModel().makeGameEmpty();
+				diceController.getDiceOnTableScreen().removeDicesScreen();
+				gameController.getGameModel().setGameID(newGameID);
+				gameController.getGameModel().selectPlayerIds();
+				gameController.getGameModel().selectWholeGame();
+				gameController.getCC().getMessages(gameController.getGameModel().getGameID());
+				gameController.startTimer();
+				myGUI.handleGoBackToGame();
+			}
+		}else {
+			alert();
+			
+
 		}
 	}
-
+	
+	/**
+	 * show a alert
+	 */
+	private void alert() {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Game is nog niet ready");
+		alert.setHeaderText("WAARSCHUWING");
+		alert.setContentText("Windowpattern keuzes zijn nog niet gemaakt,\n wij vragen u vriendelijk om nog heel eventjes te wachten");
+		alert.showAndWait();
+	}	
 	public void handleSort(Object sortV) {
-		if (gameboolean.equals("Alle spellen")) {
+		if(gameboolean.equals("Alle spellen")) {
 			gameListScreen.showGames(getGames(myaccount.getGames(sortV)));
 		}
-		if (gameboolean.equals("Mijn spellen")) {
+		if(gameboolean.equals("Mijn spellen")) {
 			gameListScreen.showGames(getGames(myaccount.getGames(sortV, getAccount())));
 		}
 	}
-
+	
 	public void showGames() {
 		gameListScreen.showGames(getGames(myaccount.getGames()));
 		myGUI.changePane(gameListScreen);
 	}
-
+	
 	public void uitloggen() {
 		myGUI.changePane(startpane);
 		setAccount(null);
 	}
-
+	
 	private void setAccount(String AC) {
 		this.accountname = AC;
 	}
 
-	public String getAccount() {
+	String getAccount() {
 		return accountname;
 	}
-
+	
 	public void toHomeMenu() {
 		myGUI.changePane(homePane);
 	}
-
+	 
 	public void setGameboolean(String S) {
 		gameboolean = S;
 	}

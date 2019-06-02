@@ -27,7 +27,9 @@ public class EndScreenController {
 		return endScreen;
 	}
 	
-	// berkent score en zet spelers op eindscherm
+	/** 
+	 * 
+	 */
 	public void enterEndScreen() {
 		endScreen.clearPlayers();
 		gameModel.setPlayerStatusFinished();
@@ -36,7 +38,10 @@ public class EndScreenController {
 		makeEndScoreList();
 	}
 	
-	// berekent eindscores en zet ze in de database
+	
+	/**
+	 *  Calculate scores and put in database
+	 */
 	private void calculateEndScores() {
 		ArrayList<ArrayList<Object>> result = gameModel.getPlayerIds();
 		int points;
@@ -47,7 +52,10 @@ public class EndScreenController {
 		}
 	}
 
-	// zet speler pion op scorebord
+	
+	/**
+	 * put player pointer on scoreboard
+	 */
 	private void putPlayersOnBoard() {
 		ArrayList<ArrayList<Object>> result = gameModel.getPlayerScores();
 
@@ -56,7 +64,10 @@ public class EndScreenController {
 		}
 	}
 	
-	// maakt speler + score lijst
+	
+	/**
+	 * make player + score list
+	 */
 	private void makeEndScoreList() {
 		ArrayList<ArrayList<Object>> result = gameModel.getPlayerScores();
 
