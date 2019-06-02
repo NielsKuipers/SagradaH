@@ -45,6 +45,7 @@ public class Game {
 		return gameRound;
 	}
 	public int getRound() {
+		
 		return (int) gameQuery.getRound(gameId).get(0).get(0);
 	}
 
@@ -61,6 +62,18 @@ public class Game {
 	}
 	public int getAmountOffplayers() {
 		return players.size();
+	}
+	
+	public void getRandomDiceColor() {
+		// get all the empty dices of a game
+		ArrayList<ArrayList<Object>> result2 = gameQuery.getAllEmptyDices(gameId);
+		
+		int amountOfDicesInGame = result2.size();
+
+		// choose a random dice
+		int indexDice = r.nextInt(amountOfDicesInGame);
+
+		
 	}
 	
 	

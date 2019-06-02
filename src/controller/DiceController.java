@@ -6,6 +6,7 @@ import model.DiceOnTable;
 import view.DiceOnTableScreen;
 import view.DiceScreen;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 
@@ -17,22 +18,27 @@ public class DiceController {
 
 	private DiceOnTable diceOnTableModel;
 	private CardController CC;
+	private GameController GC;
+	private GUI gui;
+	
 	public DiceController(GUI gui, WindowController WC) {
 
-
+		this.gui=gui;
+		
 
 		diceOnTableModel = new DiceOnTable();
 
 		
 		diceOnTableScreen = new DiceOnTableScreen(gui, diceOnTableModel, WC);
 
-		//makeDices();
+		
 	}
-
 	
-				//Dice diceModel = new Dice(eyes, colorsDice.get(color));
-				//diceModel.setEyes(eyes);
-				//diceOnTableModel.addDiceToTable(diceModel);
+	public void setGameController(GameController GC) {
+		this.GC=GC;
+	}
+	
+				
 
 
 
@@ -57,7 +63,7 @@ public class DiceController {
 				DiceScreen result = (DiceScreen) node;
 				result.setGlowBorder();
 				result.setOnMouseClicked(e -> selectDice(result, nummer));
-				System.out.println("toolcard werkt");
+				
 					
 			}
 
@@ -82,6 +88,7 @@ public class DiceController {
 		setDiceBlackBorder();
 		dice.setGlowBorder();
 		
+		
 		switch(nummer) {
 		case 1:
 			dice.setOnMouseClicked(e -> DicesPlus1(dice, false));
@@ -92,21 +99,25 @@ public class DiceController {
 			
 		case 10: dice.setOnMouseClicked(e -> DiceTurnAround(dice));
 			break;
-//		case 11: dice.setOnMouseClicked(e -> pickNewDice(dice));
+		case 11: dice.setOnMouseClicked(e -> pickNewDice(dice));
 		}
 
 	}
 	
-//	private void pickNewDice(DiceScreen dice) {
-//		dice.getDiceModel().setColor(colorsDice.get(r.nextInt(5)));
-//		dice.setOnMouseClicked(e -> DicesPlus1(dice, true));
-//	}
+	private void pickNewDice(DiceScreen dice) {
+		GC.getGameModel().getRandomDiceColor();
+		
+		dice.setOnMouseClicked(e -> DicesPlus1(dice, true));
+	}
 	
 	private void throwDiceOnes(DiceScreen dice) {
 		dice.setOnMouseClicked(null);
 		int i = r.nextInt((6 - 1) + 1) + 1;
 		dice.getDiceModel().setEyes(i);
 		CC.getCardModel().updateDiceOnTable(1, dice.getDiceModel().getDiceNumber());
+		
+		
+		
 	}
 	
 	
@@ -134,7 +145,10 @@ public class DiceController {
 		
 		
 		
+		
 		}
+		
+		
 	}
 
 	private void DicesPlus1(DiceScreen dice, boolean repeat) {
@@ -198,6 +212,8 @@ public class DiceController {
 			CC.getCardModel().updateDiceOnTable(dice.getDiceModel().getEyes() + 2, dice.getDiceModel().getDiceNumber());
 		}
 		dice.setOnMouseClicked(e -> dicesMinus2(dice));
+		
+		
 	}
 	
 

@@ -8,12 +8,18 @@ public class CardQueries {
 	public CardQueries(StandardQueries standardQueries) {
 		this.standardQuerie = standardQueries;
 	}
+	
+	public ArrayList<ArrayList<Object>> checkBoughtTCForRound(int idgame, int playerID, int round, int infirstturn) {
+		return standardQuerie.selectQuery("Select gametoolcard from gamefavortoken",
+				" where idgame=? and idplayer=? and round=? and inFirstTurn=? ", "" +idgame +"\0"+ playerID +"\0"+ round+ "\0"+infirstturn + "");
+
+	}
 
 	
 
 	public ArrayList<ArrayList<Object>> CheckTCBought(int tc, int idGame) {
-		return standardQuerie.selectQuery("Select gametoolcard from gamefavortoken",
-				" where gametoolcard=? and idGame=?", "" + tc + "\0" + idGame + "");
+		return standardQuerie.selectQuery("Select idfavortoken from gamefavortoken",
+				" where gametoolcard=? and idgame=? ", "" + tc + "\0" + idGame + "");
 		
 	}
 	public ArrayList<ArrayList<Object>> CheckIDFT(int playerID, int idgame) {

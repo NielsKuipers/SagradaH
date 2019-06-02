@@ -24,6 +24,7 @@ public class GUI extends Application {
 	private CardController cardController;
 	private SetupScreenController setupScreenController;
 	private EndScreenController endController;
+	WindowController windowController;
 
 	void startup(String[] args) {
 		launch(args);
@@ -35,7 +36,7 @@ public class GUI extends Application {
 		HomePane homepane = new HomePane(this);
 		GameListScreen gameListScreen = new GameListScreen(this);
 		DatabaseController databaseController = new DatabaseController();
-		WindowController windowController = new WindowController(this, databaseController);
+		 windowController = new WindowController(this, databaseController);
 		CalculateScoreController calcController = new CalculateScoreController(databaseController);
 
 		diceController = new DiceController(this, windowController);
@@ -92,6 +93,16 @@ public class GUI extends Application {
 		accountController.register(username, password);
 	}
 	
+	public void startTimer() {
+		gameController.startTimer();
+	}
+	
+	public void stopTimer() {
+		gameController.stopTimer();
+	}
+	
+	
+	
 	public void handleUitloggen() { accountController.uitloggen(); }
 	
 	public void handleToGameList() { accountController.showGames(); }
@@ -106,7 +117,7 @@ public class GUI extends Application {
 
 	public void handleSort(Object val){ userListController.handleSort(val); }
 	
-	public void handleFinishTurn() { gameController.handleFinishTurn(); }
+	public void handleFinishTurn() { gameController.handleFinishTurn(); windowController.changedDiceBoard();}
 	
 	public void handleGoToRoundTrack() { scene.setRoot(roundController.getRoundScreen()); }
 	
@@ -147,5 +158,8 @@ public class GUI extends Application {
 	public void handleToCreateGame() { setupScreenController.toSetupScreen(); setupScreenController.makeNewGame(); }
 
 	public void HandleExitGame() { System.exit(0); }
+
+	
+
 
 }

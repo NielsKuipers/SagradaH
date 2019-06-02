@@ -17,8 +17,19 @@ public class Card {
         this.gameModel = gameModel;
         this.cardQuerie = cardQuerie;
     }
+    
+    
+    public boolean checkboughtTCForRound() {
+    	if(cardQuerie.checkBoughtTCForRound(gameModel.getGameID(), gameModel.getPlayer(0).getPlayerId(),gameModel.getRound(), gameModel.getInFirstTurn()).isEmpty()) {
+    		
+    		return false;
+    	}else {
+    		return true;
+    	}
+    }
 
     public boolean checkboughtTC(int tc) {
+    	System.out.println(cardQuerie.CheckTCBought(tc, gameModel.getGameID()));
         if(cardQuerie.CheckTCBought(tc, gameModel.getGameID()).isEmpty()) {
             
             return false;
@@ -56,9 +67,10 @@ public class Card {
         if(gameModel.isSecondTurn()) {
         	infirstTurn = 1;
         }
+   
        
-        cardQuerie.BuyTC(tc,(int)cardQuerie.CheckIDFT(1, gameModel.getGameID()).get(0).get(0), gameModel.getGameID(), gameModel.getPlayer(0).getPlayerId(),gameModel.getRound(),infirstTurn);
-        
+        cardQuerie.BuyTC(tc,(int)cardQuerie.CheckIDFT(gameModel.getPlayer(0).getPlayerId(), gameModel.getGameID()).get(0).get(0), gameModel.getGameID(), gameModel.getPlayer(0).getPlayerId(),1,infirstTurn);
+      
         
     }
 
@@ -68,7 +80,7 @@ public class Card {
         	infirstTurn = 1;
         }
         
-        cardQuerie.BuyTCPrice2(tc,(int)cardQuerie.CheckIDFT(1, gameModel.getGameID()).get(0).get(0),(int)cardQuerie.CheckIDFT(1, gameModel.getGameID()).get(1).get(0), gameModel.getGameID(),1,gameModel.getRound(),infirstTurn);
+        cardQuerie.BuyTCPrice2(tc,(int)cardQuerie.CheckIDFT(gameModel.getPlayer(0).getPlayerId(), gameModel.getGameID()).get(0).get(0),(int)cardQuerie.CheckIDFT(gameModel.getPlayer(0).getPlayerId(), gameModel.getGameID()).get(1).get(0), gameModel.getGameID(),gameModel.getPlayer(0).getPlayerId(),gameModel.getRound(),infirstTurn);
         
     }
 

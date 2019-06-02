@@ -38,6 +38,7 @@ public class GameController extends Scene {
 		this.WC = WC;
 		this.DC = DC;
 		this.calculateScoreController = CSC;
+		DC.setGameController(this);
 
 		gameModel = new Game(databaseController.getGameQuery(), DC.getDiceOnTableModel(), WC, cardController);
 		gameModel.addPlayer(new Player(databaseController.getPlayerQuery()));
@@ -172,7 +173,7 @@ public class GameController extends Scene {
 				cardController.SetAmountFTOnTC();
 				
 				setAmountFT(cardController.getCardModel().getAmountFT());
-				//setAmountFT(2);
+				
 				
 				//chat
 			}
@@ -185,7 +186,10 @@ public class GameController extends Scene {
 	
 	public void startTimer() {
 		timer.start();
+		
 	}
+	
+	
 	
 	public void handleFinishTurn() {
 		if(gameModel.getPlayer(0).selectCurrentPlayer() && gameModel.isSecondTurn()) {

@@ -165,14 +165,7 @@ public class WindowController {
 		}
 	}
 
-	public void diceChangedBoard() {
-
-		dicesChangedPlace++;
-		if (dicesChangedPlace > 1) {
-			diceCanBeMoved = false;
-			dicesChangedPlace = 0;
-		}
-	}
+	
 
 	public WindowPattern createRandomWindow() {
 		// all rows
@@ -330,8 +323,8 @@ public class WindowController {
 							|| pane.getFieldModel().getColor() == Color.LIGHTGRAY || ignoreColor)
 					&& (DC.getDiceOnTableModel().isDiceOnTable(draggingDice.getDiceModel()) || diceCanBeMoved)
 					&& !pane.getFieldModel().hasDice()
-					&& meetsNextToDiceRequirements(pane.getFieldModel(), draggingDice.getDiceModel())
-					&& isDiceNextToAnotherDice(pane.getFieldModel(), draggingDice.getDiceModel())) {
+					&& meetsNextToDiceRequirements(pane.getFieldModel(), draggingDice.getDiceModel()) || ignoreNextToDice
+					&& isDiceNextToAnotherDice(pane.getFieldModel(), draggingDice.getDiceModel()) || ignoreNextToDice) {
 
 				if (DC.getDiceOnTableModel().isDiceOnTable(draggingDice.getDiceModel()) && !ignoreEyes
 						&& !ignoreColor && GC.getGameModel().canPlayerPlaceADiceInThisRoundFromTheTable()) {
@@ -363,9 +356,9 @@ public class WindowController {
 							.checkIfSameColorDiceIsOnRoundTrack(draggingDice.getDiceModel().getColor()))
 							|| !canOnlyMoveDiceWithSameColorAsDIceOnRoundTrack) {
 						windowPattern1Model.removeDiceFromWindowPattern(draggingDice.getDiceModel());
-						// diceChangedBoard();
+						
 						pane.getFieldModel().addDice(draggingDice.getDiceModel());
-						// changedDiceBoard();
+						 changedDiceBoard();
 
 						GC.getGameModel().getPlayer(0).removeDiceOnWindowPattern(
 								draggingDice.getDiceModel().getDiceNumber(),
