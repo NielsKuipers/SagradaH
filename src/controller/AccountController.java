@@ -46,14 +46,11 @@ this.diceController = diceController;
 	
 	public void login(TextField username, PasswordField password) {
 		if(myaccount.login(username.getText(), password.getText())) {
-			//System.out.println(username+""+password);
 			myGUI.changePane(homePane);
 			setAccount(username.getText());
 			gameController.getGameModel().setAccountName(username.getText());
 			startpane.getLog().emptyFields();
-			//System.out.println("passed if in login");
 		} else {
-			//System.out.println("passed else in login");
 			startpane.getLog().badFields(username, password);
 		}
 	}
@@ -98,6 +95,7 @@ this.diceController = diceController;
 		}
 		return hboxList;
 	}
+  
 	public void handleJoinGame(int newGameID) {
 		if (myaccount.hostplayer(getAccount(), newGameID) || (!myaccount.hostplayer(getAccount(), newGameID) && myaccount.patternsCreated(getAccount(), newGameID))) {
 			gameController.getGameModel().setGameID(newGameID);
@@ -132,7 +130,7 @@ this.diceController = diceController;
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("Game is nog niet ready");
 		alert.setHeaderText("WAARSCHUWING");
-		alert.setContentText("Windowpattern keuzes zijn nog niet gemaakt,\n wij vragen u vriendelijk om nog heel eventjes te wachten ;D");
+		alert.setContentText("Windowpattern keuzes zijn nog niet gemaakt,\n wij vragen u vriendelijk om nog heel eventjes te wachten");
 		alert.showAndWait();
 	}	
 	public void handleSort(Object sortV) {
@@ -157,7 +155,7 @@ this.diceController = diceController;
 	private void setAccount(String AC) {
 		this.accountname = AC;
 	}
-	
+
 	String getAccount() {
 		return accountname;
 	}

@@ -1,17 +1,6 @@
 package main;
 
-import controller.AccountController;
-import controller.CalculateScoreController;
-import controller.CardController;
-import controller.ChatController;
-import controller.DatabaseController;
-import controller.DiceController;
-import controller.EndScreenController;
-import controller.GameController;
-import controller.RoundScreenController;
-import controller.SetupScreenController;
-import controller.UserListController;
-import controller.WindowController;
+import controller.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
@@ -23,7 +12,6 @@ import model.WindowPattern;
 import view.GameListScreen;
 import view.HomePane;
 import view.StartPane;
-import view.UserListScreen;
 
 public class GUI extends Application {
 	private DiceController diceController;
@@ -46,7 +34,6 @@ public class GUI extends Application {
 
 		StartPane startPane = new StartPane(this);
 		HomePane homepane = new HomePane(this);
-		UserListScreen userlist = new UserListScreen(this);
 		GameListScreen gameListScreen = new GameListScreen(this);
 		DatabaseController databaseController = new DatabaseController();
 		WindowController windowController = new WindowController(this, databaseController);
@@ -54,12 +41,15 @@ public class GUI extends Application {
 		calcController = new CalculateScoreController(databaseController);
 		diceController = new DiceController(this, windowController);
 		chatController = new ChatController(this, databaseController);
-		userListController = new UserListController(this, databaseController);
+        userListController = new UserListController(this, databaseController);
 		gameController = new GameController(this, databaseController, windowController, diceController, chatController, calcController);
-		accountController = new AccountController(this, databaseController, homepane, startPane, gameListScreen, gameController, userlist, diceController);
+
+		accountController = new AccountController(this, databaseController, homepane, startPane, gameListScreen, gameController, diceController);
 		cardController = new CardController(windowController, diceController, gameController, databaseController, this);
+
 		roundController = new RoundScreenController(stage, databaseController, this, windowController, gameController);
 		setupScreenController = new SetupScreenController(databaseController, this, gameController, accountController);
+
 		endController = new EndScreenController(databaseController, gameController, calcController, this);
 
 
@@ -70,7 +60,7 @@ public class GUI extends Application {
 	//	stage.setScene(gameController);
 		//stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH); might be nice for test day.
 
-		//stage.setFullScreen(true);
+		stage.setFullScreen(true);
 		stage.show();
 	}
 	
@@ -129,8 +119,6 @@ public class GUI extends Application {
 	public void handleGoToCards() { scene.setRoot(cardController.showcards()); }
   
 	public void switchToolcards() { scene.setRoot(cardController.showcards()); }
-
-	public void handleUserList() { scene.setRoot(userListController.getUserListScreen()); }
 	
 	public void handleChooseScreen() { scene.setRoot(gameController.getChooseScreen()); }
 	
@@ -152,9 +140,9 @@ public class GUI extends Application {
         setupScreenController.addJoinedPlayers();
     }
 
-	public void handleToGetInvite() {setupScreenController.toInviteGetScreen();}
+	public void handleToGetInvite() { setupScreenController.toInviteGetScreen(); }
 
-	public void handleToPlayerList() {accountController.goToUserList();}
+	public void handleToPlayerList() { userListController.getUsers(); userListController.toUserListScreen(); }
 
 	public void handleToCreateGame() { setupScreenController.toSetupScreen(); setupScreenController.makeNewGame(); }
 	
