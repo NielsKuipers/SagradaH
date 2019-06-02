@@ -119,7 +119,7 @@ public class UserListScreen extends VBox {
     }
 
     private void handleSort(Object val){
-        userList.getChildren().remove(1, userList.getChildren().size());
+        userList.getChildren().remove(2, userList.getChildren().size());
         gui.handleSort(val);
     }
 }
