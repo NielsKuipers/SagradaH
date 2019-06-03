@@ -30,6 +30,7 @@ public class Card {
     		
     		return false;
     	}else {
+    		
     		return true;
     	}
     }
@@ -39,7 +40,7 @@ public class Card {
     }
 
     public boolean checkboughtTC(int tc) {
-    	System.out.println(cardQuerie.CheckTCBought(tc, gameModel.getGameID()).size());
+    	
         if(cardQuerie.CheckTCBought(tc, gameModel.getGameID()).size()>0) {
             
             return true;
