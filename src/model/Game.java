@@ -16,6 +16,7 @@ public class Game {
 
 	private String accountName = "";
 	private StringProperty gameRound;
+	private StringProperty gameTurn;
 
 	private Random r = new Random();
 
@@ -32,6 +33,7 @@ public class Game {
 		this.diceOnTableModel = diceOnTableModel;
 		this.windowController = windowController;
 		gameRound = new SimpleStringProperty(this, "round", "empty");
+		gameTurn = new SimpleStringProperty(this, "turn", "empty");
 	}
 
 	public void showID() {
@@ -44,6 +46,14 @@ public class Game {
 
 	public final StringProperty gameRoundProperty() {
 		return gameRound;
+	}
+	
+	public final StringProperty gameTurnProperty() {
+		return gameTurn;
+	}
+	
+	private void setTurn(String turn) {
+		gameTurn.set("Beurt: " + turn);
 	}
 
 	public int getRound() {
@@ -171,6 +181,7 @@ public class Game {
 			players.get(i).selectWindow(gameId);
 		}
 		selectRound();
+		selectTurnOfRound();
 		selectAllDicesOnTable();
 		checkWhoIsQurrentPlayer();
 
@@ -189,6 +200,15 @@ public class Game {
 			setRound(String.valueOf(round));
 		}
 
+	}
+	
+	private void selectTurnOfRound() {
+		if(!isSecondTurn()) {
+			setTurn("1");
+		}
+		else if(isSecondTurn()) {
+			setTurn("2");
+		}
 	}
 
 	/**
@@ -642,11 +662,20 @@ public class Game {
 	public void giveAllThePlayersTheirFavorTokens() {
 		// get the amount of players
 		ArrayList<ArrayList<Object>> result = gameQuery.getPlayerIdsAndNames(gameId);
-		for (int i = 0; i < result.size(); i++) {
-			// ask for difficulty and give that amount of favortokens to a player
-			givePlayerFavorTokens(players.get(i).getPlayerId(),
-					players.get(i).getWindowPatternPlayer().getDifficulty());
-		}
+//		for (int i = 0; i < result.size(); i++) {
+//			// ask for difficulty and give that amount of favortokens to a player
+//			givePlayerFavorTokens(players.get(i).getPlayerId(),
+//					players.get(i).getWindowPatternPlayer().getDifficulty());
+//		}
+//		
+		for (ArrayList<Object> player : result) {
+			givePlayerFavorTokens((int) player.get(0), getDifficultyWindowOfPlayer((int) player.get(0)));
+		}	
+	}
+	
+	private int getDifficultyWindowOfPlayer(int idPlayer) {
+		ArrayList<ArrayList<Object>> result = gameQuery.getWindowDifficulty(idPlayer);
+		return (int) result.get(0).get(0);
 	}
 
 	/**

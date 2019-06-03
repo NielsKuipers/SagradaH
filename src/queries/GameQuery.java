@@ -117,6 +117,11 @@ public class GameQuery {
 				" WHERE game_idgame=? AND idplayer=? AND patterncard_idpatterncard is not null",idGame + "\0" + idPlayer);
 	}
 	
+	public ArrayList<ArrayList<Object>> getWindowDifficulty(int idPlayer) {
+		return standardQueries.selectQuery("SELECT difficulty FROM player p inner join patterncard c on c.idpatterncard = p.patterncard_idpatterncard",
+				" WHERE idplayer=?",""+idPlayer+"");
+	}
+	
 	
 	///////////////////////////////////ENDSCREEN//////////////////////////////////////////////////////////////////
 	

@@ -27,12 +27,7 @@ public class AccountController {
 	private DiceController diceController;
 	private CardController cardController;
 
-  
 
-
-
-
-	
 	public AccountController(GUI gui, DatabaseController DC, HomePane HP, StartPane SP, GameListScreen GLS, GameController gameController, DiceController diceController, CardController cardController) {
 
 		this.myGUI = gui;
@@ -127,7 +122,6 @@ public class AccountController {
 
 			gameController.getGameModel().selectWholeGame();
 			cardController.getDBcards();
-			gameController.startTimer();
 			myGUI.handleGoBackToGame();
 
 			myGUI.setGameIDforScoreCalc(newGameID);
