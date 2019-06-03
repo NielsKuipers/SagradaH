@@ -22,7 +22,7 @@ public class Card {
     public boolean checkboughtTCForRound() {
     	
     	
-    	if(cardQuerie.checkBoughtTCForRound(gameModel.getGameID(), gameModel.getPlayer(0).getPlayerId(),gameModel.getRound(), 1).isEmpty()) {
+    	if(cardQuerie.checkBoughtTCForRound(gameModel.getGameID(), gameModel.getPlayer(0).getPlayerId(),gameModel.getRound(), gameModel.getInFirstTurn()).isEmpty()) {
     		
     		return false;
     	}else {

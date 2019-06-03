@@ -324,7 +324,7 @@ public class CardController extends Scene {
 
 				}
 			}
-			if (cardscreen == toolCard8) {
+			if (cardscreen == toolCard8 && !cardModel.getGameModel().isSecondTurn()) {
 
 				if (cardModel.checkboughtTC(1) && cardModel.getAmountFT() > 1) {
 					buyTCSetDB(1, true);
@@ -520,7 +520,7 @@ public class CardController extends Scene {
 
 				}
 			}
-			if (cardscreen == toolCard8) {
+			if (cardscreen == toolCard8 && !cardModel.getGameModel().isSecondTurn()) {
 
 				if (cardModel.checkboughtTC(2) && cardModel.getAmountFT() > 1) {
 					buyTCSetDB(2, true);
@@ -717,7 +717,7 @@ public class CardController extends Scene {
 
 				}
 			}
-			if (cardscreen == toolCard8) {
+			if (cardscreen == toolCard8 && !cardModel.getGameModel().isSecondTurn()) {
 
 				if (cardModel.checkboughtTC(3) && cardModel.getAmountFT() > 1) {
 					buyTCSetDB(3, true);
@@ -858,9 +858,9 @@ public class CardController extends Scene {
 		
 		gui.handleGoBackToGame();
 
-		if (!cardModel.getGameModel().isSecondTurn()) {
+		
 			windowController.setExtraTurnTrue();
-		}
+		
 		// you cant go to homescreen
 
 	}
