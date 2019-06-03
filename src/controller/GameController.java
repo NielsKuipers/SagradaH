@@ -202,6 +202,7 @@ public class GameController extends Scene {
 			WC.setDiceCanBeMovedFalse();
 		}
 		
+		gameModel.selectWholeGame();
 		getClientScore();
 		getOtherScore();
 	}

@@ -26,9 +26,15 @@ public class GameInfoScreen extends VBox{
 		
 		Label round = new Label();
 		round.setFont(new Font("Consolas", 18));
-		round.setPadding(new Insets(0, 0, 20, 0));
+		
 		
 		round.textProperty().bind(game.gameRoundProperty());
+		
+		Label turn = new Label();
+		turn.setFont(new Font("Consolas", 18));
+		turn.setPadding(new Insets(0, 0, 20, 0));
+		
+		turn.textProperty().bind(game.gameTurnProperty());
 		
 		RadioButton noCheat = new RadioButton("Geen cheat");
 		RadioButton cheatAllPossible = new RadioButton("Cheat");
@@ -59,7 +65,7 @@ public class GameInfoScreen extends VBox{
 		VBox roundTrackBox = new VBox(roundTrack);
 		roundTrackBox.setPadding(new Insets(20, 0, 20, 0));
 		
-		VBox otherVbox = new VBox(round, finishTurn, roundTrackBox);
+		VBox otherVbox = new VBox(round, turn,finishTurn, roundTrackBox);
 		otherVbox.setPadding(new Insets(50, 0, 20, 80));
 		
 		VBox homeScreenButton = new VBox(backToHomeScreen);
