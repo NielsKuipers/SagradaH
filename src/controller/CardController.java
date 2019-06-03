@@ -160,6 +160,9 @@ public class CardController extends Scene {
 
 	}
 
+	/**
+	 * sets the bought toolcard in the database
+	 */
 	private void buyTCSetDB(int GameTC, Boolean bought) {
 		if (!bought) {
 
@@ -172,6 +175,9 @@ public class CardController extends Scene {
 		}
 	}
 
+	/**
+	 *  gets the amount of FT on a toolcard and sets it directly
+	 */
 	public void SetAmountFTOnTC() {
 		 
 		
@@ -201,9 +207,12 @@ public class CardController extends Scene {
 
 	}
 
+	/**
+	 * handles when you buy GameTC1
+	 */
 	public void buyToolcard1(CardScreen cardscreen) {
 		if (cardModel.getAmountFT() != 0 && cardModel.getGameModel().getPlayer(0).selectCurrentPlayer()&& !cardModel.checkboughtTCForRound() && gameController.getGameModel().checkIfDieAreThrown()) {
-			
+			System.out.println(cardModel.checkboughtTC(1));
 			if (cardscreen == toolCard1) {
 				
 				if (cardModel.checkboughtTC(1) && cardModel.getAmountFT() > 1) {
@@ -402,10 +411,12 @@ public class CardController extends Scene {
 			}
 		}
 	}
-
+	/**
+	 * handles when you buy GameTC2
+	 */
 	public void buyToolcard2(CardScreen cardscreen) {
 		if (cardModel.getAmountFT() != 0 && cardModel.getGameModel().getPlayer(0).selectCurrentPlayer()&& !cardModel.checkboughtTCForRound()&& gameController.getGameModel().checkIfDieAreThrown()) {
-
+			System.out.println(cardModel.checkboughtTC(1));
 			if (cardscreen == toolCard1) {
 
 				if (cardModel.checkboughtTC(2) && cardModel.getAmountFT() > 1) {
@@ -536,10 +547,12 @@ public class CardController extends Scene {
 				if (cardModel.checkboughtTC(2) && cardModel.getAmountFT() > 1) {
 					buyTCSetDB(2, true);
 					buyTC9();
+					System.out.println("price is 2");
 					
 				}
 				else if (!cardModel.checkboughtTC(2)) {
 					buyTCSetDB(2, false);
+					System.out.println("price - 1");
 
 					buyTC9();
 					
@@ -595,10 +608,12 @@ public class CardController extends Scene {
 
 		}
 	}
-
+	/**
+	 * handles when you buy GameTC3
+	 */
 	public void buyToolcard3(CardScreen cardscreen ) {
 		if (cardModel.getAmountFT() != 0 && cardModel.getGameModel().getPlayer(0).selectCurrentPlayer() && !cardModel.checkboughtTCForRound()&& gameController.getGameModel().checkIfDieAreThrown()) {
-
+			System.out.println(cardModel.checkboughtTC(1));
 			if (cardscreen == toolCard1) {
 
 				if (cardModel.checkboughtTC(3) && cardModel.getAmountFT() > 1) {
@@ -733,6 +748,7 @@ public class CardController extends Scene {
 				if (cardModel.checkboughtTC(3) && cardModel.getAmountFT() > 1) {
 					buyTCSetDB(3, true);
 					buyTC9();
+					System.out.println("TC");
 					
 				}
 				else if (!cardModel.checkboughtTC(3)) {
@@ -793,6 +809,8 @@ public class CardController extends Scene {
 
 	}
 
+	//the methods below handles when you buy that toolcard
+	
 	private void buyTC1() {
 		
 		gui.stopTimer();
@@ -896,6 +914,9 @@ public class CardController extends Scene {
 
 	}
 
+	/**
+	 * checks which toolcards you have in the game and sets them on screen
+ 	 */
 	public void checkToolcards(int TC1, int TC2, int TC3) {
 		switch (TC1) {
 		case 1:
@@ -1054,7 +1075,9 @@ public class CardController extends Scene {
 		}
 
 	}
-
+	/**
+	 * checks which objective cards you have in the game and sets them on screen
+ 	 */
 	private void checkOBJCards(String privOBJC, int pubOBJ3, int pubOBJ2, int pubOBJ1) {
 
 		switch (pubOBJ1) {

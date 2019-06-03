@@ -117,7 +117,7 @@ public class DiceController {
 		
 		int i = r.nextInt((6 - 1) + 1) + 1;
 		dice.getDiceModel().setEyes(i);
-		CC.getCardModel().updateDiceOnTable(i, dice.getDiceModel().getDiceNumber());
+		CC.getCardModel().updateDiceOnTable(i, dice.getDiceModel().getDiceNumber(),dice.getDiceModel().getColor());
 		
 		
 		
@@ -127,22 +127,22 @@ public class DiceController {
 	private void DiceTurnAround(DiceScreen dice) {
 		switch(dice.getDiceModel().getEyes()) {
 		case 1:	dice.getDiceModel().setEyes(6);
-			CC.getCardModel().updateDiceOnTable(6, dice.getDiceModel().getDiceNumber());
+			CC.getCardModel().updateDiceOnTable(6, dice.getDiceModel().getDiceNumber(),dice.getDiceModel().getColor());
 			break;
 		case 2:	dice.getDiceModel().setEyes(5);
-		CC.getCardModel().updateDiceOnTable(5, dice.getDiceModel().getDiceNumber());
+		CC.getCardModel().updateDiceOnTable(5, dice.getDiceModel().getDiceNumber(),dice.getDiceModel().getColor());
 		break;
 		case 3:	dice.getDiceModel().setEyes(4);
-		CC.getCardModel().updateDiceOnTable(4, dice.getDiceModel().getDiceNumber());
+		CC.getCardModel().updateDiceOnTable(4, dice.getDiceModel().getDiceNumber(),dice.getDiceModel().getColor());
 		break;
 		case 4:	dice.getDiceModel().setEyes(3);
-		CC.getCardModel().updateDiceOnTable(3, dice.getDiceModel().getDiceNumber());
+		CC.getCardModel().updateDiceOnTable(3, dice.getDiceModel().getDiceNumber(),dice.getDiceModel().getColor());
 		break;
 		case 5:	dice.getDiceModel().setEyes(2);
-		CC.getCardModel().updateDiceOnTable(2, dice.getDiceModel().getDiceNumber());
+		CC.getCardModel().updateDiceOnTable(2, dice.getDiceModel().getDiceNumber(),dice.getDiceModel().getColor());
 		break;
 		case 6:	dice.getDiceModel().setEyes(1);
-		CC.getCardModel().updateDiceOnTable(1, dice.getDiceModel().getDiceNumber());
+		CC.getCardModel().updateDiceOnTable(1, dice.getDiceModel().getDiceNumber(),dice.getDiceModel().getColor());
 		
 		break;
 		
@@ -162,27 +162,27 @@ public class DiceController {
 		switch(dice.getDiceModel().getEyes()) {
 		case 1:
 			dice.getDiceModel().setEyes(1);
-			CC.getCardModel().updateDiceOnTable(1, dice.getDiceModel().getDiceNumber());
+			CC.getCardModel().updateDiceOnTable(1, dice.getDiceModel().getDiceNumber(),dice.getDiceModel().getColor());
 			break;
 		case 2:
 			dice.getDiceModel().setEyes(1);
-			CC.getCardModel().updateDiceOnTable(1, dice.getDiceModel().getDiceNumber());
+			CC.getCardModel().updateDiceOnTable(1, dice.getDiceModel().getDiceNumber(),dice.getDiceModel().getColor());
 			break;
 		case 3:
 			dice.getDiceModel().setEyes(1);
-			CC.getCardModel().updateDiceOnTable(1, dice.getDiceModel().getDiceNumber());
+			CC.getCardModel().updateDiceOnTable(1, dice.getDiceModel().getDiceNumber(),dice.getDiceModel().getColor());
 			break;
 		case 4:
 			dice.getDiceModel().setEyes(2);
-			CC.getCardModel().updateDiceOnTable(1, dice.getDiceModel().getDiceNumber());
+			CC.getCardModel().updateDiceOnTable(1, dice.getDiceModel().getDiceNumber(),dice.getDiceModel().getColor());
 			break;
 		case 5:
 			dice.getDiceModel().setEyes(3);
-			CC.getCardModel().updateDiceOnTable(1, dice.getDiceModel().getDiceNumber());
+			CC.getCardModel().updateDiceOnTable(1, dice.getDiceModel().getDiceNumber(),dice.getDiceModel().getColor());
 			break;
 		case 6:
 			dice.getDiceModel().setEyes(5);
-			CC.getCardModel().updateDiceOnTable(1, dice.getDiceModel().getDiceNumber());
+			CC.getCardModel().updateDiceOnTable(1, dice.getDiceModel().getDiceNumber(),dice.getDiceModel().getColor());
 			break;
 		
 		}
@@ -199,11 +199,11 @@ public class DiceController {
 		
 		if(dice.getDiceModel().getEyes() == 6 && repeat){
 			dice.getDiceModel().setEyes(1);
-			CC.getCardModel().updateDiceOnTable(1, dice.getDiceModel().getDiceNumber());
+			CC.getCardModel().updateDiceOnTable(1, dice.getDiceModel().getDiceNumber(),dice.getDiceModel().getColor());
 			}
 		if (!(dice.getDiceModel().getEyes() == 6) && !repeat){
 			dice.getDiceModel().setEyes(dice.getDiceModel().getEyes() + 1);
-			CC.getCardModel().updateDiceOnTable(dice.getDiceModel().getEyes() + 1, dice.getDiceModel().getDiceNumber());
+			CC.getCardModel().updateDiceOnTable(dice.getDiceModel().getEyes() + 1, dice.getDiceModel().getDiceNumber(),dice.getDiceModel().getColor());
 		}
 		if(!repeat) {
 		dice.setOnMouseClicked(e -> dicesMinus2(dice));
