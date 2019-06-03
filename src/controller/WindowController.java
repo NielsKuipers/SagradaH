@@ -1,6 +1,5 @@
 package controller;
 
-import javafx.beans.binding.SetBinding;
 import javafx.scene.Node;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DataFormat;
@@ -8,10 +7,9 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.paint.Color;
 import main.GUI;
-import model.Dice;
-import model.Field;
-import model.WindowPattern;
-import timer.AnimationTimerEXT;
+import model.DiceModel;
+import model.FieldModel;
+import model.WindowPatternModel;
 import view.DiceScreen;
 import view.FieldScreen;
 import view.WindowPatternScreen;
@@ -27,11 +25,11 @@ public class WindowController {
 	private WindowPatternScreen window4;
 	private WindowPatternScreen window5;
 
-	private WindowPattern windowPattern1Model;
-	private WindowPattern windowPattern2Model;
-	private WindowPattern windowPattern3Model;
-	private WindowPattern windowPattern4Model;
-	private WindowPattern windowModel;
+	private WindowPatternModel windowPattern1Model;
+	private WindowPatternModel windowPattern2Model;
+	private WindowPatternModel windowPattern3Model;
+	private WindowPatternModel windowPattern4Model;
+	private WindowPatternModel windowModel;
 
 	private GameController GC;
 	private DiceController DC;
@@ -68,11 +66,11 @@ public class WindowController {
 	public WindowController(GUI gui, DatabaseController databaseController) {
 		this.gui = gui;
 
-		windowPattern1Model = new WindowPattern(databaseController.getWindowPatternQuerie());
-		windowPattern2Model = new WindowPattern(databaseController.getWindowPatternQuerie());
-		windowPattern3Model = new WindowPattern(databaseController.getWindowPatternQuerie());
-		windowPattern4Model = new WindowPattern(databaseController.getWindowPatternQuerie());
-		windowModel = new WindowPattern(databaseController.getWindowPatternQuerie());
+		windowPattern1Model = new WindowPatternModel(databaseController.getWindowPatternQueries());
+		windowPattern2Model = new WindowPatternModel(databaseController.getWindowPatternQueries());
+		windowPattern3Model = new WindowPatternModel(databaseController.getWindowPatternQueries());
+		windowPattern4Model = new WindowPatternModel(databaseController.getWindowPatternQueries());
+		windowModel = new WindowPatternModel(databaseController.getWindowPatternQueries());
 
 		window1 = new WindowPatternScreen("kaart 1", windowPattern1Model, "WHITE");
 		window2 = new WindowPatternScreen("kaart 2", windowPattern2Model, "WHITE");
@@ -191,7 +189,7 @@ public class WindowController {
 	 * 
 	 * @return a random window
 	 */
-	public WindowPattern createRandomWindow() {
+	public WindowPatternModel createRandomWindow() {
 		// all rows
 		for (int row = 1; row < 5; row++) {
 			// first row
@@ -417,7 +415,7 @@ public class WindowController {
 	 * @return true when dice can be placed next to another dice checks if a dice
 	 *         can be placed next to another dice
 	 */
-	private boolean meetsNextToDiceRequirements(Field field, Dice dice) {
+	private boolean meetsNextToDiceRequirements(FieldModel field, DiceModel dice) {
 		int column = getColumnAndRowOfField(field)[0];
 		int row = getColumnAndRowOfField(field)[1];
 		boolean accept = true;
@@ -513,7 +511,7 @@ public class WindowController {
 	 * @return true when dice is next to another dice checks if dice is next to
 	 *         another dice
 	 */
-	private boolean isDiceNextToAnotherDice(Field field, Dice dice) {
+	private boolean isDiceNextToAnotherDice(FieldModel field, DiceModel dice) {
 		// Checks if dice is diagonally, vertically or horizontally next to another dice
 		boolean isNextToAnotherDice = false;
 		int column = getColumnAndRowOfField(field)[0];
@@ -626,7 +624,7 @@ public class WindowController {
 	 * @param windowModel = window that needs to be gray make the fields of a window
 	 *                    gray
 	 */
-	public void makeWindowsGray(WindowPattern windowModel) {
+	public void makeWindowsGray(WindowPatternModel windowModel) {
 		for (int row = 1; row < 5; row++) {
 			for (int column = 0; column < 5; column++) {
 				windowModel.getFieldOfWindow(column, row).setColorAndEyes(Color.LIGHTGRAY, 0);
@@ -640,7 +638,7 @@ public class WindowController {
 	 * @param fields = all the fields on a window checks where the dice can be
 	 *               placed
 	 */
-	private void whichPlacementIsPossible(Dice dice, ArrayList<Field> fields) {
+	private void whichPlacementIsPossible(DiceModel dice, ArrayList<FieldModel> fields) {
 		for (int row = 1; row < 5; row++) {
 			for (int column = 0; column < 5; column++) {
 				if ((dice.getEyes() == window1.getWindowPatternModel().getFieldOfWindow(column, row).getEyes()
@@ -676,16 +674,16 @@ public class WindowController {
 	 * @param dice = dice you are holding checks the best possible place/places that
 	 *             a dice can be placed
 	 */
-	private void bestPossiblePlace(Dice dice) {
-		ArrayList<Field> allFields = new ArrayList<>();
+	private void bestPossiblePlace(DiceModel dice) {
+		ArrayList<FieldModel> allFields = new ArrayList<>();
 		int highestPoints = 0;
-		ArrayList<Field> allBestFields = new ArrayList<>();
+		ArrayList<FieldModel> allBestFields = new ArrayList<>();
 
 		whichPlacementIsPossible(dice, allFields);
 
 		try {
 			if (allFields.size() != 0) {
-				for (Field field : allFields) {
+				for (FieldModel field : allFields) {
 					int column = getColumnAndRowOfField(field)[0];
 					int row = getColumnAndRowOfField(field)[1];
 					int points = 0;
@@ -760,7 +758,7 @@ public class WindowController {
 					}
 				}
 
-				for (Field bestField : allBestFields) {
+				for (FieldModel bestField : allBestFields) {
 					window1.setCheat(bestField.getColumn(), bestField.getRow());
 				}
 			}
@@ -797,7 +795,7 @@ public class WindowController {
 	 * @param windowPatternModel = window model
 	 * @return the difficulty of a window calculates the difficulty of a window
 	 */
-	public int calculateDifficulty(WindowPattern windowPatternModel) {
+	public int calculateDifficulty(WindowPatternModel windowPatternModel) {
 		int difficulty = 0;
 		for (int row = 1; row < 5; row++) {
 			for (int column = 0; column < 5; column++) {
@@ -845,10 +843,10 @@ public class WindowController {
 	 * @param windowModel  = window model make all the fields for a window and give
 	 *                     the screen the right model and calculate the difficulty
 	 */
-	private void createGrayWindowPattern(int id, WindowPatternScreen windowScreen, WindowPattern windowModel) {
+	private void createGrayWindowPattern(int id, WindowPatternScreen windowScreen, WindowPatternModel windowModel) {
 		for (int row = 1; row < 5; row++) {
 			for (int column = 0; column < 5; column++) {
-				Field fieldModel = new Field(column, row, Color.LIGHTGRAY);
+				FieldModel fieldModel = new FieldModel(column, row, Color.LIGHTGRAY);
 				FieldScreen fieldScreen = new FieldScreen(fieldModel, this);
 				fieldModel.setEyes(0);
 				addDropHandling(fieldScreen);
@@ -865,7 +863,7 @@ public class WindowController {
 	 * @return the column and row of a field on window model 1 check what the row
 	 *         and column of a field are
 	 */
-	private int[] getColumnAndRowOfField(Field field) {
+	private int[] getColumnAndRowOfField(FieldModel field) {
 		for (int row = 1; row < 5; row++) {
 			for (int column = 0; column < 5; column++) {
 				if (field.equals(windowPattern1Model.getFieldOfWindow(column, row))) {
