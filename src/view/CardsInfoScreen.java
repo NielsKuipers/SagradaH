@@ -30,9 +30,9 @@ public class CardsInfoScreen extends BorderPane{
 		setRight(l);
 		setMinSize(100, 200);
 		setPrefSize(100, 200);
-		 tokens = new Label("amount of favor tokens:");
+		 tokens = new Label("aantal betaalstenen:");
 	        tokens.setFont(new Font("Consolas", 16));
-		btnCard = new Button("Show cards");
+		btnCard = new Button("Show kaarten");
 
 		btnCard.setOnAction(e -> gui.handleGoToCards());
 
