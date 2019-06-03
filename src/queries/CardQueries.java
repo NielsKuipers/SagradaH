@@ -19,6 +19,8 @@ public class CardQueries {
 	
 
 	public ArrayList<ArrayList<Object>> CheckTCBought(int tc, int idGame) {
+		System.out.println(standardQuerie.selectQuery("Select idfavortoken from gamefavortoken",
+				" where gametoolcard=? and idgame=? ", "" + tc + "\0" + idGame + ""));
 		return standardQuerie.selectQuery("Select idfavortoken from gamefavortoken",
 				" where gametoolcard=? and idgame=? ", "" + tc + "\0" + idGame + "");
 		

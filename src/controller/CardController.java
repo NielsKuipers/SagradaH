@@ -163,17 +163,7 @@ public class CardController extends Scene {
 	/**
 	 * sets the bought toolcard in the database
 	 */
-	private void buyTCSetDB(int GameTC, Boolean bought) {
-		if (!bought) {
-
-			cardModel.BuyTC(GameTC);
-
-		}
-		if (bought) {
-			cardModel.BuyTCPric2(GameTC);
-
-		}
-	}
+	
 
 	/**
 	 *  gets the amount of FT on a toolcard and sets it directly
@@ -212,16 +202,16 @@ public class CardController extends Scene {
 	 */
 	public void buyToolcard1(CardScreen cardscreen) {
 		if (cardModel.getAmountFT() != 0 && cardModel.getGameModel().getPlayer(0).selectCurrentPlayer()&& !cardModel.checkboughtTCForRound() && gameController.getGameModel().checkIfDieAreThrown()) {
-			System.out.println(cardModel.checkboughtTC(1));
+			
 			if (cardscreen == toolCard1) {
 				
 				if (cardModel.checkboughtTC(1) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(2, true);
+					cardModel.BuyTCPric2(2);
 					buyTC1();
 					
 				}
 				else if (!cardModel.checkboughtTC(1)) {
-					buyTCSetDB(2, false);
+					cardModel.BuyTC(2);
 					buyTC1();
 					
 
@@ -231,7 +221,7 @@ public class CardController extends Scene {
 			if (cardscreen == toolCard2) {
 
 				if (cardModel.checkboughtTC(1) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(1, true);
+					cardModel.BuyTCPric2(1);
 
 					buyTC2();
 					
@@ -239,7 +229,7 @@ public class CardController extends Scene {
 				}
 
 				else if (!cardModel.checkboughtTC(1)) {
-					buyTCSetDB(1, false);
+					cardModel.BuyTC(1);
 
 					buyTC2();
 					
@@ -249,12 +239,12 @@ public class CardController extends Scene {
 			if (cardscreen == toolCard3) {
 
 				if (cardModel.checkboughtTC(1) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(1, true);
+					cardModel.BuyTCPric2(1);
 					buyTC3();
 					
 				}
 				else if (!cardModel.checkboughtTC(1)) {
-					buyTCSetDB(1, false);
+					cardModel.BuyTC(1);
 
 					buyTC3();
 					
@@ -263,13 +253,13 @@ public class CardController extends Scene {
 			if (cardscreen == toolCard4) {
 
 				if (cardModel.checkboughtTC(1) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(1, true);
+					cardModel.BuyTCPric2(1);
 					buyTC4();
 					
 
 				}
 				else if (!cardModel.checkboughtTC(1)) {
-					buyTCSetDB(1, false);
+					cardModel.BuyTC(1);
 
 					buyTC4();
 					
@@ -279,13 +269,13 @@ public class CardController extends Scene {
 			if (cardscreen == toolCard5) {
 
 				if (cardModel.checkboughtTC(1) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(1, true);
+					cardModel.BuyTCPric2(1);
 					buyTC5();
 					
 
 				}
 				else if (!cardModel.checkboughtTC(1)) {
-					buyTCSetDB(1, false);
+					cardModel.BuyTC(1);
 
 					buyTC5();
 					
@@ -299,13 +289,13 @@ public class CardController extends Scene {
 				
 				if (cardModel.checkboughtTC(1) && cardModel.getAmountFT() > 1) {
 					
-					buyTCSetDB(1, true);
+					cardModel.BuyTCPric2(1);
 					buyTC6();
 					
 					
 				}
 				if (!cardModel.checkboughtTC(1)) {
-					buyTCSetDB(1, false);
+					cardModel.BuyTC(1);
 					
 
 					buyTC6();
@@ -316,13 +306,13 @@ public class CardController extends Scene {
 			if (cardscreen == toolCard7 && gameController.getGameModel().isSecondTurn() ) {
 
 				if (cardModel.checkboughtTC(1) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(1, true);
+					cardModel.BuyTCPric2(1);
 					buyTC7();
 					
 
 				}
 				else if (!cardModel.checkboughtTC(1)) {
-					buyTCSetDB(1, false);
+					cardModel.BuyTC(1);
 
 					buyTC7();
 					
@@ -332,13 +322,13 @@ public class CardController extends Scene {
 			if (cardscreen == toolCard8 && !cardModel.getGameModel().isSecondTurn()) {
 
 				if (cardModel.checkboughtTC(1) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(1, true);
+					cardModel.BuyTCPric2(1);
 					buyTC8();
 					
 
 				}
 				else if (!cardModel.checkboughtTC(1)) {
-					buyTCSetDB(1, false);
+					cardModel.BuyTC(1);
 
 					buyTC8();
 					
@@ -349,14 +339,14 @@ public class CardController extends Scene {
 				
 					
 				if (cardModel.checkboughtTC(1) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(1, true);
+					cardModel.BuyTCPric2(1);
 					buyTC9();
 					
 					
 										
 				}
 				else if (!cardModel.checkboughtTC(1)) {
-					buyTCSetDB(1, false);
+					cardModel.BuyTC(1);
 						
 					buyTC9();
 					
@@ -365,12 +355,12 @@ public class CardController extends Scene {
 			if (cardscreen == toolCard10) {
 
 				if (cardModel.checkboughtTC(1) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(1, true);
+					cardModel.BuyTCPric2(1);
 					buyTC10();
 					
 				}
 				else if (!cardModel.checkboughtTC(1)) {
-					buyTCSetDB(1, false);
+					cardModel.BuyTC(1);
 
 					buyTC10();
 					
@@ -380,12 +370,12 @@ public class CardController extends Scene {
 			if (cardscreen == toolCard11) {
 
 				if (cardModel.checkboughtTC(1) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(1, true);
+					cardModel.BuyTCPric2(1);
 					buyTC11();
 					
 				}
 				else if (!cardModel.checkboughtTC(1)) {
-					buyTCSetDB(1, false);
+					cardModel.BuyTC(1);
 
 					buyTC11();
 					
@@ -395,13 +385,13 @@ public class CardController extends Scene {
 			if (cardscreen == toolCard12) {
 
 				if (cardModel.checkboughtTC(1) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(1, true);
+					cardModel.BuyTCPric2(1);
 					buyTC12();
 					
 
 				}
 				else if (!cardModel.checkboughtTC(1)) {
-					buyTCSetDB(1, false);
+					cardModel.BuyTC(1);
 
 					buyTC12();
 					
@@ -416,16 +406,16 @@ public class CardController extends Scene {
 	 */
 	public void buyToolcard2(CardScreen cardscreen) {
 		if (cardModel.getAmountFT() != 0 && cardModel.getGameModel().getPlayer(0).selectCurrentPlayer()&& !cardModel.checkboughtTCForRound()&& gameController.getGameModel().checkIfDieAreThrown()) {
-			System.out.println(cardModel.checkboughtTC(1));
+			
 			if (cardscreen == toolCard1) {
 
 				if (cardModel.checkboughtTC(2) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(2, true);
+					cardModel.BuyTCPric2(2);
 					buyTC1();
 					
 				}
 				else if (!cardModel.checkboughtTC(2)) {
-					buyTCSetDB(2, false);
+					cardModel.BuyTC(2);
 					buyTC1();
 					
 
@@ -435,7 +425,7 @@ public class CardController extends Scene {
 			if (cardscreen == toolCard2) {
 
 				if (cardModel.checkboughtTC(2) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(2, true);
+					cardModel.BuyTCPric2(2);
 
 					buyTC2();
 					
@@ -443,7 +433,7 @@ public class CardController extends Scene {
 
 			}
 			else if (!cardModel.checkboughtTC(2)) {
-				buyTCSetDB(2, false);
+				cardModel.BuyTC(2);
 
 				buyTC2();
 				
@@ -452,12 +442,12 @@ public class CardController extends Scene {
 			if (cardscreen == toolCard3) {
 
 				if (cardModel.checkboughtTC(2) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(2, true);
+					cardModel.BuyTCPric2(2);
 					buyTC3();
 					
 				}
 				else if (!cardModel.checkboughtTC(2)) {
-					buyTCSetDB(2, false);
+					cardModel.BuyTC(2);
 
 					buyTC3();
 					
@@ -466,13 +456,13 @@ public class CardController extends Scene {
 			if (cardscreen == toolCard4) {
 
 				if (cardModel.checkboughtTC(2) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(2, true);
+					cardModel.BuyTCPric2(2);
 					buyTC4();
 					
 
 				}
 				else if (!cardModel.checkboughtTC(2)) {
-					buyTCSetDB(2, false);
+					cardModel.BuyTC(2);
 
 					buyTC4();
 					
@@ -482,13 +472,13 @@ public class CardController extends Scene {
 			if (cardscreen == toolCard5) {
 
 				if (cardModel.checkboughtTC(2) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(2, true);
+					cardModel.BuyTCPric2(2);
 					buyTC5();
 					
 
 				}
 				else if (!cardModel.checkboughtTC(2)) {
-					buyTCSetDB(2, false);
+					cardModel.BuyTC(2);
 
 					buyTC5();
 					
@@ -496,16 +486,18 @@ public class CardController extends Scene {
 				}
 
 			}
+			System.out.println(cardModel.checkboughtTC(2));
 			if (cardscreen == toolCard6) {
 
 				if (cardModel.checkboughtTC(2) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(2, true);
+					cardModel.BuyTCPric2(2);
 					buyTC6();
 					
+					
 				}
-				else	if (!cardModel.checkboughtTC(2)) {
-					buyTCSetDB(2, false);
-
+				else if (!cardModel.checkboughtTC(2)) {
+					cardModel.BuyTC(2);
+					
 					buyTC6();
 					
 				}
@@ -514,13 +506,13 @@ public class CardController extends Scene {
 			if (cardscreen == toolCard7 && gameController.getGameModel().isSecondTurn()) {
 
 				if (cardModel.checkboughtTC(2) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(2, true);
+					cardModel.BuyTCPric2(2);
 					buyTC7();
 					
 
 				}
 				else if (!cardModel.checkboughtTC(2)) {
-					buyTCSetDB(2, false);
+					cardModel.BuyTC(2);
 
 					buyTC7();
 					
@@ -530,13 +522,13 @@ public class CardController extends Scene {
 			if (cardscreen == toolCard8 && !cardModel.getGameModel().isSecondTurn()) {
 
 				if (cardModel.checkboughtTC(2) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(2, true);
+					cardModel.BuyTCPric2(2);
 					buyTC8();
 					
 
 				}
 				else if (!cardModel.checkboughtTC(2)) {
-					buyTCSetDB(2, false);
+					cardModel.BuyTC(2);
 
 					buyTC8();
 					
@@ -545,14 +537,14 @@ public class CardController extends Scene {
 			if (cardscreen == toolCard9) {
 
 				if (cardModel.checkboughtTC(2) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(2, true);
+					cardModel.BuyTCPric2(2);
 					buyTC9();
-					System.out.println("price is 2");
+					
 					
 				}
 				else if (!cardModel.checkboughtTC(2)) {
-					buyTCSetDB(2, false);
-					System.out.println("price - 1");
+					cardModel.BuyTC(2);
+					
 
 					buyTC9();
 					
@@ -561,12 +553,12 @@ public class CardController extends Scene {
 			if (cardscreen == toolCard10) {
 
 				if (cardModel.checkboughtTC(2) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(2, true);
+					cardModel.BuyTCPric2(2);
 					buyTC10();
 					
 				}
 				else if (!cardModel.checkboughtTC(2)) {
-					buyTCSetDB(2, false);
+					cardModel.BuyTC(2);
 
 					buyTC10();
 					
@@ -576,12 +568,12 @@ public class CardController extends Scene {
 			if (cardscreen == toolCard11) {
 
 				if (cardModel.checkboughtTC(2) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(2, true);
+					cardModel.BuyTCPric2(2);
 					buyTC11();
 					
 				}
 				else if (!cardModel.checkboughtTC(2)) {
-					buyTCSetDB(2, false);
+					cardModel.BuyTC(2);
 
 					buyTC11();
 					
@@ -591,13 +583,13 @@ public class CardController extends Scene {
 			if (cardscreen == toolCard12) {
 
 				if (cardModel.checkboughtTC(2) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(2, true);
+					cardModel.BuyTCPric2(2);
 					buyTC12();
 					
 
 				}
 				else if (!cardModel.checkboughtTC(2)) {
-					buyTCSetDB(2, false);
+					cardModel.BuyTC(2);
 
 					buyTC12();
 					
@@ -617,12 +609,12 @@ public class CardController extends Scene {
 			if (cardscreen == toolCard1) {
 
 				if (cardModel.checkboughtTC(3) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(3, true);
+					cardModel.BuyTCPric2(3);
 					buyTC1();
 					
 				}
 				else if (!cardModel.checkboughtTC(3)) {
-					buyTCSetDB(3, false);
+					cardModel.BuyTC(3);
 					buyTC1();
 					
 
@@ -632,7 +624,7 @@ public class CardController extends Scene {
 			if (cardscreen == toolCard2) {
 
 				if (cardModel.checkboughtTC(3) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(3, true);
+					cardModel.BuyTCPric2(3);
 
 					buyTC2();
 					
@@ -642,7 +634,7 @@ public class CardController extends Scene {
 			}
 
 			else if (!cardModel.checkboughtTC(3)) {
-				buyTCSetDB(3, false);
+				cardModel.BuyTC(3);
 
 				buyTC2();
 				
@@ -651,12 +643,12 @@ public class CardController extends Scene {
 			if (cardscreen == toolCard3) {
 
 				if (cardModel.checkboughtTC(3) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(3, true);
+					cardModel.BuyTCPric2(3);
 					buyTC3();
 					
 				}
 				else if (!cardModel.checkboughtTC(3)) {
-					buyTCSetDB(3, false);
+					cardModel.BuyTC(3);
 
 					buyTC3();
 					
@@ -665,13 +657,13 @@ public class CardController extends Scene {
 			if (cardscreen == toolCard4) {
 
 				if (cardModel.checkboughtTC(3) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(3, true);
+					cardModel.BuyTCPric2(3);
 					buyTC4();
 					
 
 				}
 				else if (!cardModel.checkboughtTC(3)) {
-					buyTCSetDB(3, false);
+					cardModel.BuyTC(3);
 
 					buyTC4();
 					
@@ -681,14 +673,14 @@ public class CardController extends Scene {
 			if (cardscreen == toolCard5) {
 
 				if (cardModel.checkboughtTC(3) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(3, true);
+					cardModel.BuyTCPric2(3);
 					buyTC5();
 					
 					
 
 				}
 				else if (!cardModel.checkboughtTC(3)) {
-					buyTCSetDB(3, false);
+					cardModel.BuyTC(3);
 
 					buyTC5();
 					
@@ -699,13 +691,13 @@ public class CardController extends Scene {
 			if (cardscreen == toolCard6) {
 					
 				if (cardModel.checkboughtTC(3) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(3, true);
+					cardModel.BuyTCPric2(3);
 					buyTC6();
 					
 					
 				}
 				else if (!cardModel.checkboughtTC(3)) {
-					buyTCSetDB(3, false);
+					cardModel.BuyTC(3);
 					
 					buyTC6();
 					
@@ -715,13 +707,13 @@ public class CardController extends Scene {
 			if (cardscreen == toolCard7 && gameController.getGameModel().isSecondTurn() ) {
 
 				if (cardModel.checkboughtTC(3) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(3, true);
+					cardModel.BuyTCPric2(3);
 					buyTC7();
 					
 
 				}
 				else if (!cardModel.checkboughtTC(3)) {
-					buyTCSetDB(3, false);
+					cardModel.BuyTC(3);
 
 					buyTC7();
 					
@@ -731,13 +723,13 @@ public class CardController extends Scene {
 			if (cardscreen == toolCard8 && !cardModel.getGameModel().isSecondTurn()) {
 
 				if (cardModel.checkboughtTC(3) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(3, true);
+					cardModel.BuyTCPric2(3);
 					buyTC8();
 					
 
 				}
 				else	if (!cardModel.checkboughtTC(3)) {
-					buyTCSetDB(3, false);
+					cardModel.BuyTC(3);
 					
 					buyTC8();
 
@@ -746,13 +738,13 @@ public class CardController extends Scene {
 			if (cardscreen == toolCard9) {
 
 				if (cardModel.checkboughtTC(3) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(3, true);
+					cardModel.BuyTCPric2(3);
 					buyTC9();
 					System.out.println("TC");
 					
 				}
 				else if (!cardModel.checkboughtTC(3)) {
-					buyTCSetDB(3, false);
+					cardModel.BuyTC(3);
 
 					buyTC9();
 					
@@ -761,12 +753,12 @@ public class CardController extends Scene {
 			if (cardscreen == toolCard10) {
 
 				if (cardModel.checkboughtTC(3) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(3, true);
+					cardModel.BuyTCPric2(3);
 					buyTC10();
 					
 				}
 				else if (!cardModel.checkboughtTC(3)) {
-					buyTCSetDB(3, false);
+					cardModel.BuyTC(3);
 
 					buyTC10();
 					
@@ -776,12 +768,12 @@ public class CardController extends Scene {
 			if (cardscreen == toolCard11) {
 
 				if (cardModel.checkboughtTC(3) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(3, true);
+					cardModel.BuyTCPric2(3);
 					buyTC11();
 					
 				}
 				else if (!cardModel.checkboughtTC(3)) {
-					buyTCSetDB(3, false);
+					cardModel.BuyTC(3);
 					
 					buyTC11();
 
@@ -791,13 +783,13 @@ public class CardController extends Scene {
 			if (cardscreen == toolCard12) {
 
 				if (cardModel.checkboughtTC(3) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(3, true);
+					cardModel.BuyTCPric2(3);
 					buyTC12();
 					
 
 				}
 				else if (!cardModel.checkboughtTC(3)) {
-					buyTCSetDB(3, false);
+					cardModel.BuyTC(3);
 					
 					buyTC12();
 
