@@ -202,6 +202,9 @@ public class Game {
 
 	}
 	
+	/**
+	 * check which turn main player is in
+	 */
 	private void selectTurnOfRound() {
 		if(!isSecondTurn()) {
 			setTurn("1");
@@ -662,12 +665,7 @@ public class Game {
 	public void giveAllThePlayersTheirFavorTokens() {
 		// get the amount of players
 		ArrayList<ArrayList<Object>> result = gameQuery.getPlayerIdsAndNames(gameId);
-//		for (int i = 0; i < result.size(); i++) {
-//			// ask for difficulty and give that amount of favortokens to a player
-//			givePlayerFavorTokens(players.get(i).getPlayerId(),
-//					players.get(i).getWindowPatternPlayer().getDifficulty());
-//		}
-//		
+
 		for (ArrayList<Object> player : result) {
 			givePlayerFavorTokens((int) player.get(0), getDifficultyWindowOfPlayer((int) player.get(0)));
 		}	
