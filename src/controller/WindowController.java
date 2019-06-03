@@ -57,7 +57,7 @@ public class WindowController {
 	private boolean movedADice = false;
 
 	private boolean extraTurn = false;
-	private boolean skipSecondTurn = false;
+	
 
 	private boolean extraTurnSameColorRoundtrack = false;
 	private boolean canOnlyMoveDiceWithSameColorAsDIceOnRoundTrack = false;
@@ -355,8 +355,12 @@ public class WindowController {
 					&& (isDiceNextToAnotherDice(pane.getFieldModel(), draggingDice.getDiceModel()) || ignoreNextToDice)) {
 
 				if (DC.getDiceOnTableModel().isDiceOnTable(draggingDice.getDiceModel()) && !ignoreEyes
-						&& !ignoreColor && GC.getGameModel().canPlayerPlaceADiceInThisRoundFromTheTable()) {
+						&& !ignoreColor && (GC.getGameModel().canPlayerPlaceADiceInThisRoundFromTheTable() || getExtraTurn())) {
 					changedDiceBoard(TwoCanbeMoved);
+					if (!GC.getGameModel().canPlayerPlaceADiceInThisRoundFromTheTable()) {
+						setExtraTurnFalse();
+					}
+					
 					DC.getDiceOnTableModel().removeDiceFromTable(draggingDice.getDiceModel());
 					
 					pane.getFieldModel().addDice(draggingDice.getDiceModel());
@@ -368,13 +372,6 @@ public class WindowController {
 							GC.getGameModel().getGameID());
 
 					e.setDropCompleted(true);
-					if (!extraTurn) {
-						movedADice = true;
-					} else {
-						movedADice = false;
-						extraTurn = false;
-						skipSecondTurn = true;
-					}
 
 					draggingDice = null;
 					calculatePoints();
@@ -946,16 +943,16 @@ public class WindowController {
 		movedADice = false;
 	}
 
-	public boolean skipSecondTurn() {
-		return skipSecondTurn;
-	}
-
-	public void setSkipSecondTurnFalse() {
-		skipSecondTurn = false;
-	}
-
 	public void setExtraTurnTrue() {
 		extraTurn = true;
+	}
+	
+	public void setExtraTurnFalse() {
+		extraTurn = false;
+	}
+	
+	public boolean getExtraTurn() {
+		return extraTurn;
 	}
 
 	public void setCanOnlyMoveDiceWithSameColorAsDIceOnRoundTrackFalse() {

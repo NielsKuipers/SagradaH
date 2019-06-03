@@ -145,8 +145,8 @@ public class GameController extends Scene {
 				DC.getDiceOnTableScreen().removeDicesScreen();
 				gameModel.selectWholeGame();
 				//has to do with toolcard 8
-				if(WC.skipSecondTurn() && gameModel.isSecondTurn() && gameModel.getPlayer(0).selectCurrentPlayer()) {
-					WC.setSkipSecondTurnFalse();
+				if(gameModel.isTC8BoughtInThisRound() && gameModel.isSecondTurn() && gameModel.getPlayer(0).selectCurrentPlayer()) {
+					handleFinishTurn();
 					gameModel.giveTurnToNextPlayer();
 				}
 
@@ -196,6 +196,7 @@ public class GameController extends Scene {
 		}
 		
 		if(gameModel.getPlayer(0).selectCurrentPlayer() && !gameModel.checkIfMainPlayerCanThrowDices()) {
+			WC.setExtraTurnFalse();
 			gameModel.giveTurnToNextPlayer();
 			WC.setMovedToFalse();
 			WC.setCanOnlyMoveDiceWithSameColorAsDIceOnRoundTrackFalse();

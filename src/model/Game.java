@@ -894,6 +894,24 @@ public class Game {
 		}
 		return false;
 	}
+	
+	public boolean isTC8BoughtInThisRound() {
+		ArrayList<ArrayList<Object>> result = gameQuery.getRound(gameId);
+		int round = 0;
+		if (result.isEmpty()) {
+			round = 1;
+		} else {
+			round = Integer.valueOf(String.valueOf(result.get(0).get(0)));
+			round++;
+		}
+		
+		ArrayList<ArrayList<Object>> result2 = gameQuery.isTC8BoughtInThisRound(players.get(0).getPlayerId(), gameId, round);
+		if(!result2.isEmpty()) {
+			return true;
+		}
+		
+		return false;
+	}
 
 	//////////////////////////////////// ENDSCREEN////////////////////////////////////////////////////////////////////////////
 	public ArrayList<ArrayList<Object>> getPlayerScores() {
