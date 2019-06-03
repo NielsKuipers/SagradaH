@@ -6,14 +6,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.BorderWidths;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -28,7 +22,7 @@ public class EndScreen extends BorderPane {
 
 	private GridPane gridpane;
 	private ArrayList <StackPane> stackpanes;
-	private ArrayList<PlayerLabel> playerLabels;
+	private ArrayList<PlayerLabel> playerLabels; 
 	private GUI gui;
 
 	public EndScreen(GUI gui) {
@@ -44,7 +38,7 @@ public class EndScreen extends BorderPane {
 
 	
 	/**
-	 *  create scoreboard circles + numbers
+	 *  create endboard circles + numbers
 	 */
 	private void makeGridPane() {
 		int rowNumber = 0;
@@ -69,7 +63,7 @@ public class EndScreen extends BorderPane {
 	
 	// create title
 	private void makeTop() {
-		Label text = new Label("Eindscherm scorebord");
+		Label text = new Label("Eindscherm Scorebord");
 		text.setFont(new Font("Arial", 30));
 		this.setTop(text);
 		setAlignment(text, Pos.CENTER);

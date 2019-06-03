@@ -25,10 +25,6 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 import main.GUI;
 
-/**
- * @author pasa
- *
- */
 public class SetupScreen extends BorderPane {
 	
 	// buttons
@@ -66,7 +62,6 @@ public class SetupScreen extends BorderPane {
 		makeButtons();
 		setPlayerAmountText();
 		currentPlayerAmount();
-		
 	}
 
 	
@@ -151,13 +146,10 @@ public class SetupScreen extends BorderPane {
 		}
 		
 		if (!searching) {
-			System.out.println("started searching");
 			searching = true;
 			transition.play();
 			startGame.setDisable(true);
 			inviteButton.setDisable(false);
-		} else {
-			System.out.println("already searching!!");
 		}
 		refreshPlayerList();
 	}
@@ -169,14 +161,11 @@ public class SetupScreen extends BorderPane {
 	 */
 	private void stopSearch() {
 		if (searching) {
-			System.out.println("stopped search");
 			searching = false;
 			transition.stop();
 			animation.setFill(Color.WHITE);
 			startGame.setDisable(false);
 			inviteButton.setDisable(true);
-		} else {
-			System.out.println("search already stopped!!");
 		}
 	}
 	

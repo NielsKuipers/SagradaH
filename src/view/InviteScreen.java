@@ -105,10 +105,10 @@ public class InviteScreen extends BorderPane{
 			alert("Maximaal aantal spelers bereikt!!", "Je hebt al drie spelers uitgenodigd!!");
 			break;
 		case 2:
-			alert("Je hebt deze speler al uitgenodigd!!", "Deze speler heeft al een openstaande uitnodiging!!");
+			alert("Je hebt deze speler al uitgenodigd!!", "Deze speler heeft je uitnodiging al geaccepteerd/geweigerd!!");
 			break;
 		case 3:
-			alert("Je hebt deze speler al uitgenodigd!!", "Deze speler heeft je uitnodiging al geaccepteerd/geweigerd!!");
+			alert("Je hebt deze speler al uitgenodigd!!", "Deze speler heeft al een openstaande uitnodiging!!");
 			break;
 
 		default:

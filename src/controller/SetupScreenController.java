@@ -53,7 +53,6 @@ public class SetupScreenController {
 		randomPatterns = false;
 		cModel.setClientUsername(accountController.getAccount());
 		addJoinedPlayers();
-
 	}
 	
 	public SetupScreen getSetupScreen() {
