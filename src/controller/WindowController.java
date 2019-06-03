@@ -54,10 +54,8 @@ public class WindowController {
 	private boolean ignoreEyes = false;
 	private boolean ignoreColor = false;
 	private boolean ignoreNextToDice = false;
-	private boolean movedADice = false;
 
 	private boolean extraTurn = false;
-	
 
 	private boolean extraTurnSameColorRoundtrack = false;
 	private boolean canOnlyMoveDiceWithSameColorAsDIceOnRoundTrack = false;
@@ -161,30 +159,36 @@ public class WindowController {
 		ignoreNextToDice = true;
 	}
 	
+	public void buyTC12() {
+		diceCanBeMoved = true;
+		TwoCanbeMoved = true;
+		setCanOnlyMoveDiceWithSameColorAsDIceOnRoundTrackTrue();
+	}
+
 	public void ChangedDiceBoardTC() {
-			dicesChangedPlace++;
-			if (dicesChangedPlace > 1) {
-				diceCanBeMoved = false;
-				dicesChangedPlace = 0;
-			}
+		dicesChangedPlace++;
+		if (dicesChangedPlace > 1) {
+			diceCanBeMoved = false;
+			dicesChangedPlace = 0;
 		}
+	}
 
 	public void changedDiceBoard(boolean TwoCanBeMoved) {
 		dicesChangedByTC++;
 
-		if (dicesChangedByTC > 0 && !TwoCanBeMoved ||dicesChangedByTC > 1 && TwoCanBeMoved ) {
+		if (dicesChangedByTC > 0 && !TwoCanBeMoved || dicesChangedByTC > 1 && TwoCanBeMoved) {
 			diceCanBeMoved = false;
 			ignoreEyes = false;
 			ignoreColor = false;
 			ignoreNextToDice = false;
+			setCanOnlyMoveDiceWithSameColorAsDIceOnRoundTrackFalse();
 			dicesChangedByTC = 0;
 		}
 	}
 
-	
-
 	/**
 	 * create a random window
+	 * 
 	 * @return a random window
 	 */
 	public WindowPattern createRandomWindow() {
@@ -302,10 +306,8 @@ public class WindowController {
 		return windowModel;
 	}
 
-	
 	/**
-	 * @param b = the dice you picked up
-	 * pick up a dice and store it
+	 * @param b = the dice you picked up pick up a dice and store it
 	 */
 	public void dragButton(DiceScreen b) {
 		b.setOnDragDetected(e -> {
@@ -323,8 +325,8 @@ public class WindowController {
 	}
 
 	/**
-	 * @param pane = the field you are hovering on
-	 * check if you can place the dice on the right field
+	 * @param pane = the field you are hovering on check if you can place the dice
+	 *             on the right field
 	 */
 	private void addDropHandling(FieldScreen pane) {
 		pane.setOnDragOver(e -> {
@@ -351,18 +353,20 @@ public class WindowController {
 							|| pane.getFieldModel().getColor() == Color.LIGHTGRAY || ignoreColor)
 					&& (DC.getDiceOnTableModel().isDiceOnTable(draggingDice.getDiceModel()) || diceCanBeMoved)
 					&& !pane.getFieldModel().hasDice()
-					&& (meetsNextToDiceRequirements(pane.getFieldModel(), draggingDice.getDiceModel()) || ignoreNextToDice)
-					&& (isDiceNextToAnotherDice(pane.getFieldModel(), draggingDice.getDiceModel()) || ignoreNextToDice)) {
+					&& (meetsNextToDiceRequirements(pane.getFieldModel(), draggingDice.getDiceModel())
+							|| ignoreNextToDice)
+					&& (isDiceNextToAnotherDice(pane.getFieldModel(), draggingDice.getDiceModel())
+							|| ignoreNextToDice)) {
 
-				if (DC.getDiceOnTableModel().isDiceOnTable(draggingDice.getDiceModel()) && !ignoreEyes
-						&& !ignoreColor && (GC.getGameModel().canPlayerPlaceADiceInThisRoundFromTheTable() || getExtraTurn())) {
+				if (DC.getDiceOnTableModel().isDiceOnTable(draggingDice.getDiceModel()) && !ignoreEyes && !ignoreColor
+						&& (GC.getGameModel().canPlayerPlaceADiceInThisRoundFromTheTable() || getExtraTurn())) {
 					changedDiceBoard(TwoCanbeMoved);
 					if (!GC.getGameModel().canPlayerPlaceADiceInThisRoundFromTheTable()) {
 						setExtraTurnFalse();
 					}
-					
+
 					DC.getDiceOnTableModel().removeDiceFromTable(draggingDice.getDiceModel());
-					
+
 					pane.getFieldModel().addDice(draggingDice.getDiceModel());
 
 					GC.getGameModel().getPlayer(0).setDiceOnWindowPatternAndGiveFirstTurn(
@@ -381,9 +385,8 @@ public class WindowController {
 							.checkIfSameColorDiceIsOnRoundTrack(draggingDice.getDiceModel().getColor()))
 							|| !canOnlyMoveDiceWithSameColorAsDIceOnRoundTrack) {
 						windowPattern1Model.removeDiceFromWindowPattern(draggingDice.getDiceModel());
-						
+
 						pane.getFieldModel().addDice(draggingDice.getDiceModel());
-						 changedDiceBoard(TwoCanbeMoved);
 
 						GC.getGameModel().getPlayer(0).removeDiceOnWindowPattern(
 								draggingDice.getDiceModel().getDiceNumber(),
@@ -394,12 +397,9 @@ public class WindowController {
 								draggingDice.getDiceModel().getColorForQuerie());
 
 						e.setDropCompleted(true);
-						if (!extraTurnSameColorRoundtrack) {
-							movedADice = true;
-						} else {
-							movedADice = false;
-							extraTurnSameColorRoundtrack = false;
-						}
+
+						changedDiceBoard(TwoCanbeMoved);
+
 					}
 					draggingDice = null;
 					calculatePoints();
@@ -413,9 +413,9 @@ public class WindowController {
 
 	/**
 	 * @param field = the field you want to place a die on
-	 * @param dice = the dice you are holding
-	 * @return true when dice can be placed next to another dice
-	 * checks if a dice can be placed next to another dice
+	 * @param dice  = the dice you are holding
+	 * @return true when dice can be placed next to another dice checks if a dice
+	 *         can be placed next to another dice
 	 */
 	private boolean meetsNextToDiceRequirements(Field field, Dice dice) {
 		int column = getColumnAndRowOfField(field)[0];
@@ -493,6 +493,7 @@ public class WindowController {
 
 	/**
 	 * calculate the score
+	 * 
 	 * @return the score
 	 */
 	private int calculatePoints() {
@@ -508,9 +509,9 @@ public class WindowController {
 
 	/**
 	 * @param field = the field you want to place a die on
-	 * @param dice = the dice you are holding
-	 * @return true when dice is next to another dice
-	 * checks if dice is next to another dice
+	 * @param dice  = the dice you are holding
+	 * @return true when dice is next to another dice checks if dice is next to
+	 *         another dice
 	 */
 	private boolean isDiceNextToAnotherDice(Field field, Dice dice) {
 		// Checks if dice is diagonally, vertically or horizontally next to another dice
@@ -622,8 +623,8 @@ public class WindowController {
 	}
 
 	/**
-	 * @param windowModel = window that needs to be gray
-	 * make the fields of a window gray
+	 * @param windowModel = window that needs to be gray make the fields of a window
+	 *                    gray
 	 */
 	public void makeWindowsGray(WindowPattern windowModel) {
 		for (int row = 1; row < 5; row++) {
@@ -635,9 +636,9 @@ public class WindowController {
 	}
 
 	/**
-	 * @param dice = dice you are holding
-	 * @param fields = all the fields on a window
-	 * checks where the dice can be placed
+	 * @param dice   = dice you are holding
+	 * @param fields = all the fields on a window checks where the dice can be
+	 *               placed
 	 */
 	private void whichPlacementIsPossible(Dice dice, ArrayList<Field> fields) {
 		for (int row = 1; row < 5; row++) {
@@ -672,8 +673,8 @@ public class WindowController {
 	}
 
 	/**
-	 * @param dice = dice you are holding
-	 * checks the best possible place/places that a dice can be placed
+	 * @param dice = dice you are holding checks the best possible place/places that
+	 *             a dice can be placed
 	 */
 	private void bestPossiblePlace(Dice dice) {
 		ArrayList<Field> allFields = new ArrayList<>();
@@ -794,8 +795,7 @@ public class WindowController {
 
 	/**
 	 * @param windowPatternModel = window model
-	 * @return the difficulty of a window
-	 * calculates the difficulty of a window
+	 * @return the difficulty of a window calculates the difficulty of a window
 	 */
 	public int calculateDifficulty(WindowPattern windowPatternModel) {
 		int difficulty = 0;
@@ -840,10 +840,10 @@ public class WindowController {
 	}
 
 	/**
-	 * @param id = window id
+	 * @param id           = window id
 	 * @param windowScreen = window screen
-	 * @param windowModel = window model
-	 * make all the fields for a window and give the screen the right model and calculate the difficulty
+	 * @param windowModel  = window model make all the fields for a window and give
+	 *                     the screen the right model and calculate the difficulty
 	 */
 	private void createGrayWindowPattern(int id, WindowPatternScreen windowScreen, WindowPattern windowModel) {
 		for (int row = 1; row < 5; row++) {
@@ -862,8 +862,8 @@ public class WindowController {
 
 	/**
 	 * @param field = field on window model 1
-	 * @return the column and row of a field on window model 1
-	 * check what the row and column of a field are
+	 * @return the column and row of a field on window model 1 check what the row
+	 *         and column of a field are
 	 */
 	private int[] getColumnAndRowOfField(Field field) {
 		for (int row = 1; row < 5; row++) {
@@ -898,7 +898,7 @@ public class WindowController {
 	}
 
 	/**
-	 * give all the dices on window 1 a white border 
+	 * give all the dices on window 1 a white border
 	 */
 	private void setDiceWhiteBorder() {
 		for (Node node : window1.getChildren()) {
@@ -917,10 +917,10 @@ public class WindowController {
 	}
 
 	/**
-	 * @param dice = the dice you clicked on
+	 * @param dice   = the dice you clicked on
 	 * @param column = the dice column location
-	 * @param row = the dice row location
-	 * handles switching dice on window with dice on roundtrack
+	 * @param row    = the dice row location handles switching dice on window with
+	 *               dice on roundtrack
 	 */
 	private void switchDiceWithRoundTrack(DiceScreen dice, int column, int row) {
 		GC.stopTimer();
@@ -935,22 +935,14 @@ public class WindowController {
 
 	}
 
-	private boolean getIsADiceMoved() {
-		return movedADice;
-	}
-
-	void setMovedToFalse() {
-		movedADice = false;
-	}
-
 	public void setExtraTurnTrue() {
 		extraTurn = true;
 	}
-	
+
 	public void setExtraTurnFalse() {
 		extraTurn = false;
 	}
-	
+
 	public boolean getExtraTurn() {
 		return extraTurn;
 	}

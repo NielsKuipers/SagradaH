@@ -199,7 +199,6 @@ public class GameController extends Scene {
 		if(gameModel.getPlayer(0).selectCurrentPlayer() && !gameModel.checkIfMainPlayerCanThrowDices()) {
 			WC.setExtraTurnFalse();
 			gameModel.giveTurnToNextPlayer();
-			WC.setMovedToFalse();
 			WC.setCanOnlyMoveDiceWithSameColorAsDIceOnRoundTrackFalse();
 			WC.setDiceCanBeMovedFalse();
 		}
