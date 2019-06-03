@@ -23,7 +23,7 @@ public class Game {
 	private GameQuery gameQuery;
 
 	private DiceOnTable diceOnTableModel;
-	private Card cardModel;
+	private CardModel cardModel;
 
 	private WindowController windowController;
 
