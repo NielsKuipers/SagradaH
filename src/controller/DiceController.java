@@ -99,10 +99,6 @@ public class DiceController {
 	}
 
 	private void pickNewDice(DiceScreen dice) {
-		System.out.println(dice.getDiceModel().getColorForQuerie());
-		System.out.println(dice.getDiceModel().getEyes());
-		System.out.println(dice.getDiceModel().getDiceNumber());
-
 		TextInputDialog dialog = new TextInputDialog("1");
 
 		dialog.setTitle("Toolcard 11");
@@ -114,7 +110,6 @@ public class DiceController {
 		result.ifPresent(name -> {
 			if (name.equals("1") || name.equals("2") || name.equals("3") || name.equals("4") || name.equals("5")
 					|| name.equals("6")) {
-				System.out.println(name);
 				GC.getGameModel().pickNewDice(dice.getDiceModel().getDiceNumber(),
 						dice.getDiceModel().getColorForQuerie(),Integer.valueOf(name));
 			}
