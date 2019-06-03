@@ -1185,7 +1185,6 @@ public class CardController extends Scene {
 
 		}
 		cardScreen.createView();
-
 	}
 
 	// check with every button click if

@@ -81,7 +81,7 @@ public class Game {
 		return players.size();
 	}
 
-	public void pickNewDice(int deleteDieNumber, String deleteColorDie) {
+	public void pickNewDice(int deleteDieNumber, String deleteColorDie, int randomEyes) {
 		// get the round
 		ArrayList<ArrayList<Object>> result = gameQuery.getRound(gameId);
 		int round = 0;
@@ -100,7 +100,6 @@ public class Game {
 		int indexDice = r.nextInt(amountOfDicesInGame);
 
 		// get random eyes
-		int randomEyes = r.nextInt((6 - 1) + 1) + 1;
 		int dieNumber = Integer.valueOf(String.valueOf(result2.get(indexDice).get(0)));
 		String dieColor = String.valueOf(result2.get(indexDice).get(1));
 
