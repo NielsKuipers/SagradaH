@@ -97,6 +97,23 @@ public class Game {
 		gameQuery.updateRollDice(dieNumber, dieColor, gameId, 1, getRound());
 	}
 	
+	public boolean checkIfDieAreThrown() {
+		ArrayList<ArrayList<Object>> result = gameQuery.getRound(gameId);
+		int round = 0;
+        if (result.isEmpty()) {
+            round = 1;
+        } else {
+            round = Integer.valueOf(String.valueOf(result.get(0).get(0)));
+            round++;
+        }
+
+        ArrayList<ArrayList<Object>> result2 = gameQuery.getAllDicesFromOneRound(gameId, round);
+		if(result2.isEmpty()) {
+			return false;
+		}
+		return true;
+	}
+	
 
 	
 	

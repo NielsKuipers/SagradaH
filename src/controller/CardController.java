@@ -202,7 +202,7 @@ public class CardController extends Scene {
 	}
 
 	public void buyToolcard1(CardScreen cardscreen) {
-		if (cardModel.getAmountFT() != 0 && cardModel.getGameModel().getPlayer(0).selectCurrentPlayer()&& !cardModel.checkboughtTCForRound()) {
+		if (cardModel.getAmountFT() != 0 && cardModel.getGameModel().getPlayer(0).selectCurrentPlayer()&& !cardModel.checkboughtTCForRound() && gameController.getGameModel().checkIfDieAreThrown()) {
 			
 			
 		
@@ -308,7 +308,7 @@ public class CardController extends Scene {
 				}
 
 			}
-			if (cardscreen == toolCard7) {
+			if (cardscreen == toolCard7 && gameController.getGameModel().isSecondTurn() ) {
 
 				if (cardModel.checkboughtTC(1) && cardModel.getAmountFT() > 1) {
 					buyTCSetDB(1, true);
@@ -324,7 +324,7 @@ public class CardController extends Scene {
 
 				}
 			}
-			if (cardscreen == toolCard8) {
+			if (cardscreen == toolCard8 && !cardModel.getGameModel().isSecondTurn()) {
 
 				if (cardModel.checkboughtTC(1) && cardModel.getAmountFT() > 1) {
 					buyTCSetDB(1, true);
@@ -408,7 +408,7 @@ public class CardController extends Scene {
 	}
 
 	public void buyToolcard2(CardScreen cardscreen) {
-		if (cardModel.getAmountFT() != 0 && cardModel.getGameModel().getPlayer(0).selectCurrentPlayer()&& !cardModel.checkboughtTCForRound()) {
+		if (cardModel.getAmountFT() != 0 && cardModel.getGameModel().getPlayer(0).selectCurrentPlayer()&& !cardModel.checkboughtTCForRound()&& gameController.getGameModel().checkIfDieAreThrown()) {
 
 			if (cardscreen == toolCard1) {
 
@@ -504,7 +504,7 @@ public class CardController extends Scene {
 				}
 
 			}
-			if (cardscreen == toolCard7) {
+			if (cardscreen == toolCard7 && gameController.getGameModel().isSecondTurn()) {
 
 				if (cardModel.checkboughtTC(2) && cardModel.getAmountFT() > 1) {
 					buyTCSetDB(2, true);
@@ -520,7 +520,7 @@ public class CardController extends Scene {
 
 				}
 			}
-			if (cardscreen == toolCard8) {
+			if (cardscreen == toolCard8 && !cardModel.getGameModel().isSecondTurn()) {
 
 				if (cardModel.checkboughtTC(2) && cardModel.getAmountFT() > 1) {
 					buyTCSetDB(2, true);
@@ -600,8 +600,8 @@ public class CardController extends Scene {
 		}
 	}
 
-	public void buyToolcard3(CardScreen cardscreen) {
-		if (cardModel.getAmountFT() != 0 && cardModel.getGameModel().getPlayer(0).selectCurrentPlayer() && !cardModel.checkboughtTCForRound()) {
+	public void buyToolcard3(CardScreen cardscreen ) {
+		if (cardModel.getAmountFT() != 0 && cardModel.getGameModel().getPlayer(0).selectCurrentPlayer() && !cardModel.checkboughtTCForRound()&& gameController.getGameModel().checkIfDieAreThrown()) {
 
 			if (cardscreen == toolCard1) {
 
@@ -686,7 +686,7 @@ public class CardController extends Scene {
 
 			}
 			if (cardscreen == toolCard6) {
-					System.out.println("buy TC");
+					
 				if (cardModel.checkboughtTC(3) && cardModel.getAmountFT() > 1) {
 					buyTCSetDB(3, true);
 					buyTC6();
@@ -701,7 +701,7 @@ public class CardController extends Scene {
 				}
 
 			}
-			if (cardscreen == toolCard7) {
+			if (cardscreen == toolCard7 && gameController.getGameModel().isSecondTurn() ) {
 
 				if (cardModel.checkboughtTC(3) && cardModel.getAmountFT() > 1) {
 					buyTCSetDB(3, true);
@@ -717,7 +717,7 @@ public class CardController extends Scene {
 
 				}
 			}
-			if (cardscreen == toolCard8) {
+			if (cardscreen == toolCard8 && !cardModel.getGameModel().isSecondTurn()) {
 
 				if (cardModel.checkboughtTC(3) && cardModel.getAmountFT() > 1) {
 					buyTCSetDB(3, true);
@@ -849,10 +849,8 @@ public class CardController extends Scene {
 	private void buyTC7() {
 		
 		gui.handleGoBackToGame();
-
-		if (cardModel.getGameModel().isSecondTurn()) {
-			cardModel.getGameModel().throwAgainWithSameDicesOnTable();
-		}
+		cardModel.getGameModel().throwAgainWithSameDicesOnTable();
+		
 
 	}
 
@@ -860,9 +858,9 @@ public class CardController extends Scene {
 		
 		gui.handleGoBackToGame();
 
-		if (!cardModel.getGameModel().isSecondTurn()) {
+		
 			windowController.setExtraTurnTrue();
-		}
+		
 		// you cant go to homescreen
 
 	}
