@@ -889,10 +889,7 @@ public class CardController extends Scene {
 	private void buyTC12() {
 		
 		gui.handleGoBackToGame();
-
-		windowController.setExtraTurnSameColorRoundtrackTrue();
-		windowController.setCanOnlyMoveDiceWithSameColorAsDIceOnRoundTrackTrue();
-		windowController.setDiceCanBeMovedTrue();
+		windowController.buyTC12();
 
 	}
 
