@@ -830,8 +830,6 @@ public class CardController extends Scene {
 	private void buyTC5() {
 
 		gui.handleGoBackToGame();
-		
-		;
 
 		if (!cardModel.getGameModel().isRoundTrackEmpty()) {
 			windowController.selectDiceOnWindow();
@@ -857,9 +855,7 @@ public class CardController extends Scene {
 	private void buyTC8() {
 		
 		gui.handleGoBackToGame();
-
-		
-			windowController.setExtraTurnTrue();
+		windowController.setExtraTurnTrue();
 		
 		// you cant go to homescreen
 
