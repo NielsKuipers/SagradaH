@@ -50,13 +50,13 @@ public class DiceController {
 		return diceOnTableModel;
 	}
 
-	void setDiceGlowBorder(int nummer) {
+	void setDiceGlowBorder(int number) {
 
 		for (Node node : diceOnTableScreen.getChildren()) {
 			if (node instanceof DiceScreen) {
 				DiceScreen result = (DiceScreen) node;
 				result.setGlowBorder();
-				result.setOnMouseClicked(e -> selectDice(result, nummer));
+				result.setOnMouseClicked(e -> selectDice(result, number));
 
 			}
 
@@ -77,11 +77,11 @@ public class DiceController {
 
 	}
 
-	private void selectDice(DiceScreen dice, int nummer) {
+	private void selectDice(DiceScreen dice, int number) {
 		setDiceBlackBorder();
 		dice.setGlowBorder();
 
-		switch (nummer) {
+		switch (number) {
 		case 1:
 			dice.setOnMouseClicked(e -> DicesPlus1(dice, false));
 			break;
