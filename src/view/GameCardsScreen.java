@@ -104,9 +104,9 @@ private CardController cardController;
        
     
     
-    buyTC1.setOnAction(e -> cardController.buyToolcard1(gameTC1));
-    buyTC2.setOnAction(e -> cardController.buyToolcard2(gameTC2));
-    buyTC3.setOnAction(e -> cardController.buyToolcard3(gameTC3));
+    buyTC1.setOnAction(e -> cardController.buyToolcard(gameTC1,1));
+    buyTC2.setOnAction(e -> cardController.buyToolcard(gameTC2,2));
+    buyTC3.setOnAction(e -> cardController.buyToolcard(gameTC3,3));
     exit = new Button("Exit");
     exit.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE,null,null)));
     exit.setPrefSize(1600, 50);

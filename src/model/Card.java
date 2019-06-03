@@ -30,6 +30,7 @@ public class Card {
     		
     		return false;
     	}else {
+    		
     		return true;
     	}
     }
@@ -39,7 +40,7 @@ public class Card {
     }
 
     public boolean checkboughtTC(int tc) {
-    	System.out.println(cardQuerie.CheckTCBought(tc, gameModel.getGameID()).size());
+    	
         if(cardQuerie.CheckTCBought(tc, gameModel.getGameID()).size()>0) {
             
             return true;
@@ -81,7 +82,7 @@ public class Card {
      * set in database which toolcard you bought
      */
     public void BuyTC(int tc) {
-    	
+    	System.out.println("price1");
         cardQuerie.BuyTC(tc,(int)cardQuerie.CheckIDFT(gameModel.getPlayer(0).getPlayerId(), gameModel.getGameID()).get(0).get(0), gameModel.getGameID(), gameModel.getPlayer(0).getPlayerId(),gameModel.getRound(),gameModel.getInFirstTurn());
       
         
@@ -90,7 +91,7 @@ public class Card {
      * set in database which toolcard you bought where the price was 2
      */
     public void BuyTCPric2(int tc) {
-    	
+    	System.out.println("price2");
         
         cardQuerie.BuyTCPrice2(tc,(int)cardQuerie.CheckIDFT(gameModel.getPlayer(0).getPlayerId(), gameModel.getGameID()).get(0).get(0),(int)cardQuerie.CheckIDFT(gameModel.getPlayer(0).getPlayerId(), gameModel.getGameID()).get(1).get(0), gameModel.getGameID(),gameModel.getPlayer(0).getPlayerId(),gameModel.getRound(),gameModel.getInFirstTurn());
         
