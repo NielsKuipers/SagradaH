@@ -160,18 +160,14 @@ public class CardController extends Scene {
 
 	}
 
-	private void buyTCSetDB(int GameTC, Boolean bought) {
-		if (!bought) {
+	/**
+	 * sets the bought toolcard in the database
+	 */
+	
 
-			cardModel.BuyTC(GameTC);
-
-		}
-		if (bought) {
-			cardModel.BuyTCPric2(GameTC);
-
-		}
-	}
-
+	/**
+	 *  gets the amount of FT on a toolcard and sets it directly
+	 */
 	public void SetAmountFTOnTC() {
 		 
 		
@@ -201,24 +197,23 @@ public class CardController extends Scene {
 
 	}
 
+	/**
+	 * handles when you buy GameTC1
+	 */
 	public void buyToolcard1(CardScreen cardscreen) {
 		if (cardModel.getAmountFT() != 0 && cardModel.getGameModel().getPlayer(0).selectCurrentPlayer()&& !cardModel.checkboughtTCForRound() && gameController.getGameModel().checkIfDieAreThrown()) {
-			
-			
-		
-			
 			
 			if (cardscreen == toolCard1) {
 				
 				if (cardModel.checkboughtTC(1) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(2, true);
+					cardModel.BuyTCPric2(2);
 					buyTC1();
-					cardScreen.BoughtTC2();
+					
 				}
-				if (!cardModel.checkboughtTC(1)) {
-					buyTCSetDB(2, false);
+				else if (!cardModel.checkboughtTC(1)) {
+					cardModel.BuyTC(2);
 					buyTC1();
-					cardScreen.BoughtTC2();
+					
 
 				}
 			}
@@ -226,64 +221,64 @@ public class CardController extends Scene {
 			if (cardscreen == toolCard2) {
 
 				if (cardModel.checkboughtTC(1) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(1, true);
+					cardModel.BuyTCPric2(1);
 
 					buyTC2();
-					cardScreen.BoughtTC1();
+					
 
 				}
 
-				if (!cardModel.checkboughtTC(1)) {
-					buyTCSetDB(1, false);
+				else if (!cardModel.checkboughtTC(1)) {
+					cardModel.BuyTC(1);
 
 					buyTC2();
-					cardScreen.BoughtTC1();
+					
 				}
 			}
 
 			if (cardscreen == toolCard3) {
 
 				if (cardModel.checkboughtTC(1) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(1, true);
+					cardModel.BuyTCPric2(1);
 					buyTC3();
-					cardScreen.BoughtTC1();
+					
 				}
-				if (!cardModel.checkboughtTC(1)) {
-					buyTCSetDB(1, false);
+				else if (!cardModel.checkboughtTC(1)) {
+					cardModel.BuyTC(1);
 
 					buyTC3();
-					cardScreen.BoughtTC1();
+					
 				}
 			}
 			if (cardscreen == toolCard4) {
 
 				if (cardModel.checkboughtTC(1) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(1, true);
+					cardModel.BuyTCPric2(1);
 					buyTC4();
-					cardScreen.BoughtTC1();
+					
 
 				}
-				if (!cardModel.checkboughtTC(1)) {
-					buyTCSetDB(1, false);
+				else if (!cardModel.checkboughtTC(1)) {
+					cardModel.BuyTC(1);
 
 					buyTC4();
-					cardScreen.BoughtTC1();
+					
 
 				}
 			}
 			if (cardscreen == toolCard5) {
 
 				if (cardModel.checkboughtTC(1) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(1, true);
+					cardModel.BuyTCPric2(1);
 					buyTC5();
-					cardScreen.BoughtTC1();
+					
 
 				}
-				if (!cardModel.checkboughtTC(1)) {
-					buyTCSetDB(1, false);
+				else if (!cardModel.checkboughtTC(1)) {
+					cardModel.BuyTC(1);
 
 					buyTC5();
-					cardScreen.BoughtTC1();
+					
 
 				}
 
@@ -294,49 +289,49 @@ public class CardController extends Scene {
 				
 				if (cardModel.checkboughtTC(1) && cardModel.getAmountFT() > 1) {
 					
-					buyTCSetDB(1, true);
+					cardModel.BuyTCPric2(1);
 					buyTC6();
-					cardScreen.BoughtTC1();
+					
 					
 				}
 				if (!cardModel.checkboughtTC(1)) {
-					buyTCSetDB(1, false);
+					cardModel.BuyTC(1);
 					
 
 					buyTC6();
-					cardScreen.BoughtTC1();
+					
 				}
 
 			}
 			if (cardscreen == toolCard7 && gameController.getGameModel().isSecondTurn() ) {
 
 				if (cardModel.checkboughtTC(1) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(1, true);
+					cardModel.BuyTCPric2(1);
 					buyTC7();
-					cardScreen.BoughtTC1();
+					
 
 				}
-				if (!cardModel.checkboughtTC(1)) {
-					buyTCSetDB(1, false);
+				else if (!cardModel.checkboughtTC(1)) {
+					cardModel.BuyTC(1);
 
 					buyTC7();
-					cardScreen.BoughtTC1();
+					
 
 				}
 			}
 			if (cardscreen == toolCard8 && !cardModel.getGameModel().isSecondTurn()) {
 
 				if (cardModel.checkboughtTC(1) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(1, true);
+					cardModel.BuyTCPric2(1);
 					buyTC8();
-					cardScreen.BoughtTC1();
+					
 
 				}
-				if (!cardModel.checkboughtTC(1)) {
-					buyTCSetDB(1, false);
+				else if (!cardModel.checkboughtTC(1)) {
+					cardModel.BuyTC(1);
 
 					buyTC8();
-					cardScreen.BoughtTC1();
+					
 				}
 			}
 
@@ -344,83 +339,85 @@ public class CardController extends Scene {
 				
 					
 				if (cardModel.checkboughtTC(1) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(1, true);
+					cardModel.BuyTCPric2(1);
 					buyTC9();
-					cardScreen.BoughtTC1();
+					
 					
 										
 				}
-				if (!cardModel.checkboughtTC(1)) {
-					buyTCSetDB(1, false);
+				else if (!cardModel.checkboughtTC(1)) {
+					cardModel.BuyTC(1);
 						
 					buyTC9();
-					cardScreen.BoughtTC1();
+					
 				}
 			}
 			if (cardscreen == toolCard10) {
 
 				if (cardModel.checkboughtTC(1) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(1, true);
+					cardModel.BuyTCPric2(1);
 					buyTC10();
-					cardScreen.BoughtTC1();
+					
 				}
-				if (!cardModel.checkboughtTC(1)) {
-					buyTCSetDB(1, false);
+				else if (!cardModel.checkboughtTC(1)) {
+					cardModel.BuyTC(1);
 
 					buyTC10();
-					cardScreen.BoughtTC1();
+					
 
 				}
 			}
 			if (cardscreen == toolCard11) {
 
 				if (cardModel.checkboughtTC(1) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(1, true);
+					cardModel.BuyTCPric2(1);
 					buyTC11();
-					cardScreen.BoughtTC1();
+					
 				}
-				if (!cardModel.checkboughtTC(1)) {
-					buyTCSetDB(1, false);
+				else if (!cardModel.checkboughtTC(1)) {
+					cardModel.BuyTC(1);
 
 					buyTC11();
-					cardScreen.BoughtTC1();
+					
 				}
 
 			}
 			if (cardscreen == toolCard12) {
 
 				if (cardModel.checkboughtTC(1) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(1, true);
+					cardModel.BuyTCPric2(1);
 					buyTC12();
-					cardScreen.BoughtTC1();
+					
 
 				}
-				if (!cardModel.checkboughtTC(1)) {
-					buyTCSetDB(1, false);
+				else if (!cardModel.checkboughtTC(1)) {
+					cardModel.BuyTC(1);
 
 					buyTC12();
-					cardScreen.BoughtTC1();
+					
 
 				}
 
 			}
 		}
 	}
-
+	/**
+	 * handles when you buy GameTC2
+	 */
 	public void buyToolcard2(CardScreen cardscreen) {
 		if (cardModel.getAmountFT() != 0 && cardModel.getGameModel().getPlayer(0).selectCurrentPlayer()&& !cardModel.checkboughtTCForRound()&& gameController.getGameModel().checkIfDieAreThrown()) {
-
+			
 			if (cardscreen == toolCard1) {
 
 				if (cardModel.checkboughtTC(2) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(2, true);
+					cardModel.BuyTCPric2(2);
 					buyTC1();
-					cardScreen.BoughtTC2();
+					
 				}
-				if (!cardModel.checkboughtTC(2)) {
-					buyTCSetDB(2, false);
+				else if (!cardModel.checkboughtTC(2)) {
+					cardModel.BuyTC(2);
 					buyTC1();
-					cardScreen.BoughtTC2();
+					
 
 				}
 			}
@@ -428,170 +425,174 @@ public class CardController extends Scene {
 			if (cardscreen == toolCard2) {
 
 				if (cardModel.checkboughtTC(2) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(2, true);
+					cardModel.BuyTCPric2(2);
 
 					buyTC2();
-					cardScreen.BoughtTC2();
+					
 				}
 
 			}
-			if (!cardModel.checkboughtTC(2)) {
-				buyTCSetDB(2, false);
+			else if (!cardModel.checkboughtTC(2)) {
+				cardModel.BuyTC(2);
 
 				buyTC2();
-				cardScreen.BoughtTC2();
+				
 			}
 
 			if (cardscreen == toolCard3) {
 
 				if (cardModel.checkboughtTC(2) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(2, true);
+					cardModel.BuyTCPric2(2);
 					buyTC3();
-					cardScreen.BoughtTC2();
+					
 				}
-				if (!cardModel.checkboughtTC(2)) {
-					buyTCSetDB(2, false);
+				else if (!cardModel.checkboughtTC(2)) {
+					cardModel.BuyTC(2);
 
 					buyTC3();
-					cardScreen.BoughtTC2();
+					
 				}
 			}
 			if (cardscreen == toolCard4) {
 
 				if (cardModel.checkboughtTC(2) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(2, true);
+					cardModel.BuyTCPric2(2);
 					buyTC4();
-					cardScreen.BoughtTC2();
+					
 
 				}
-				if (!cardModel.checkboughtTC(2)) {
-					buyTCSetDB(2, false);
+				else if (!cardModel.checkboughtTC(2)) {
+					cardModel.BuyTC(2);
 
 					buyTC4();
-					cardScreen.BoughtTC2();
+					
 
 				}
 			}
 			if (cardscreen == toolCard5) {
 
 				if (cardModel.checkboughtTC(2) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(2, true);
+					cardModel.BuyTCPric2(2);
 					buyTC5();
-					cardScreen.BoughtTC2();
+					
 
 				}
-				if (!cardModel.checkboughtTC(2)) {
-					buyTCSetDB(2, false);
+				else if (!cardModel.checkboughtTC(2)) {
+					cardModel.BuyTC(2);
 
 					buyTC5();
-					cardScreen.BoughtTC2();
+					
 
 				}
 
 			}
+			System.out.println(cardModel.checkboughtTC(2));
 			if (cardscreen == toolCard6) {
 
 				if (cardModel.checkboughtTC(2) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(2, true);
+					cardModel.BuyTCPric2(2);
 					buyTC6();
-					cardScreen.BoughtTC2();
+					
+					
 				}
-				if (!cardModel.checkboughtTC(2)) {
-					buyTCSetDB(2, false);
-
+				else if (!cardModel.checkboughtTC(2)) {
+					cardModel.BuyTC(2);
+					
 					buyTC6();
-					cardScreen.BoughtTC2();
+					
 				}
 
 			}
 			if (cardscreen == toolCard7 && gameController.getGameModel().isSecondTurn()) {
 
 				if (cardModel.checkboughtTC(2) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(2, true);
+					cardModel.BuyTCPric2(2);
 					buyTC7();
-					cardScreen.BoughtTC2();
+					
 
 				}
-				if (!cardModel.checkboughtTC(2)) {
-					buyTCSetDB(2, false);
+				else if (!cardModel.checkboughtTC(2)) {
+					cardModel.BuyTC(2);
 
 					buyTC7();
-					cardScreen.BoughtTC2();
+					
 
 				}
 			}
 			if (cardscreen == toolCard8 && !cardModel.getGameModel().isSecondTurn()) {
 
 				if (cardModel.checkboughtTC(2) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(2, true);
+					cardModel.BuyTCPric2(2);
 					buyTC8();
-					cardScreen.BoughtTC2();
+					
 
 				}
-				if (!cardModel.checkboughtTC(2)) {
-					buyTCSetDB(2, false);
+				else if (!cardModel.checkboughtTC(2)) {
+					cardModel.BuyTC(2);
 
 					buyTC8();
-					cardScreen.BoughtTC2();
+					
 				}
 			}
 			if (cardscreen == toolCard9) {
 
 				if (cardModel.checkboughtTC(2) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(2, true);
+					cardModel.BuyTCPric2(2);
 					buyTC9();
-					cardScreen.BoughtTC2();
+					
+					
 				}
-				if (!cardModel.checkboughtTC(2)) {
-					buyTCSetDB(2, false);
+				else if (!cardModel.checkboughtTC(2)) {
+					cardModel.BuyTC(2);
+					
 
 					buyTC9();
-					cardScreen.BoughtTC2();
+					
 				}
 			}
 			if (cardscreen == toolCard10) {
 
 				if (cardModel.checkboughtTC(2) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(2, true);
+					cardModel.BuyTCPric2(2);
 					buyTC10();
-					cardScreen.BoughtTC2();
+					
 				}
-				if (!cardModel.checkboughtTC(2)) {
-					buyTCSetDB(2, false);
+				else if (!cardModel.checkboughtTC(2)) {
+					cardModel.BuyTC(2);
 
 					buyTC10();
-					cardScreen.BoughtTC2();
+					
 
 				}
 			}
 			if (cardscreen == toolCard11) {
 
 				if (cardModel.checkboughtTC(2) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(2, true);
+					cardModel.BuyTCPric2(2);
 					buyTC11();
-					cardScreen.BoughtTC2();
+					
 				}
-				if (!cardModel.checkboughtTC(2)) {
-					buyTCSetDB(2, false);
+				else if (!cardModel.checkboughtTC(2)) {
+					cardModel.BuyTC(2);
 
 					buyTC11();
-					cardScreen.BoughtTC2();
+					
 				}
 
 			}
 			if (cardscreen == toolCard12) {
 
 				if (cardModel.checkboughtTC(2) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(2, true);
+					cardModel.BuyTCPric2(2);
 					buyTC12();
-					cardScreen.BoughtTC2();
+					
 
 				}
-				if (!cardModel.checkboughtTC(2)) {
-					buyTCSetDB(2, false);
+				else if (!cardModel.checkboughtTC(2)) {
+					cardModel.BuyTC(2);
 
 					buyTC12();
-					cardScreen.BoughtTC2();
+					
 
 				}
 
@@ -599,21 +600,23 @@ public class CardController extends Scene {
 
 		}
 	}
-
+	/**
+	 * handles when you buy GameTC3
+	 */
 	public void buyToolcard3(CardScreen cardscreen ) {
 		if (cardModel.getAmountFT() != 0 && cardModel.getGameModel().getPlayer(0).selectCurrentPlayer() && !cardModel.checkboughtTCForRound()&& gameController.getGameModel().checkIfDieAreThrown()) {
-
+			System.out.println(cardModel.checkboughtTC(1));
 			if (cardscreen == toolCard1) {
 
 				if (cardModel.checkboughtTC(3) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(3, true);
+					cardModel.BuyTCPric2(3);
 					buyTC1();
-					cardScreen.BoughtTC3();
+					
 				}
-				if (!cardModel.checkboughtTC(3)) {
-					buyTCSetDB(3, false);
+				else if (!cardModel.checkboughtTC(3)) {
+					cardModel.BuyTC(3);
 					buyTC1();
-					cardScreen.BoughtTC3();
+					
 
 				}
 			}
@@ -621,66 +624,66 @@ public class CardController extends Scene {
 			if (cardscreen == toolCard2) {
 
 				if (cardModel.checkboughtTC(3) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(3, true);
+					cardModel.BuyTCPric2(3);
 
 					buyTC2();
-					cardScreen.BoughtTC3();
+					
 
 				}
 
 			}
 
-			if (!cardModel.checkboughtTC(3)) {
-				buyTCSetDB(3, false);
+			else if (!cardModel.checkboughtTC(3)) {
+				cardModel.BuyTC(3);
 
 				buyTC2();
-				cardScreen.BoughtTC3();
+				
 			}
 
 			if (cardscreen == toolCard3) {
 
 				if (cardModel.checkboughtTC(3) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(3, true);
+					cardModel.BuyTCPric2(3);
 					buyTC3();
-					cardScreen.BoughtTC3();
+					
 				}
-				if (!cardModel.checkboughtTC(3)) {
-					buyTCSetDB(3, false);
+				else if (!cardModel.checkboughtTC(3)) {
+					cardModel.BuyTC(3);
 
 					buyTC3();
-					cardScreen.BoughtTC3();
+					
 				}
 			}
 			if (cardscreen == toolCard4) {
 
 				if (cardModel.checkboughtTC(3) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(3, true);
+					cardModel.BuyTCPric2(3);
 					buyTC4();
-					cardScreen.BoughtTC3();
+					
 
 				}
-				if (!cardModel.checkboughtTC(3)) {
-					buyTCSetDB(3, false);
+				else if (!cardModel.checkboughtTC(3)) {
+					cardModel.BuyTC(3);
 
 					buyTC4();
-					cardScreen.BoughtTC3();
+					
 
 				}
 			}
 			if (cardscreen == toolCard5) {
 
 				if (cardModel.checkboughtTC(3) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(3, true);
+					cardModel.BuyTCPric2(3);
 					buyTC5();
-					cardScreen.BoughtTC3();
+					
 					
 
 				}
-				if (!cardModel.checkboughtTC(3)) {
-					buyTCSetDB(3, false);
+				else if (!cardModel.checkboughtTC(3)) {
+					cardModel.BuyTC(3);
 
 					buyTC5();
-					cardScreen.BoughtTC3();
+					
 
 				}
 
@@ -688,46 +691,46 @@ public class CardController extends Scene {
 			if (cardscreen == toolCard6) {
 					
 				if (cardModel.checkboughtTC(3) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(3, true);
+					cardModel.BuyTCPric2(3);
 					buyTC6();
-					System.out.println("price = 2");
-					cardScreen.BoughtTC3();
+					
+					
 				}
-				if (!cardModel.checkboughtTC(3)) {
-					buyTCSetDB(3, false);
-					System.out.println("price = 1");
+				else if (!cardModel.checkboughtTC(3)) {
+					cardModel.BuyTC(3);
+					
 					buyTC6();
-					cardScreen.BoughtTC3();
+					
 				}
 
 			}
 			if (cardscreen == toolCard7 && gameController.getGameModel().isSecondTurn() ) {
 
 				if (cardModel.checkboughtTC(3) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(3, true);
+					cardModel.BuyTCPric2(3);
 					buyTC7();
-					cardScreen.BoughtTC3();
+					
 
 				}
-				if (!cardModel.checkboughtTC(3)) {
-					buyTCSetDB(3, false);
+				else if (!cardModel.checkboughtTC(3)) {
+					cardModel.BuyTC(3);
 
 					buyTC7();
-					cardScreen.BoughtTC3();
+					
 
 				}
 			}
 			if (cardscreen == toolCard8 && !cardModel.getGameModel().isSecondTurn()) {
 
 				if (cardModel.checkboughtTC(3) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(3, true);
+					cardModel.BuyTCPric2(3);
 					buyTC8();
-					cardScreen.BoughtTC3();
+					
 
 				}
-				if (!cardModel.checkboughtTC(3)) {
-					buyTCSetDB(3, false);
-					cardScreen.BoughtTC3();
+				else	if (!cardModel.checkboughtTC(3)) {
+					cardModel.BuyTC(3);
+					
 					buyTC8();
 
 				}
@@ -735,42 +738,43 @@ public class CardController extends Scene {
 			if (cardscreen == toolCard9) {
 
 				if (cardModel.checkboughtTC(3) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(3, true);
+					cardModel.BuyTCPric2(3);
 					buyTC9();
-					cardScreen.BoughtTC3();
+					System.out.println("TC");
+					
 				}
-				if (!cardModel.checkboughtTC(3)) {
-					buyTCSetDB(3, false);
+				else if (!cardModel.checkboughtTC(3)) {
+					cardModel.BuyTC(3);
 
 					buyTC9();
-					cardScreen.BoughtTC3();
+					
 				}
 			}
 			if (cardscreen == toolCard10) {
 
 				if (cardModel.checkboughtTC(3) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(3, true);
+					cardModel.BuyTCPric2(3);
 					buyTC10();
-					cardScreen.BoughtTC3();
+					
 				}
-				if (!cardModel.checkboughtTC(3)) {
-					buyTCSetDB(3, false);
+				else if (!cardModel.checkboughtTC(3)) {
+					cardModel.BuyTC(3);
 
 					buyTC10();
-					cardScreen.BoughtTC3();
+					
 
 				}
 			}
 			if (cardscreen == toolCard11) {
 
 				if (cardModel.checkboughtTC(3) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(3, true);
+					cardModel.BuyTCPric2(3);
 					buyTC11();
-					cardScreen.BoughtTC3();
+					
 				}
-				if (!cardModel.checkboughtTC(3)) {
-					buyTCSetDB(3, false);
-					cardScreen.BoughtTC3();
+				else if (!cardModel.checkboughtTC(3)) {
+					cardModel.BuyTC(3);
+					
 					buyTC11();
 
 				}
@@ -779,14 +783,14 @@ public class CardController extends Scene {
 			if (cardscreen == toolCard12) {
 
 				if (cardModel.checkboughtTC(3) && cardModel.getAmountFT() > 1) {
-					buyTCSetDB(3, true);
+					cardModel.BuyTCPric2(3);
 					buyTC12();
-					cardScreen.BoughtTC3();
+					
 
 				}
-				if (!cardModel.checkboughtTC(3)) {
-					buyTCSetDB(3, false);
-					cardScreen.BoughtTC3();
+				else if (!cardModel.checkboughtTC(3)) {
+					cardModel.BuyTC(3);
+					
 					buyTC12();
 
 				}
@@ -797,6 +801,8 @@ public class CardController extends Scene {
 
 	}
 
+	//the methods below handles when you buy that toolcard
+	
 	private void buyTC1() {
 		
 		gui.stopTimer();
@@ -896,6 +902,9 @@ public class CardController extends Scene {
 
 	}
 
+	/**
+	 * checks which toolcards you have in the game and sets them on screen
+ 	 */
 	public void checkToolcards(int TC1, int TC2, int TC3) {
 		switch (TC1) {
 		case 1:
@@ -1054,7 +1063,9 @@ public class CardController extends Scene {
 		}
 
 	}
-
+	/**
+	 * checks which objective cards you have in the game and sets them on screen
+ 	 */
 	private void checkOBJCards(String privOBJC, int pubOBJ3, int pubOBJ2, int pubOBJ1) {
 
 		switch (pubOBJ1) {

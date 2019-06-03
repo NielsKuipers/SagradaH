@@ -647,7 +647,7 @@ public class Game {
 	 * @return string color name make a string for color, used when updating or
 	 *         inserting
 	 */
-	private String getColorForQuerie(Color color) {
+	public String getColorForQuerie(Color color) {
 		if (color == Color.RED) {
 			return "rood";
 		} else if (color == Color.YELLOW) {

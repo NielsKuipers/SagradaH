@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import controller.WindowController;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.scene.paint.Color;
 import queries.CardQueries;
 import queries.GameQuery;
 
@@ -19,6 +20,9 @@ public class Card {
     }
     
     
+    /**
+     * checks if you already bought a toolcard in that round
+     */
     public boolean checkboughtTCForRound() {
     	
     	
@@ -35,7 +39,7 @@ public class Card {
     }
 
     public boolean checkboughtTC(int tc) {
-    	
+    	System.out.println(cardQuerie.CheckTCBought(tc, gameModel.getGameID()).size());
         if(cardQuerie.CheckTCBought(tc, gameModel.getGameID()).size()>0) {
             
             return true;
@@ -44,12 +48,17 @@ public class Card {
             
         }
     }
-    
+    /**
+     * gets the amount off FT
+     */
     public int getAmountFT() {
 		return cardQuerie.CheckIDFT(gameModel.getPlayer(0).getPlayerId(), gameModel.getGameID()).size();
     	
     }
-
+    
+    /**
+     * gets the amount off FT for one player for each toolcard
+     */
     public int getAmountFTOnToolCard(int tc, int player) {
     	switch(player) {
     	case 1:
@@ -68,13 +77,18 @@ public class Card {
        
     }
     
+    /**
+     * set in database which toolcard you bought
+     */
     public void BuyTC(int tc) {
     	
         cardQuerie.BuyTC(tc,(int)cardQuerie.CheckIDFT(gameModel.getPlayer(0).getPlayerId(), gameModel.getGameID()).get(0).get(0), gameModel.getGameID(), gameModel.getPlayer(0).getPlayerId(),gameModel.getRound(),gameModel.getInFirstTurn());
       
         
     }
-
+    /**
+     * set in database which toolcard you bought where the price was 2
+     */
     public void BuyTCPric2(int tc) {
     	
         
@@ -82,7 +96,7 @@ public class Card {
         
     }
 
-    
+    // the methods below return the TC and the OBJC 
     public int getToolCard1() {
     		int i = (int) cardQuerie.getGameToolcardID(gameModel.getGameID()).get(0).get(0);
         return (int) cardQuerie.getToolcard(i, gameModel.getGameID()).get(0).get(0);
@@ -112,8 +126,13 @@ public class Card {
         return (int) cardQuerie.getOBJCard(gameModel.getGameID()).get(2).get(0);
     }
     
-    public void updateDiceOnTable(int eyes,int dieNumber) {
-		cardQuerie.updateDiceOnTable(eyes, dieNumber, gameModel.getGameID());
+    
+    
+    /**
+     * updates the gamedie when diceontable is changed
+     */
+    public void updateDiceOnTable(int eyes,int dieNumber, Color color) {
+		cardQuerie.updateDiceOnTable(eyes, dieNumber, gameModel.getGameID(),gameModel.getColorForQuerie(color));
 	}
     
     

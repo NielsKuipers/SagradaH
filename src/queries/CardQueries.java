@@ -19,6 +19,8 @@ public class CardQueries {
 	
 
 	public ArrayList<ArrayList<Object>> CheckTCBought(int tc, int idGame) {
+		System.out.println(standardQuerie.selectQuery("Select idfavortoken from gamefavortoken",
+				" where gametoolcard=? and idgame=? ", "" + tc + "\0" + idGame + ""));
 		return standardQuerie.selectQuery("Select idfavortoken from gamefavortoken",
 				" where gametoolcard=? and idgame=? ", "" + tc + "\0" + idGame + "");
 		
@@ -69,9 +71,9 @@ public class CardQueries {
 		
 	}
 	
-	public void updateDiceOnTable(int eyes,int dienumber,int GameID) {
+	public void updateDiceOnTable(int eyes,int dienumber,int GameID, String color) {
 		standardQuerie.updateQuery("update gamedie Set eyes=?", "" + eyes + "",
-			" where dienumber=?  and idgame=?", "" + dienumber + "\0" + GameID + "");
+			" where dienumber=?  and idgame=? and diecolor=?", "" + dienumber + "\0" + GameID +"\0"+ color + "");
 
 }
 	
