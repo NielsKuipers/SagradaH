@@ -7,8 +7,8 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import main.GUI;
-import model.Dice;
-import model.DiceOnTable;
+import model.DiceModel;
+import model.DiceOnTableModel;
 
 import java.util.ArrayList;
 
@@ -17,7 +17,7 @@ public class DiceOnTableScreen extends GridPane {
 
 	private WindowController WC;
 
-	public DiceOnTableScreen(GUI gui, DiceOnTable diceOnTableModel, WindowController WC) {
+	public DiceOnTableScreen(GUI gui, DiceOnTableModel diceOnTableModel, WindowController WC) {
 		this.WC = WC;
 
 		createNewDices = new Button("Gooi");
@@ -36,11 +36,11 @@ public class DiceOnTableScreen extends GridPane {
 	/**
 	 * checks if arraylist has changed and draws all dices
 	 */
-	private class MyDiceOnTableListener implements ChangeListener<ArrayList<Dice>> {
+	private class MyDiceOnTableListener implements ChangeListener<ArrayList<DiceModel>> {
 
 		@Override
-		public void changed(ObservableValue<? extends ArrayList<Dice>> observable, ArrayList<Dice> oldValue,
-				ArrayList<Dice> newValue) {
+		public void changed(ObservableValue<? extends ArrayList<DiceModel>> observable, ArrayList<DiceModel> oldValue,
+                            ArrayList<DiceModel> newValue) {
 			// TODO Auto-generated method stu
 			try {
 				getChildren().clear();
@@ -50,7 +50,7 @@ public class DiceOnTableScreen extends GridPane {
 					int column = 0;
 					int row = 0;
 					boolean volgendeColumn = false;
-					for (Dice newDice : newValue) {
+					for (DiceModel newDice : newValue) {
 						int eyes = newDice.getEyes();
 						DiceScreen diceScreen = new DiceScreen(newDice);
 						WC.dragButton(diceScreen);

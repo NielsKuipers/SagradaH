@@ -6,9 +6,9 @@ import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import main.GUI;
-import model.Game;
-import model.Player;
-import model.WindowPattern;
+import model.GameModel;
+import model.PlayerModel;
+import model.WindowPatternModel;
 import timer.AnimationTimerEXT;
 import view.*;
 
@@ -25,7 +25,7 @@ public class GameController extends Scene {
 	private WindowPatternChooseScreen windowChoooseScreen;
 	private CardController CardController;
 
-	private Game gameModel;
+	private GameModel gameModel;
 
 	private WindowController WC;
 	private DiceController DC;
@@ -43,11 +43,11 @@ public class GameController extends Scene {
 		this.gui = gui;
 		this.CC = CC;
 
-		gameModel = new Game(databaseController.getGameQuery(), DC.getDiceOnTableModel(), WC, CardController);
-		gameModel.addPlayer(new Player(databaseController.getPlayerQuery()));
-		gameModel.addPlayer(new Player(databaseController.getPlayerQuery()));
-		gameModel.addPlayer(new Player(databaseController.getPlayerQuery()));
-		gameModel.addPlayer(new Player(databaseController.getPlayerQuery()));
+		gameModel = new GameModel(databaseController.getGameQueries(), DC.getDiceOnTableModel(), WC, CardController);
+		gameModel.addPlayer(new PlayerModel(databaseController.getPlayerQueries()));
+		gameModel.addPlayer(new PlayerModel(databaseController.getPlayerQueries()));
+		gameModel.addPlayer(new PlayerModel(databaseController.getPlayerQueries()));
+		gameModel.addPlayer(new PlayerModel(databaseController.getPlayerQueries()));
 
 		gameModel.getPlayer(0).givePlayerWindowPattern(WC.getWindow1().getWindowPatternModel());
 		gameModel.getPlayer(1).givePlayerWindowPattern(WC.getWindow2().getWindowPatternModel());
@@ -132,7 +132,7 @@ public class GameController extends Scene {
     
     
 
-	public Game getGameModel() {
+	public GameModel getGameModel() {
 		return gameModel;
 	}
 
@@ -214,8 +214,8 @@ public class GameController extends Scene {
 	}
 
 	private void getOtherScore(){
-		ArrayList<Player> players = gameModel.getAllPlayers();
-		for(Player player : players.subList(1, players.size())){
+		ArrayList<PlayerModel> players = gameModel.getAllPlayers();
+		for(PlayerModel player : players.subList(1, players.size())){
 			player.getWindowPatternPlayer().setPlayerScore(Integer.toString(calculateScoreController.getOtherScore(player.getPlayerId())));
 		}
 	}
@@ -234,7 +234,7 @@ public class GameController extends Scene {
 	 * @param windowModel = the window you have chosen
 	 * check wich window you have chosen and update it in the database
 	 */
-	public void chooseWindow(WindowPattern windowModel) {
+	public void chooseWindow(WindowPatternModel windowModel) {
 		gameModel.getPlayer(0).updateWindowId(windowModel.getId());
 	}
 	

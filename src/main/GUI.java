@@ -8,7 +8,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import model.WindowPattern;
+import model.WindowPatternModel;
 import view.GameListScreen;
 import view.HomePane;
 import view.StartPane;
@@ -55,7 +55,7 @@ public class GUI extends Application {
 		
 		cardController = new CardController(windowController, diceController, gameController, databaseController, this);
 		accountController = new AccountController(this, databaseController, homepane, startPane, gameListScreen, gameController, diceController,cardController);
-		roundController = new RoundScreenController(stage, databaseController, this, windowController, gameController);
+		roundController = new RoundScreenController(this, windowController, gameController);
 		setupScreenController = new SetupScreenController(databaseController, this, gameController, accountController, cardController);
 
 		endController = new EndScreenController(databaseController, gameController, calcController, this);
@@ -76,7 +76,7 @@ public class GUI extends Application {
 	 * @param windowModel = the window you have chosen
 	 * handle go to game, when you are on the window choose screen
 	 */
-	public void createGame(WindowPattern windowModel) {
+	public void createGame(WindowPatternModel windowModel) {
 		gameController.chooseWindow(windowModel);
 		gameController.addGameScreens();
 		gameController.getGameModel().makeGameEmpty();

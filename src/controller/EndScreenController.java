@@ -1,7 +1,7 @@
 package controller;
 
 import main.GUI;
-import model.Game;
+import model.GameModel;
 import view.EndScreen;
 
 import java.util.ArrayList;
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class EndScreenController {
 	
 	private EndScreen endScreen;
-	private Game gameModel;
+	private GameModel gameModel;
 	private CalculateScoreController calcScore; // nodig
 	
 	public EndScreenController(DatabaseController dataController, GameController gameController, CalculateScoreController calcScore, GUI gui) {

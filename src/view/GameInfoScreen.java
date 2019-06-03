@@ -9,14 +9,14 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import main.GUI;
-import model.Game;
+import model.GameModel;
 
 public class GameInfoScreen extends VBox{
 	private Label l;
 
 	private GUI gui;
 	
-	public GameInfoScreen(GUI gui, Game game,String info) {
+	public GameInfoScreen(GUI gui, GameModel gameModel, String info) {
 		this.gui = gui;
 		
 		l = new Label(info);
@@ -28,13 +28,13 @@ public class GameInfoScreen extends VBox{
 		round.setFont(new Font("Consolas", 18));
 		
 		
-		round.textProperty().bind(game.gameRoundProperty());
+		round.textProperty().bind(gameModel.gameRoundProperty());
 		
 		Label turn = new Label();
 		turn.setFont(new Font("Consolas", 18));
 		turn.setPadding(new Insets(0, 0, 20, 0));
 		
-		turn.textProperty().bind(game.gameTurnProperty());
+		turn.textProperty().bind(gameModel.gameTurnProperty());
 		
 		RadioButton noCheat = new RadioButton("Geen cheat");
 		RadioButton cheatAllPossible = new RadioButton("Cheat");

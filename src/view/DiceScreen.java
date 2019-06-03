@@ -17,16 +17,16 @@ import javafx.scene.layout.StackPane;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import model.Dice;
+import model.DiceModel;
 
 public class DiceScreen extends StackPane {
 
-	private Dice diceModel;
+	private DiceModel diceModel;
 	private int diceCircleSize;
 	private int idRoundTrack;
 	private Color colorRoundTrack;
 
-	DiceScreen(Dice diceModel) {
+	DiceScreen(DiceModel diceModel) {
 
 		this.diceModel = diceModel;
 		setMinWidth(40);
@@ -171,7 +171,7 @@ public class DiceScreen extends StackPane {
 	}
 
 
-	public Dice getDiceModel() {
+	public DiceModel getDiceModel() {
 		return diceModel;
 	}
 

@@ -1,6 +1,9 @@
 package controller;
 
-import model.Game;
+import javafx.scene.Node;
+import javafx.scene.paint.Color;
+import main.GUI;
+import model.GameModel;
 import timer.AnimationTimerEXT;
 import view.DiceScreen;
 import view.RoundScreen;
@@ -8,20 +11,14 @@ import view.RoundScreen.CustomStackPane;
 
 import java.util.ArrayList;
 
-import javafx.scene.Node;
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
-import main.GUI;
-
 
 public class RoundScreenController {
 
 	private RoundScreen roundScreen;
-	private Game gameModel;
+	private GameModel gameModel;
 	private WindowController windowController;
 
-	public RoundScreenController(Stage stage, DatabaseController dataController, GUI gui,
-			WindowController windowController, GameController gameController) {
+	public RoundScreenController(GUI gui, WindowController windowController, GameController gameController) {
 		this.windowController = windowController;
 		roundScreen = new RoundScreen(this, gui);
 		gameModel = gameController.getGameModel();
@@ -29,7 +26,6 @@ public class RoundScreenController {
 
 		addDice();
 		createTimer();
-		
 	}
 
 	
@@ -52,17 +48,17 @@ public class RoundScreenController {
 	/**
 	 * Delete and reput dices
 	 */
-	public void refreshDice() {
+	private void refreshDice() {
 		roundScreen.clearBoard();
 		addDice();
 	}
 
 	
 	/** remove dice from roundboard
-	 * @param diceID
-	 * @param color
+	 * @param diceID = id of dice to remove
+	 * @param color = diecolor
 	 */
-	public void removeDice(int diceID, Color color) {
+	private void removeDice(int diceID, Color color) {
 		String colorText = getColorTranslation(color);
 		gameModel.removeDice(diceID, colorText);
 	}
@@ -71,7 +67,7 @@ public class RoundScreenController {
 
 	
 	/** translates hexadecimal color into dutch colors
-	 * @param color
+	 * @param color = diecolor
 	 * @return translated color
 	 */
 	private String getColorTranslation(Color color) {
@@ -115,7 +111,7 @@ public class RoundScreenController {
 	 * @param column
 	 * @param row
 	 */
-	public void clickDiceOnRoundTrack(int diceNumberWindow, String diceColorWindow, int column, int row) {
+	void clickDiceOnRoundTrack(int diceNumberWindow, String diceColorWindow, int column, int row) {
 		for (Node node : roundScreen.getChildren()) {
 			if (node instanceof CustomStackPane) {
 				CustomStackPane result = (CustomStackPane) node;
@@ -141,8 +137,8 @@ public class RoundScreenController {
 	 * @param column
 	 * @param row
 	 */
-	public void handleClickedOnDiceOnRoundTrack(int diceNumberWindow, String diceColorWindow, int diceNumberRoundTrack,
-			Color diceColorRoundTrack, int column, int row) {
+	private void handleClickedOnDiceOnRoundTrack(int diceNumberWindow, String diceColorWindow, int diceNumberRoundTrack,
+												 Color diceColorRoundTrack, int column, int row) {
 		for (Node node : roundScreen.getChildren()) {
 			if (node instanceof DiceScreen) {
 				DiceScreen dice = (DiceScreen) node;
