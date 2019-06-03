@@ -122,7 +122,6 @@ public class AccountController {
 
 			gameController.getGameModel().selectWholeGame();
 			cardController.getDBcards();
-			myGUI.handleGoBackToGame();
 
 			myGUI.setGameIDforScoreCalc(newGameID);
 
