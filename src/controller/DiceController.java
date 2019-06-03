@@ -107,9 +107,15 @@ public class DiceController {
 	}
 	
 	private void pickNewDice(DiceScreen dice) {
-		GC.getGameModel().pickNewDice();
+		System.out.println(dice.getDiceModel().getColorForQuerie());
+		System.out.println(dice.getDiceModel().getEyes());
+		System.out.println(dice.getDiceModel().getDiceNumber());
 		
-		dice.setOnMouseClicked(e -> DicesPlus1(dice, true));
+		dice.setOnMouseClicked(null);
+		GC.getGameModel().pickNewDice(dice.getDiceModel().getDiceNumber(), dice.getDiceModel().getColorForQuerie());
+		GC.startTimer();
+		
+//		dice.setOnMouseClicked(e -> DicesPlus1(dice, true));
 	}
 	
 	private void throwDiceOnes(DiceScreen dice) {

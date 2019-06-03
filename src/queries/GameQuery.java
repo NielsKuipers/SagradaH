@@ -82,6 +82,10 @@ public class GameQuery {
 		standardQueries.updateQuery("UPDATE gamedie set eyes=?, round=?", eyes + "\0" + round, " WHERE idgame=? AND dienumber=? AND diecolor=?", idGame + "\0" + dienumber + "\0" + diecolor);
 	}
 	
+	public void deleteDie(int dienumber, String diecolor, int idGame) {
+		standardQueries.updateQuery("UPDATE gamedie set eyes=?, round=?", "null" + "\0" + "null", " WHERE idgame=? AND dienumber=? AND diecolor=?", idGame + "\0" + dienumber + "\0" + diecolor);
+	}
+	
 	public ArrayList<ArrayList<Object>> getAllEmptyDices(int idGame) {
 		return standardQueries.selectQuery("SELECT dienumber, diecolor FROM gamedie",
 				" WHERE idgame=? AND round IS NULL","" + idGame + "");
