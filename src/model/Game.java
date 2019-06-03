@@ -47,22 +47,21 @@ public class Game {
 	public final StringProperty gameRoundProperty() {
 		return gameRound;
 	}
-	
+
 	public final StringProperty gameTurnProperty() {
 		return gameTurn;
 	}
-	
+
 	private void setTurn(String turn) {
 		gameTurn.set("Beurt: " + turn);
 	}
 
 	public int getRound() {
-		if(gameQuery.getRound(gameId).isEmpty()) {
+		if (gameQuery.getRound(gameId).isEmpty()) {
 			return 1;
-		}else {
-			
-		
-		return (int) gameQuery.getRound(gameId).get(0).get(0)+1;
+		} else {
+
+			return (int) gameQuery.getRound(gameId).get(0).get(0) + 1;
 		}
 	}
 
@@ -81,42 +80,54 @@ public class Game {
 	public int getAmountOffplayers() {
 		return players.size();
 	}
-	
-	public void pickNewDice() {
-		ArrayList<ArrayList<Object>> result = gameQuery.getAllEmptyDices(gameId);
-		int amountOfDicesInGame = result.size();
+
+	public void pickNewDice(int deleteDieNumber, String deleteColorDie) {
+		// get the round
+		ArrayList<ArrayList<Object>> result = gameQuery.getRound(gameId);
+		int round = 0;
+		if (result.isEmpty()) {
+			round = 1;
+		} else {
+			round = Integer.valueOf(String.valueOf(result.get(0).get(0)));
+			round++;
+		}
+		
+		// get all the empty dices of a game
+		ArrayList<ArrayList<Object>> result2 = gameQuery.getAllEmptyDices(gameId);
+		int amountOfDicesInGame = result2.size();
 
 		// choose a random dice
 		int indexDice = r.nextInt(amountOfDicesInGame);
 
 		// get random eyes
+		int randomEyes = r.nextInt((6 - 1) + 1) + 1;
+		int dieNumber = Integer.valueOf(String.valueOf(result2.get(indexDice).get(0)));
+		String dieColor = String.valueOf(result2.get(indexDice).get(1));
+
+		gameQuery.deleteDie(deleteDieNumber, deleteColorDie, gameId);
 		
-		int dieNumber = Integer.valueOf(String.valueOf(result.get(indexDice).get(0)));
-		String dieColor = String.valueOf(result.get(indexDice).get(1));
+		// update the dice, the dice has been thrown
+		gameQuery.updateRollDice(dieNumber, dieColor, gameId, randomEyes, round);
 		
-		gameQuery.updateRollDice(dieNumber, dieColor, gameId, 1, getRound());
 	}
-	
+
 	public boolean checkIfDieAreThrown() {
 		ArrayList<ArrayList<Object>> result = gameQuery.getRound(gameId);
 		int round = 0;
-        if (result.isEmpty()) {
-            round = 1;
-        } else {
-            round = Integer.valueOf(String.valueOf(result.get(0).get(0)));
-            round++;
-        }
+		if (result.isEmpty()) {
+			round = 1;
+		} else {
+			round = Integer.valueOf(String.valueOf(result.get(0).get(0)));
+			round++;
+		}
 
-        ArrayList<ArrayList<Object>> result2 = gameQuery.getAllDicesFromOneRound(gameId, round);
-		if(result2.isEmpty()) {
+		ArrayList<ArrayList<Object>> result2 = gameQuery.getAllDicesFromOneRound(gameId, round);
+		if (result2.isEmpty()) {
 			return false;
 		}
 		return true;
 	}
-	
 
-	
-	
 	// give all the players the right id
 
 	/**
@@ -218,15 +229,14 @@ public class Game {
 		}
 
 	}
-	
+
 	/**
 	 * check which turn main player is in
 	 */
 	private void selectTurnOfRound() {
-		if(!isSecondTurn()) {
+		if (!isSecondTurn()) {
 			setTurn("1");
-		}
-		else if(isSecondTurn()) {
+		} else if (isSecondTurn()) {
 			setTurn("2");
 		}
 	}
@@ -685,9 +695,9 @@ public class Game {
 
 		for (ArrayList<Object> player : result) {
 			givePlayerFavorTokens((int) player.get(0), getDifficultyWindowOfPlayer((int) player.get(0)));
-		}	
+		}
 	}
-	
+
 	private int getDifficultyWindowOfPlayer(int idPlayer) {
 		ArrayList<ArrayList<Object>> result = gameQuery.getWindowDifficulty(idPlayer);
 		return (int) result.get(0).get(0);
@@ -874,17 +884,17 @@ public class Game {
 
 		switch (amountOfPlayers) {
 		case 2:
-			if(players.get(0).selectSqnr() == 4) {
+			if (players.get(0).selectSqnr() == 4) {
 				return true;
 			}
 			break;
 		case 3:
-			if(players.get(0).selectSqnr() == 6) {
+			if (players.get(0).selectSqnr() == 6) {
 				return true;
 			}
 			break;
 		case 4:
-			if(players.get(0).selectSqnr() == 8) {
+			if (players.get(0).selectSqnr() == 8) {
 				return true;
 			}
 			break;
@@ -894,7 +904,7 @@ public class Game {
 		}
 		return false;
 	}
-	
+
 	public boolean isTC8BoughtInThisRound() {
 		ArrayList<ArrayList<Object>> result = gameQuery.getRound(gameId);
 		int round = 0;
@@ -904,12 +914,13 @@ public class Game {
 			round = Integer.valueOf(String.valueOf(result.get(0).get(0)));
 			round++;
 		}
-		
-		ArrayList<ArrayList<Object>> result2 = gameQuery.isTC8BoughtInThisRound(players.get(0).getPlayerId(), gameId, round);
-		if(!result2.isEmpty()) {
+
+		ArrayList<ArrayList<Object>> result2 = gameQuery.isTC8BoughtInThisRound(players.get(0).getPlayerId(), gameId,
+				round);
+		if (!result2.isEmpty()) {
 			return true;
 		}
-		
+
 		return false;
 	}
 
