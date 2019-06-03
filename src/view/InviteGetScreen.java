@@ -8,12 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.BorderWidths;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -99,7 +94,6 @@ public class InviteGetScreen extends BorderPane {
 				controller.acceptInvite(gameid);
 				refreshList();
 			});
-
 		}
 	}
 
@@ -112,7 +106,6 @@ public class InviteGetScreen extends BorderPane {
 				controller.declineInvite(gameid);
 				refreshList();
 			});
-
 		}
 	}
 

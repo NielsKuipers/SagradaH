@@ -3,14 +3,12 @@ package controller;
 import model.Game;
 import timer.AnimationTimerEXT;
 import view.DiceScreen;
-import view.FieldScreen;
 import view.RoundScreen;
 import view.RoundScreen.CustomStackPane;
 
 import java.util.ArrayList;
 
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import main.GUI;

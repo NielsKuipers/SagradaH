@@ -1,7 +1,5 @@
 package controller;
 
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 import main.GUI;
 import model.Game;
 import view.EndScreen;

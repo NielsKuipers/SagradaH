@@ -53,7 +53,6 @@ public class DiceScreen extends StackPane {
 		checkNumber(number);
 		this.idRoundTrack = diceID;
 		this.colorRoundTrack = color;
-		
 	}
 	
 	
