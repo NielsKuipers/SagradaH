@@ -41,4 +41,8 @@ public class Account {
 		}
 		return false;
 	}
+	public boolean sombodyHasNotChosenWindowPattern(int idGame) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
