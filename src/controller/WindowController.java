@@ -142,6 +142,17 @@ public class WindowController {
 		diceCanBeMoved = true;
 		TwoCanbeMoved = true;
 	}
+	
+	public boolean isDraggingDiceFull() {
+		if (draggingDice == null) {
+			return false;
+		}
+		return true;
+	}
+	
+	public void setDraggingDiceNull() {
+		draggingDice = null;
+	}
 
 	public void buyTC3() {
 		diceCanBeMoved = true;
@@ -406,6 +417,7 @@ public class WindowController {
 			}
 
 			makeEveryBorderBlack();
+			draggingDice = null;
 		});
 
 	}

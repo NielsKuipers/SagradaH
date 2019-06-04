@@ -123,7 +123,7 @@ public class GUI extends Application {
                                               
 	public void handlegamesort(Object sortV) { accountController.handleSort(sortV); }
 	
-	public void handleHomeMenu() { accountController.toHomeMenu(); gameController.stopTimer(); windowController.setExtraTurnFalse();}
+	public void handleHomeMenu() { accountController.toHomeMenu(); gameController.stopTimer(); windowController.setExtraTurnFalse(); windowController.setDraggingDiceNull();}
 	
 	public void sendString(String S) { accountController.setGameboolean(S); }
 
