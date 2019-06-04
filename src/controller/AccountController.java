@@ -1,8 +1,15 @@
 
 package controller;
 
-import javafx.scene.control.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
@@ -12,7 +19,6 @@ import model.Account;
 import view.GameListScreen;
 import view.HomePane;
 import view.StartPane;
-import java.util.ArrayList;
 
 public class AccountController {
 	private Account myaccount;
@@ -60,60 +66,80 @@ public class AccountController {
 			startpane.getReg().setRedBorder(username, password);
 		}
 	}
+	
+	/**
+	 * This makes the list with all the games in it. 
+	 */
 			
 	private ArrayList<HBox> getGames(ArrayList<ArrayList<Object>> games) {
 		StringBuilder stringBuilder = new StringBuilder();
 		ArrayList<HBox> hboxList = new ArrayList<>();
-		int gameID = 0;
-
-		for (ArrayList<Object> row : games) {
-			int newGameID;
-			newGameID = (int) row.get(1);
-			String status = "";
-
-			if (newGameID != gameID) {
+		ArrayList<ArrayList<Object>> curGame = new ArrayList<>();
+		HashMap<String, String> playerStatus = new HashMap<>();
+		int idGame = 1;
+		int rowCount = -1;
+		for(ArrayList<Object> row : games) {
+			int newGameID = (int) row.get(1);
+			if(newGameID == idGame) {
+				curGame.add(row);
+				rowCount++;
+			}
+			if(newGameID != idGame) {
+				String status = " Status: niet een deelnemer";
 				HBox gameLine = new HBox();
-				if (myaccount.checkIfInGame(newGameID, getAccount())) {
+				gameLine.setBackground(new Background(new BackgroundFill(Color.GRAY, null, null)));
+				for(ArrayList<Object> gameRow : curGame) {playerStatus.put(gameRow.get(0).toString().toLowerCase(), gameRow.get(3).toString());}
+				if(playerStatus.containsKey(getAccount())) {
 					Button joinGame = new Button("Join game");
-					if(myaccount.hasBeenCanceld(newGameID)) {
+					switch(playerStatus.get(getAccount())) {
+					case "afgebroken":
+						gameLine.setBackground(new Background(new BackgroundFill(Color.DARKRED, null, null)));
+						status = " Status: afgebroken";
+						break;
+					case "uitgespeeld":
+						gameLine.setBackground(new Background(new BackgroundFill(Color.CADETBLUE, null, null)));
+						status = " Status: uitgespeeld";
+						gameLine.getChildren().add(joinGame);
+						break;
+					case "geaccepteerd":
+						gameLine.setBackground(new Background(new BackgroundFill(Color.DARKSEAGREEN, null, null)));
+						status = " Status: game is gestart/ bezig";
+						gameLine.getChildren().add(joinGame);
+						break;
+					case "geweigerd":
 						gameLine.setBackground(new Background(new BackgroundFill(Color.CRIMSON, null, null)));
-						joinGame.setDisable(true);
-							status = "status: afgebroken";
-					} else if(myaccount.hasEnded(newGameID)) {
+						status = " Status: geweigerd";
+						break;
+					case "uitdager":
 						gameLine.setBackground(new Background(new BackgroundFill(Color.ROYALBLUE, null, null)));
-						status = "status: uitgespeeld";
-					} else if(myaccount.somebodyHasNotChosenWindowPattern(newGameID)) {
-						gameLine.setBackground(new Background(new BackgroundFill(Color.GOLD, null, null)));
-						if(myaccount.iHaveNotChosenWindowPattern(newGameID, getAccount())) {
-							status ="status: kies patroonkaart";
-						} else {
-							status ="status: patroonkaart gekozen, wachten op andere spelers";
-						}
-						
-					} else {
-						gameLine.setBackground(new Background(new BackgroundFill(Color.LIGHTGREEN, null, null)));
-							status ="status: bezig";
+						status = " Status: uitdager";
+						gameLine.getChildren().add(joinGame);
+						break;
 					}
-					joinGame.setOnMouseClicked(e -> handleJoinGame(newGameID));
-					gameLine.getChildren().add(joinGame);
-
-				} else {
-					gameLine.setBackground(new Background(new BackgroundFill(Color.GRAY, null, null)));
-					status = "status: niet een deelnemer";
+					int gameNumber = idGame;
+					joinGame.setOnMouseClicked(e -> handleJoinGame(gameNumber));
 				}
-				for (Object game : row.subList(1, row.size() - 1)) {
-					stringBuilder.append(game).append(" ");
+				for (Object object: games.get(rowCount).subList(1, games.get(rowCount).size()-1)) {
+					stringBuilder.append(object).append(" ");
 				}
 				Label textforgame = new Label(stringBuilder.toString() + status);
 				gameLine.getChildren().add(textforgame);
 				gameLine.setSpacing(10.0);
 				hboxList.add(gameLine);
-				gameID = newGameID;
+				idGame = newGameID;
 				stringBuilder.setLength(0);
+				curGame.clear();
+				curGame.add(row);
+				playerStatus.clear();
+				rowCount++;
 			}
 		}
 		return hboxList;
 	}
+	
+	/**
+	 * how the button must behave
+	 */
   
 	private void handleJoinGame(int newGameID) {
 		if (myaccount.hostplayer(getAccount(), newGameID) || (!myaccount.hostplayer(getAccount(), newGameID) && myaccount.patternsCreated(getAccount(), newGameID))) {
