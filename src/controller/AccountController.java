@@ -178,7 +178,7 @@ public class AccountController {
 	}
 	
 	private void setAccount(String AC) {
-		this.accountname = AC;
+		this.accountname = myaccount.getUsername(AC);
 	}
 
 	String getAccount() {
