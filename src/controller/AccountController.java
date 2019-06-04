@@ -71,19 +71,26 @@ public class AccountController {
 	 * This makes the list with all the games in it. 
 	 */
 			
-	private ArrayList<HBox> getGames(ArrayList<ArrayList<Object>> games) {
+	private ArrayList<HBox> getGames(ArrayList<ArrayList<Object>> games, String kind) {
 		StringBuilder stringBuilder = new StringBuilder();
 		ArrayList<HBox> hboxList = new ArrayList<>();
 		ArrayList<ArrayList<Object>> curGame = new ArrayList<>();
 		HashMap<String, String> playerStatus = new HashMap<>();
-		int idGame = 1;
-		int rowCount = -1;
-		for(ArrayList<Object> row : games) {
-			int newGameID = (int) row.get(1);
-			if(newGameID == idGame) {
-				curGame.add(row);
-				rowCount++;
-			}
+		int idGame;
+		int rowCount;
+		if(kind.equals("ID")) {
+			idGame = 1;
+			rowCount = -1;
+		} else {
+			idGame = games.size();
+			rowCount = 0;
+		}
+			for(ArrayList<Object> row : games) {
+				int newGameID = (int) row.get(1);
+				if(newGameID == idGame) {
+					curGame.add(row);
+					rowCount++;
+				}
 			if(newGameID != idGame) {
 				String status = " Status: niet een deelnemer";
 				HBox gameLine = new HBox();
@@ -119,6 +126,7 @@ public class AccountController {
 					int gameNumber = idGame;
 					joinGame.setOnMouseClicked(e -> handleJoinGame(gameNumber));
 				}
+
 				for (Object object: games.get(rowCount).subList(1, games.get(rowCount).size()-1)) {
 					stringBuilder.append(object).append(" ");
 				}
@@ -132,8 +140,8 @@ public class AccountController {
 				curGame.add(row);
 				playerStatus.clear();
 				rowCount++;
+				}
 			}
-		}
 		return hboxList;
 	}
 	
@@ -186,15 +194,15 @@ public class AccountController {
 	}	
 	public void handleSort(Object sortV) {
 		if(gameboolean.equals("Alle spellen")) {
-			gameListScreen.showGames(getGames(myaccount.getGames(sortV)));
+			gameListScreen.showGames(getGames(myaccount.getGames(sortV), sortV.toString()));
 		}
 		if(gameboolean.equals("Mijn spellen")) {
-			gameListScreen.showGames(getGames(myaccount.getGames(sortV, getAccount())));
+			gameListScreen.showGames(getGames(myaccount.getGames(sortV, getAccount()), sortV.toString()));
 		}
 	}
 	
 	public void showGames() {
-		gameListScreen.showGames(getGames(myaccount.getGames()));
+		gameListScreen.showGames(getGames(myaccount.getGames(), "ID"));
 		myGUI.changePane(gameListScreen);
 	}
 	
