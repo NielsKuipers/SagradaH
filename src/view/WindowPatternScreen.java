@@ -9,12 +9,12 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import model.WindowPattern;
+import model.WindowPatternModel;
 
 public class WindowPatternScreen extends GridPane{
-	private WindowPattern windowPatternModel;
+	private WindowPatternModel windowPatternModel;
 
-	public WindowPatternScreen(String name, WindowPattern windowPatternModel, String color) {
+	public WindowPatternScreen(String name, WindowPatternModel windowPatternModel, String color) {
 		this.windowPatternModel = windowPatternModel;
 		
 		Label name1 = new Label(name);
@@ -48,7 +48,7 @@ public class WindowPatternScreen extends GridPane{
 	}
 	
 	
-	public WindowPattern getWindowPatternModel() {
+	public WindowPatternModel getWindowPatternModel() {
 		return windowPatternModel;
 	}
 	

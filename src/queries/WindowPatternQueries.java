@@ -2,10 +2,10 @@ package queries;
 
 import java.util.ArrayList;
 
-public class WindowPatternQuerie {
+public class WindowPatternQueries {
 	private StandardQueries standardQueries;
 
-	public WindowPatternQuerie(StandardQueries standardQueries) {
+	public WindowPatternQueries(StandardQueries standardQueries) {
 		this.standardQueries = standardQueries;
 	}
 

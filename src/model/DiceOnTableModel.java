@@ -5,20 +5,20 @@ import java.util.ArrayList;
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleObjectProperty;
 
-public class DiceOnTable {
-	private ArrayList<Dice> allDice = new ArrayList<>();
-	private Property<ArrayList<Dice>> diceOnTableProperty = new SimpleObjectProperty<>();
+public class DiceOnTableModel {
+	private ArrayList<DiceModel> allDice = new ArrayList<>();
+	private Property<ArrayList<DiceModel>> diceOnTableProperty = new SimpleObjectProperty<>();
 
 
-	void addDiceToTable(Dice dice) {
+	void addDiceToTable(DiceModel dice) {
 		allDice.add(dice);
 		diceOnTableProperty.setValue(new ArrayList<>());
 		diceOnTableProperty.setValue(allDice);
 		
 	}
 	
-	public void removeDiceFromTable(Dice dice) {
-		for (Dice die : allDice) {
+	public void removeDiceFromTable(DiceModel dice) {
+		for (DiceModel die : allDice) {
 			if (die.equals(dice)) {
 				allDice.remove(die);
 				diceOnTableProperty.setValue(new ArrayList<>());
@@ -41,8 +41,8 @@ public class DiceOnTable {
 	}
 
 
-	public boolean isDiceOnTable(Dice dice) {
-		for (Dice die : allDice) {
+	public boolean isDiceOnTable(DiceModel dice) {
+		for (DiceModel die : allDice) {
 			if (die.equals(dice)) {
 				return true;
 			}
@@ -50,7 +50,7 @@ public class DiceOnTable {
 		return false;
 	}
   
-	public Property<ArrayList<Dice>> diceOnTableProperty() {
+	public Property<ArrayList<DiceModel>> diceOnTableProperty() {
 		return diceOnTableProperty;
 	}
 }

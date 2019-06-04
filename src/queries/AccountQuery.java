@@ -94,4 +94,8 @@ public class AccountQuery {
 	public ArrayList<ArrayList<Object>> isHost(String username, int gameid){
 		return standardQuery.selectQuery("SELECT playstatus_playstatus FROM player", " WHERE username=? AND game_idgame=?", username+"\0"+gameid);
 	}
+	
+	public ArrayList<ArrayList<Object>> getCorrectUsername(String username){
+		return standardQuery.selectQuery("SELECT username FROM account", " WHERE username=?", username);
+	}
 }

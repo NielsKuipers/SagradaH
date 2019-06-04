@@ -5,16 +5,16 @@ import java.sql.Connection;
 import model.DatabaseModel;
 import queries.*;
 
-import queries.WindowPatternQuerie;
+import queries.WindowPatternQueries;
 
 public class DatabaseController {
 
     private AccountQuery AQ;
     private CardQueries CQ;
     private ChatQueries chatQueries;
-    private GameQuery gameQuery;
-    private PlayerQuery playerQuery;
-    private WindowPatternQuerie windowPatternQuerie;
+    private GameQueries gameQueries;
+    private PlayerQueries playerQueries;
+    private WindowPatternQueries windowPatternQueries;
     private UserListQueries userListQueries;
     private InviteHandleQueries inviteHandleQueries;
     private ScoreQueries scoreQueries;
@@ -27,10 +27,10 @@ public class DatabaseController {
 
         userListQueries = new UserListQueries(standardQueries);
         chatQueries = new ChatQueries(standardQueries);
-        gameQuery = new GameQuery(standardQueries);
-        playerQuery = new PlayerQuery(standardQueries);
+        gameQueries = new GameQueries(standardQueries);
+        playerQueries = new PlayerQueries(standardQueries);
         CQ = new CardQueries(standardQueries);
-        windowPatternQuerie = new WindowPatternQuerie(standardQueries);
+        windowPatternQueries = new WindowPatternQueries(standardQueries);
         inviteHandleQueries = new InviteHandleQueries(standardQueries);
         AQ = new AccountQuery(standardQueries);
         scoreQueries = new ScoreQueries(standardQueries);
@@ -48,20 +48,20 @@ public class DatabaseController {
     	return inviteHandleQueries;
     }
     
-    GameQuery getGameQuery() {
-    	return gameQuery;
+    GameQueries getGameQueries() {
+    	return gameQueries;
     }
 
     public ChatQueries getChatQueries() {
         return chatQueries;
     }
 
-    PlayerQuery getPlayerQuery() {
-        return playerQuery;
+    PlayerQueries getPlayerQueries() {
+        return playerQueries;
     }
 
-    WindowPatternQuerie getWindowPatternQuerie() {
-    	return windowPatternQuerie;
+    WindowPatternQueries getWindowPatternQueries() {
+    	return windowPatternQueries;
     }
     
     public CardQueries getCardQuery() {

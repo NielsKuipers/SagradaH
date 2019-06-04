@@ -8,15 +8,15 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Color;
 
-public class Field {
+public class FieldModel {
 	private int row;
 	private int column;
 	private Color color;
 	private IntegerProperty eyesProperty;
 	private Property<Background> backgroundProperty;
-	private Property<Dice> diceProperty;
+	private Property<DiceModel> diceProperty;
 
-	public Field(int column, int row, Color color) {
+	public FieldModel(int column, int row, Color color) {
 		this.row = row;
 		this.column = column;
 		this.color = color;
@@ -46,15 +46,15 @@ public class Field {
 		return diceProperty.getValue() != null;
 	}
 
-	public void addDice(Dice dice) {
+	public void addDice(DiceModel dice) {
 		diceProperty.setValue(dice);
 	}
 
-	public Dice getDice() {
+	public DiceModel getDice() {
 		return diceProperty.getValue();
 	}
 	
-	public Property<Dice> diceProperty(){
+	public Property<DiceModel> diceProperty(){
 		return diceProperty;
 	}
 

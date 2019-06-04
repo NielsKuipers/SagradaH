@@ -30,6 +30,10 @@ public class Account {
 		}
 		return true;
 	}
+	
+	public String getUsername(String username) {		
+		return accountQuery.getCorrectUsername(username).get(0).get(0).toString();
+	}
 
 	public boolean hostplayer(String username, int gameid) {
 		if(accountQuery.isHost(username, gameid).get(0).get(0).equals("uitdager")) {

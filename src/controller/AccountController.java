@@ -187,7 +187,7 @@ public class AccountController {
 	 */
 	private void alert() {
 		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle("Game is nog niet ready");
+		alert.setTitle("Game is nog niet gereed");
 		alert.setHeaderText("WAARSCHUWING");
 		alert.setContentText("Windowpattern keuzes zijn nog niet gemaakt,\n wij vragen u vriendelijk om nog heel eventjes te wachten");
 		alert.showAndWait();
@@ -212,7 +212,7 @@ public class AccountController {
 	}
 	
 	private void setAccount(String AC) {
-		this.accountname = AC;
+		this.accountname = myaccount.getUsername(AC);
 	}
 
 	String getAccount() {

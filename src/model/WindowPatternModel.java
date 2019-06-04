@@ -6,27 +6,25 @@ import javafx.beans.property.Property;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.paint.Color;
-import queries.WindowPatternQuerie;
+import queries.WindowPatternQueries;
 
-public class WindowPattern {
+public class WindowPatternModel {
 
 	private int idWindow;
-	private ArrayList<Field> fields = new ArrayList<>();
+	private ArrayList<FieldModel> fields = new ArrayList<>();
 	private StringProperty difficulty = new SimpleStringProperty(this, "difficulty", "empty");
 	private StringProperty playerName = new SimpleStringProperty(this, "playerName", "empty");
 	private StringProperty playerScore = new SimpleStringProperty(this, "playerScore", "empty");
 	private Property<Color> backgroundProperty = new SimpleObjectProperty<>();
 
-	private WindowPatternQuerie windowPatternQuerie;
+	private WindowPatternQueries windowPatternQueries;
 
-	public WindowPattern(WindowPatternQuerie windowPatternQuerie) {
-		this.windowPatternQuerie = windowPatternQuerie;
+	public WindowPatternModel(WindowPatternQueries windowPatternQueries) {
+		this.windowPatternQueries = windowPatternQueries;
 	}
 
-	public void addFieldToWindow(Field field) {
+	public void addFieldToWindow(FieldModel field) {
 		fields.add(field);
 	}
 
@@ -36,9 +34,9 @@ public class WindowPattern {
 	 * @return a field model
 	 * get a field
 	 */
-	public Field getFieldOfWindow(int column, int row) {
-		Field result = null;
-		for (Field field : fields) {
+	public FieldModel getFieldOfWindow(int column, int row) {
+		FieldModel result = null;
+		for (FieldModel field : fields) {
 			if (field.getColumn() == column && field.getRow() == row) {
 				result = field;
 			}
@@ -78,8 +76,8 @@ public class WindowPattern {
 	 * @param dice = dice model
 	 * remove a dice from a field
 	 */
-	public void removeDiceFromWindowPattern(Dice dice) {
-		for (Field field : fields) {
+	public void removeDiceFromWindowPattern(DiceModel dice) {
+		for (FieldModel field : fields) {
 			if (field.getDice() == dice) {
 				field.deleteDice();
 			}
@@ -91,8 +89,8 @@ public class WindowPattern {
 	 * @return true or false
 	 * checks if a specific dice is on a field
 	 */
-	public boolean diceOnWindow(Dice dice) {
-		for (Field field : fields) {
+	public boolean diceOnWindow(DiceModel dice) {
+		for (FieldModel field : fields) {
 			if (field.getDice() == dice) {
 				return true;
 			}
@@ -106,10 +104,10 @@ public class WindowPattern {
 	 * give all the fields the right values
 	 */
 	void selectAllFields() {
-		for (Field field : fields) {
+		for (FieldModel field : fields) {
 			field.deleteDice();
 		}
-		ArrayList<ArrayList<Object>> result = windowPatternQuerie.getAllFields(idWindow);
+		ArrayList<ArrayList<Object>> result = windowPatternQueries.getAllFields(idWindow);
 		for (int row = 1; row < 5; row++) {
 			for (int column = 0; column < 5; column++) {
 				for (ArrayList<Object> objects : result) {
@@ -134,7 +132,7 @@ public class WindowPattern {
 	 * place all the dices on the fields
 	 */
 	void selectAllDicesOnField(int idPlayer, int idGame) {
-		ArrayList<ArrayList<Object>> result = windowPatternQuerie.getAllDicesOnField(idPlayer, idGame);
+		ArrayList<ArrayList<Object>> result = windowPatternQueries.getAllDicesOnField(idPlayer, idGame);
 		for (int row = 1; row < 5; row++) {
 			for (int column = 0; column < 5; column++) {
 				getFieldOfWindow(column, row).deleteDice();
@@ -142,7 +140,7 @@ public class WindowPattern {
 					try {
 						if (row == Integer.valueOf(objects.get(3).toString()) && column == Integer.valueOf(objects.get(2).toString()) - 1 && objects.get(1) != null) {
 							int eyes = Integer.valueOf(objects.get(1).toString());
-							getFieldOfWindow(column, row).addDice(new Dice(makeEyeFromQuerie(objects.get(1)), makeColorFromQuerie(objects.get(0)), Integer.valueOf(String.valueOf(objects.get(4)))));
+							getFieldOfWindow(column, row).addDice(new DiceModel(makeEyeFromQuerie(objects.get(1)), makeColorFromQuerie(objects.get(0)), Integer.valueOf(String.valueOf(objects.get(4)))));
 							getFieldOfWindow(column, row).getDice().setEyes(eyes);
 						}
 					} catch (Exception e) {
@@ -156,12 +154,12 @@ public class WindowPattern {
 	}
 
 	public int getDifficulty() {
-		ArrayList<ArrayList<Object>> result = windowPatternQuerie.getDifficulty(idWindow);
+		ArrayList<ArrayList<Object>> result = windowPatternQueries.getDifficulty(idWindow);
 		return Integer.valueOf(String.valueOf(result.get(0).get(0)));
 	}
 
 	void selectDifficulty() {
-		ArrayList<ArrayList<Object>> result = windowPatternQuerie.getDifficulty(idWindow);
+		ArrayList<ArrayList<Object>> result = windowPatternQueries.getDifficulty(idWindow);
 		difficulty.set("Moeilijkheidsgraad: " + result.get(0).get(0));
 	}
 
@@ -207,7 +205,7 @@ public class WindowPattern {
 	 * make all the windows gray and delete all the dices
 	 */
 	public void makeWindowEmpty() {
-		for (Field field : fields) {
+		for (FieldModel field : fields) {
 			field.setColorAndEyes(Color.LIGHTGRAY, 0);
 			field.deleteDice();
 		}

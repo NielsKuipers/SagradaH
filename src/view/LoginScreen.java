@@ -24,16 +24,16 @@ public class LoginScreen extends VBox {
 	}
 	
 	private void addButton() {
-		Button login = new Button("Login");
+		Button login = new Button("Inloggen");
 		login.setMaxWidth(150);
 		getChildren().add(login);
 		login.setOnMouseClicked(e -> handleClick());
 	}
 	private void addFields() {
 		username = new TextField();
-		username.setPromptText("Username");
+		username.setPromptText("Gebruikersnaam");
 		password = new PasswordField();
-		password.setPromptText("Password");
+		password.setPromptText("Wachtwoord");
 		getChildren().addAll(username,password);
 		username.setOnKeyReleased(e -> {if(e.getCode() == KeyCode.ENTER) {
 			handleClick();

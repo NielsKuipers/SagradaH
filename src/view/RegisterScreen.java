@@ -24,7 +24,7 @@ public class RegisterScreen extends VBox {
 	}
 	
 	private void addButton() {
-		Button register = new Button("Register");
+		Button register = new Button("Registreren");
 		register.setMaxWidth(150);
 		getChildren().add(register);
 		register.setOnMouseClicked(e -> handleClick());
@@ -32,9 +32,9 @@ public class RegisterScreen extends VBox {
 	
 	private void addFields() {
 		username = new TextField();
-		username.setPromptText("Username");
+		username.setPromptText("Gebruikersnaam");
 		password = new PasswordField();
-		password.setPromptText("Password");
+		password.setPromptText("Wachtwoord");
 		getChildren().addAll(username,password);
 		username.setOnKeyReleased(e -> {if(e.getCode() == KeyCode.ENTER) {
 			handleClick();

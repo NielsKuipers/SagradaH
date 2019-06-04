@@ -1,7 +1,5 @@
 package view;
 
-import java.util.Iterator;
-
 import controller.WindowController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -11,17 +9,16 @@ import javafx.scene.Node;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
-import model.Dice;
-import model.Field;
+import model.DiceModel;
+import model.FieldModel;
 
 public class FieldScreen extends StackPane {
 
-	private Field fieldModel;
+	private FieldModel fieldModel;
 
 	private WindowController WC;
 
-	public FieldScreen(Field fieldModel, WindowController WC) {
+	public FieldScreen(FieldModel fieldModel, WindowController WC) {
 		this.fieldModel = fieldModel;
 		this.WC = WC;
 		setMinSize(50, 50);
@@ -141,7 +138,7 @@ public class FieldScreen extends StackPane {
 		setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, new BorderWidths(3))));
 	}
 
-	public Field getFieldModel() {
+	public FieldModel getFieldModel() {
 		return fieldModel;
 	}
 
@@ -158,9 +155,9 @@ public class FieldScreen extends StackPane {
 	/**
 	 *check if dice on field has changed, when changed draw dice
 	 */
-	private class MyDiceListener implements ChangeListener<Dice> {
+	private class MyDiceListener implements ChangeListener<DiceModel> {
 		@Override
-		public void changed(ObservableValue<? extends Dice> observable, Dice oldValue, Dice newValue) {
+		public void changed(ObservableValue<? extends DiceModel> observable, DiceModel oldValue, DiceModel newValue) {
 			// TODO Auto-generated method stub
 			try {
 

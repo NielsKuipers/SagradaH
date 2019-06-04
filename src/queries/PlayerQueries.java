@@ -2,10 +2,10 @@ package queries;
 
 import java.util.ArrayList;
 
-public class PlayerQuery {
+public class PlayerQueries {
 	private StandardQueries standardQueries;
 	
-	public PlayerQuery(StandardQueries standardQueries) {
+	public PlayerQueries(StandardQueries standardQueries) {
 		this.standardQueries = standardQueries;
 	}
 	

@@ -2,27 +2,25 @@ package model;
 
 import java.util.ArrayList;
 
-import javafx.scene.paint.Color;
-import queries.PlayerQuery;
+import queries.PlayerQueries;
 
-public class Player {
+public class PlayerModel {
 
 	private int idPlayer;
-	private WindowPattern windowPattern;
-	private Color playerColor;
+	private WindowPatternModel windowPattern;
 
-	private PlayerQuery playerQuery;
+	private PlayerQueries playerQueries;
 
-	public Player(PlayerQuery playerQuery) {
-		this.playerQuery = playerQuery;
+	public PlayerModel(PlayerQueries playerQueries) {
+		this.playerQueries = playerQueries;
 	}
 
-	public WindowPattern getWindowPatternPlayer() {
+	public WindowPatternModel getWindowPatternPlayer() {
 		return windowPattern;
 	}
 
-	public void givePlayerWindowPattern(WindowPattern windowPattern) {
-		this.windowPattern = windowPattern;
+	public void givePlayerWindowPattern(WindowPatternModel windowPatternModel) {
+		this.windowPattern = windowPatternModel;
 	}
 
 	void setPlayerId(int id) {
@@ -38,7 +36,7 @@ public class Player {
 	 *               and add it to the model
 	 */
 	void selectWindow(int idGame) {
-		ArrayList<ArrayList<Object>> result = playerQuery.getWindowId(idPlayer);
+		ArrayList<ArrayList<Object>> result = playerQueries.getWindowId(idPlayer);
 		try {
 			if (!result.isEmpty()) {
 				windowPattern.setId(Integer.valueOf(String.valueOf(result.get(0).get(0))));
@@ -54,17 +52,17 @@ public class Player {
 	}
 
 	private void selectPlayerName() {
-		ArrayList<ArrayList<Object>> result = playerQuery.getPlayerName(idPlayer);
+		ArrayList<ArrayList<Object>> result = playerQueries.getPlayerName(idPlayer);
 		windowPattern.setPlayerName("Naam: " + result.get(0).get(0));
 	}
 
 	private void selectPlayerScore() {
-		ArrayList<ArrayList<Object>> result = playerQuery.getPlayerScore(idPlayer);
+		ArrayList<ArrayList<Object>> result = playerQueries.getPlayerScore(idPlayer);
 		windowPattern.setPlayerScore("Score: " + result.get(0).get(0));
 	}
 
 	public void updateWindowId(int windowId) {
-		playerQuery.updateWindowID(idPlayer, windowId);
+		playerQueries.updateWindowID(idPlayer, windowId);
 	}
 
 	/**
@@ -72,7 +70,7 @@ public class Player {
 	 * @return true or false
 	 */
 	public boolean selectCurrentPlayer() {
-		ArrayList<ArrayList<Object>> result = playerQuery.getIsCurrentPlayer(idPlayer);
+		ArrayList<ArrayList<Object>> result = playerQueries.getIsCurrentPlayer(idPlayer);
 		int currentPlayer = 0;
 		if (!result.isEmpty()) {
 			currentPlayer = Integer.valueOf(String.valueOf(result.get(0).get(0)));
@@ -81,20 +79,20 @@ public class Player {
 	}
 
 	int selectSqnr() {
-		ArrayList<ArrayList<Object>> result = playerQuery.getSqnrPlayer(idPlayer);
+		ArrayList<ArrayList<Object>> result = playerQueries.getSqnrPlayer(idPlayer);
 		return Integer.valueOf(String.valueOf(result.get(0).get(0)));
 	}
 
 	void updateSqnr(int sqnr) {
-		playerQuery.updateSqnrPlayer(idPlayer, sqnr);
+		playerQueries.updateSqnrPlayer(idPlayer, sqnr);
 	}
 
 	void updateQurrentPlayer(int isQurrent) {
-		playerQuery.updateIsCurrentPlayer(idPlayer, isQurrent);
+		playerQueries.updateIsCurrentPlayer(idPlayer, isQurrent);
 	}
 
 	public void setDiceOnWindowPattern(int posX, int posY, int dienumber, String diecolor) {
-		playerQuery.updateDiceOnWindowPattern(idPlayer, posX, posY, dienumber, diecolor);
+		playerQueries.updateDiceOnWindowPattern(idPlayer, posX, posY, dienumber, diecolor);
 	}
 
 	/**
@@ -108,12 +106,12 @@ public class Player {
 	 */
 	public void setDiceOnWindowPatternAndGiveFirstTurn(int posX, int posY, int dienumber, String diecolor,
 			int inFirstTurn, int idGame) {
-		playerQuery.updateDiceOnWindowPattern(idPlayer, posX, posY, dienumber, diecolor);
-		playerQuery.updateFirstTurnDice(idGame, dienumber, diecolor, inFirstTurn);
+		playerQueries.updateDiceOnWindowPattern(idPlayer, posX, posY, dienumber, diecolor);
+		playerQueries.updateFirstTurnDice(idGame, dienumber, diecolor, inFirstTurn);
 	}
 
 	public void removeDiceOnWindowPattern(int dienumber, String diecolor) {
-		playerQuery.removeDiceOnWindowPattern(idPlayer, dienumber, diecolor);
+		playerQueries.removeDiceOnWindowPattern(idPlayer, dienumber, diecolor);
 	}
 
 }

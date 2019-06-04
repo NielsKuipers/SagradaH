@@ -6,9 +6,9 @@ import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import main.GUI;
-import model.Game;
-import model.Player;
-import model.WindowPattern;
+import model.GameModel;
+import model.PlayerModel;
+import model.WindowPatternModel;
 import timer.AnimationTimerEXT;
 import view.*;
 
@@ -25,7 +25,7 @@ public class GameController extends Scene {
 	private WindowPatternChooseScreen windowChoooseScreen;
 	private CardController CardController;
 
-	private Game gameModel;
+	private GameModel gameModel;
 
 	private WindowController WC;
 	private DiceController DC;
@@ -43,11 +43,11 @@ public class GameController extends Scene {
 		this.gui = gui;
 		this.CC = CC;
 
-		gameModel = new Game(databaseController.getGameQuery(), DC.getDiceOnTableModel(), WC, CardController);
-		gameModel.addPlayer(new Player(databaseController.getPlayerQuery()));
-		gameModel.addPlayer(new Player(databaseController.getPlayerQuery()));
-		gameModel.addPlayer(new Player(databaseController.getPlayerQuery()));
-		gameModel.addPlayer(new Player(databaseController.getPlayerQuery()));
+		gameModel = new GameModel(databaseController.getGameQueries(), DC.getDiceOnTableModel(), WC, CardController);
+		gameModel.addPlayer(new PlayerModel(databaseController.getPlayerQueries()));
+		gameModel.addPlayer(new PlayerModel(databaseController.getPlayerQueries()));
+		gameModel.addPlayer(new PlayerModel(databaseController.getPlayerQueries()));
+		gameModel.addPlayer(new PlayerModel(databaseController.getPlayerQueries()));
 
 		gameModel.getPlayer(0).givePlayerWindowPattern(WC.getWindow1().getWindowPatternModel());
 		gameModel.getPlayer(1).givePlayerWindowPattern(WC.getWindow2().getWindowPatternModel());
@@ -120,19 +120,14 @@ public class GameController extends Scene {
 		WC.setCheatBestChoice(bestChoice);
 	}
 
-	public void switchToolcards() {
-		setRoot(CardController.showcards());
-	}
 	
-	void switchToGameScreen() {
-		setRoot(gameScreen);
-	}
-
+	
+	
    
     
     
 
-	public Game getGameModel() {
+	public GameModel getGameModel() {
 		return gameModel;
 	}
 
@@ -150,15 +145,15 @@ public class GameController extends Scene {
 					handleFinishTurn();
 					gameModel.giveTurnToNextPlayer();
 				}
-
+			
 				if(!gameStarted){
-					if(gameModel.gameStarted()){ gameStarted = true; }
-				}
-				else{
-					getClientScore();
-					getOtherScore();
+					if(gameModel.gameStarted()){ gameStarted = true; 
+					}
 				}
 				
+				setClientScore();
+				setOtherScore();
+					
 				if (gameModel.amITheGameCreator() && !gameModel.doesEveryPlayerHasTheirFavorTokens() && gameModel.didEveryoneChoose()) {
 					gameModel.giveAllThePlayersTheirFavorTokens();
 				}
@@ -199,25 +194,24 @@ public class GameController extends Scene {
 		if(gameModel.getPlayer(0).selectCurrentPlayer() && !gameModel.checkIfMainPlayerCanThrowDices()) {
 			WC.setExtraTurnFalse();
 			gameModel.giveTurnToNextPlayer();
-			WC.setMovedToFalse();
 			WC.setCanOnlyMoveDiceWithSameColorAsDIceOnRoundTrackFalse();
 			WC.setDiceCanBeMovedFalse();
 		}
 		
 		gameModel.selectWholeGame();
-		getClientScore();
-		getOtherScore();
+		setClientScore();
+		setOtherScore();
 	}
 
-	private void getClientScore(){
+	public void setClientScore(){
 		int playerID = gameModel.getClientPlayer().getPlayerId();
-		gameModel.getClientPlayer().getWindowPatternPlayer().setPlayerScore(Integer.toString(calculateScoreController.getClientScore(playerID)));
+		gameModel.getClientPlayer().getWindowPatternPlayer().setPlayerScore("Score: " + calculateScoreController.getClientScore(playerID));
 	}
 
-	private void getOtherScore(){
-		ArrayList<Player> players = gameModel.getAllPlayers();
-		for(Player player : players.subList(1, players.size())){
-			player.getWindowPatternPlayer().setPlayerScore(Integer.toString(calculateScoreController.getOtherScore(player.getPlayerId())));
+	public void setOtherScore(){
+		ArrayList<PlayerModel> players = gameModel.getAllPlayers();
+		for(PlayerModel player : players.subList(1, players.size())){
+			player.getWindowPatternPlayer().setPlayerScore("Score: " + calculateScoreController.getOtherScore(player.getPlayerId()));
 		}
 	}
 	
@@ -235,7 +229,7 @@ public class GameController extends Scene {
 	 * @param windowModel = the window you have chosen
 	 * check wich window you have chosen and update it in the database
 	 */
-	public void chooseWindow(WindowPattern windowModel) {
+	public void chooseWindow(WindowPatternModel windowModel) {
 		gameModel.getPlayer(0).updateWindowId(windowModel.getId());
 	}
 	
