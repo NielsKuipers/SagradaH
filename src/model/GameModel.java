@@ -353,7 +353,7 @@ public class GameModel {
 	/**
 	 * check which player is the qurrentplayer
 	 */
-	private void checkWhoIsQurrentPlayer() {
+	public void checkWhoIsQurrentPlayer() {
 		ArrayList<ArrayList<Object>> result = gameQueries.getPlayerIdsAndNames(gameId);
 		for (PlayerModel player : players) {
 			player.getWindowPatternPlayer().setBackground(Color.WHITE);

@@ -138,12 +138,17 @@ public class GameController extends Scene {
 		timer = new AnimationTimerEXT(5000) {
 			@Override
 			public void doAction() {
-				DC.getDiceOnTableScreen().removeDicesScreen();
-				gameModel.selectWholeGame();
+				gameModel.checkWhoIsQurrentPlayer();
+				if(!WC.isDraggingDiceFull()) {
+					DC.getDiceOnTableScreen().removeDicesScreen();
+					gameModel.selectWholeGame();
+				}
+				
 				//has to do with toolcard 8
 				if(gameModel.isTC8BoughtInThisRound() && gameModel.isSecondTurn() && gameModel.getPlayer(0).selectCurrentPlayer()) {
 					handleFinishTurn();
 					gameModel.giveTurnToNextPlayer();
+					gameModel.selectWholeGame();
 				}
 			
 				if(!gameStarted){
@@ -155,6 +160,7 @@ public class GameController extends Scene {
 				setOtherScore();
 					
 				if (gameModel.amITheGameCreator() && !gameModel.doesEveryPlayerHasTheirFavorTokens() && gameModel.didEveryoneChoose()) {
+					gameModel.selectWholeGame();
 					gameModel.giveAllThePlayersTheirFavorTokens();
 				}
 				
@@ -189,6 +195,7 @@ public class GameController extends Scene {
 			gameModel.placeDicesOnRoundTrack();
 			DC.getDiceOnTableScreen().removeDicesScreen();
 			gameModel.selectWholeGame();
+			WC.setDraggingDiceNull();
 		}
 		
 		if(gameModel.getPlayer(0).selectCurrentPlayer() && !gameModel.checkIfMainPlayerCanThrowDices()) {
