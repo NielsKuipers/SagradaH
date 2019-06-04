@@ -145,15 +145,15 @@ public class GameController extends Scene {
 					handleFinishTurn();
 					gameModel.giveTurnToNextPlayer();
 				}
-
+			
 				if(!gameStarted){
-					if(gameModel.gameStarted()){ gameStarted = true; }
-				}
-				else{
-					getClientScore();
-					getOtherScore();
+					if(gameModel.gameStarted()){ gameStarted = true; 
+					}
 				}
 				
+				setClientScore();
+				setOtherScore();
+					
 				if (gameModel.amITheGameCreator() && !gameModel.doesEveryPlayerHasTheirFavorTokens() && gameModel.didEveryoneChoose()) {
 					gameModel.giveAllThePlayersTheirFavorTokens();
 				}
@@ -199,19 +199,19 @@ public class GameController extends Scene {
 		}
 		
 		gameModel.selectWholeGame();
-		getClientScore();
-		getOtherScore();
+		setClientScore();
+		setOtherScore();
 	}
 
-	private void getClientScore(){
+	public void setClientScore(){
 		int playerID = gameModel.getClientPlayer().getPlayerId();
-		gameModel.getClientPlayer().getWindowPatternPlayer().setPlayerScore(Integer.toString(calculateScoreController.getClientScore(playerID)));
+		gameModel.getClientPlayer().getWindowPatternPlayer().setPlayerScore("Score: " + calculateScoreController.getClientScore(playerID));
 	}
 
-	private void getOtherScore(){
+	public void setOtherScore(){
 		ArrayList<PlayerModel> players = gameModel.getAllPlayers();
 		for(PlayerModel player : players.subList(1, players.size())){
-			player.getWindowPatternPlayer().setPlayerScore(Integer.toString(calculateScoreController.getOtherScore(player.getPlayerId())));
+			player.getWindowPatternPlayer().setPlayerScore("Score: " + calculateScoreController.getOtherScore(player.getPlayerId()));
 		}
 	}
 	
