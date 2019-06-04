@@ -36,10 +36,6 @@ public class GameModel {
 		gameTurn = new SimpleStringProperty(this, "turn", "empty");
 	}
 
-	public void showID() {
-
-	}
-
 	private void setRound(String round) {
 		gameRound.set("Ronde: " + round);
 	}
