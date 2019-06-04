@@ -63,6 +63,7 @@ public class WindowController {
 	private int dicesChangedPlace = 0;
 	private boolean TwoCanbeMoved;
 
+	private boolean holdingDice = false;
 	public WindowController(GUI gui, DatabaseController databaseController) {
 		this.gui = gui;
 
@@ -142,14 +143,14 @@ public class WindowController {
 		diceCanBeMoved = true;
 		TwoCanbeMoved = true;
 	}
-	
+
 	public boolean isDraggingDiceFull() {
 		if (draggingDice == null) {
 			return false;
 		}
 		return true;
 	}
-	
+
 	public void setDraggingDiceNull() {
 		draggingDice = null;
 	}
@@ -168,7 +169,7 @@ public class WindowController {
 		ignoreNextToDice = true;
 		diceCanBeMoved = true;
 	}
-	
+
 	public void buyTC12() {
 		diceCanBeMoved = true;
 		TwoCanbeMoved = true;
@@ -329,9 +330,11 @@ public class WindowController {
 				db.setContent(cc);
 				draggingDice = b;
 				makeEveryBorderBlack();
+				holdingDice = true;
 			}
 		});
-
+		
+		b.setOnDragDone(e -> {draggingDice = null;});
 	}
 
 	/**
@@ -342,6 +345,7 @@ public class WindowController {
 		pane.setOnDragOver(e -> {
 			Dragboard db = e.getDragboard();
 			// check if you have a dice and you want to place it on your own board
+			System.out.println(pane);
 			if (db.hasContent(diceFormat) && draggingDice != null && pane.getParent() == window1) {
 				e.acceptTransferModes(TransferMode.MOVE);
 				if (cheatAllPossible && !cheatBestChoice) {
@@ -387,7 +391,6 @@ public class WindowController {
 
 					e.setDropCompleted(true);
 
-					draggingDice = null;
 					calculatePoints();
 
 				} else if (windowPattern1Model.diceOnWindow(draggingDice.getDiceModel())) {
@@ -411,14 +414,16 @@ public class WindowController {
 						changedDiceBoard(TwoCanbeMoved);
 
 					}
-					draggingDice = null;
+
 					calculatePoints();
 				}
 			}
 
 			makeEveryBorderBlack();
-			draggingDice = null;
+			System.out.println("dropped");
+
 		});
+		
 
 	}
 

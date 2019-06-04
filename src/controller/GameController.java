@@ -148,7 +148,6 @@ public class GameController extends Scene {
 					DC.getDiceOnTableScreen().removeDicesScreen();
 					gameModel.selectWholeGame();
 				}
-				System.out.println(WC.isDraggingDiceFull());
 				
 				//has to do with toolcard 8
 				if(gameModel.isTC8BoughtInThisRound() && gameModel.isSecondTurn() && gameModel.getPlayer(0).selectCurrentPlayer()) {
