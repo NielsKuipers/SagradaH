@@ -14,18 +14,17 @@ public class UserListController{
         this.userListModel = new UserListModel(databaseController);
         this.userListScreen = new UserListScreen(gui);
         this.gui=gui;
-        getUsers();
     }
 
     public UserListScreen getUserListScreen(){ return userListScreen; }
 
     private void getUsers(){
-      // userListScreen.displayUsers(userListModel.getUsers(), userListModel.getUserStats());
+      userListScreen.displayUsers(userListModel.getUsers(), userListModel.getUserStats());
     }
 
     public void handleSort(Object val){
         userListScreen.displayUsers(userListModel.getUsers(val), userListModel.getUserStats());
     }
 
-    public void toUserListScreen(){ gui.changePane(userListScreen); }
+    public void toUserListScreen(){ gui.changePane(userListScreen); getUsers();}
 }

@@ -55,12 +55,10 @@ public class WindowController {
 
 	private boolean extraTurn = false;
 
-	private boolean extraTurnSameColorRoundtrack = false;
 	private boolean canOnlyMoveDiceWithSameColorAsDIceOnRoundTrack = false;
 
 	private int dicesChangedByTC = 0;
 
-	private int dicesChangedPlace = 0;
 	private boolean TwoCanbeMoved;
 
 	private boolean holdingDice = false;
@@ -139,10 +137,15 @@ public class WindowController {
 		numbers.add(0);
 	}
 
+	/**
+	 * Functionality for toolcard 4
+	 */
 	public void buyTC4() {
 		diceCanBeMoved = true;
 		TwoCanbeMoved = true;
+		dicesChangedByTC = 0;
 	}
+
 
 	public boolean isDraggingDiceFull() {
 		if (draggingDice == null) {
@@ -155,39 +158,48 @@ public class WindowController {
 		draggingDice = null;
 	}
 
+
+	/**
+	 * Functionality for toolcard 3
+	 */
 	public void buyTC3() {
 		diceCanBeMoved = true;
 		ignoreEyes = true;
 	}
-
+	/**
+	 * Functionality for toolcard 2
+	 */
 	public void buyTC2() {
 		diceCanBeMoved = true;
 		ignoreColor = true;
 	}
-
+	/**
+	 * Functionality for toolcard 9
+	 */
 	public void buyTC9() {
 		ignoreNextToDice = true;
 		diceCanBeMoved = true;
 	}
 
+	/**
+	 * Functionality for toolcard 12
+	 */
 	public void buyTC12() {
 		diceCanBeMoved = true;
 		TwoCanbeMoved = true;
 		setCanOnlyMoveDiceWithSameColorAsDIceOnRoundTrackTrue();
 	}
-
-	public void ChangedDiceBoardTC() {
-		dicesChangedPlace++;
-		if (dicesChangedPlace > 1) {
-			diceCanBeMoved = false;
-			dicesChangedPlace = 0;
-		}
-	}
-
+		
+	/**
+	 * resets all the booleans where a dice does not have to go through all the requirments 
+	 * used for toolcards 
+	 * 
+	 * @param TwoCanBeMoved = set true if two die can be moved in one turn
+	 */
 	public void changedDiceBoard(boolean TwoCanBeMoved) {
 		dicesChangedByTC++;
 
-		if (dicesChangedByTC > 0 && !TwoCanBeMoved || dicesChangedByTC > 1 && TwoCanBeMoved) {
+		if (dicesChangedByTC > 0 && !TwoCanBeMoved || dicesChangedByTC > 1) {
 			diceCanBeMoved = false;
 			ignoreEyes = false;
 			ignoreColor = false;
@@ -969,14 +981,6 @@ public class WindowController {
 
 	public void setCanOnlyMoveDiceWithSameColorAsDIceOnRoundTrackTrue() {
 		canOnlyMoveDiceWithSameColorAsDIceOnRoundTrack = true;
-	}
-
-	public void setExtraTurnSameColorRoundtrackTrue() {
-		extraTurnSameColorRoundtrack = true;
-	}
-
-	public void setDiceCanBeMovedTrue() {
-		diceCanBeMoved = true;
 	}
 
 	public void setDiceCanBeMovedFalse() {

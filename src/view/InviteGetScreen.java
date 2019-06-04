@@ -31,7 +31,7 @@ public class InviteGetScreen extends BorderPane {
 	public void makeLayout() {
 		inviteList = new VBox();
 		inviteList.setPrefWidth(600);
-		Label label = new Label("Invites lijst");
+		Label label = new Label("Uitnodiging lijst");
 		label.setFont(new Font(20));
 		
 		ScrollPane scroll = new ScrollPane(inviteList);

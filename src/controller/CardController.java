@@ -211,6 +211,7 @@ public class CardController extends Scene {
                 gui.handleGoBackToGame();
                 break;
             case 4:
+                gui.stopTimer();
                 windowController.buyTC4();
                 gui.handleGoBackToGame();
                 break;

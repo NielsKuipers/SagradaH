@@ -5,6 +5,7 @@ import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.GridPane;
@@ -46,12 +47,15 @@ public class WindowPatternChooseScreen extends GridPane {
 		setHalignment(window3Button, HPos.CENTER);
 		setHalignment(window4Button, HPos.CENTER);
 
-		Label text = new Label(" WindowPatternChooseScreen ");
-		text.setStyle("-fx-background-radius: 300 300 300 300;-fx-background-color:DEEPSKYBLUE");
+		Label text = new Label(" Kies je kaart! ");
+		text.setStyle("-fx-font: 80px Tahoma;");
 		setVgap(150);
-		Font font = new Font("Consolas", 60);
-		text.setFont(font);
 		
+		DropShadow ds = new DropShadow();
+		ds.setOffsetY(3.0f);
+		ds.setColor(Color.BLUEVIOLET);
+		
+		text.setEffect(ds);
 		this.add(text, 0, 0, 4, 1);
 		setHalignment(text, HPos.CENTER);
 

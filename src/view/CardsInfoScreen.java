@@ -30,9 +30,9 @@ public class CardsInfoScreen extends BorderPane{
 		setRight(l);
 		setMinSize(100, 200);
 		setPrefSize(100, 200);
-		 tokens = new Label("aantal betaalstenen:");
+		 tokens = new Label("Aantal betaalstenen:");
 	        tokens.setFont(new Font("Consolas", 16));
-		btnCard = new Button("Show kaarten");
+		btnCard = new Button("Kaarten tonen");
 
 		btnCard.setOnAction(e -> gui.handleGoToCards());
 
@@ -48,6 +48,10 @@ public class CardsInfoScreen extends BorderPane{
 		
 	}
 	
+    /**
+     * sets the amount off favortokens in the model
+     * @param amount = how many favor tokens you want to set it
+     */
     public void setAmountFT(int amount) {
        
        favorTokens.getModel().setAmount(amount);
