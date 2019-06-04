@@ -125,7 +125,7 @@ public class GUI extends Application {
 
 
     public void handleUitloggen() {
-        accountController.uitloggen();
+        accountController.logOut();
     }
 
     public void handleToGameList() {

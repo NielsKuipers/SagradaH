@@ -33,6 +33,7 @@ public class AccountQuery {
 	public ArrayList<ArrayList<Object>> getGames(){
 		return standardQuery.selectQuery("SELECT p.username, g.idgame, g.creationdate, p.playstatus_playstatus FROM game g INNER JOIN player p ON p.game_idgame = g.idgame");
 	}
+
 	public ArrayList<ArrayList<Object>> getGames(Object sort){
 		String sortV = sort.toString();
 		switch(sortV) {
