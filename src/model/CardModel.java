@@ -33,13 +33,15 @@ public class CardModel {
      * @return = if bought or not 
      */
     public boolean checkboughtTC(int tc) {
-        return cardQueries.CheckTCBought(tc, gameModel.getGameID()).size() > 0;
+    	int i =	(int) cardQueries.getGameToolcardID(gameModel.getGameID()).get(tc-1).get(0);
+        return cardQueries.CheckTCBought(i, gameModel.getGameID()).size() > 0;
     }
 
     /**
      * gets the amount of FT
      */
     public int getAmountFT() {
+    	
         return cardQueries.CheckIDFT(gameModel.getPlayer(0).getPlayerId(), gameModel.getGameID()).size();
     }
 
@@ -47,15 +49,17 @@ public class CardModel {
      * gets the amount of FT for one player for each toolcard
      */
     public int getAmountFTOnToolCard(int tc, int player) {
+    	int i =	(int) cardQueries.getGameToolcardID(gameModel.getGameID()).get(tc-1).get(0);
         switch (player) {
             case 1:
-                return cardQueries.CheckAmountFTonTC(tc, gameModel.getPlayer(0).getPlayerId(), gameModel.getGameID()).size();
+            	
+                return cardQueries.CheckAmountFTonTC(i, gameModel.getPlayer(0).getPlayerId(), gameModel.getGameID()).size();
             case 2:
-                return cardQueries.CheckAmountFTonTC(tc, gameModel.getPlayer(1).getPlayerId(), gameModel.getGameID()).size();
+                return cardQueries.CheckAmountFTonTC(i, gameModel.getPlayer(1).getPlayerId(), gameModel.getGameID()).size();
             case 3:
-                return cardQueries.CheckAmountFTonTC(tc, gameModel.getPlayer(2).getPlayerId(), gameModel.getGameID()).size();
+                return cardQueries.CheckAmountFTonTC(i, gameModel.getPlayer(2).getPlayerId(), gameModel.getGameID()).size();
             case 4:
-                return cardQueries.CheckAmountFTonTC(tc, gameModel.getPlayer(3).getPlayerId(), gameModel.getGameID()).size();
+                return cardQueries.CheckAmountFTonTC(i, gameModel.getPlayer(3).getPlayerId(), gameModel.getGameID()).size();
             default:
                 return 0;
         }
@@ -67,7 +71,8 @@ public class CardModel {
      * @param tc = toolcard which is bought
      */
     public void BuyTC(int tc) {
-        cardQueries.BuyTC(tc, (int) cardQueries.CheckIDFT(gameModel.getPlayer(0).getPlayerId(), gameModel.getGameID()).get(0).get(0), gameModel.getGameID(), gameModel.getPlayer(0).getPlayerId(), gameModel.getRound(), gameModel.getInFirstTurn());
+    	int i =	(int) cardQueries.getGameToolcardID(gameModel.getGameID()).get(tc-1).get(0);
+        cardQueries.BuyTC(i, (int) cardQueries.CheckIDFT(gameModel.getPlayer(0).getPlayerId(), gameModel.getGameID()).get(0).get(0), gameModel.getGameID(), gameModel.getPlayer(0).getPlayerId(), gameModel.getRound(), gameModel.getInFirstTurn());
     }
 
    
@@ -78,26 +83,26 @@ public class CardModel {
      */
     public void BuyTCPric2(int tc) {
 
-
-        cardQueries.BuyTCPrice2(tc, (int) cardQueries.CheckIDFT(gameModel.getPlayer(0).getPlayerId(), gameModel.getGameID()).get(0).get(0), (int) cardQueries.CheckIDFT(gameModel.getPlayer(0).getPlayerId(), gameModel.getGameID()).get(1).get(0), gameModel.getGameID(), gameModel.getPlayer(0).getPlayerId(), gameModel.getRound(), gameModel.getInFirstTurn());
+    int i =	(int) cardQueries.getGameToolcardID(gameModel.getGameID()).get(tc-1).get(0);
+        cardQueries.BuyTCPrice2(i, (int) cardQueries.CheckIDFT(gameModel.getPlayer(0).getPlayerId(), gameModel.getGameID()).get(0).get(0), (int) cardQueries.CheckIDFT(gameModel.getPlayer(0).getPlayerId(), gameModel.getGameID()).get(1).get(0), gameModel.getGameID(), gameModel.getPlayer(0).getPlayerId(), gameModel.getRound(), gameModel.getInFirstTurn());
 
     }
 
     // the methods below return the TC and the OBJC 
     public int getToolCard1() {
         int i = (int) cardQueries.getGameToolcardID(gameModel.getGameID()).get(0).get(0);
-        return (int) cardQueries.getToolcard(i, gameModel.getGameID()).get(0).get(0);
+      return (int) cardQueries.getToolcard(i, gameModel.getGameID()).get(0).get(0);
 
 
     }
 
     public int getToolCard2() {
-        int i = (int) cardQueries.getGameToolcardID(gameModel.getGameID()).get(1).get(0);
-        return (int) cardQueries.getToolcard(i, gameModel.getGameID()).get(0).get(0);
+    	 int i =  (int) cardQueries.getGameToolcardID(gameModel.getGameID()).get(1).get(0);
+       return (int) cardQueries.getToolcard(i, gameModel.getGameID()).get(0).get(0);
     }
 
     public int getToolCard3() {
-        int i = (int) cardQueries.getGameToolcardID(gameModel.getGameID()).get(2).get(0);
+    	 int i =  (int) cardQueries.getGameToolcardID(gameModel.getGameID()).get(2).get(0);
         return (int) cardQueries.getToolcard(i, gameModel.getGameID()).get(0).get(0);
     }
 

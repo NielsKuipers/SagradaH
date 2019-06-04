@@ -118,14 +118,7 @@ public class GameController extends Scene {
 	public void handleCheatGame(boolean allPossible, boolean bestChoice) {
 		WC.setCheatAllPossible(allPossible);
 		WC.setCheatBestChoice(bestChoice);
-	}
-
-	
-	
-	
-   
-    
-    
+	}    
 
 	public GameModel getGameModel() {
 		return gameModel;
@@ -173,8 +166,7 @@ public class GameController extends Scene {
 
 				CardController.SetAmountFTOnTC();
 				kaarten.setAmountFT(CardController.getCardModel().getAmountFT());
-				//favor tokens
-				//card costs
+				
 			}
 		};
 	}
