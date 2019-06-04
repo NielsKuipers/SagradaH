@@ -83,7 +83,7 @@ public class GUI extends Application {
         gameController.getGameModel().selectPlayerIds();
         gameController.getGameModel().selectWholeGame();
         chatController.getMessages(gameController.getGameModel().getGameID());
-
+        
         scene.setRoot(gameController.getGameScreen());
         gameController.startTimer();
     }

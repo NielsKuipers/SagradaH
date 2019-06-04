@@ -150,15 +150,15 @@ public class GameController extends Scene {
 					handleFinishTurn();
 					gameModel.giveTurnToNextPlayer();
 				}
-
+			
 				if(!gameStarted){
-					if(gameModel.gameStarted()){ gameStarted = true; }
-				}
-				else{
-					setClientScore();
-					setOtherScore();
+					if(gameModel.gameStarted()){ gameStarted = true; 
+					}
 				}
 				
+				setClientScore();
+				setOtherScore();
+					
 				if (gameModel.amITheGameCreator() && !gameModel.doesEveryPlayerHasTheirFavorTokens() && gameModel.didEveryoneChoose()) {
 					gameModel.giveAllThePlayersTheirFavorTokens();
 				}
