@@ -12,6 +12,10 @@ import view.DiceScreen;
 import java.util.Optional;
 import java.util.Random;
 
+/**
+ * @author user
+ *
+ */
 public class DiceController {
 
     private Random r = new Random();
@@ -42,7 +46,13 @@ public class DiceController {
     DiceOnTableModel getDiceOnTableModel() {
         return diceOnTableModel;
     }
-
+    
+    
+    /**
+     * sets all dices with a glow border and lets you select a dice after
+     * 
+     * @param number = the number is used to check which interaction needs to happen to the dice 
+     */
     void setDiceGlowBorder(int number) {
         for (Node node : diceOnTableScreen.getChildren()) {
             if (node instanceof DiceScreen) {
@@ -53,6 +63,9 @@ public class DiceController {
         }
     }
 
+    /**
+     * all dices on screen get a black border 
+     */
     private void setDiceBlackBorder() {
         for (Node node : diceOnTableScreen.getChildren()) {
             if (node instanceof DiceScreen) {
@@ -63,6 +76,11 @@ public class DiceController {
         }
     }
 
+    /**
+     * select one dice and sets glow border other dices cant be used anymore
+     * @param dice = dice you want ot interact with
+     * @param number = the method were it needs to go
+     */
     private void selectDice(DiceScreen dice, int number) {
         setDiceBlackBorder();
         dice.setGlowBorder();
@@ -82,6 +100,12 @@ public class DiceController {
         }
     }
 
+    /**
+     * functionality for toolcard 11
+     * lets you pick random dice and set the eyes you chooose
+     * 
+     * @param dice = dice to be replaced
+     */
     private void pickNewDice(DiceScreen dice) {
         TextInputDialog dialog = new TextInputDialog("1");
 
@@ -102,6 +126,12 @@ public class DiceController {
         GC.startTimer();
     }
 
+    /**
+     *  functionality for Toolcard 6
+     * throws the dice ones
+     * 
+     * @param dice
+     */
     private void throwDiceOnce(DiceScreen dice) {
         dice.setOnMouseClicked(null);
 
@@ -110,6 +140,13 @@ public class DiceController {
         CC.getCardModel().updateDiceOnTable(i, dice.getDiceModel().getDiceNumber(), dice.getDiceModel().getColor());
     }
 
+    /**
+     * functionality for Toolcard 10
+     * turns the dice to the other side
+     * 
+     * @param dice = dice to turn around
+     *
+     * */
     private void DiceTurnAround(DiceScreen dice) {
         switch (dice.getDiceModel().getEyes()) {
             case 1:

@@ -12,6 +12,7 @@ import model.WindowPatternModel;
 import view.GameListScreen;
 import view.HomePane;
 import view.StartPane;
+import view.ToolCardScreen;
 
 public class GUI extends Application {
     private DiceController diceController;
@@ -210,6 +211,10 @@ public class GUI extends Application {
     public void handleToPlayerList() {
         userListController.toUserListScreen();
     }
+
+	  public void buyToolcard(ToolCardScreen gameTC, int i) {
+		  cardController.buyToolcard(gameTC, i);
+	  }
 
     public void handleToCreateGame() {
         setupScreenController.toSetupScreen();
