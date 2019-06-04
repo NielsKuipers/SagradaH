@@ -15,8 +15,8 @@ import main.GUI;
 class Buttons extends VBox {
 	private Background buttonBackground = new Background(new BackgroundFill(Color.GAINSBORO,null,null));
 	private Border buttonBorder = new Border(new BorderStroke(Color.DARKGREY, BorderStrokeStyle.SOLID, null, new BorderWidths(5)));
-	private Button startGame = new Button("Start GameModel");
-	private Button gameLijst = new Button("GameModel Lijst");
+	private Button startGame = new Button("Start Spel");
+	private Button gameLijst = new Button("Spellen Lijst");
 	private Button openUitdaging = new Button("Open Uitdagingen");
 	private Button spelerLijst = new Button("Speler Lijst");
 	private Button uitloggen = new Button("Uitloggen");

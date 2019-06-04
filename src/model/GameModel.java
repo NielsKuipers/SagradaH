@@ -333,7 +333,7 @@ public class GameModel {
 	}
 
 	/**
-	 * @param object/string color
+	 * @param Object/string color
 	 * @return java color make a java color from a querie color
 	 */
 	private Color makeColorFromQuerie(Object c) {
