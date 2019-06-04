@@ -155,6 +155,7 @@ public class WindowController {
 
 	public void buyTC9() {
 		ignoreNextToDice = true;
+		diceCanBeMoved = true;
 	}
 	
 	public void buyTC12() {
