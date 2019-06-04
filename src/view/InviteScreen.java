@@ -43,10 +43,10 @@ public class InviteScreen extends BorderPane{
 	}
 	
 	private void addLowerButtons() {
-		Button returnButton = new Button("terug");
+		Button returnButton = new Button("Terug");
 		returnButton.setOnAction(e -> gui.openSetupMenu());
 		
-		Button refreshButton = new Button("vernieuw");
+		Button refreshButton = new Button("Vernieuw");
 		refreshButton.setOnAction(e -> refreshList());
 		
 		HBox buttonBox = new HBox(refreshButton, returnButton);
@@ -86,7 +86,7 @@ public class InviteScreen extends BorderPane{
 	//invite button
 	private class InviteButton extends Button{
 		private InviteButton(String username) {
-			setText("Invite");
+			setText("Uitnodigen");
 			setOnAction(e -> {
 				controller.invitePlayer(username);
 				setDisable(true);
