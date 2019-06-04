@@ -35,7 +35,6 @@ public class DiceOnTableModel {
 	void removeAllDicesFromTable() {
 			
 			allDice.clear();
-			//System.out.println(allDice);
 			diceOnTableProperty.setValue(new ArrayList<>());
 			diceOnTableProperty.setValue(allDice);
 	}

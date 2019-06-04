@@ -357,7 +357,6 @@ public class WindowController {
 		pane.setOnDragOver(e -> {
 			Dragboard db = e.getDragboard();
 			// check if you have a dice and you want to place it on your own board
-			System.out.println(pane);
 			if (db.hasContent(diceFormat) && draggingDice != null && pane.getParent() == window1) {
 				e.acceptTransferModes(TransferMode.MOVE);
 				if (cheatAllPossible && !cheatBestChoice) {
@@ -432,7 +431,6 @@ public class WindowController {
 			}
 
 			makeEveryBorderBlack();
-			System.out.println("dropped");
 
 		});
 		
