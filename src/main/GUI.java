@@ -35,6 +35,7 @@ public class GUI extends Application {
 	}
 	
 	public void start(Stage stage) {
+		stage.setTitle("Sagrada\u00a9 Groep-H\u2122");
 
 		StartPane startPane = new StartPane(this);
 		HomePane homepane = new HomePane(this);

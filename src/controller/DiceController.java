@@ -71,7 +71,7 @@ public class DiceController {
                 plusOrMinus(dice);
                 break;
             case 6:
-                dice.setOnMouseClicked(e -> throwDiceOnce(dice));
+                throwDiceOnce(dice);
                 break;
 
             case 10:

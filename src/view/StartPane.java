@@ -17,7 +17,7 @@ public class StartPane extends HBox {
 		this.gui = gui;
 		log = new LoginScreen(gui);
 		reg = new RegisterScreen(gui);
-		Button exit = new Button("Exit");
+		Button exit = new Button("Afsluiten");
 		exit.setMinWidth(328);
 		exit.setOnMouseClicked(e -> handleExitGame());
 		HBox hb = new HBox();

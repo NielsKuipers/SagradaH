@@ -7,10 +7,10 @@ import static view.ChatScreen.spamError;
 
 public class StandardQueries {
 	private Connection mConn;
-	
 	public StandardQueries(Connection connection) {
 		mConn = connection;
 	}
+	private PreparedStatement stmt;
 
     /**
      * standard method for executing a select query with prepared statement
@@ -23,7 +23,7 @@ public class StandardQueries {
     public ArrayList<ArrayList<Object>> selectQuery(String query, String where, String whereVal, String orderBY){
         ArrayList<ArrayList<Object>> result = new ArrayList<>();
         try {
-            PreparedStatement stmt = mConn.prepareStatement(query + where + orderBY);
+            stmt = mConn.prepareStatement(query + where + orderBY);
 
             int i = 1;
             if(!where.isEmpty()){ handleVals(whereVal, stmt, i); }
@@ -33,6 +33,13 @@ public class StandardQueries {
 
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+        finally {
+            try{
+                stmt.close();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
         return result;
     }
@@ -60,7 +67,7 @@ public class StandardQueries {
      */
     void updateQuery(String query, String values, String where, String whereVal){
         try {
-            PreparedStatement stmt = mConn.prepareStatement(query + where);
+            stmt = mConn.prepareStatement(query + where);
             //split the values and use them in the statement
             String[] vals = values.split("\0");
             int i=1;
@@ -86,6 +93,13 @@ public class StandardQueries {
         }
         catch(SQLException e){
             e.printStackTrace();
+        }
+        finally {
+            try{
+                stmt.close();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
     }
 

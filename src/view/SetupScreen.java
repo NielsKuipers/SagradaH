@@ -105,7 +105,7 @@ public class SetupScreen extends BorderPane {
 		
 		
 		/////////////////inviteBar//////////////////////////
-		inviteButton = new Button("Invite");
+		inviteButton = new Button("Uitnodigen");
 		inviteButton.setOnAction(e -> gui.openInviterMenu());
 		inviteButton.setDisable(true);
 		inviteButton.setPrefSize(80, 30);

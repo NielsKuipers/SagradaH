@@ -74,7 +74,7 @@ public class AccountController {
 			if (newGameID != gameID) {
 				HBox gameLine = new HBox();
 				if (myaccount.checkIfInGame(newGameID, getAccount())) {
-					Button joinGame = new Button("Join game");
+					Button joinGame = new Button("Spel openen");
 					if(myaccount.hasBeenCanceld(newGameID)) {
 						gameLine.setBackground(new Background(new BackgroundFill(Color.CRIMSON, null, null)));
 						joinGame.setDisable(true);
@@ -153,7 +153,7 @@ public class AccountController {
 	 */
 	private void alert() {
 		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle("GameModel is nog niet ready");
+		alert.setTitle("Game is nog niet gereed");
 		alert.setHeaderText("WAARSCHUWING");
 		alert.setContentText("Windowpattern keuzes zijn nog niet gemaakt,\n wij vragen u vriendelijk om nog heel eventjes te wachten");
 		alert.showAndWait();

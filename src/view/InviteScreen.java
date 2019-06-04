@@ -29,7 +29,7 @@ public class InviteScreen extends BorderPane{
 	private void makeLayout() {
 		playerList = new VBox();
 		playerList.setPrefWidth(790);
-		Label label = new Label("Invite lijst");
+		Label label = new Label("Uitnodiging lijst");
 		label.setFont(new Font(20));
 	
 		ScrollPane scroll = new ScrollPane(playerList);
