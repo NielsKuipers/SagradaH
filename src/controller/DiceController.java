@@ -8,6 +8,7 @@ import main.GUI;
 import model.DiceOnTableModel;
 import view.DiceOnTableScreen;
 import view.DiceScreen;
+
 import java.util.Optional;
 import java.util.Random;
 
@@ -73,7 +74,6 @@ public class DiceController {
             case 6:
                 throwDiceOnce(dice);
                 break;
-
             case 10:
                 dice.setOnMouseClicked(e -> DiceTurnAround(dice));
                 break;
