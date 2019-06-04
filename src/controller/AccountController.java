@@ -70,35 +70,27 @@ public class AccountController {
     private ArrayList<HBox> getGames(ArrayList<ArrayList<Object>> games, String kind) {
         StringBuilder stringBuilder = new StringBuilder();
         ArrayList<HBox> hboxList = new ArrayList<>();
-        ArrayList<ArrayList<Object>> curGame = new ArrayList<>();
         HashMap<String, String> playerStatus = new HashMap<>();
         int idGame;
         int rowCount;
 
         if (kind.equals("ID")) {
-            idGame = 1;
-            rowCount = -1;
+            idGame = 0;
+            rowCount = 0;
         } else {
-            idGame = games.size();
+            idGame = games.size()-1;
             rowCount = 0;
         }
 
-        for (ArrayList<Object> row : games) {
+        for (ArrayList<Object> row: games) {
             int newGameID = (int) row.get(1);
 
-            if (newGameID == idGame) {
-                curGame.add(row);
-                rowCount++;
-            }
-
             if (newGameID != idGame) {
-
                 String status = " Status: niet een deelnemer";
                 HBox gameLine = new HBox();
                 gameLine.setBackground(new Background(new BackgroundFill(Color.GRAY, null, null)));
-
-                for (ArrayList<Object> gameRow : curGame) {
-                    playerStatus.put(gameRow.get(0).toString().toLowerCase(), gameRow.get(3).toString());
+                for(ArrayList<Object> curGame: makeSublistOf(newGameID, games)) {
+                	playerStatus.put(curGame.get(0).toString(), curGame.get(3).toString());
                 }
 
                 if (playerStatus.containsKey(getAccount())) {
@@ -142,15 +134,23 @@ public class AccountController {
                 hboxList.add(gameLine);
                 idGame = newGameID;
                 stringBuilder.setLength(0);
-                curGame.clear();
-                curGame.add(row);
                 playerStatus.clear();
-                rowCount++;
             }
+            rowCount++;
         }
         return hboxList;
     }
 
+    private ArrayList<ArrayList<Object>> makeSublistOf(int gameID,ArrayList<ArrayList<Object>> games) {
+    	ArrayList<ArrayList<Object>> curGame = new ArrayList<>();
+    	for(ArrayList<Object> row: games) {
+    		if((int)row.get(1) == gameID) {
+    			curGame.add(row);
+    		}
+    	}
+    	return curGame;
+    }
+    
     /**
      * how the button must behave
      */
