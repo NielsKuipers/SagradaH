@@ -169,6 +169,7 @@ public class CardController extends Scene {
      * @param cardPosition = position of card in game 1 to 3
      */
     public void buyToolcard(CardScreen cardscreen, int cardPosition) {
+        System.out.println("bought " + cardscreen + " " + cardPosition);
         if (cardModel.getAmountFT() != 0 && cardModel.getGameModel().getPlayer(0).selectCurrentPlayer() &&
                 !cardModel.checkboughtTCForRound() && gameController.getGameModel().checkIfDieAreThrown()) {
 
@@ -211,6 +212,7 @@ public class CardController extends Scene {
                 gui.handleGoBackToGame();
                 break;
             case 4:
+                gui.stopTimer();
                 windowController.buyTC4();
                 gui.handleGoBackToGame();
                 break;

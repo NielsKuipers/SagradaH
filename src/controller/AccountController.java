@@ -74,7 +74,7 @@ public class AccountController {
 			if (newGameID != gameID) {
 				HBox gameLine = new HBox();
 				if (myaccount.checkIfInGame(newGameID, getAccount())) {
-					Button joinGame = new Button("Join game");
+					Button joinGame = new Button("Spel openen");
 					if(myaccount.hasBeenCanceld(newGameID)) {
 						gameLine.setBackground(new Background(new BackgroundFill(Color.CRIMSON, null, null)));
 						joinGame.setDisable(true);

@@ -55,12 +55,10 @@ public class WindowController {
 
 	private boolean extraTurn = false;
 
-	private boolean extraTurnSameColorRoundtrack = false;
 	private boolean canOnlyMoveDiceWithSameColorAsDIceOnRoundTrack = false;
 
 	private int dicesChangedByTC = 0;
 
-	private int dicesChangedPlace = 0;
 	private boolean TwoCanbeMoved;
 
 	public WindowController(GUI gui, DatabaseController databaseController) {
@@ -141,6 +139,7 @@ public class WindowController {
 	public void buyTC4() {
 		diceCanBeMoved = true;
 		TwoCanbeMoved = true;
+		dicesChangedByTC = 0;
 	}
 
 	public void buyTC3() {
@@ -164,18 +163,10 @@ public class WindowController {
 		setCanOnlyMoveDiceWithSameColorAsDIceOnRoundTrackTrue();
 	}
 
-	public void ChangedDiceBoardTC() {
-		dicesChangedPlace++;
-		if (dicesChangedPlace > 1) {
-			diceCanBeMoved = false;
-			dicesChangedPlace = 0;
-		}
-	}
-
 	public void changedDiceBoard(boolean TwoCanBeMoved) {
 		dicesChangedByTC++;
 
-		if (dicesChangedByTC > 0 && !TwoCanBeMoved || dicesChangedByTC > 1 && TwoCanBeMoved) {
+		if (dicesChangedByTC > 0 && !TwoCanBeMoved || dicesChangedByTC > 1) {
 			diceCanBeMoved = false;
 			ignoreEyes = false;
 			ignoreColor = false;
@@ -952,14 +943,6 @@ public class WindowController {
 
 	public void setCanOnlyMoveDiceWithSameColorAsDIceOnRoundTrackTrue() {
 		canOnlyMoveDiceWithSameColorAsDIceOnRoundTrack = true;
-	}
-
-	public void setExtraTurnSameColorRoundtrackTrue() {
-		extraTurnSameColorRoundtrack = true;
-	}
-
-	public void setDiceCanBeMovedTrue() {
-		diceCanBeMoved = true;
 	}
 
 	public void setDiceCanBeMovedFalse() {

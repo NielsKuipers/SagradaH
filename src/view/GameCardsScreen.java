@@ -65,9 +65,9 @@ public class GameCardsScreen extends VBox {
         getChildren().clear();
         setBackground(new Background(new BackgroundFill(Color.SKYBLUE, null, null)));
 
-        Button buyTC1 = new Button("koop toolcard");
-        Button buyTC2 = new Button("koop toolcard");
-        Button buyTC3 = new Button("koop toolcard");
+        Button buyTC1 = new Button("Koop gereedschapskaart");
+        Button buyTC2 = new Button("Koop gereedschapskaart");
+        Button buyTC3 = new Button("Koop gereedschapskaart");
 
         buyTC1.setOnAction(e -> cardController.buyToolcard(gameTC1, 1));
         buyTC2.setOnAction(e -> cardController.buyToolcard(gameTC2, 2));
@@ -77,17 +77,17 @@ public class GameCardsScreen extends VBox {
         exit.setPrefSize(1600, 50);
         exit.setOnAction(e -> gui.handleGoBackToGame());
 
-        Label labelTC = new Label("Toolcards");
+        Label labelTC = new Label("Gereedschapskaarten");
         labelTC.setFont(new Font("Consolas", 24));
         labelTC.setPadding(new Insets(30, 0, 0, 610));
 
-        Label labelOBC = new Label("Objective Cards");
+        Label labelOBC = new Label("Doelkaarten");
         labelOBC.setFont(new Font("Consolas", 24));
         labelOBC.setPadding(new Insets(25, 0, 0, 610));
 
         //creates and positions buttons
         HBox buttons = new HBox(150, buyTC1, buyTC2, buyTC3);
-        buttons.setPadding(new Insets(5, 0, 0, 400));
+        buttons.setPadding(new Insets(15, 0, 0, 400));
 
         //creates and positions toolcards
         HBox toolCards = new HBox(30, gameTC1, gameTC2, gameTC3);
