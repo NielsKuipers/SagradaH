@@ -175,8 +175,8 @@ public class GUI extends Application {
 
 	public void buyToolcard(ToolCardScreen gameTC, int i) {
 		cardController.buyToolcard(gameTC, i);
+	
 	}
-
 
 	
 

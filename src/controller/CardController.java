@@ -169,6 +169,7 @@ public class CardController extends Scene {
      * @param cardPosition = position of card in game 1 to 3
      */
     public void buyToolcard(CardScreen cardscreen, int cardPosition) {
+    	
         if (cardModel.getAmountFT() != 0 && cardModel.getGameModel().getPlayer(0).selectCurrentPlayer() &&
                 !cardModel.checkboughtTCForRound() && gameController.getGameModel().checkIfDieAreThrown()) {
 
@@ -176,6 +177,7 @@ public class CardController extends Scene {
 
             for (int x = 0; x < toolCards.length; x++) {
                 if (cardscreen == toolCards[x]) {
+                	
                     if (cardModel.checkboughtTC(cardPosition) && cardModel.getAmountFT() > 1) {
                         cardModel.BuyTCPric2(cardPosition);
                         useCard(x + 1);
@@ -196,7 +198,9 @@ public class CardController extends Scene {
      * @param cardNumber = number of the toolcard
      */
     private void useCard(int cardNumber) {
+    	
         switch (cardNumber) {
+        
             case 1:
                 gui.stopTimer();
                 diceController.setDiceGlowBorder(1);

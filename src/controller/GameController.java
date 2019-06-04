@@ -144,6 +144,7 @@ public class GameController extends Scene {
 				if(gameModel.isTC8BoughtInThisRound() && gameModel.isSecondTurn() && gameModel.getPlayer(0).selectCurrentPlayer()) {
 					handleFinishTurn();
 					gameModel.giveTurnToNextPlayer();
+					
 				}
 
 				if(!gameStarted){
@@ -167,8 +168,7 @@ public class GameController extends Scene {
 
 				CardController.SetAmountFTOnTC();
 				kaarten.setAmountFT(CardController.getCardModel().getAmountFT());
-				//favor tokens
-				//card costs
+				
 			}
 		};
 	}

@@ -127,7 +127,7 @@ public class GameQueries {
 	}
 	
 	public ArrayList<ArrayList<Object>> isTC8BoughtInThisRound(int idPlayer, int idGame, int round) {
-		return standardQueries.selectQuery("SELECT * FROM gamefavortoken g inner join gametoolcard t on t.idgame = g.idgame",
+		return standardQueries.selectQuery("SELECT * FROM gamefavortoken g inner join gametoolcard t on t.idgame = g.idgame and t.gametoolcard = g.gametoolcard",
 				" WHERE t.idgame=? AND idplayer=? AND round=? AND idtoolcard=?",idGame + "\0" + idPlayer + "\0" + round + "\0" + "8");
 	}
 	
