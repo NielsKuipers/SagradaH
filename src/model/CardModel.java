@@ -19,11 +19,19 @@ public class CardModel {
     public boolean checkboughtTCForRound() {
         return !cardQueries.checkBoughtTCForRound(gameModel.getGameID(), gameModel.getPlayer(0).getPlayerId(), gameModel.getRound(), gameModel.getInFirstTurn()).isEmpty();
     }
-
-    public String getPRIVOBJCard() {
-        return (String) cardQueries.getPrivateOBJCard(gameModel.getGameID(), gameModel.getPlayer(0).getPlayerId()).get(0).get(0);
+    
+    public GameModel getGameModel() {
+        return gameModel;
     }
 
+ 
+
+    /**
+     * lets you check if a gametoolcard is bought
+     * 
+     * @param tc = which gametoolcard you want to check for
+     * @return = if bought or not 
+     */
     public boolean checkboughtTC(int tc) {
         return cardQueries.CheckTCBought(tc, gameModel.getGameID()).size() > 0;
     }
@@ -55,13 +63,18 @@ public class CardModel {
 
     /**
      * set in database which toolcard you bought
+     * 
+     * @param tc = toolcard which is bought
      */
     public void BuyTC(int tc) {
         cardQueries.BuyTC(tc, (int) cardQueries.CheckIDFT(gameModel.getPlayer(0).getPlayerId(), gameModel.getGameID()).get(0).get(0), gameModel.getGameID(), gameModel.getPlayer(0).getPlayerId(), gameModel.getRound(), gameModel.getInFirstTurn());
     }
 
+   
     /**
      * set in database which toolcard you bought where the price was 2
+     * 
+     * @param tc = toolcard which is bought
      */
     public void BuyTCPric2(int tc) {
 
@@ -88,9 +101,7 @@ public class CardModel {
         return (int) cardQueries.getToolcard(i, gameModel.getGameID()).get(0).get(0);
     }
 
-    public GameModel getGameModel() {
-        return gameModel;
-    }
+    
 
     public int getPubOBJcard1() {
         return (int) cardQueries.getOBJCard(gameModel.getGameID()).get(0).get(0);
@@ -104,6 +115,9 @@ public class CardModel {
         return (int) cardQueries.getOBJCard(gameModel.getGameID()).get(2).get(0);
     }
 
+    public String getPRIVOBJCard() {
+        return (String) cardQueries.getPrivateOBJCard(gameModel.getGameID(), gameModel.getPlayer(0).getPlayerId()).get(0).get(0);
+    }
 
     /**
      * updates the gamedie when diceontable is changed

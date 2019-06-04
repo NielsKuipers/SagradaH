@@ -12,6 +12,7 @@ import model.WindowPatternModel;
 import view.GameListScreen;
 import view.HomePane;
 import view.StartPane;
+import view.ToolCardScreen;
 
 public class GUI extends Application {
 	private DiceController diceController;
@@ -171,6 +172,10 @@ public class GUI extends Application {
 	public void setGameIDforScoreCalc(int gameID) {calcController.setGameID(gameID);  }
 
 	public void HandleExitGame() { System.exit(0); }
+
+	public void buyToolcard(ToolCardScreen gameTC, int i) {
+		cardController.buyToolcard(gameTC, i);
+	}
 
 
 	

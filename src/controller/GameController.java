@@ -120,14 +120,9 @@ public class GameController extends Scene {
 		WC.setCheatBestChoice(bestChoice);
 	}
 
-	public void switchToolcards() {
-		setRoot(CardController.showcards());
-	}
 	
-	void switchToGameScreen() {
-		setRoot(gameScreen);
-	}
-
+	
+	
    
     
     

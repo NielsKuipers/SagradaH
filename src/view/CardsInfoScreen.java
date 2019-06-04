@@ -48,6 +48,10 @@ public class CardsInfoScreen extends BorderPane{
 		
 	}
 	
+    /**
+     * sets the amount off favortokens in the model
+     * @param amount = how many favor tokens you want to set it
+     */
     public void setAmountFT(int amount) {
        
        favorTokens.getModel().setAmount(amount);
