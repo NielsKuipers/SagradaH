@@ -1,8 +1,10 @@
 package view;
 
+import javafx.scene.image.Image;
+
 public class ToolCardScreen extends CardScreen {
 
-	public ToolCardScreen(String FileLink) {
+	public ToolCardScreen(Image FileLink) {
 		super(FileLink);
 	}
 	
