@@ -3,6 +3,7 @@ package controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -78,19 +79,19 @@ public class AccountController {
             idGame = 0;
             rowCount = 0;
         } else {
-            idGame = games.size()-1;
+            idGame = games.size() - 1;
             rowCount = 0;
         }
 
-        for (ArrayList<Object> row: games) {
+        for (ArrayList<Object> row : games) {
             int newGameID = (int) row.get(1);
 
             if (newGameID != idGame) {
                 String status = " Status: niet een deelnemer";
                 HBox gameLine = new HBox();
                 gameLine.setBackground(new Background(new BackgroundFill(Color.GRAY, null, null)));
-                for(ArrayList<Object> curGame: makeSublistOf(newGameID, games)) {
-                	playerStatus.put(curGame.get(0).toString(), curGame.get(3).toString());
+                for (ArrayList<Object> curGame : makeSublistOf(newGameID, games)) {
+                    playerStatus.put(curGame.get(0).toString(), curGame.get(3).toString());
                 }
 
                 if (playerStatus.containsKey(getAccount())) {
@@ -140,16 +141,16 @@ public class AccountController {
         return hboxList;
     }
 
-    private ArrayList<ArrayList<Object>> makeSublistOf(int gameID,ArrayList<ArrayList<Object>> games) {
-    	ArrayList<ArrayList<Object>> curGame = new ArrayList<>();
-    	for(ArrayList<Object> row: games) {
-    		if((int)row.get(1) == gameID) {
-    			curGame.add(row);
-    		}
-    	}
-    	return curGame;
+    private ArrayList<ArrayList<Object>> makeSublistOf(int gameID, ArrayList<ArrayList<Object>> games) {
+        ArrayList<ArrayList<Object>> curGame = new ArrayList<>();
+        for (ArrayList<Object> row : games) {
+            if ((int) row.get(1) == gameID) {
+                curGame.add(row);
+            }
+        }
+        return curGame;
     }
-    
+
     /**
      * how the button must behave
      */
