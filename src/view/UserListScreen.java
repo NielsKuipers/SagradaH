@@ -81,7 +81,8 @@ public class UserListScreen extends VBox {
     private VBox showUserStats(ArrayList<Object> stats){
         String statLine = "N/A";
         VBox playerStats = new VBox();
-        if(stats != null){
+        if(!stats.isEmpty()){
+            System.out.println(stats);
             for(int i=0; i<6; i++){
                 if(stats.get(i+1) != null){statLine = stats.get(i+1).toString();}
                 createStat(statLine, playerStats, i);
