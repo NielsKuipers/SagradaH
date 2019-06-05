@@ -16,8 +16,6 @@ public class EndScreenController {
 		endScreen = new EndScreen(gui);
 		gameModel = gameController.getGameModel();
 		this.calcScore = calcScore;
-		putPlayersOnBoard();
-		makeEndScoreList();
 	} 
 	
 	public EndScreen getEndScreen() {
