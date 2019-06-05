@@ -1,6 +1,7 @@
 package controller;
 
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import main.GUI;
@@ -68,45 +69,45 @@ public class CardController extends Scene {
 
         cardScreen = new GameCardsScreen(this, gui);
 
-        toolCards[0] = new ToolCardScreen("file:src/Sagrada-cards/sagrada-toolcards/toolcard1-driepuntstang.png");
-        toolCards[1] = new ToolCardScreen("file:src/Sagrada-cards/sagrada-toolcards/toolcard2-eglomiseBorstel.png");
-        toolCards[2] = new ToolCardScreen("file:src/Sagrada-cards/sagrada-toolcards/toolcard3-folie-andrukker.png");
-        toolCards[3] = new ToolCardScreen("file:src/Sagrada-cards/sagrada-toolcards/toolcard4-loodopenhaler.png");
-        toolCards[4] = new ToolCardScreen("file:src/Sagrada-cards/sagrada-toolcards/toolcard5-rondsnijder.png");
-        toolCards[5] = new ToolCardScreen("file:src/Sagrada-cards/sagrada-toolcards/toolcard6-fluxborstel.png");
-        toolCards[6] = new ToolCardScreen("file:src/Sagrada-cards/sagrada-toolcards/toolcard7-loodhamer.png");
-        toolCards[7] = new ToolCardScreen("file:src/Sagrada-cards/sagrada-toolcards/toolcard8-glasbreektang.png");
-        toolCards[8] = new ToolCardScreen("file:src/Sagrada-cards/sagrada-toolcards/toolcard9-snijliniaal.png");
-        toolCards[9] = new ToolCardScreen("file:src/Sagrada-cards/sagrada-toolcards/toolcard10-schuurblok.png");
-        toolCards[10] = new ToolCardScreen("file:src/Sagrada-cards/sagrada-toolcards/toolcard11-fluxverwijderaar.png");
-        toolCards[11] = new ToolCardScreen("file:src/Sagrada-cards/sagrada-toolcards/toolcard12-olieglassnijder.png");
+        toolCards[0] = new ToolCardScreen(new Image(getClass().getResourceAsStream("/Sagrada-cards/sagrada-toolcards/toolcard1-driepuntstang.png")));
+        toolCards[1] = new ToolCardScreen(new Image(getClass().getResourceAsStream("/Sagrada-cards/sagrada-toolcards/toolcard2-eglomiseBorstel.png")));
+        toolCards[2] = new ToolCardScreen(new Image(getClass().getResourceAsStream("/Sagrada-cards/sagrada-toolcards/toolcard3-folie-andrukker.png")));
+        toolCards[3] = new ToolCardScreen(new Image(getClass().getResourceAsStream("/Sagrada-cards/sagrada-toolcards/toolcard4-loodopenhaler.png")));
+        toolCards[4] = new ToolCardScreen(new Image(getClass().getResourceAsStream("/Sagrada-cards/sagrada-toolcards/toolcard5-rondsnijder.png")));
+        toolCards[5] = new ToolCardScreen(new Image(getClass().getResourceAsStream("/Sagrada-cards/sagrada-toolcards/toolcard6-fluxborstel.png")));
+        toolCards[6] = new ToolCardScreen(new Image(getClass().getResourceAsStream("/Sagrada-cards/sagrada-toolcards/toolcard7-loodhamer.png")));
+        toolCards[7] = new ToolCardScreen(new Image(getClass().getResourceAsStream("/Sagrada-cards/sagrada-toolcards/toolcard8-glasbreektang.png")));
+        toolCards[8] = new ToolCardScreen(new Image(getClass().getResourceAsStream("/Sagrada-cards/sagrada-toolcards/toolcard9-snijliniaal.png")));
+        toolCards[9] = new ToolCardScreen(new Image(getClass().getResourceAsStream("/Sagrada-cards/sagrada-toolcards/toolcard10-schuurblok.png")));
+        toolCards[10] = new ToolCardScreen(new Image(getClass().getResourceAsStream("/Sagrada-cards/sagrada-toolcards/toolcard11-fluxverwijderaar.png")));
+        toolCards[11] = new ToolCardScreen(new Image(getClass().getResourceAsStream("/Sagrada-cards/sagrada-toolcards/toolcard12-olieglassnijder.png")));
 
-        purpleObjectiveCard = new CardScreen("file:src/Sagrada-cards/sagrade-objectivecards/objectivecard-pers.paars.png");
-        greenObjectiveCard = new CardScreen("file:src/Sagrada-cards/sagrade-objectivecards/objectivecard-pers.groen.png");
-        blueObjectiveCard = new CardScreen("file:src/Sagrada-cards/sagrade-objectivecards/objectivecard-pers.blauw.png");
-        yellowObjectiveCard = new CardScreen("file:src/Sagrada-cards/sagrade-objectivecards/objectivecard-pers.geel.png");
-        redObjectiveCard = new CardScreen("file:src/Sagrada-cards/sagrade-objectivecards/objectivecard-pers.rood.png");
+        purpleObjectiveCard = new CardScreen(new Image(getClass().getResourceAsStream("/Sagrada-cards/sagrade-objectivecards/objectivecard-pers.paars.png")));
+        greenObjectiveCard = new CardScreen(new Image(getClass().getResourceAsStream("/Sagrada-cards/sagrade-objectivecards/objectivecard-pers.groen.png")));
+        blueObjectiveCard = new CardScreen(new Image(getClass().getResourceAsStream("/Sagrada-cards/sagrade-objectivecards/objectivecard-pers.blauw.png")));
+        yellowObjectiveCard = new CardScreen(new Image(getClass().getResourceAsStream("/Sagrada-cards/sagrade-objectivecards/objectivecard-pers.geel.png")));
+        redObjectiveCard = new CardScreen(new Image(getClass().getResourceAsStream("/Sagrada-cards/sagrade-objectivecards/objectivecard-pers.rood.png")));
 
-        objectiveCard1 = new CardScreen(
-                "file:src/Sagrada-cards/sagrade-objectivecards/objectivecard-pub.tintvarieteit.png");
-        objectiveCard2 = new CardScreen(
-                "file:src/Sagrada-cards/sagrade-objectivecards/objectivecard-pub.halfdonkere-tinten.png");
-        objectiveCard3 = new CardScreen(
-                "file:src/Sagrada-cards/sagrade-objectivecards/objectivecard-pub.tintvarieteit-per-kolom.png");
-        objectiveCard4 = new CardScreen(
-                "file:src/Sagrada-cards/sagrade-objectivecards/objectivecard-pub.kleurvarieteit-per-kolom.png");
-        objectiveCard5 = new CardScreen(
-                "file:src/Sagrada-cards/sagrade-objectivecards/objectivecard-pub.donkere-tinten.png");
-        objectiveCard6 = new CardScreen(
-                "file:src/Sagrada-cards/sagrade-objectivecards/objectivecard-pub.kleurvarietteit.png");
-        objectiveCard7 = new CardScreen(
-                "file:src/Sagrada-cards/sagrade-objectivecards/objectivecard-pub.kleurvarieteit-per-rij.png");
-        objectiveCard8 = new CardScreen(
-                "file:src/Sagrada-cards/sagrade-objectivecards/objectivecard-pub.kleurdiagonalen.png");
-        objectiveCard9 = new CardScreen(
-                "file:src/Sagrada-cards/sagrade-objectivecards/objectivecard-pub.lichte-tinten.png");
-        objectiveCard10 = new CardScreen(
-                "file:src/Sagrada-cards/sagrade-objectivecards/objectivecard-pub.tintvarieteit-per-rij.png");
+        objectiveCard1 = new CardScreen(new Image(getClass().getResourceAsStream(
+                "/Sagrada-cards/sagrade-objectivecards/objectivecard-pub.tintvarieteit.png")));
+        objectiveCard2 = new CardScreen(new Image(getClass().getResourceAsStream(
+                "/Sagrada-cards/sagrade-objectivecards/objectivecard-pub.halfdonkere-tinten.png")));
+        objectiveCard3 = new CardScreen(new Image(getClass().getResourceAsStream(
+                "/Sagrada-cards/sagrade-objectivecards/objectivecard-pub.tintvarieteit-per-kolom.png")));
+        objectiveCard4 = new CardScreen(new Image(getClass().getResourceAsStream(
+                "/Sagrada-cards/sagrade-objectivecards/objectivecard-pub.kleurvarieteit-per-kolom.png")));
+        objectiveCard5 = new CardScreen(new Image(getClass().getResourceAsStream(
+                "/Sagrada-cards/sagrade-objectivecards/objectivecard-pub.donkere-tinten.png")));
+        objectiveCard6 = new CardScreen(new Image(getClass().getResourceAsStream(
+                "/Sagrada-cards/sagrade-objectivecards/objectivecard-pub.kleurvarietteit.png")));
+        objectiveCard7 = new CardScreen(new Image(getClass().getResourceAsStream(
+                "/Sagrada-cards/sagrade-objectivecards/objectivecard-pub.kleurvarieteit-per-rij.png")));
+        objectiveCard8 = new CardScreen(new Image(getClass().getResourceAsStream(
+                "/Sagrada-cards/sagrade-objectivecards/objectivecard-pub.kleurdiagonalen.png")));
+        objectiveCard9 = new CardScreen(new Image(getClass().getResourceAsStream(
+                "/Sagrada-cards/sagrade-objectivecards/objectivecard-pub.lichte-tinten.png")));
+        objectiveCard10 = new CardScreen(new Image(getClass().getResourceAsStream(
+                "/Sagrada-cards/sagrade-objectivecards/objectivecard-pub.tintvarieteit-per-rij.png")));
 
         TC1FTS1 = new FavorTokensScreen(new FavorToken(0, Color.BLUE));
         TC1FTS2 = new FavorTokensScreen(new FavorToken(0, Color.RED));
@@ -169,15 +170,17 @@ public class CardController extends Scene {
      * @param cardPosition = position of card in game 1 to 3
      */
     public void buyToolcard(CardScreen cardscreen, int cardPosition) {
-    	
+
         if (cardModel.getAmountFT() != 0 && cardModel.getGameModel().getPlayer(0).selectCurrentPlayer() &&
                 !cardModel.checkboughtTCForRound() && gameController.getGameModel().checkIfDieAreThrown()) {
 
-            if(cardscreen == toolCards[6] && !cardModel.getGameModel().isSecondTurn()){ return; }
+            if (cardscreen == toolCards[6] && !cardModel.getGameModel().isSecondTurn()) {
+                return;
+            }
 
             for (int x = 0; x < toolCards.length; x++) {
                 if (cardscreen == toolCards[x]) {
-                	
+
                     if (cardModel.checkboughtTC(cardPosition) && cardModel.getAmountFT() > 1) {
                         cardModel.BuyTCPric2(cardPosition);
                         useCard(x + 1);
@@ -198,9 +201,9 @@ public class CardController extends Scene {
      * @param cardNumber = number of the toolcard
      */
     private void useCard(int cardNumber) {
-    	
+
         switch (cardNumber) {
-        
+
             case 1:
                 gui.stopTimer();
                 diceController.setDiceGlowBorder(1);

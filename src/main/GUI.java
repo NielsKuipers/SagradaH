@@ -25,9 +25,7 @@ public class GUI extends Application {
     private CardController cardController;
     private SetupScreenController setupScreenController;
     private EndScreenController endController;
-
-    WindowController windowController;
-
+    private WindowController windowController;
     private CalculateScoreController calcController;
 
 
@@ -60,7 +58,7 @@ public class GUI extends Application {
         roundController = new RoundScreenController(this, windowController, gameController);
         setupScreenController = new SetupScreenController(databaseController, this, gameController, accountController, cardController);
 
-        endController = new EndScreenController(databaseController, gameController, calcController, this);
+        endController = new EndScreenController(gameController, calcController, this);
 
 
         scene = new Scene(startPane);
@@ -85,7 +83,7 @@ public class GUI extends Application {
         gameController.getGameModel().selectPlayerIds();
         gameController.getGameModel().selectWholeGame();
         chatController.getMessages(gameController.getGameModel().getGameID());
-        
+
         scene.setRoot(gameController.getGameScreen());
         gameController.startTimer();
     }
@@ -106,16 +104,12 @@ public class GUI extends Application {
         scene.setRoot(pane);
     }
 
-    public void changePane(ScrollPane pane) {
-        scene.setRoot(pane);
-    }
-
     public void handleregister(TextField username, PasswordField password) {
         accountController.register(username, password);
     }
 
 
-    public void startTimer() {
+    private void startTimer() {
         gameController.startTimer();
     }
 
@@ -174,10 +168,6 @@ public class GUI extends Application {
         scene.setRoot(cardController.showcards());
     }
 
-    public void switchToolcards() {
-        scene.setRoot(cardController.showcards());
-    }
-
     public void handleChooseScreen() {
         scene.setRoot(gameController.getChooseScreen());
     }
@@ -213,9 +203,9 @@ public class GUI extends Application {
         userListController.toUserListScreen();
     }
 
-	  public void buyToolcard(ToolCardScreen gameTC, int i) {
-		  cardController.buyToolcard(gameTC, i);
-	  }
+    public void buyToolcard(ToolCardScreen gameTC, int i) {
+        cardController.buyToolcard(gameTC, i);
+    }
 
     public void handleToCreateGame() {
         setupScreenController.toSetupScreen();

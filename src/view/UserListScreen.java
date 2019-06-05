@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
 import main.GUI;
+
 import java.util.ArrayList;
 
 public class UserListScreen extends VBox {
@@ -16,7 +17,7 @@ public class UserListScreen extends VBox {
     private ArrayList<Button> buttons = new ArrayList<>();
     private GUI gui;
 
-    public UserListScreen(GUI gui){
+    public UserListScreen(GUI gui) {
         this.gui = gui;
 
         setStyle("-fx-background-color: DEEPSKYBLUE;");
@@ -24,10 +25,10 @@ public class UserListScreen extends VBox {
         Button backButton = new Button("terug");
         HBox sortBox = new HBox();
         Label sortLabel = new Label("Sorteren op:");
-        ChoiceBox<String> sort = new ChoiceBox<String>();
+        ChoiceBox<String> sort = new ChoiceBox<>();
         sort.getItems().addAll("Gewonnen potjes", "Alfabetisch");
         sortBox.getChildren().addAll(sortLabel, sort);
-        sortBox.setPadding(new Insets(5,5,0,5));
+        sortBox.setPadding(new Insets(5, 5, 0, 5));
 
         userList.getChildren().addAll(backButton, sortBox);
 
@@ -35,13 +36,13 @@ public class UserListScreen extends VBox {
         userScroll.setFitToHeight(true);
         userScroll.setContent(userList);
 
-        sort.setOnAction(e-> handleSort(sort.getValue()));
-        backButton.setOnAction(e-> gui.handleHomeMenu());
+        sort.setOnAction(e -> handleSort(sort.getValue()));
+        backButton.setOnAction(e -> gui.handleHomeMenu());
 
         getChildren().setAll(userScroll);
     }
 
-    public void displayUsers(ArrayList<ArrayList<Object>> users, ArrayList<ArrayList<Object>> stats){
+    public void displayUsers(ArrayList<ArrayList<Object>> users, ArrayList<ArrayList<Object>> stats) {
         String name;
         ArrayList<Object> relevantStats = new ArrayList<>();
         int i = 0;
@@ -53,9 +54,13 @@ public class UserListScreen extends VBox {
             Button curButton = buttons.get(i);
             HBox userRow = new HBox();
 
-            for(ArrayList<Object> statUser : stats){
-                if(statUser.contains(name)){relevantStats = statUser; break;}
-                else{relevantStats = null;}
+            for (ArrayList<Object> statUser : stats) {
+                if (statUser.contains(name)) {
+                    relevantStats = statUser;
+                    break;
+                } else {
+                    relevantStats = null;
+                }
             }
 
             VBox userInfo = showUserStats(relevantStats);
@@ -73,27 +78,35 @@ public class UserListScreen extends VBox {
             userRow.getChildren().addAll(username, region, curButton);
             userList.getChildren().addAll(userRow, userInfo);
 
-            curButton.setOnMouseClicked(e-> showInfo(userInfo));
+            curButton.setOnMouseClicked(e -> showInfo(userInfo));
             i++;
         }
     }
 
-    private VBox showUserStats(ArrayList<Object> stats){
+    private VBox showUserStats(ArrayList<Object> stats) {
         String statLine = "N/A";
         VBox playerStats = new VBox();
-        if(!stats.isEmpty()){
-            System.out.println(stats);
-            for(int i=0; i<6; i++){
-                if(stats.get(i+1) != null){statLine = stats.get(i+1).toString();}
+        try {
+            if (!stats.isEmpty()) {
+                for (int i = 0; i < 6; i++) {
+                    if (stats.get(i + 1) != null) {
+                        statLine = stats.get(i + 1).toString();
+                    }
+                    createStat(statLine, playerStats, i);
+                }
+            } else {
+                for (int i = 0; i < 6; i++) {
+                    createStat(statLine, playerStats, i);
+                }
+            }
+        } catch (Exception e) {
+            for (int i = 0; i < 6; i++) {
                 createStat(statLine, playerStats, i);
             }
         }
-        else{
-            for(int i=0; i<6; i++){
-                createStat(statLine, playerStats, i);
-            }
-        }
-        playerStats.setPadding(new Insets(0,0,0,5));
+
+
+        playerStats.setPadding(new Insets(0, 0, 0, 5));
         return playerStats;
     }
 
@@ -106,20 +119,19 @@ public class UserListScreen extends VBox {
         playerStats.getChildren().add(box);
     }
 
-    private void showInfo(VBox userInfo){
-        if(userInfo.getId().equals("invisible")){
+    private void showInfo(VBox userInfo) {
+        if (userInfo.getId().equals("invisible")) {
             userInfo.setManaged(true);
             userInfo.setVisible(true);
             userInfo.setId("visible");
-        }
-        else{
+        } else {
             userInfo.setManaged(false);
             userInfo.setVisible(false);
             userInfo.setId("invisible");
         }
     }
 
-    private void handleSort(Object val){
+    private void handleSort(Object val) {
         userList.getChildren().remove(2, userList.getChildren().size());
         gui.handleSort(val);
     }

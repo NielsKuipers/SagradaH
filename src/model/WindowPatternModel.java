@@ -153,11 +153,6 @@ public class WindowPatternModel {
 		}
 	}
 
-	public int getDifficulty() {
-		ArrayList<ArrayList<Object>> result = windowPatternQueries.getDifficulty(idWindow);
-		return Integer.valueOf(String.valueOf(result.get(0).get(0)));
-	}
-
 	void selectDifficulty() {
 		ArrayList<ArrayList<Object>> result = windowPatternQueries.getDifficulty(idWindow);
 		difficulty.set("Moeilijkheidsgraad: " + result.get(0).get(0));
@@ -204,7 +199,7 @@ public class WindowPatternModel {
 	/**
 	 * make all the windows gray and delete all the dices
 	 */
-	public void makeWindowEmpty() {
+	void makeWindowEmpty() {
 		for (FieldModel field : fields) {
 			field.setColorAndEyes(Color.LIGHTGRAY, 0);
 			field.deleteDice();

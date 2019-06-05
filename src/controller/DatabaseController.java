@@ -20,7 +20,7 @@ public class DatabaseController {
     private ScoreQueries scoreQueries;
 
     //establish connection with database
-    public DatabaseController(){
+    public DatabaseController() {
         DatabaseModel sagradaBaseConn = new DatabaseModel();
         Connection mConn = sagradaBaseConn.connectDB();
         StandardQueries standardQueries = new StandardQueries(mConn);
@@ -35,9 +35,9 @@ public class DatabaseController {
         AQ = new AccountQuery(standardQueries);
         scoreQueries = new ScoreQueries(standardQueries);
     }
-  
+
     public AccountQuery getAccountQuery() {
-    	return AQ;
+        return AQ;
     }
 
     CardQueries getCardQueries() {
@@ -45,11 +45,11 @@ public class DatabaseController {
     }
 
     InviteHandleQueries getInviteQueries() {
-    	return inviteHandleQueries;
+        return inviteHandleQueries;
     }
-    
+
     GameQueries getGameQueries() {
-    	return gameQueries;
+        return gameQueries;
     }
 
     public ChatQueries getChatQueries() {
@@ -61,26 +61,22 @@ public class DatabaseController {
     }
 
     WindowPatternQueries getWindowPatternQueries() {
-    	return windowPatternQueries;
-    }
-    
-    public CardQueries getCardQuery() {
-    	return CQ;
+        return windowPatternQueries;
     }
 
     public UserListQueries getUserListQueries() {
         return userListQueries;
     }
-    
-    public ScoreQueries getScoreQueries() {
-    	return scoreQueries;
+
+    ScoreQueries getScoreQueries() {
+        return scoreQueries;
     }
 }
 
 //        example queries below:
 //        use question marks for where you want to use variables, declare them in the variable parameters
 //        if you're using multiple variables, separate them with a space
-    
+
 //        updateQuery("UPDATE account set username=?, password=?", "Niels2 Gay1234", " WHERE username=? AND password=?", "Niels\0Gay1234");
 //        updateQuery("INSERT INTO account VALUES(?,?)", "Mario\0Zario", "", "");
 //        selectQuery("SELECT username FROM account", " WHERE username=?", "Niels2");

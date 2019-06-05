@@ -10,9 +10,9 @@ public class EndScreenController {
 	
 	private EndScreen endScreen;
 	private GameModel gameModel;
-	private CalculateScoreController calcScore; // nodig
+	private CalculateScoreController calcScore;
 	
-	public EndScreenController(DatabaseController dataController, GameController gameController, CalculateScoreController calcScore, GUI gui) {
+	public EndScreenController(GameController gameController, CalculateScoreController calcScore, GUI gui) {
 		endScreen = new EndScreen(gui);
 		gameModel = gameController.getGameModel();
 		this.calcScore = calcScore;
@@ -24,9 +24,9 @@ public class EndScreenController {
 	}
 	
 	/** 
-	 * 
+	 * calculate things for displaying on the endscreen
 	 */
-	public void enterEndScreen() {
+	private void enterEndScreen() {
 		endScreen.clearPlayers();
 		gameModel.setPlayerStatusFinished();
 		calculateEndScores();
