@@ -120,8 +120,7 @@ public class AccountController {
                             gameLine.getChildren().add(joinGame);
                             break;
                     }
-                    int gameNumber = idGame;
-                    joinGame.setOnMouseClicked(e -> handleJoinGame(gameNumber));
+                    joinGame.setOnMouseClicked(e -> handleJoinGame(newGameID));
                 }
 
                 for (Object object : games.get(rowCount).subList(1, games.get(rowCount).size() - 1)) {
